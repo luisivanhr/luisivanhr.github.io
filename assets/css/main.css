@@ -18,7 +18,7 @@ a:hover { text-decoration: underline; }
 .desk-bg svg { position:absolute; inset:0; }
 .patch { position: absolute; pointer-events: none; opacity: 1; }
 /* Adjust these transforms to position your patches roughly */
-.patch.monitor2 { transform: translate(816px, 596px) rotate(-0.5deg); }
+.patch.monitor2 {height: 170px; width: 355px; transform: translate(810px, 442px) rotate(-0deg);}
 .patch.board { aspect-ratio: 16 / 9; width: 460px; transform: translate(258px, 152px) rotate(0deg);}
 
 #banner { height: 84px; display:flex; align-items:center; overflow:hidden; background:#0f131a; border-top:1px solid #1f2a33; }
