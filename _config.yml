@@ -1,0 +1,42 @@
+
+title: "Luis Iván — Research & Projects"
+description: "Research blog, models, courses, and more."
+url: ""  # set to your custom domain (e.g., https://luisivanhr.com)
+baseurl: ""
+
+theme: minima
+
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+
+collections:
+  models:
+    output: true
+    permalink: /models/:title/
+  courses:
+    output: true
+    permalink: /courses/:title/
+  hobbies:
+    output: true
+    permalink: /hobbies/:title/
+  achievements:
+    output: true
+    permalink: /achievements/:title/
+  news:
+    output: true
+    permalink: /news/:title/
+
+defaults:
+  - scope: {path: ""}
+    values:
+      layout: default
+      image: /assets/images/og-default.png
+
+markdown: kramdown
+kramdown:
+  input: GFM
+  hard_wrap: false
+
+# Build JSON feeds to /data
+permalink: pretty
