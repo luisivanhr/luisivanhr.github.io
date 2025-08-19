@@ -29,4 +29,4 @@
 - For performance, respect `prefers-reduced-motion`.
 
 ## Classic fallback
-- `/classic/` lists all sections in a standard layout for accessibility and mobile.
+- `/classic/` lists all sections in a standard layout for accessibility and mobile. 
