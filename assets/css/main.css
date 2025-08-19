@@ -16,10 +16,10 @@ a:hover { text-decoration: underline; }
   border-bottom: 1px solid #1f2a33;
 }
 .desk-bg svg { position:absolute; inset:0; }
-.patch { position: absolute; pointer-events: none; opacity: .9; }
+.patch { position: absolute; pointer-events: none; opacity: 1; }
 /* Adjust these transforms to position your patches roughly */
 .patch.monitor2 { transform: translate(816px, 596px) rotate(-0.5deg); }
-.patch.board { transform: translate(263px, 398px) rotate(-2.5deg); }
+.patch.board { aspect-ratio: 16 / 9; width: 460px; transform: translate(258px, 152px) rotate(0deg);}
 
 #banner { height: 84px; display:flex; align-items:center; overflow:hidden; background:#0f131a; border-top:1px solid #1f2a33; }
 #banner .track { display:flex; gap:24px; padding: 0 16px; animation: scroll 18s linear infinite; }
