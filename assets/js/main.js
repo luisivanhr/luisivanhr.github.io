@@ -128,7 +128,7 @@
   hotspots.forEach(h => {
     const effect = h.getAttribute('data-effect') || 'glow';
     const cfg = presets[effect] || presets.glow;
-    const state = { el:h, cfg, hover:false, burst:0, center: ptFromRectCenter(h) };
+    const state = { el:h, cfg, hover:false, burst:0, center: ptFromRectCenter(h), accum: 0 };
     emitters.set(h, state);
 
     h.addEventListener('mouseenter', ()=>{ state.hover = true; });
@@ -138,28 +138,32 @@
 
   function spawn(dt){
     emitters.forEach(st => {
-      st.center = ptFromRectCenter(st.el);
-      const rate = (st.hover ? st.cfg.rateHover : st.cfg.rateIdle) * dt + (st.burst ? 80*dt : 0);
-      st.burst = 0; // consume burst
-      for(let i=0;i<rate;i++){
-        // Emit within hotspot bounds with a little spread
-        const angle = (Math.random()-0.5) * Math.PI * st.cfg.spread;
-        const speed = rand(st.cfg.speed[0], st.cfg.speed[1]);
-        const vx = Math.cos(angle) * speed;
-        const vy = Math.sin(angle) * speed + st.cfg.gravity;
-        const px = st.center.x + (Math.random()-0.5)*st.center.w*0.8;
-        const py = st.center.y + (Math.random()-0.5)*st.center.h*0.6;
-        parts.push({
-          x:px, y:py,
-          vx, vy,
-          life: rand(st.cfg.life[0], st.cfg.life[1]),
-          t:0,
-          size: rand(st.cfg.size[0], st.cfg.size[1]),
-          color: pick(st.cfg.color)
-        });
-      }
-    });
-  }
+    st.center = ptFromRectCenter(st.el);
+    const base = st.hover ? st.cfg.rateHover : st.cfg.rateIdle;
+    let rate = base * dt + (st.burst ? 80 * dt : 0);
+    st.burst = 0; // consume burst
+
+    st.accum += rate;
+    const n = Math.floor(st.accum);
+    st.accum -= n;
+
+    for (let i = 0; i < n; i++) {
+      const angle = (Math.random() - 0.5) * Math.PI * st.cfg.spread;
+      const speed = rand(st.cfg.speed[0], st.cfg.speed[1]);
+      const vx = Math.cos(angle) * speed;
+      const vy = Math.sin(angle) * speed + st.cfg.gravity;
+      const px = st.center.x + (Math.random() - 0.5) * st.center.w * 0.8;
+      const py = st.center.y + (Math.random() - 0.5) * st.center.h * 0.6;
+      parts.push({
+        x: px, y: py, vx, vy,
+        life: rand(st.cfg.life[0], st.cfg.life[1]),
+        t: 0,
+        size: rand(st.cfg.size[0], st.cfg.size[1]),
+        color: pick(st.cfg.color)
+      });
+    }
+  });
+}
 
   let last = performance.now();
   function tick(now){
