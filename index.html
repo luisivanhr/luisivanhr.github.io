@@ -1,0 +1,33 @@
+
+---
+title: Home
+layout: default
+---
+<div id="desk-wrap">
+  <div class="desk-bg" role="img" aria-label="Interactive desk scene">
+    <!-- SVG hotspot overlay -->
+    {% include desk-hotspots.svg %}
+    <!-- Patches (optional) -->
+    <img class="patch monitor2" src="{{ '/assets/images/desk/monitor2_patch.png' | relative_url }}" alt="Monitor patch">
+    <img class="patch board" src="{{ '/assets/images/desk/board_patch.png' | relative_url }}" alt="Blackboard patch">
+  </div>
+
+  <div id="banner">
+    <div class="track">
+      <div class="slide" data-src="/data/blog.json">Latest Blog</div>
+      <div class="slide" data-src="/data/models.json">Latest Models</div>
+      <div class="slide" data-src="/data/courses.json">Latest Courses</div>
+      <div class="slide" data-src="/data/hobbies.json">Latest Hobbies</div>
+      <div class="slide" data-src="/data/achievements.json">Latest Achievements</div>
+      <div class="slide" data-src="/data/news.json">Latest News</div>
+    </div>
+  </div>
+</div>
+
+<div id="tooltip" hidden>
+  <img class="thumb" alt="">
+  <div class="info">
+    <div class="title"></div>
+    <div class="meta"></div>
+  </div>
+</div>

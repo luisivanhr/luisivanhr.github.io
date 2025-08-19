@@ -1,0 +1,6 @@
+---
+layout: feed.json
+collection_items: site.achievements
+permalink: /data/achievements.json
+max_items: 6
+---

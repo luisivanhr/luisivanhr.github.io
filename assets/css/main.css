@@ -1,0 +1,35 @@
+
+:root { --bg: #0b0f14; --ink: #e8eef6; --muted: #92a1b0; }
+* { box-sizing: border-box; }
+body { margin: 0; color: var(--ink); background: #0a0c10; font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, 'Helvetica Neue', Arial }
+a { color: #68d5ff; text-decoration: none; }
+a:hover { text-decoration: underline; }
+.skip { position: absolute; left: -9999px; top: -9999px; }
+.skip:focus { left: 16px; top: 16px; background:#000; padding:8px 12px; border-radius:6px; }
+
+#desk-wrap { position: relative; max-width: 1600px; margin: 0 auto; }
+.desk-bg {
+  position: relative;
+  aspect-ratio: 16/9;
+  background: url('../images/desk/background.jpg') center/cover no-repeat, #111;
+  overflow: hidden;
+  border-bottom: 1px solid #1f2a33;
+}
+.desk-bg svg { position:absolute; inset:0; }
+.patch { position: absolute; pointer-events: none; opacity: .9; }
+/* Adjust these transforms to position your patches roughly */
+.patch.monitor2 { width: 340px; transform: translate(740px, 435px) rotate(-0.5deg); }
+.patch.board { width: 460px; transform: translate(980px, 90px) rotate(-2.5deg); }
+
+#banner { height: 84px; display:flex; align-items:center; overflow:hidden; background:#0f131a; border-top:1px solid #1f2a33; }
+#banner .track { display:flex; gap:24px; padding: 0 16px; animation: scroll 18s linear infinite; }
+#banner .slide { white-space: nowrap; opacity:.85; }
+@keyframes scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+#tooltip { position: fixed; z-index: 50; background: #061019ee; border: 1px solid #153244; border-radius: 10px; padding: 10px 12px; width: 320px; box-shadow: 0 10px 30px #0008; }
+#tooltip .thumb { width: 100%; height: 140px; object-fit: cover; border-radius: 8px; display:block; }
+#tooltip .title { font-weight: 700; margin-top: 8px; }
+#tooltip .meta { color: var(--muted); font-size: 0.9rem; }
+
+.classic-nav { display:grid; grid-template-columns: repeat(auto-fit, minmax(160px,1fr)); gap:10px; }
+.classic-nav a { padding:10px 12px; background:#0f131a; border:1px solid #1f2a33; border-radius: 8px; }

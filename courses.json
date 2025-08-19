@@ -1,0 +1,6 @@
+---
+layout: feed.json
+collection_items: site.courses
+permalink: /data/courses.json
+max_items: 6
+---

@@ -1,0 +1,6 @@
+---
+layout: feed.json
+collection_items: site.models
+permalink: /data/models.json
+max_items: 6
+---

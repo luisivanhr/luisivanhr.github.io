@@ -1,0 +1,6 @@
+---
+layout: feed.json
+collection_items: site.posts
+permalink: /data/blog.json
+max_items: 6
+---
