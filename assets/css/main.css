@@ -18,7 +18,7 @@ a:hover { text-decoration: underline; }
 .desk-bg svg { position:absolute; inset:0; }
 .patch { position: absolute; pointer-events: none; opacity: 1; }
 /* Adjust these transforms to position your patches roughly */
-.patch.monitor1 {height: 170px; width: 355px; transform: translate(475px, 441px) rotate(-0deg);}
+.patch.monitor1 {height: 183px; width: 317px; transform: translate(475px, 441px) rotate(-0deg);}
 .patch.monitor2 {height: 170px; width: 355px; transform: translate(810px, 442px) rotate(-0deg);}
 .patch.board { aspect-ratio: 16 / 9; width: 460px; transform: translate(258px, 152px) rotate(0deg);}
 
