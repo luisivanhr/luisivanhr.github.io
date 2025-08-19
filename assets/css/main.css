@@ -18,8 +18,8 @@ a:hover { text-decoration: underline; }
 .desk-bg svg { position:absolute; inset:0; }
 .patch { position: absolute; pointer-events: none; opacity: .9; }
 /* Adjust these transforms to position your patches roughly */
-.patch.monitor2 { width: 340px; transform: translate(740px, 435px) rotate(-0.5deg); }
-.patch.board { width: 460px; transform: translate(980px, 90px) rotate(-2.5deg); }
+.patch.monitor2 { transform: translate(816px, 596px) rotate(-0.5deg); }
+.patch.board { transform: translate(263px, 398px) rotate(-2.5deg); }
 
 #banner { height: 84px; display:flex; align-items:center; overflow:hidden; background:#0f131a; border-top:1px solid #1f2a33; }
 #banner .track { display:flex; gap:24px; padding: 0 16px; animation: scroll 18s linear infinite; }
