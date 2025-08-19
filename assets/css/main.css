@@ -11,7 +11,7 @@ a:hover { text-decoration: underline; }
 .desk-bg {
   position: relative;
   aspect-ratio: 16/9;
-  background: url('../images/desk/background.jpg') center/cover no-repeat, #111;
+  background: url('../images/desk/background.png') center/cover no-repeat, #111;
   overflow: hidden;
   border-bottom: 1px solid #1f2a33;
 }
