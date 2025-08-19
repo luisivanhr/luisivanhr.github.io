@@ -79,8 +79,11 @@
        style="opacity:0.01;fill:#000000"
        xlink:href="#">
       <path
-         style="opacity:0.79;fill:#000000;stroke-width:1.03534"
+         style="opacity:0.01;fill:#000000;stroke-width:1.03534"
          d="m 747.61038,661.39105 -0.88887,44.4907 c 0,0 30.81907,18.86855 48.16907,0.55366 23.09258,-24.37683 15.50522,-31.23412 15.50522,-31.23412 0,0 -4.63273,-3.89291 -12.63246,-9.46405 -7.99973,-5.57115 -28.82035,-19.20256 -50.15296,-4.34619 z"
+         data-target="hobbies"
+         data-feed="{{ '/data/hobbies.json' | relative_url }}"
+         data-effect="chalk"
          id="hot-coffee"
          sodipodi:nodetypes="ccscsc" />
       <title
@@ -105,8 +108,11 @@
        style="opacity:0.01;fill:#000000"
        xlink:href="#">
       <path
-         style="opacity:0.37;fill:#000000;stroke-width:1.07023"
+         style="opacity:0.01;fill:#000000;stroke-width:1.07023"
          d="M 459.58717,681.83715 540.22736,715.52041 645.60944,686.64904 562.942,657.60782 Z"
+         data-target="news"
+         data-feed="{{ '/data/news.json' | relative_url }}"
+         data-effect="paper"
          id="hot-news"
          sodipodi:nodetypes="ccccc" />
       <title
@@ -121,8 +127,11 @@
          id="hot-publications"
          class="hotspot"
          d="m 156.95469,686.45161 49.2225,21.82359 76.8124,-13.0428 C 275.74207,660.84538 269.81248,636.90779 263.8206,591.28861 l -40.80214,-7.47482 -54.08382,4.68339 z"
+         data-target="publications"
+         data-feed="{{ '/data/publications.json' | relative_url }}"
+         data-effect="paper"
          sodipodi:nodetypes="ccccccc"
-         style="opacity:0.37;fill:#000000" />
+         style="opacity:0.01;fill:#000000" />
       <title
          id="title9">Publications</title>
     </a>
@@ -135,7 +144,10 @@
          id="hot-monitors"
          class="hotspot"
          d="m 312.0867,503.56175 427.534,-3.9405 1.25967,131.67306 -225.38803,-12.81419 -202.87136,21.15818 z"
-         style="opacity:0.49;fill:#000000"
+         data-target="models"
+         data-feed="{{ '/data/models.json' | relative_url }}"
+         data-effect="glow"
+         style="opacity:0.01;fill:#000000"
          sodipodi:nodetypes="cccccc" />
       <title
          id="title11">Monitors</title>
@@ -149,8 +161,12 @@
          id="hot-courses"
          class="hotspot"
          d="m 143.05472,201.68933 304.97784,44.28668 -0.87746,164.55355 -304.75152,-7.63995 z"
+         data-target="courses"
+         data-feed="{{ '/data/courses.json' | relative_url }}"
+         data-equations="true"
+         data-effect="chalk"
          sodipodi:nodetypes="ccccc"
-         style="fill:#000000" />
+         style="opacity:0.01;fill:#000000" />
       <title
          id="title12">Courses</title>
     </a>
@@ -163,8 +179,11 @@
          id="hot-blog"
          class="hotspot"
          d="m 541.42944,202.56491 347.26511,-41.8079 -1.73968,221.64402 -345.17288,3.50205 z"
+         data-target="blog"
+         data-feed="{{ '/data/blog.json' | relative_url }}"
+         data-effect="paper"
          sodipodi:nodetypes="ccccc"
-         style="fill:#000000" />
+         style="fill:#000000;opacity:0.01;" />
       <title
          id="title13">Blog</title>
     </a>
@@ -177,8 +196,10 @@
          id="hot-cv"
          class="hotspot"
          d="m 768.93143,861.16937 145.18548,31.88409 3.05361,67.52282 -148.087,0.29278 z"
+         data-target="cv"
+         data-effect="chalk"
          sodipodi:nodetypes="ccccc"
-         style="fill:#000000" />
+         style="opacity:0.01;fill:#000000" />
       <title
          id="title14">CV</title>
     </a>
@@ -191,7 +212,10 @@
          id="hot-achievements"
          class="hotspot"
          d="m 77.936194,119.94605 c 37.090766,3.92164 41.999356,3.49592 85.391996,6.72576 l -2.12882,28.18541 -27.61883,15.60027 11.24287,27.55197 -36.59704,-3.29195 -2.25036,-29.46815 -19.67877,-14.75811 z"
-         style="opacity:0.73;fill:#000000"
+         data-target="achievements"
+         data-feed="{{ '/data/achievements.json' | relative_url }}"
+         data-effect="confetti"
+         style="opacity:0.01;fill:#000000"
          sodipodi:nodetypes="ccccccccc" />
       <title
          id="title15">Achievements</title>
@@ -205,7 +229,9 @@
          id="hot-about"
          class="hotspot"
          d="m -7.8096283,353.61104 62.7595623,1.17078 2.332021,66.62926 -64.0639351,3.80192 z"
-         style="opacity:0.47;fill:#000000"
+         data-target="about"
+         data-effect="glow"
+         style="opacity:0.01;fill:#000000"
          sodipodi:nodetypes="ccccc" />
       <title
          id="title16">About me</title>
@@ -219,7 +245,9 @@
          id="hot-map"
          class="hotspot"
          d="m 804.85334,382.1202 191.85934,-24.82055 1.52343,178.09317 -195.85712,2.40312 z"
-         style="opacity:0.66;fill:#000000"
+         data-target="presentations"
+         data-effect="chalk"
+         style="opacity:0.01;fill:#000000"
          sodipodi:nodetypes="ccccc" />
       <title
          id="title17">Presentations</title>

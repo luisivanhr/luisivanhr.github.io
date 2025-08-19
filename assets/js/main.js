@@ -73,4 +73,124 @@
   }
   hydrateBanner();
 
+
+  // === Particle FX (idle + hover + click) ==============================
+(function(){
+  // Respect reduced motion
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduce) return;
+
+  const wrap = document.querySelector('.desk-bg');
+  if (!wrap) return;
+
+  // Canvas overlay
+  const cvs = document.createElement('canvas');
+  cvs.id = 'fx-layer';
+  const ctx = cvs.getContext('2d');
+  wrap.appendChild(cvs);
+
+  // Resize to match desk box
+  function sizeCanvas(){
+    const r = wrap.getBoundingClientRect();
+    cvs.width  = r.width  * devicePixelRatio;
+    cvs.height = r.height * devicePixelRatio;
+    cvs.style.width  = r.width + 'px';
+    cvs.style.height = r.height + 'px';
+    ctx.setTransform(devicePixelRatio, 0, 0, devicePixelRatio, 0, 0);
+  }
+  sizeCanvas();
+  addEventListener('resize', sizeCanvas);
+
+  // Map from DOM coords to canvas coords
+  function ptFromRectCenter(el){
+    const r = el.getBoundingClientRect();
+    const host = wrap.getBoundingClientRect();
+    return { x: (r.left + r.width/2) - host.left, y: (r.top + r.height/2) - host.top, w: r.width, h: r.height };
+  }
+
+  // Emitter presets
+  const presets = {
+    chalk:    { color:'#ffffff',  gravity:-12, spread:0.9, size:[1,3],  life:[0.6,1.2],  rateIdle:  6, rateHover: 45, speed:[20,60] },
+    glow:     { color:'#7bd4ff',  gravity:  8, spread:0.6, size:[1,2],  life:[0.7,1.1],  rateIdle:  5, rateHover: 30, speed:[30,70] },
+    paper:    { color:'#c9d7e6',  gravity:  5, spread:0.7, size:[1,2],  life:[0.7,1.3],  rateIdle:  5, rateHover: 28, speed:[25,55] },
+    confetti: { color:['#ff6b6b','#ffd166','#06d6a0','#4cc9f0'],
+                gravity: 25, spread:1.0, size:[1,3], life:[0.5,0.9], rateIdle: 0, rateHover: 35, speed:[60,120] }
+  };
+
+  const hotspots = Array.from(document.querySelectorAll('#desk-hotspots .hotspot'));
+  const emitters = new Map();
+  const parts = [];
+
+  function rand(a,b){ return a + Math.random()*(b-a); }
+  function pick(arr){ return Array.isArray(arr) ? arr[(Math.random()*arr.length)|0] : arr; }
+
+  // Make an emitter for each hotspot
+  hotspots.forEach(h => {
+    const effect = h.getAttribute('data-effect') || 'glow';
+    const cfg = presets[effect] || presets.glow;
+    const state = { el:h, cfg, hover:false, burst:0, center: ptFromRectCenter(h) };
+    emitters.set(h, state);
+
+    h.addEventListener('mouseenter', ()=>{ state.hover = true; });
+    h.addEventListener('mouseleave', ()=>{ state.hover = false; });
+    h.addEventListener('click', ()=>{ state.burst = 1; }); // one-shot burst
+  });
+
+  function spawn(dt){
+    emitters.forEach(st => {
+      st.center = ptFromRectCenter(st.el);
+      const rate = (st.hover ? st.cfg.rateHover : st.cfg.rateIdle) * dt + (st.burst ? 80*dt : 0);
+      st.burst = 0; // consume burst
+      for(let i=0;i<rate;i++){
+        // Emit within hotspot bounds with a little spread
+        const angle = (Math.random()-0.5) * Math.PI * st.cfg.spread;
+        const speed = rand(st.cfg.speed[0], st.cfg.speed[1]);
+        const vx = Math.cos(angle) * speed;
+        const vy = Math.sin(angle) * speed + st.cfg.gravity;
+        const px = st.center.x + (Math.random()-0.5)*st.center.w*0.8;
+        const py = st.center.y + (Math.random()-0.5)*st.center.h*0.6;
+        parts.push({
+          x:px, y:py,
+          vx, vy,
+          life: rand(st.cfg.life[0], st.cfg.life[1]),
+          t:0,
+          size: rand(st.cfg.size[0], st.cfg.size[1]),
+          color: pick(st.cfg.color)
+        });
+      }
+    });
+  }
+
+  let last = performance.now();
+  function tick(now){
+    const dt = Math.min(0.05, (now-last)/1000); // clamp for stability
+    last = now;
+
+    // Clear
+    ctx.clearRect(0,0,cvs.width, cvs.height);
+
+    // Spawn and update
+    spawn(dt);
+    for (let i=parts.length-1; i>=0; i--){
+      const p = parts[i];
+      p.t += dt;
+      const u = p.t / p.life;
+      if (u >= 1){ parts.splice(i,1); continue; }
+      p.x += p.vx*dt; p.y += p.vy*dt;
+
+      // fade + slight shrink
+      const alpha = 1 - u;
+      ctx.globalAlpha = Math.max(0, Math.min(1, alpha));
+      ctx.fillStyle = p.color;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, Math.max(0.6, p.size*(1-u)), 0, Math.PI*2);
+      ctx.fill();
+    }
+    ctx.globalAlpha = 1;
+
+    requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+})();
+
 })(); 
