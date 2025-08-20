@@ -117,7 +117,7 @@
   chalk: {
     renderer: 'fog',     // custom fog renderer
     color: '#ffffff',
-    target: 80,         // maintain ~220 puffs (no bursty spawn)
+    target: 20,         // maintain ~220 puffs (no bursty spawn)
     gravity: -3,         // slow rise
     spread: 0.0,         // not used for fog spawn
     size: [18, 35],      // bigger, soft blobs
