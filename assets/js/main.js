@@ -171,7 +171,7 @@
         t: 0,
         size: rand(st.cfg.size[0], st.cfg.size[1]),
         color: pick(st.cfg.color),
-        renderer: st.cfg.renderer || 'dot',  // NEW
+        renderer: st.cfg.renderer || 'dot',  // NEW 
         phase: Math.random() * Math.PI * 2   // NEW
       });
     }
