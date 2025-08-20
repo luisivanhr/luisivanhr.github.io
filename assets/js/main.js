@@ -118,9 +118,9 @@
     renderer: 'fog',     // custom fog renderer
     color: '#ffffff',
     target: 20,         // maintain ~220 puffs (no bursty spawn)
-    gravity: -3,         // slow rise
+    gravity: -2,         // slow rise
     spread: 0.0,         // not used for fog spawn
-    size: [18, 35],      // bigger, soft blobs
+    size: [30, 45],      // bigger, soft blobs
     life: [30.0, 45.0],   // long-lived
     rateIdle: 0,         // no emitter “rate”
     rateHover: 0,        // hover doesn’t change density (we keep it calm)

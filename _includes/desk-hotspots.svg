@@ -83,7 +83,7 @@
          d="m 747.61038,661.39105 -0.88887,44.4907 c 0,0 30.81907,18.86855 48.16907,0.55366 23.09258,-24.37683 15.50522,-31.23412 15.50522,-31.23412 0,0 -4.63273,-3.89291 -12.63246,-9.46405 -7.99973,-5.57115 -28.82035,-19.20256 -50.15296,-4.34619 z"
          data-target="hobbies"
          data-feed="{{ '/data/hobbies.json' | relative_url }}"
-         data-effect="chalk"
+         data-effect="paper"
          id="hot-hobbies"
          sodipodi:nodetypes="ccscsc"
          style="opacity:0.02;fill:#000000" />
@@ -251,7 +251,7 @@
          class="hotspot"
          d="m 804.85334,382.1202 191.85934,-24.82055 1.52343,178.09317 -195.85712,2.40312 z"
          data-target="presentations"
-         data-effect="chalk"
+         data-effect="paper"
          style="opacity:0.01;fill:#000000"
          sodipodi:nodetypes="ccccc" />
       <title
