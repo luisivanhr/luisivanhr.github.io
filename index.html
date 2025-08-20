@@ -2,15 +2,10 @@
 title: Home
 layout: default
 ---
-<!-- Particles background (behind content) -->
-<div id="tsparticles" style="
-  position: fixed;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none; /* keeps all your links/hotspots clickable */
-"></div>
-
 <div id="desk-wrap">
+  <!-- Transparent layer over the desk where particles draw -->
+  <div id="tsparticles" class="particles-layer"></div>
+
   <div class="desk-bg" role="img" aria-label="Interactive desk scene">
     <!-- SVG hotspot overlay -->
     {% include desk-hotspots.svg %}
@@ -40,64 +35,79 @@ layout: default
   </div>
 </div>
 
-<!-- All-in-one bundle so plugins (e.g., twinkle) are available -->
 <script src="https://cdn.jsdelivr.net/npm/@tsparticles/all@3.9.1/tsparticles.all.bundle.min.js"></script>
-
 <script>
-  (async () => {
-    // Optional body background (remove if you want transparency):
-    document.body.style.background = '#0d47a1';
-
-    await tsParticles.load({
-      id: "tsparticles",
-      options: {
-        detectRetina: true,
-        fpsLimit: 120,
-        background: { color: "#0d47a1" },  // remove for transparent
-
-        /* No cursor interactions */
-        interactivity: {
-          detectsOn: "window",
-          events: {
-            onHover: { enable: false },
-            onClick: { enable: false },
-            resize: { enable: true }
-          },
-          modes: {}
+(async () => {
+  // 1) create a transparent particles instance over the desk area
+  const particles = await tsParticles.load({
+    id: "tsparticles",
+    options: {
+      detectRetina: true,
+      fpsLimit: 120,
+      background: { color: { value: "transparent" } },  // keep layer transparent
+      interactivity: { events: { onHover: { enable:false }, onClick:{ enable:false }, resize:{ enable:true } } },
+      particles: {
+        color: { value: "#ffffff" },     // all white
+        shape: { type: "circle" },       // change to "square" if you want
+        size: { value: { min: 0.8, max: 3.5 } },
+        opacity: {
+          value: { min: 0.15, max: 0.6 },
+          animation: { enable: true, speed: 3, startValue: "random" } // twinkle feel
         },
-
-        particles: {
-          number: { density: { enable: true, width: 1920, height: 1080 }, value: 80 },
-          color: { value: "#ffffff" },               // all particles white
-          shape: { type: "circle" },                 // use "square" if you prefer
-          size: {
-            value: { min: 0.8, max: 4.5 },
-            animation: { enable: true, speed: 20, startValue: "random" }
-          },
-          opacity: {
-            value: { min: 0.1, max: 0.5 },
-            animation: { enable: true, speed: 3, startValue: "random" }
-          },
-          move: {
-            enable: true,
-            speed: 1,                                 // gentle drift
-            direction: "none",
-            outModes: { default: "out" }
-          },
-          links: {
-            enable: true,                             // connecting lines
-            distance: 150,
-            opacity: 0.4,
-            color: "#ffffff",
-            blink: false
-          },
-          twinkle: {
-            particles: { enable: true, frequency: 0.05, opacity: 1, color: { value: "#ffffff" } },
-            lines:     { enable: true, frequency: 1,    opacity: 0.4, color: { value: "#ffffff" } }
-          },
-          collisions: { enable: false }               // no physics collisions
-        }
+        links: { enable: false },        // keep clean; set true if you want small link nets
+        move: {
+          enable: true,
+          speed: 0.6,                    // gentle drift around each hotspot
+          direction: "none",
+          outModes: { default: "destroy" } // particles that exit emitter area will die
+        },
+        collisions: { enable: false }
       }
+    }
+  });
+
+  // 2) helper: add emitters at hotspot centers (in PERCENT coords of the particles container)
+  function placeEmitters() {
+    const container = document.getElementById('tsparticles');
+    const wrapRect = container.getBoundingClientRect();
+
+    // Remove any previous emitters before re-adding (on resize)
+    particles.plugins?.emitters?.array?.slice().forEach(e => particles.plugins.emitters.removeEmitter(e));
+
+    document.querySelectorAll('#desk-hotspots .hotspot, #desk-hotspots a.hotspot').forEach((el) => {
+      const r = el.getBoundingClientRect();
+      const cx = ((r.left + r.width  / 2) - wrapRect.left) / wrapRect.width  * 100;
+      const cy = ((r.top  + r.height / 2) - wrapRect.top)  / wrapRect.height * 100;
+
+      particles.addEmitter({
+        position: { x: cx, y: cy },         // percent coords within container
+        size: { mode: "percent", width: 12, height: 12 }, // small area around hotspot (tweak!)
+        rate: { delay: 0.08, quantity: 1 }, // trickle rate; increase for stronger glow
+        life: { wait: false },              // continuous
+        particles: {
+          // You can override per-emitter particle options here if desired
+          move: { speed: 0.6 },
+          size: { value: { min: 0.8, max: 3.5 } },
+          color: { value: "#ffffff" },
+          opacity: {
+            value: { min: 0.15, max: 0.6 },
+            animation: { enable: true, speed: 3, startValue: "random" }
+          }
+        }
+      });
     });
-  })();
+  }
+
+  // 3) place once now…
+  placeEmitters();
+
+  // 4) …and keep them glued on resize / layout changes
+  const ro = new ResizeObserver(() => { placeEmitters(); });
+  ro.observe(document.getElementById('desk-wrap'));
+
+  window.addEventListener('resize', placeEmitters);
+  window.addEventListener('orientationchange', placeEmitters);
+
+  // If your hotspots move due to dynamic content, call placeEmitters() after that change.
+})();
 </script>

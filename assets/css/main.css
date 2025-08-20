@@ -35,13 +35,15 @@ a:hover { text-decoration: underline; }
 .classic-nav { display:grid; grid-template-columns: repeat(auto-fit, minmax(160px,1fr)); gap:10px; }
 .classic-nav a { padding:10px 12px; background:#0f131a; border:1px solid #1f2a33; border-radius: 8px; } 
 
-/* Ensure desk scene and hotspots stay above #tsparticles */
-#desk-wrap {
-  position: relative;
-  z-index: 10; /* higher than tsparticles (z-index: 0) */
+/* Particles canvas sits over the desk scene, under hotspots/tooltip */
+.particles-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 15;        /* between desk (10) and hotspots (20) */
+  pointer-events: none;
 }
 
-#desk-hotspots {
-  position: relative;
-  z-index: 20; /* above desk-wrap content */
-}
+/* Ensure desk + hotspots are above background */
+#desk-wrap { position: relative; z-index: 10; }
+#desk-hotspots { position: relative; z-index: 20; }
+/* you already have #tooltip { z-index: 50; } */
