@@ -35,39 +35,23 @@ layout: default
   </div>
 </div>
 
+<!-- Keep this exact bundle -->
 <script src="https://cdn.jsdelivr.net/npm/@tsparticles/all@3.9.1/tsparticles.all.bundle.min.js"></script>
+
 <script>
 (async () => {
-  // wait for layout so hotspot rects are correct
-  await new Promise(res => (document.readyState === "complete") ? res() : addEventListener("load", res, { once:true }));
+  // ✅ Register every plugin (including Emitters) into tsParticles
+  //    `loadAll` is provided by the bundle above.
+  if (typeof loadAll === "function") {
+    await loadAll(tsParticles);
+  }
 
-  const layer = document.getElementById("tsparticles");
-  const wrap = layer.getBoundingClientRect();
-
-  const emitters = [];
-  document.querySelectorAll('#desk-hotspots .hotspot, #desk-hotspots a.hotspot').forEach(el => {
-    const r = el.getBoundingClientRect();
-    const cx = ((r.left + r.width/2)  - wrap.left) / wrap.width  * 100;
-    const cy = ((r.top  + r.height/2) - wrap.top)  / wrap.height * 100;
-
-    emitters.push({
-      position: { x: cx, y: cy },                 // %
-      size: { mode: "percent", width: 10, height: 10 },
-      rate: { delay: 0.03, quantity: 3 },
-      life: { wait: false },
-      particles: {
-        color: { value: "#ffffff" },
-        size: { value: { min: 1.2, max: 4.0 } },
-        opacity: { value: { min: 0.25, max: 0.75 }, animation: { enable:true, speed:3, startValue:"random" } },
-        move: { speed: 0.6 }
-      }
-    });
-  });
-
-  await tsParticles.load({
+  // Create the transparent particles layer
+  const container = await tsParticles.load({
     id: "tsparticles",
     options: {
       detectRetina: true,
+      fpsLimit: 120,
       background: { color: { value: "transparent" } },
       interactivity: { events: { onHover:{ enable:false }, onClick:{ enable:false }, resize:{ enable:true } } },
       particles: {
@@ -75,10 +59,59 @@ layout: default
         shape: { type: "circle" },
         size: { value: { min: 1.2, max: 4.0 } },
         opacity: { value: { min: 0.25, max: 0.75 }, animation: { enable:true, speed:3, startValue:"random" } },
-        move: { enable:true, speed:0.6, outModes:{ default:"destroy" } }
-      },
-      emitters   // 👈 inject all hotspot emitters at init
+        move: { enable: true, speed: 0.6, direction: "none", outModes: { default: "destroy" } },
+        links: { enable: false },
+        collisions: { enable: false }
+      }
     }
   });
+
+  function placeEmitters() {
+    const layer = document.getElementById("tsparticles");
+    const wrap = layer.getBoundingClientRect();
+
+    // ✅ Use the plugin API (now registered)
+    const ep = container.plugins?.emitters;
+    if (!ep) { console.error("Emitters plugin still unavailable"); return; }
+
+    // clear existing
+    if (ep.array?.length) ep.array.slice().forEach(e => ep.removeEmitter(e));
+
+    // add one emitter per hotspot
+    document.querySelectorAll('#desk-hotspots .hotspot, #desk-hotspots a.hotspot').forEach(el => {
+      const r = el.getBoundingClientRect();
+      const cx = ((r.left + r.width/2)  - wrap.left) / wrap.width  * 100;
+      const cy = ((r.top  + r.height/2) - wrap.top)  / wrap.height * 100;
+
+      ep.addEmitter({
+        position: { x: cx, y: cy },                 // percent in the particles layer
+        size: { mode: "percent", width: 10, height: 10 },
+        rate: { delay: 0.03, quantity: 3 },
+        life: { wait: false },
+        particles: {
+          color: { value: "#ffffff" },
+          size: { value: { min: 1.2, max: 4.0 } },
+          opacity: { value: { min: 0.25, max: 0.75 }, animation: { enable:true, speed:3, startValue:"random" } },
+          move: { speed: 0.6 }
+        }
+      });
+    });
+  }
+
+  // wait for layout, then place emitters
+  if (document.readyState === "complete") {
+    requestAnimationFrame(placeEmitters);
+  } else {
+    addEventListener("load", () => requestAnimationFrame(placeEmitters), { once: true });
+  }
+
+  // keep them glued on resize
+  new ResizeObserver(placeEmitters).observe(document.getElementById("desk-wrap"));
+  addEventListener("resize", placeEmitters);
+  addEventListener("orientationchange", placeEmitters);
+
+  // 🔎 quick runtime sanity logs
+  console.log("tsParticles containers:", tsParticles.dom());
+  console.log("Emitters plugin:", container.plugins?.emitters);
 })();
 </script>
