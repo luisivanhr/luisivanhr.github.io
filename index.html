@@ -2,6 +2,14 @@
 title: Home
 layout: default
 ---
+<!-- Particles background (behind content) -->
+<div id="tsparticles" style="
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none; /* keeps all your links/hotspots clickable */
+"></div>
+
 <div id="desk-wrap">
   <div class="desk-bg" role="img" aria-label="Interactive desk scene">
     <!-- SVG hotspot overlay -->
@@ -31,3 +39,65 @@ layout: default
     <div class="meta"></div>
   </div>
 </div>
+
+<!-- All-in-one bundle so plugins (e.g., twinkle) are available -->
+<script src="https://cdn.jsdelivr.net/npm/@tsparticles/all@3.9.1/tsparticles.all.bundle.min.js"></script>
+
+<script>
+  (async () => {
+    // Optional body background (remove if you want transparency):
+    document.body.style.background = '#0d47a1';
+
+    await tsParticles.load({
+      id: "tsparticles",
+      options: {
+        detectRetina: true,
+        fpsLimit: 120,
+        background: { color: "#0d47a1" },  // remove for transparent
+
+        /* No cursor interactions */
+        interactivity: {
+          detectsOn: "window",
+          events: {
+            onHover: { enable: false },
+            onClick: { enable: false },
+            resize: { enable: true }
+          },
+          modes: {}
+        },
+
+        particles: {
+          number: { density: { enable: true, width: 1920, height: 1080 }, value: 80 },
+          color: { value: "#ffffff" },               // all particles white
+          shape: { type: "circle" },                 // use "square" if you prefer
+          size: {
+            value: { min: 0.8, max: 4.5 },
+            animation: { enable: true, speed: 20, startValue: "random" }
+          },
+          opacity: {
+            value: { min: 0.1, max: 0.5 },
+            animation: { enable: true, speed: 3, startValue: "random" }
+          },
+          move: {
+            enable: true,
+            speed: 1,                                 // gentle drift
+            direction: "none",
+            outModes: { default: "out" }
+          },
+          links: {
+            enable: true,                             // connecting lines
+            distance: 150,
+            opacity: 0.4,
+            color: "#ffffff",
+            blink: false
+          },
+          twinkle: {
+            particles: { enable: true, frequency: 0.05, opacity: 1, color: { value: "#ffffff" } },
+            lines:     { enable: true, frequency: 1,    opacity: 0.4, color: { value: "#ffffff" } }
+          },
+          collisions: { enable: false }               // no physics collisions
+        }
+      }
+    });
+  })();
+</script>
