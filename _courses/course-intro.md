@@ -1,4 +1,3 @@
-
 ---
 title: "Course Intro"
 date: 2025-08-19
