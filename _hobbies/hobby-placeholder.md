@@ -1,4 +1,3 @@
-
 ---
 title: "Hobby Placeholder"
 date: 2025-08-19

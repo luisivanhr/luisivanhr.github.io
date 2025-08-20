@@ -1,4 +1,3 @@
-
 ---
 title: "Starter Model Note"
 date: 2025-08-19
