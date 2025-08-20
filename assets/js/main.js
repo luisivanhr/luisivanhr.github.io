@@ -157,6 +157,17 @@
   });
 
   function spawn(dt){
+    
+    emitters.forEach(st => {
+    st.center = ptFromRectCenter(st.el);
+    const base = st.hover ? st.cfg.rateHover : st.cfg.rateIdle;
+    let rate = base * dt + (st.burst ? 80 * dt : 0);
+    st.burst = 0; // consume burst
+
+    st.accum += rate;
+    const n = Math.floor(st.accum);
+    st.accum -= n;
+    
     // --- Fog mode: softly fill up to target, then recycle on death ---
     if (st.cfg.renderer === 'fog') {
       // Maintain population
@@ -184,16 +195,6 @@
       // Skip rate-based spawn for fog and move to next emitter
       return;
     }
-    emitters.forEach(st => {
-    st.center = ptFromRectCenter(st.el);
-    const base = st.hover ? st.cfg.rateHover : st.cfg.rateIdle;
-    let rate = base * dt + (st.burst ? 80 * dt : 0);
-    st.burst = 0; // consume burst
-
-    st.accum += rate;
-    const n = Math.floor(st.accum);
-    st.accum -= n;
-
     for (let i = 0; i < n; i++) {
       const angle = (Math.random() - 0.5) * Math.PI * st.cfg.spread;
       const speed = rand(st.cfg.speed[0], st.cfg.speed[1]);
