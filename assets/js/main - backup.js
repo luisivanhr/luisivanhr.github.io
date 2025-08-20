@@ -203,17 +203,7 @@
       hotspots.forEach(h => {
         if ((h.getAttribute('data-effect') || '').includes('glow-edge')) {
           const p = buildGlowPath(h);
-          if (p) {
-            glowPaths.set(h, {
-              path: p,
-              color: h.getAttribute('data-glow-color') || 'rgba(120,190,255,0.85)',
-              width: +(h.getAttribute('data-glow-width') || 10),
-              blur:  +(h.getAttribute('data-glow-blur')  || 20),
-              alpha: +(h.getAttribute('data-glow-alpha') || 0.12),
-              pulse: +(h.getAttribute('data-glow-pulse') || 1.0),
-              twinkle: (h.getAttribute('data-glow-twinkle') || 'false') === 'true'
-            });
-          }
+          if (p) glowPaths.set(h, p);
         }
       });
     }
@@ -393,88 +383,30 @@
     }
     ctx.globalAlpha = 1;
 
-    // --- Edge glow pass (configurable + optional twinkle) ---
-    if (glowPaths.size) {
-      const t = performance.now() * 0.001;
-      ctx.save();
-      ctx.globalCompositeOperation = 'lighter';
+    // --- Edge glow pass (blue outer rim, slight pulse) ---
+      if (glowPaths.size) {
+        const t = performance.now() * 0.001;
+        const pulse = 0.08 + 0.06 * (0.5 + 0.5 * Math.sin(t * 1.3)); // 0.08–0.14
+        ctx.save();
+        ctx.globalCompositeOperation = 'lighter';
 
-      glowPaths.forEach(cfg => {
-        const p = cfg.path;
-
-        // Base pulse (subtle “breathing”)
-        const pulse = cfg.alpha * (cfg.pulse === 1 ? 1 : (0.5 + 0.5 * Math.sin(t * 1.3)) * (cfg.pulse - 1) + 1 - (cfg.pulse - 1)/2);
-
-        // Outer halo
-        ctx.lineWidth = cfg.width;
-        ctx.shadowColor = cfg.color;
-        ctx.shadowBlur = cfg.blur;
-        ctx.strokeStyle = setAlpha(cfg.color, pulse);  // helper below
-        ctx.setLineDash([]);                           // solid base
-        ctx.stroke(p);
-
-        // Inner rim (definition)
-        ctx.shadowBlur = 0;
-        ctx.lineWidth = Math.max(2, cfg.width * 0.28);
-        ctx.strokeStyle = setAlpha(cfg.color, pulse * 0.15);
-        ctx.stroke(p);
-
-        if (cfg.twinkle) {
-          // Twinkle pass: dashed strokes drifting → looks like little sparkles on the edge
-          const base = 6;                      // dash length (px)
-          const gap  = 10;                     // gap (px)
-          const wob  = 2 + Math.sin(t * 2.1) * 1.5;
-          const offset = (t * 24) % (base + gap); // slow slide
-
-          ctx.shadowBlur = cfg.blur * 0.6;
-          ctx.lineWidth = Math.max(1.5, cfg.width * 0.35);
-          ctx.setLineDash([base + wob, gap + wob]);
-          ctx.lineDashOffset = -offset;
-          ctx.strokeStyle = setAlpha(cfg.color, pulse * 0.6);
+        glowPaths.forEach((p) => {
+          // Outer halo
+          ctx.lineWidth = 10;                           // thickness of the halo
+          ctx.shadowColor = 'rgba(120,190,255,0.85)';   // blue-ish glow
+          ctx.shadowBlur = 20;                          // softness
+          ctx.strokeStyle = `rgba(100,200,255,${pulse})`;
           ctx.stroke(p);
 
-          // A second, finer twinkle layer
-          ctx.shadowBlur = cfg.blur * 0.3;
-          ctx.lineWidth = Math.max(1, cfg.width * 0.22);
-          ctx.setLineDash([3 + wob * 0.5, 12 + wob]);
-          ctx.lineDashOffset = offset * 1.7;
-          ctx.strokeStyle = setAlpha(cfg.color, pulse * 0.35);
+          // Inner rim for definition (subtle)
+          ctx.shadowBlur = 0;
+          ctx.lineWidth = 3;
+          ctx.strokeStyle = 'rgba(160,220,255,0.18)';
           ctx.stroke(p);
+        });
 
-          // reset dash
-          ctx.setLineDash([]);
-        }
-      });
-
-      ctx.restore();
-    }
-
-    // helper: apply alpha to hex/rgb(a) color
-    function setAlpha(color, a) {
-      // If already rgba(...), replace alpha; simple parser for common cases:
-      const m = String(color).match(/^rgba?\(([^)]+)\)$/i);
-      if (m) {
-        const parts = m[1].split(',').map(s => s.trim());
-        const [r,g,b] = parts;
-        return `rgba(${r},${g},${b},${Math.max(0, Math.min(1, a))})`;
+        ctx.restore();
       }
-      // handle hex #RRGGBB or #RGB
-      const hex = String(color).replace('#','');
-      let r,g,b;
-      if (hex.length === 3) {
-        r = parseInt(hex[0]+hex[0],16);
-        g = parseInt(hex[1]+hex[1],16);
-        b = parseInt(hex[2]+hex[2],16);
-      } else if (hex.length >= 6) {
-        r = parseInt(hex.slice(0,2),16);
-        g = parseInt(hex.slice(2,4),16);
-        b = parseInt(hex.slice(4,6),16);
-      } else {
-        // fallback to a light blue
-        r=120; g=190; b=255;
-      }
-      return `rgba(${r},${g},${b},${Math.max(0, Math.min(1, a))})`;
-    }
 
     
 

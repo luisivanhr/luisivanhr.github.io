@@ -151,7 +151,13 @@
          data-target="models"
          data-feed="{{ '/data/models.json' | relative_url }}"
          data-effect="glow-edge"
-         style="opacity:0.01;fill:#000000"
+         data-glow-color="#7cc8ff"   <!-- bluish -->
+         data-glow-width="10"        <!-- halo thickness (px) -->
+         data-glow-blur="20"         <!-- softness (px) -->
+         data-glow-alpha="0.12"      <!-- brightness (0–1) -->
+         data-glow-pulse="1.2"       <!-- 1.0 = no pulse, >1 = stronger -->
+         data-glow-twinkle="true"    <!-- enable twinkle -->
+         style="opacity:0.01;fill:#000000" 
          sodipodi:nodetypes="cccccc" />
       <title
          id="title11">Models</title>
