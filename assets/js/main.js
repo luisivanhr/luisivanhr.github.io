@@ -111,17 +111,17 @@
   // Emitter presets
   const presets = {
   chalk: {
-  // renderer tells the draw loop to use a soft radial-gradient "dust" look
-    renderer: 'dust',
+    renderer: 'fog',     // custom fog renderer
     color: '#ffffff',
-    gravity: -8,           // drift upward
-    spread: 1.2,           // wider angular spread
-    size: [6, 16],         // bigger, soft puffs
-    life: [1.2, 2.2],      // longer lived
-    rateIdle: 8,           // gentle idle haze
-    rateHover: 120,        // dense dust on hover
-    speed: [5, 18]         // slow initial velocity
-    },
+    target: 220,         // maintain ~220 puffs (no bursty spawn)
+    gravity: -3,         // slow rise
+    spread: 0.0,         // not used for fog spawn
+    size: [10, 26],      // bigger, soft blobs
+    life: [7.0, 11.0],   // long-lived
+    rateIdle: 0,         // no emitter “rate”
+    rateHover: 0,        // hover doesn’t change density (we keep it calm)
+    speed: [1, 3]        // very slow initial motion
+  },
     glow:     { color:'#7bd4ff',  gravity:  8, spread:0.6, size:[1,2],  life:[0.7,1.1],  rateIdle:  5, rateHover: 30, speed:[30,70] },
     paper:    { color:'#c9d7e6',  gravity:  5, spread:0.7, size:[1,2],  life:[0.7,1.3],  rateIdle:  5, rateHover: 28, speed:[25,55] },
     confetti: { color:['#ff6b6b','#ffd166','#06d6a0','#4cc9f0'],
@@ -139,7 +139,16 @@
   hotspots.forEach(h => {
     const effect = h.getAttribute('data-effect') || 'glow';
     const cfg = presets[effect] || presets.glow;
-    const state = { el:h, cfg, hover:false, burst:0, center: ptFromRectCenter(h), accum: 0 };
+    const state = {
+      el: h,
+      cfg,
+      hover: false,
+      burst: 0,
+      center: ptFromRectCenter(h),
+      accum: 0,           // keep for non-fog effects
+      seed: Math.random() * 1000,
+      fogCount: 0         // current fog particles for this emitter
+    };
     emitters.set(h, state);
 
     h.addEventListener('mouseenter', ()=>{ state.hover = true; });
@@ -148,6 +157,33 @@
   });
 
   function spawn(dt){
+    // --- Fog mode: softly fill up to target, then recycle on death ---
+    if (st.cfg.renderer === 'fog') {
+      // Maintain population
+      const need = (st.cfg.target || 200) - st.fogCount;
+      const addNow = Math.min(8, Math.max(0, need)); // trickle in a few per frame
+      for (let k = 0; k < addNow; k++) {
+        const px = st.center.x + (Math.random() - 0.5) * st.center.w * 0.9;
+        const py = st.center.y + (Math.random() - 0.2) * st.center.h * 0.6; // bias slightly lower
+        const vx = (Math.random() - 0.5) * 2;  // tiny initial drift
+        const vy = -Math.random() * 2 - 0.5;   // slight upward
+        const life = rand(st.cfg.life[0], st.cfg.life[1]);
+        parts.push({
+          x: px, y: py, vx: vx, vy: vy,
+          life: life,
+          t: Math.random() * life * 0.8, // start at random life phase to avoid pulses
+          size: rand(st.cfg.size[0], st.cfg.size[1]),
+          color: st.cfg.color,
+          renderer: 'fog',
+          phase: Math.random() * Math.PI * 2,
+          seed: st.seed + Math.random() * 1000,
+          owner: st
+        });
+        st.fogCount++;
+      }
+      // Skip rate-based spawn for fog and move to next emitter
+      return;
+    }
     emitters.forEach(st => {
     st.center = ptFromRectCenter(st.el);
     const base = st.hover ? st.cfg.rateHover : st.cfg.rateIdle;
@@ -189,31 +225,80 @@
     // Spawn and update
     spawn(dt);
     for (let i = parts.length - 1; i >= 0; i--) {
-      const p = parts[i];              // <-- ensure we declare `p`
+      const p = parts[i];
       p.t += dt;
       const u = p.t / p.life;
 
-      if (u >= 1) { parts.splice(i, 1); continue; }
+      if (p.renderer === 'fog') {
+        // Recycle instead of removing: continuous cloud
+        if (u >= 1) {
+          // respawn softly near owner’s bounds
+          const st = p.owner;
+          if (st && st.el && st.cfg && st.cfg.renderer === 'fog') {
+            const c = st.center = ptFromRectCenter(st.el);
+            p.t = 0;
+            p.life = rand(st.cfg.life[0], st.cfg.life[1]);
+            p.size = rand(st.cfg.size[0], st.cfg.size[1]);
+            p.x = c.x + (Math.random() - 0.5) * c.w * 0.9;
+            p.y = c.y + (Math.random() - 0.2) * c.h * 0.6;
+            p.vx = (Math.random() - 0.5) * 2;
+            p.vy = -Math.random() * 2 - 0.5;
+            p.phase = Math.random() * Math.PI * 2;
+            // continue without removing
+          } else {
+            // fallback remove if owner missing
+            parts.splice(i, 1);
+            continue;
+          }
+        }
 
-      p.x += p.vx * dt;
-      p.y += p.vy * dt;
+        // Smooth drift field (sinusoidal): gentle side-to-side + slow rise
+        const tsec = performance.now() * 0.001;
+        const kx = 0.015, ky = 0.012;      // spatial frequency
+        const wx = 0.25, wy = 0.22;        // temporal freq
+        const ampX = 10,  ampY = 6;        // drift amplitudes
 
-      // fade
-      const alpha = 1 - u;
-      ctx.globalAlpha = Math.max(0, Math.min(1, alpha));
-      ctx.fillStyle = p.color;
+        const driftX = ampX * Math.sin(p.seed + p.x * kx + tsec * wx);
+        const driftY = ampY * Math.cos(p.seed * 0.7 + p.y * ky + tsec * wy) - 6; // overall upward bias
 
-      if (p.renderer === 'dust') {
-        // chalk-like dusty puff
-        const r = p.size * (1 + 0.3 * Math.sin(p.phase + p.t * 40));
+        p.x += (p.vx + driftX) * dt * 0.5;
+        p.y += (p.vy + driftY) * dt * 0.5;
+
+        // Soft alpha and size shaping (near-constant)
+        const alpha = 0.08; // per puff opacity (keep low; many puffs stack)
+        const sz = p.size;
+
+        // Optional blur for creamier fog
+        const prevOp = ctx.globalCompositeOperation;
+        const prevFilt = ctx.filter;
+        ctx.globalCompositeOperation = 'lighter';
+        ctx.filter = 'blur(2px)'; // safe; remove if perf-constrained
+
+        // Radial gradient puff
+        const g = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, Math.max(1, sz));
+        g.addColorStop(0, `rgba(255,255,255,${alpha})`);
+        g.addColorStop(1, `rgba(255,255,255,0)`);
+        ctx.fillStyle = g;
         ctx.beginPath();
-        ctx.ellipse(p.x, p.y, r * 1.8, r, 0, 0, Math.PI * 2);
+        ctx.arc(p.x, p.y, Math.max(1, sz), 0, Math.PI * 2);
         ctx.fill();
+
+        ctx.filter = prevFilt;
+        ctx.globalCompositeOperation = prevOp;
       } else {
-        // default dot
+        // --- default renderer (dots for other effects) ---
+        if (u >= 1) { parts.splice(i, 1); continue; }
+
+        p.x += p.vx * dt;
+        p.y += p.vy * dt;
+
+        const alpha = 1 - u;
+        ctx.globalAlpha = Math.max(0, Math.min(1, alpha));
+        ctx.fillStyle = p.color;
         ctx.beginPath();
         ctx.arc(p.x, p.y, Math.max(0.6, p.size * (1 - u)), 0, Math.PI * 2);
         ctx.fill();
+        ctx.globalAlpha = 1;
       }
     }
     ctx.globalAlpha = 1;
