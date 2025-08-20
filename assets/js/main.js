@@ -111,77 +111,7 @@
     const host = wrap.getBoundingClientRect();
     return { x: (r.left + r.width/2) - host.left, y: (r.top + r.height/2) - host.top, w: r.width, h: r.height };
   }
-  // --- Edge-glow cache (one Path2D per hotspot, recomputed on resize) ---
-  const glowPaths = new Map();
 
-  function buildGlowPath(el) {
-    // Build a canvas-space path following the SVG hotspot outline
-    const svg = el.ownerSVGElement;
-    if (!svg) return null;
-    const path = new Path2D();
-    const ctm = el.getScreenCTM(); // SVG -> screen
-    if (!ctm) return null;
-
-    const toScreen = (x, y) => {
-      const pt = new DOMPoint(x, y).matrixTransform(ctm);
-      const host = wrap.getBoundingClientRect();
-      return [pt.x - host.left, pt.y - host.top];
-    };
-
-    const tag = el.tagName.toLowerCase();
-
-    if (tag === 'polygon') {
-      const raw = (el.getAttribute('points') || '').trim().split(/\s+/);
-      raw.forEach((p, i) => {
-        const [x, y] = p.split(',').map(Number);
-        const [sx, sy] = toScreen(x, y);
-        if (i === 0) path.moveTo(sx, sy); else path.lineTo(sx, sy);
-      });
-      path.closePath();
-    } else if (tag === 'path') {
-      // Sample along the path length into a polyline we can stroke
-      const len = el.getTotalLength ? el.getTotalLength() : 0;
-      if (len > 0) {
-        const steps = Math.max(24, Math.min(160, Math.round(len / 10)));
-        for (let i = 0; i <= steps; i++) {
-          const p = el.getPointAtLength((i / steps) * len);
-          const [sx, sy] = toScreen(p.x, p.y);
-          if (i === 0) path.moveTo(sx, sy); else path.lineTo(sx, sy);
-        }
-        path.closePath();
-      } else {
-        // Fallback: use bounding box if getTotalLength not available
-        const b = el.getBBox();
-        const pts = [
-          [b.x, b.y], [b.x + b.width, b.y],
-          [b.x + b.width, b.y + b.height], [b.x, b.y + b.height]
-        ];
-        pts.forEach(([x, y], i) => {
-          const [sx, sy] = toScreen(x, y);
-          if (i === 0) path.moveTo(sx, sy); else path.lineTo(sx, sy);
-        });
-        path.closePath();
-      }
-    } else {
-      return null;
-    }
-    return path;
-  }
-
-  function rebuildGlowPaths() {
-    glowPaths.clear();
-    hotspots.forEach(h => {
-      if ((h.getAttribute('data-effect') || '').includes('glow-edge')) {
-        const p = buildGlowPath(h);
-        if (p) glowPaths.set(h, p);
-      }
-    });
-  }
-  rebuildGlowPaths();
-  addEventListener('resize', () => {
-    sizeCanvas();
-    rebuildGlowPaths();
-  });
 
 
   // Emitter presets
@@ -210,6 +140,79 @@
 
   function rand(a,b){ return a + Math.random()*(b-a); }
   function pick(arr){ return Array.isArray(arr) ? arr[(Math.random()*arr.length)|0] : arr; }
+
+    // --- Edge-glow cache (one Path2D per hotspot, recomputed on resize) ---
+    const glowPaths = new Map();
+
+    function buildGlowPath(el) {
+      // Build a canvas-space path following the SVG hotspot outline
+      const svg = el.ownerSVGElement;
+      if (!svg) return null;
+      const path = new Path2D();
+      const ctm = el.getScreenCTM(); // SVG -> screen
+      if (!ctm) return null;
+
+      const toScreen = (x, y) => {
+        const pt = new DOMPoint(x, y).matrixTransform(ctm);
+        const host = wrap.getBoundingClientRect();
+        return [pt.x - host.left, pt.y - host.top];
+      };
+
+      const tag = el.tagName.toLowerCase();
+
+      if (tag === 'polygon') {
+        const raw = (el.getAttribute('points') || '').trim().split(/\s+/);
+        raw.forEach((p, i) => {
+          const [x, y] = p.split(',').map(Number);
+          const [sx, sy] = toScreen(x, y);
+          if (i === 0) path.moveTo(sx, sy); else path.lineTo(sx, sy);
+        });
+        path.closePath();
+      } else if (tag === 'path') {
+        // Sample along the path length into a polyline we can stroke
+        const len = el.getTotalLength ? el.getTotalLength() : 0;
+        if (len > 0) {
+          const steps = Math.max(24, Math.min(160, Math.round(len / 10)));
+          for (let i = 0; i <= steps; i++) {
+            const p = el.getPointAtLength((i / steps) * len);
+            const [sx, sy] = toScreen(p.x, p.y);
+            if (i === 0) path.moveTo(sx, sy); else path.lineTo(sx, sy);
+          }
+          path.closePath();
+        } else {
+          // Fallback: use bounding box if getTotalLength not available
+          const b = el.getBBox();
+          const pts = [
+            [b.x, b.y], [b.x + b.width, b.y],
+            [b.x + b.width, b.y + b.height], [b.x, b.y + b.height]
+          ];
+          pts.forEach(([x, y], i) => {
+            const [sx, sy] = toScreen(x, y);
+            if (i === 0) path.moveTo(sx, sy); else path.lineTo(sx, sy);
+          });
+          path.closePath();
+        }
+      } else {
+        return null;
+      }
+      return path;
+    }
+
+    function rebuildGlowPaths() {
+      glowPaths.clear();
+      hotspots.forEach(h => {
+        if ((h.getAttribute('data-effect') || '').includes('glow-edge')) {
+          const p = buildGlowPath(h);
+          if (p) glowPaths.set(h, p);
+        }
+      });
+    }
+    rebuildGlowPaths();
+    addEventListener('resize', () => {
+      sizeCanvas();
+      rebuildGlowPaths();
+    });
+
 
   // Make an emitter for each hotspot
   hotspots.forEach(h => {
