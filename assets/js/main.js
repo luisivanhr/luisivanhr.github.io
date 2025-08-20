@@ -258,7 +258,7 @@
     st.accum -= n;
 
     // --- Fog mode: softly fill up to target, then recycle on death ---
-    if ((st.cfg.renderer === 'fog')||( (h.getAttribute('data-effect')||'').includes('glow-edge') )) {
+    if ((st.cfg.renderer === 'fog')||( (st.el.getAttribute('data-effect')||'').includes('glow-edge') )) {
       // Maintain population
       const need = (st.cfg.target || 200) - st.fogCount;
       const addNow = Math.min(4, Math.max(0, need)); // trickle in a few per frame
