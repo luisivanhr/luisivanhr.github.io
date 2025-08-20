@@ -170,7 +170,7 @@
         life: rand(st.cfg.life[0], st.cfg.life[1]),
         t: 0,
         size: rand(st.cfg.size[0], st.cfg.size[1]),
-        color: pick(st.cfg.color)
+        color: pick(st.cfg.color),
         renderer: st.cfg.renderer || 'dot',  // NEW
         phase: Math.random() * Math.PI * 2   // NEW
       });
