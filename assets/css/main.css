@@ -47,5 +47,5 @@ a:hover { text-decoration: underline; }
 #desk-hotspots {
   position: absolute;      /* if not already via .desk-bg svg rule */
   inset: 0;
-  z-index: 4;
+  z-index: 5;
 }
