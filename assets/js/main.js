@@ -113,7 +113,7 @@
   chalk: {
     renderer: 'fog',     // custom fog renderer
     color: '#ffffff',
-    target: 100,         // maintain ~220 puffs (no bursty spawn)
+    target: 80,         // maintain ~220 puffs (no bursty spawn)
     gravity: -3,         // slow rise
     spread: 0.0,         // not used for fog spawn
     size: [14, 30],      // bigger, soft blobs
@@ -273,7 +273,7 @@
         const prevOp = ctx.globalCompositeOperation;
         const prevFilt = ctx.filter;
         ctx.globalCompositeOperation = 'lighter';
-        ctx.filter = 'blur(1px)'; // safe; remove if perf-constrained
+        //ctx.filter = 'blur(1px)'; // safe; remove if perf-constrained
 
         // Radial gradient puff
         const g = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, Math.max(1, sz));
