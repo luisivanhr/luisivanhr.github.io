@@ -112,16 +112,16 @@
   const presets = {
   chalk: {
   // renderer tells the draw loop to use a soft radial-gradient "dust" look
-  renderer: 'dust',
-  color: '#ffffff',
-  gravity: -8,           // drift upward
-  spread: 1.2,           // wider angular spread
-  size: [6, 16],         // bigger, soft puffs
-  life: [1.2, 2.2],      // longer lived
-  rateIdle: 8,           // gentle idle haze
-  rateHover: 120,        // dense dust on hover
-  speed: [5, 18]         // slow initial velocity
-  },
+    renderer: 'dust',
+    color: '#ffffff',
+    gravity: -8,           // drift upward
+    spread: 1.2,           // wider angular spread
+    size: [6, 16],         // bigger, soft puffs
+    life: [1.2, 2.2],      // longer lived
+    rateIdle: 8,           // gentle idle haze
+    rateHover: 120,        // dense dust on hover
+    speed: [5, 18]         // slow initial velocity
+    },
     glow:     { color:'#7bd4ff',  gravity:  8, spread:0.6, size:[1,2],  life:[0.7,1.1],  rateIdle:  5, rateHover: 30, speed:[30,70] },
     paper:    { color:'#c9d7e6',  gravity:  5, spread:0.7, size:[1,2],  life:[0.7,1.3],  rateIdle:  5, rateHover: 28, speed:[25,55] },
     confetti: { color:['#ff6b6b','#ffd166','#06d6a0','#4cc9f0'],
@@ -188,48 +188,36 @@
 
     // Spawn and update
     spawn(dt);
-    for (let i=parts.length-1; i>=0; i--){
-      // fraction of life lived
+    for (let i = parts.length - 1; i >= 0; i--) {
+      const p = parts[i];              // <-- ensure we declare `p`
+      p.t += dt;
       const u = p.t / p.life;
-      if (u >= 1){ parts.splice(i,1); continue; }
 
-      // move
+      if (u >= 1) { parts.splice(i, 1); continue; }
+
       p.x += p.vx * dt;
       p.y += p.vy * dt;
 
-      // size & fade
-      const sz = p.size * (0.7 + 0.6 * u * (1 - u));
+      // fade
       const alpha = 1 - u;
+      ctx.globalAlpha = Math.max(0, Math.min(1, alpha));
+      ctx.fillStyle = p.color;
 
       if (p.renderer === 'dust') {
-        // wobble for smoky waft
-        p.phase += dt * 2.5;
-        p.x += Math.sin(p.phase) * 12 * dt;
-
-        // additive blend
-        const prevOp = ctx.globalCompositeOperation;
-        ctx.globalCompositeOperation = 'lighter';
-
-        const g = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, sz);
-        g.addColorStop(0, `rgba(255,255,255,${0.35 * alpha})`);
-        g.addColorStop(1, `rgba(255,255,255,0)`);
-
-        ctx.fillStyle = g;
+        // chalk-like dusty puff
+        const r = p.size * (1 + 0.3 * Math.sin(p.phase + p.t * 40));
         ctx.beginPath();
-        ctx.arc(p.x, p.y, sz, 0, Math.PI * 2);
+        ctx.ellipse(p.x, p.y, r * 1.8, r, 0, 0, Math.PI * 2);
         ctx.fill();
-
-        ctx.globalCompositeOperation = prevOp;
       } else {
-        // default solid dot
-        ctx.globalAlpha = alpha;
-        ctx.fillStyle = p.color;
+        // default dot
         ctx.beginPath();
-        ctx.arc(p.x, p.y, Math.max(0.6, sz * 0.6), 0, Math.PI * 2);
+        ctx.arc(p.x, p.y, Math.max(0.6, p.size * (1 - u)), 0, Math.PI * 2);
         ctx.fill();
-        ctx.globalAlpha = 1;
       }
     }
+    ctx.globalAlpha = 1;
+
     
 
     requestAnimationFrame(tick);
