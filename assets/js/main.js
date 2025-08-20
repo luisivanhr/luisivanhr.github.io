@@ -113,11 +113,11 @@
   chalk: {
     renderer: 'fog',     // custom fog renderer
     color: '#ffffff',
-    target: 220,         // maintain ~220 puffs (no bursty spawn)
+    target: 100,         // maintain ~220 puffs (no bursty spawn)
     gravity: -3,         // slow rise
     spread: 0.0,         // not used for fog spawn
-    size: [10, 26],      // bigger, soft blobs
-    life: [7.0, 11.0],   // long-lived
+    size: [14, 30],      // bigger, soft blobs
+    life: [9.0, 14.0],   // long-lived
     rateIdle: 0,         // no emitter “rate”
     rateHover: 0,        // hover doesn’t change density (we keep it calm)
     speed: [1, 3]        // very slow initial motion
@@ -167,12 +167,12 @@
     st.accum += rate;
     const n = Math.floor(st.accum);
     st.accum -= n;
-    
+
     // --- Fog mode: softly fill up to target, then recycle on death ---
     if (st.cfg.renderer === 'fog') {
       // Maintain population
       const need = (st.cfg.target || 200) - st.fogCount;
-      const addNow = Math.min(8, Math.max(0, need)); // trickle in a few per frame
+      const addNow = Math.min(4, Math.max(0, need)); // trickle in a few per frame
       for (let k = 0; k < addNow; k++) {
         const px = st.center.x + (Math.random() - 0.5) * st.center.w * 0.9;
         const py = st.center.y + (Math.random() - 0.2) * st.center.h * 0.6; // bias slightly lower
@@ -273,7 +273,7 @@
         const prevOp = ctx.globalCompositeOperation;
         const prevFilt = ctx.filter;
         ctx.globalCompositeOperation = 'lighter';
-        ctx.filter = 'blur(2px)'; // safe; remove if perf-constrained
+        ctx.filter = 'blur(1px)'; // safe; remove if perf-constrained
 
         // Radial gradient puff
         const g = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, Math.max(1, sz));
