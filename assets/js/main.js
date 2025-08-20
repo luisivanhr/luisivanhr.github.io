@@ -116,8 +116,8 @@
     target: 80,         // maintain ~220 puffs (no bursty spawn)
     gravity: -3,         // slow rise
     spread: 0.0,         // not used for fog spawn
-    size: [14, 30],      // bigger, soft blobs
-    life: [9.0, 14.0],   // long-lived
+    size: [18, 35],      // bigger, soft blobs
+    life: [11.0, 16.0],   // long-lived
     rateIdle: 0,         // no emitter “rate”
     rateHover: 0,        // hover doesn’t change density (we keep it calm)
     speed: [1, 3]        // very slow initial motion

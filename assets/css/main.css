@@ -34,3 +34,18 @@ a:hover { text-decoration: underline; }
 
 .classic-nav { display:grid; grid-template-columns: repeat(auto-fit, minmax(160px,1fr)); gap:10px; }
 .classic-nav a { padding:10px 12px; background:#0f131a; border:1px solid #1f2a33; border-radius: 8px; } 
+
+/* FX canvas on top of patches */
+#fx-layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;    /* lets clicks pass through */
+  z-index: 3;              /* above patches */
+}
+
+/* Hotspots overlay above the canvas (so outlines/hover styling show) */
+#desk-hotspots {
+  position: absolute;      /* if not already via .desk-bg svg rule */
+  inset: 0;
+  z-index: 4;
+}
