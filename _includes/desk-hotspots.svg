@@ -6,7 +6,7 @@
    inkscape:version="1.4.2 (f4327f4, 2025-05-13)"
    version="1.1"
    id="desk-hotspots"
-   sodipodi:docname="hot-background.svg"
+   sodipodi:docname="desk-hotspots.svg"
    inkscape:export-filename="background.png"
    inkscape:export-xdpi="96"
    inkscape:export-ydpi="96"
@@ -25,14 +25,14 @@
      inkscape:pagecheckerboard="0"
      inkscape:deskcolor="#d1d1d1"
      inkscape:zoom="1.1396484"
-     inkscape:cx="368.97345"
+     inkscape:cx="369.41218"
      inkscape:cy="481.28879"
      inkscape:window-width="3840"
      inkscape:window-height="2054"
      inkscape:window-x="-11"
      inkscape:window-y="-11"
      inkscape:window-maximized="1"
-     inkscape:current-layer="layer_hotspots" />
+     inkscape:current-layer="a20" />
   <defs
      id="defs1">
     <style
@@ -83,8 +83,8 @@
          d="m 747.61038,661.39105 -0.88887,44.4907 c 0,0 30.81907,18.86855 48.16907,0.55366 23.09258,-24.37683 15.50522,-31.23412 15.50522,-31.23412 0,0 -4.63273,-3.89291 -12.63246,-9.46405 -7.99973,-5.57115 -28.82035,-19.20256 -50.15296,-4.34619 z"
          data-target="hobbies"
          data-feed="{{ '/data/hobbies.json' | relative_url }}"
-         data-effect="chalk"
-         id="hot-coffee"
+         data-effect="paper"
+         id="hot-hobbies"
          sodipodi:nodetypes="ccscsc" />
       <title
          id="title20">Hobbies</title>

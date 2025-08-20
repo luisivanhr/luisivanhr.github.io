@@ -26,6 +26,12 @@ collections:
   news:
     output: true
     permalink: /news/:title/
+  publications:
+    output: true
+    permalink: /publications/:title/
+  blog:
+    output: true
+    permalink: /blog/:title/
 
 defaults:
   - scope: {path: ""}
