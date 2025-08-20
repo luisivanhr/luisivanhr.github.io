@@ -110,7 +110,7 @@
 
   // Emitter presets
   const presets = {
-    chalk:    { color:'#ffffff',  gravity:-12, spread:0.9, size:[1,3],  life:[0.6,1.2],  rateIdle:  6, rateHover: 45, speed:[20,60] },
+    chalk:    { color:'#ffffff',  gravity:-12, spread:0.9, size:[0.1,0.1],  life:[0.6,1.2],  rateIdle:  20, rateHover: 60, speed:[20,60] },
     glow:     { color:'#7bd4ff',  gravity:  8, spread:0.6, size:[1,2],  life:[0.7,1.1],  rateIdle:  5, rateHover: 30, speed:[30,70] },
     paper:    { color:'#c9d7e6',  gravity:  5, spread:0.7, size:[1,2],  life:[0.7,1.3],  rateIdle:  5, rateHover: 28, speed:[25,55] },
     confetti: { color:['#ff6b6b','#ffd166','#06d6a0','#4cc9f0'],
