@@ -36,6 +36,7 @@
   hotspots.forEach(h => {
     const feed = h.getAttribute('data-feed');
     h.addEventListener('mouseenter', async (e)=>{
+      if (!feed) return;
       const data = await getFeed(feed);
       const item = data.items?.[0] || {};
       const rect = h.getBoundingClientRect();
@@ -52,9 +53,12 @@
         hobbies: '/hobbies/',
         achievements: '/achievements/',
         publications: '/publications/',
-        news: '/news/'
+        news: '/news/',
+        cv: '/cv/',
+        about: '/about/',
+        presentations: '/presentations/'
       };
-      const href = mapping[target] || '/';
+      const href = mapping[h.getAttribute('data-target') || ''] || '/';
       window.location.href = href;
     });
   });
