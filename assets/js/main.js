@@ -111,6 +111,78 @@
     const host = wrap.getBoundingClientRect();
     return { x: (r.left + r.width/2) - host.left, y: (r.top + r.height/2) - host.top, w: r.width, h: r.height };
   }
+  // --- Edge-glow cache (one Path2D per hotspot, recomputed on resize) ---
+  const glowPaths = new Map();
+
+  function buildGlowPath(el) {
+    // Build a canvas-space path following the SVG hotspot outline
+    const svg = el.ownerSVGElement;
+    if (!svg) return null;
+    const path = new Path2D();
+    const ctm = el.getScreenCTM(); // SVG -> screen
+    if (!ctm) return null;
+
+    const toScreen = (x, y) => {
+      const pt = new DOMPoint(x, y).matrixTransform(ctm);
+      const host = wrap.getBoundingClientRect();
+      return [pt.x - host.left, pt.y - host.top];
+    };
+
+    const tag = el.tagName.toLowerCase();
+
+    if (tag === 'polygon') {
+      const raw = (el.getAttribute('points') || '').trim().split(/\s+/);
+      raw.forEach((p, i) => {
+        const [x, y] = p.split(',').map(Number);
+        const [sx, sy] = toScreen(x, y);
+        if (i === 0) path.moveTo(sx, sy); else path.lineTo(sx, sy);
+      });
+      path.closePath();
+    } else if (tag === 'path') {
+      // Sample along the path length into a polyline we can stroke
+      const len = el.getTotalLength ? el.getTotalLength() : 0;
+      if (len > 0) {
+        const steps = Math.max(24, Math.min(160, Math.round(len / 10)));
+        for (let i = 0; i <= steps; i++) {
+          const p = el.getPointAtLength((i / steps) * len);
+          const [sx, sy] = toScreen(p.x, p.y);
+          if (i === 0) path.moveTo(sx, sy); else path.lineTo(sx, sy);
+        }
+        path.closePath();
+      } else {
+        // Fallback: use bounding box if getTotalLength not available
+        const b = el.getBBox();
+        const pts = [
+          [b.x, b.y], [b.x + b.width, b.y],
+          [b.x + b.width, b.y + b.height], [b.x, b.y + b.height]
+        ];
+        pts.forEach(([x, y], i) => {
+          const [sx, sy] = toScreen(x, y);
+          if (i === 0) path.moveTo(sx, sy); else path.lineTo(sx, sy);
+        });
+        path.closePath();
+      }
+    } else {
+      return null;
+    }
+    return path;
+  }
+
+  function rebuildGlowPaths() {
+    glowPaths.clear();
+    hotspots.forEach(h => {
+      if ((h.getAttribute('data-effect') || '').includes('glow-edge')) {
+        const p = buildGlowPath(h);
+        if (p) glowPaths.set(h, p);
+      }
+    });
+  }
+  rebuildGlowPaths();
+  addEventListener('resize', () => {
+    sizeCanvas();
+    rebuildGlowPaths();
+  });
+
 
   // Emitter presets
   const presets = {
@@ -129,7 +201,7 @@
     glow:     { color:'#7bd4ff',  gravity:  8, spread:0.6, size:[1,2],  life:[0.7,1.1],  rateIdle:  5, rateHover: 30, speed:[30,70] },
     paper:    { color:'#c9d7e6',  gravity:  5, spread:0.7, size:[1,2],  life:[0.7,1.3],  rateIdle:  5, rateHover: 28, speed:[25,55] },
     confetti: { color:['#ff6b6b','#ffd166','#06d6a0','#4cc9f0'],
-                gravity: 25, spread:1.0, size:[1,3], life:[0.5,0.9], rateIdle: 0, rateHover: 35, speed:[60,120] }
+                gravity: 25, spread:1.0, size:[1,3], life:[0.5,0.9], rateIdle: 5, rateHover: 35, speed:[60,120] }
   };
 
   const hotspots = Array.from(document.querySelectorAll('#desk-hotspots .hotspot'));
@@ -307,6 +379,31 @@
       }
     }
     ctx.globalAlpha = 1;
+
+    // --- Edge glow pass (blue outer rim, slight pulse) ---
+      if (glowPaths.size) {
+        const t = performance.now() * 0.001;
+        const pulse = 0.08 + 0.06 * (0.5 + 0.5 * Math.sin(t * 1.3)); // 0.08–0.14
+        ctx.save();
+        ctx.globalCompositeOperation = 'lighter';
+
+        glowPaths.forEach((p) => {
+          // Outer halo
+          ctx.lineWidth = 10;                           // thickness of the halo
+          ctx.shadowColor = 'rgba(120,190,255,0.85)';   // blue-ish glow
+          ctx.shadowBlur = 20;                          // softness
+          ctx.strokeStyle = `rgba(100,200,255,${pulse})`;
+          ctx.stroke(p);
+
+          // Inner rim for definition (subtle)
+          ctx.shadowBlur = 0;
+          ctx.lineWidth = 3;
+          ctx.strokeStyle = 'rgba(160,220,255,0.18)';
+          ctx.stroke(p);
+        });
+
+        ctx.restore();
+      }
 
     
 

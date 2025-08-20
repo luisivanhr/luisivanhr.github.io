@@ -150,7 +150,7 @@
          d="m 312.0867,503.56175 427.534,-3.9405 1.25967,131.67306 -225.38803,-12.81419 -202.87136,21.15818 z"
          data-target="models"
          data-feed="{{ '/data/models.json' | relative_url }}"
-         data-effect="glow"
+         data-effect="glow-edge"
          style="opacity:0.01;fill:#000000"
          sodipodi:nodetypes="cccccc" />
       <title
