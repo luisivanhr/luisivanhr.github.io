@@ -234,6 +234,7 @@
          class="hotspot"
          d="m -7.8096283,353.61104 62.7595623,1.17078 2.332021,66.62926 -64.0639351,3.80192 z"
          data-target="about"
+         data-feed="{{ '/data/about.json' | relative_url }}"
          data-effect="glow"
          style="opacity:0.01;fill:#000000"
          sodipodi:nodetypes="ccccc" />
