@@ -85,7 +85,7 @@
          data-effect="paper"
          id="hot-hobbies"
          sodipodi:nodetypes="ccscsc"
-         style="opacity:0.01;fill:#000000" />
+         style="opacity:0.02;fill:#000000" />
       <title
          id="title20">Hobbies</title>
     </a>
@@ -114,7 +114,7 @@
          data-effect="paper"
          id="hot-news"
          sodipodi:nodetypes="ccccc"
-         style="opacity:0.01;fill:#000000" />
+         style="opacity:0.02;fill:#000000" />
       <title
          id="title18">News</title>
     </a>
