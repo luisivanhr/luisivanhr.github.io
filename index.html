@@ -38,76 +38,72 @@ layout: default
 <script src="https://cdn.jsdelivr.net/npm/@tsparticles/all@3.9.1/tsparticles.all.bundle.min.js"></script>
 <script>
 (async () => {
-  // 1) create a transparent particles instance over the desk area
-  const particles = await tsParticles.load({
+  const container = await tsParticles.load({
     id: "tsparticles",
     options: {
       detectRetina: true,
       fpsLimit: 120,
-      background: { color: { value: "transparent" } },  // keep layer transparent
+      background: { color: { value: "transparent" } },
       interactivity: { events: { onHover: { enable:false }, onClick:{ enable:false }, resize:{ enable:true } } },
       particles: {
-        color: { value: "#ffffff" },     // all white
-        shape: { type: "circle" },       // change to "square" if you want
-        size: { value: { min: 0.8, max: 3.5 } },
-        opacity: {
-          value: { min: 0.15, max: 0.6 },
-          animation: { enable: true, speed: 3, startValue: "random" } // twinkle feel
-        },
-        links: { enable: false },        // keep clean; set true if you want small link nets
-        move: {
-          enable: true,
-          speed: 0.6,                    // gentle drift around each hotspot
-          direction: "none",
-          outModes: { default: "destroy" } // particles that exit emitter area will die
-        },
+        color: { value: "#ffffff" },
+        shape: { type: "circle" },
+        size: { value: { min: 1.2, max: 4.0 } },
+        opacity: { value: { min: 0.25, max: 0.75 }, animation: { enable:true, speed:3, startValue:"random" } },
+        links: { enable: false },
+        move: { enable: true, speed: 0.6, direction: "none", outModes: { default: "destroy" } },
         collisions: { enable: false }
       }
     }
   });
 
-  // 2) helper: add emitters at hotspot centers (in PERCENT coords of the particles container)
   function placeEmitters() {
-    const container = document.getElementById('tsparticles');
-    const wrapRect = container.getBoundingClientRect();
+    const layer = document.getElementById("tsparticles");
+    const wrap = layer.getBoundingClientRect();
 
-    // Remove any previous emitters before re-adding (on resize)
-    particles.plugins?.emitters?.array?.slice().forEach(e => particles.plugins.emitters.removeEmitter(e));
+    // ✅ get emitters plugin instance
+    const ep = container.plugins?.emitters;
+    if (!ep) {
+      console.error("tsParticles emitters plugin not available. Make sure @tsparticles/all bundle is loaded before this script.");
+      return;
+    }
 
-    document.querySelectorAll('#desk-hotspots .hotspot, #desk-hotspots a.hotspot').forEach((el) => {
+    // clear previous emitters
+    if (ep.array?.length) ep.array.slice().forEach(e => ep.removeEmitter(e));
+
+    // add new emitters at hotspot centers
+    document.querySelectorAll('#desk-hotspots .hotspot, #desk-hotspots a.hotspot').forEach(el => {
       const r = el.getBoundingClientRect();
-      const cx = ((r.left + r.width  / 2) - wrapRect.left) / wrapRect.width  * 100;
-      const cy = ((r.top  + r.height / 2) - wrapRect.top)  / wrapRect.height * 100;
+      const cx = ((r.left + r.width  / 2) - wrap.left) / wrap.width  * 100;
+      const cy = ((r.top  + r.height / 2) - wrap.top)  / wrap.height * 100;
 
-      particles.addEmitter({
-        position: { x: cx, y: cy },         // percent coords within container
-        size: { mode: "percent", width: 12, height: 12 }, // small area around hotspot (tweak!)
-        rate: { delay: 0.08, quantity: 1 }, // trickle rate; increase for stronger glow
-        life: { wait: false },              // continuous
+      ep.addEmitter({
+        position: { x: cx, y: cy },                 // percent within the particles layer
+        size: { mode: "percent", width: 10, height: 10 },
+        rate: { delay: 0.03, quantity: 3 },         // make it obvious; tune down later
+        life: { wait: false },
         particles: {
-          // You can override per-emitter particle options here if desired
-          move: { speed: 0.6 },
-          size: { value: { min: 0.8, max: 3.5 } },
           color: { value: "#ffffff" },
-          opacity: {
-            value: { min: 0.15, max: 0.6 },
-            animation: { enable: true, speed: 3, startValue: "random" }
-          }
+          size: { value: { min: 1.2, max: 4.0 } },
+          opacity: { value: { min: 0.25, max: 0.75 }, animation: { enable:true, speed:3, startValue:"random" } },
+          move: { speed: 0.6 }
         }
       });
     });
   }
 
-  // 3) place once now…
-  placeEmitters();
+  // wait for layout, then place
+  const ready = () => new Promise(res => {
+    if (document.readyState === "complete") res();
+    else addEventListener("load", () => res(), { once: true });
+  });
+  await ready();
+  requestAnimationFrame(placeEmitters);
 
-  // 4) …and keep them glued on resize / layout changes
-  const ro = new ResizeObserver(() => { placeEmitters(); });
-  ro.observe(document.getElementById('desk-wrap'));
-
-  window.addEventListener('resize', placeEmitters);
-  window.addEventListener('orientationchange', placeEmitters);
-
-  // If your hotspots move due to dynamic content, call placeEmitters() after that change.
+  // keep them glued on resize/layout changes
+  const wrapEl = document.getElementById("desk-wrap");
+  new ResizeObserver(placeEmitters).observe(wrapEl);
+  addEventListener('resize', placeEmitters);
+  addEventListener('orientationchange', placeEmitters);
 })();
 </script>
