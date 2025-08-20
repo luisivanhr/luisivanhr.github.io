@@ -2,26 +2,24 @@
 title: Home
 layout: default
 ---
-
 <div id="desk-wrap">
-  <!-- Transparent layer over the desk where particles draw -->
-  <div id="tsparticles" class="particles-layer"></div>
-
   <div class="desk-bg" role="img" aria-label="Interactive desk scene">
+    <!-- SVG hotspot overlay -->
     {% include desk-hotspots.svg %}
+    <!-- Patches (optional) -->
     <img class="patch monitor1" src="{{ '/assets/images/desk/monitor1_patch.png' | relative_url }}" alt="Monitor patch">
     <img class="patch monitor2" src="{{ '/assets/images/desk/monitor2_patch.png' | relative_url }}" alt="Monitor patch">
-    <img class="patch board"    src="{{ '/assets/images/desk/board_patch.png' | relative_url }}" alt="Blackboard patch">
+    <img class="patch board" src="{{ '/assets/images/desk/board_patch.png' | relative_url }}" alt="Blackboard patch">
   </div>
 
   <div id="banner">
     <div class="track">
-      <div class="slide" data-src="{{ '/data/blog.json' | relative_url }}">Latest Blog</div>
-      <div class="slide" data-src="{{ '/data/models.json' | relative_url }}">Latest Models</div>
-      <div class="slide" data-src="{{ '/data/courses.json' | relative_url }}">Latest Courses</div>
-      <div class="slide" data-src="{{ '/data/hobbies.json' | relative_url }}">Latest Hobbies</div>
-      <div class="slide" data-src="{{ '/data/achievements.json' | relative_url }}">Latest Achievements</div>
-      <div class="slide" data-src="{{ '/data/news.json' | relative_url }}">Latest News</div>
+    <div class="slide" data-src="{{ '/data/blog.json' | relative_url }}">Latest Blog</div>
+    <div class="slide" data-src="{{ '/data/models.json' | relative_url }}">Latest Models</div>
+    <div class="slide" data-src="{{ '/data/courses.json' | relative_url }}">Latest Courses</div>
+    <div class="slide" data-src="{{ '/data/hobbies.json' | relative_url }}">Latest Hobbies</div>
+    <div class="slide" data-src="{{ '/data/achievements.json' | relative_url }}">Latest Achievements</div>
+    <div class="slide" data-src="{{ '/data/news.json' | relative_url }}">Latest News</div>
     </div>
   </div>
 </div>
@@ -33,115 +31,3 @@ layout: default
     <div class="meta"></div>
   </div>
 </div>
-
-<!-- tsParticles: engine + all plugins bundle -->
-<script src="https://cdn.jsdelivr.net/npm/@tsparticles/all@3.9.1/tsparticles.all.bundle.min.js"></script>
-<!-- Explicitly add the Emitters plugin (belt-and-suspenders) -->
-<script src="https://cdn.jsdelivr.net/npm/@tsparticles/plugin-emitters@3.9.1/tsparticles.plugin.emitters.min.js"></script>
-
-<script>
-(async () => {
-  /* --- Register plugins --- */
-  // If the all-bundle exposes loadAll, register everything (safe no-op if already loaded)
-  if (typeof loadAll === "function") {
-    await loadAll(tsParticles);
-  }
-  // Ensure Emitters plugin is registered (in case loadAll didn't)
-  if (typeof loadEmitters === "function") {
-    await loadEmitters(tsParticles);
-  }
-
-  /* --- Create the transparent particles instance --- */
-  const container = await tsParticles.load({
-    id: "tsparticles",
-    options: {
-      detectRetina: true,
-      fpsLimit: 120,
-      // Omit background or use RGBA to avoid "transparent color" error:
-      // background: { color: { value: "rgba(0,0,0,0)" } },
-
-      interactivity: {
-        events: {
-          onHover: { enable: false },
-          onClick: { enable: false },
-          resize: { enable: true }
-        }
-      },
-
-      particles: {
-        color: { value: "#ffffff" },    // all white
-        shape: { type: "circle" },
-        size: { value: { min: 1.2, max: 4.0 } },
-        opacity: {
-          value: { min: 0.25, max: 0.75 },
-          animation: { enable: true, speed: 3, startValue: "random" }  // twinkle feel
-        },
-        links: { enable: false },
-        move: {
-          enable: true,
-          speed: 0.6,
-          direction: "none",
-          outModes: { default: "destroy" }  // particles die when they leave emitter area
-        },
-        collisions: { enable: false }
-      }
-    }
-  });
-
-  /* --- Place one emitter per hotspot --- */
-  function placeEmitters() {
-    const layer = document.getElementById("tsparticles");
-    const wrap = layer.getBoundingClientRect();
-
-    // Emitters plugin handle (must exist now)
-    const ep = container.plugins?.emitters;
-    if (!ep) { console.error("Emitters plugin still unavailable"); return; }
-
-    // Clear existing emitters before re-placing
-    if (ep.array?.length) ep.array.slice().forEach(e => ep.removeEmitter(e));
-
-    // Add emitters centered at each hotspot
-    document.querySelectorAll('#desk-hotspots .hotspot, #desk-hotspots a.hotspot').forEach(el => {
-      const r = el.getBoundingClientRect();
-      const cx = ((r.left + r.width  / 2) - wrap.left) / wrap.width  * 100;
-      const cy = ((r.top  + r.height / 2) - wrap.top)  / wrap.height * 100;
-
-      ep.addEmitter({
-        position: { x: cx, y: cy },                    // percent within particles layer
-        size: { mode: "percent", width: 10, height: 10 },
-        rate: { delay: 0.03, quantity: 3 },            // make it visible; tune later
-        life: { wait: false },
-        particles: {
-          color: { value: "#ffffff" },
-          size: { value: { min: 1.2, max: 4.0 } },
-          opacity: {
-            value: { min: 0.25, max: 0.75 },
-            animation: { enable: true, speed: 3, startValue: "random" }
-          },
-          move: { speed: 0.6 }
-        }
-      });
-    });
-  }
-
-  /* --- Wait for layout, then place --- */
-  const ready = () => new Promise(res => {
-    if (document.readyState === "complete") res();
-    else addEventListener("load", () => res(), { once: true });
-  });
-  await ready();
-  requestAnimationFrame(placeEmitters);
-
-  /* --- Keep emitters glued on resize/layout changes --- */
-  const wrapEl = document.getElementById("desk-wrap");
-  if (wrapEl && "ResizeObserver" in window) {
-    new ResizeObserver(placeEmitters).observe(wrapEl);
-  }
-  addEventListener("resize", placeEmitters);
-  addEventListener("orientationchange", placeEmitters);
-
-  /* --- Debug: check everything is registered --- */
-  console.log("tsParticles containers:", tsParticles.dom());
-  console.log("Emitters plugin:", container.plugins?.emitters);
-})();
-</script>

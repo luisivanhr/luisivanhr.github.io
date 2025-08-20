@@ -39,9 +39,8 @@ a:hover { text-decoration: underline; }
 .particles-layer {
   position: absolute;
   inset: 0;
-  z-index: 70;        /* between desk (10) and hotspots (20) */
+  z-index: 15;        /* between desk (10) and hotspots (20) */
   pointer-events: none;
-  background: rgba(0,255,0,0.06);
 }
 
 /* Ensure desk + hotspots are above background */
