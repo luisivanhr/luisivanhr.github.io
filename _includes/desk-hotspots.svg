@@ -157,13 +157,7 @@
          d="m 312.0867,503.56175 427.534,-3.9405 1.25967,131.67306 -225.38803,-12.81419 -202.87136,21.15818 z"
          data-target="models"
          data-feed="{{ '/data/models.json' | relative_url }}"
-         data-effect="glow-edge"
-         data-glow-color="#186fa5" 
-         data-glow-width="4" 
-         data-glow-blur="40" 
-         data-glow-alpha="0.22" 
-         data-glow-pulse="2" 
-         data-glow-twinkle="false"   
+         data-effect="glow"  
          style="opacity:0.01;fill:#000000" 
          sodipodi:nodetypes="cccccc" />
       <title
@@ -198,7 +192,13 @@
          d="m 541.42944,202.56491 347.26511,-41.8079 -1.73968,221.64402 -345.17288,3.50205 z"
          data-target="blog"
          data-feed="{{ '/data/blog.json' | relative_url }}"
-         data-effect="paper"
+         data-effect="glow-edge" 
+         data-glow-color="#93a7b4ff" 
+         data-glow-width="3" 
+         data-glow-blur="34" 
+         data-glow-alpha="0.22" 
+         data-glow-pulse="2" 
+         data-glow-twinkle="false" 
          sodipodi:nodetypes="ccccc"
          style="fill:#000000;opacity:0.01;" />
       <title
@@ -270,13 +270,7 @@
          class="hotspot"
          d="m 804.85334,382.1202 191.85934,-24.82055 1.52343,178.09317 -195.85712,2.40312 z"
          data-target="presentations"
-         data-effect="glow-edge" 
-         data-glow-color="#17b58eb1" 
-         data-glow-width="3" 
-         data-glow-blur="34" 
-         data-glow-alpha="0.22" 
-         data-glow-pulse="2" 
-         data-glow-twinkle="false" 
+         data-effect="paper"   
          style="opacity:0.01;fill:#000000"
          sodipodi:nodetypes="ccccc" />
       <title
