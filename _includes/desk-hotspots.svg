@@ -101,7 +101,7 @@
          d="m 834.85007,258.85176 1.60285,38.02175 12.74072,0.0153 -0.87746,-38.80738 z"
          data-target="easter"
          id="hot-easter"
-         data-effect=""
+         data-effect="none"
          sodipodi:nodetypes="ccccc" />
       <title
          id="title19">Easter Egg</title>
@@ -215,7 +215,7 @@
          d="m 768.93143,861.16937 145.18548,31.88409 3.05361,67.52282 -148.087,0.29278 z"
          data-target="cv"
          data-effect="glow-edge" 
-         data-glow-color="#e19741" 
+         data-glow-color="#b87a34c7" 
          data-glow-width="3" 
          data-glow-blur="16" 
          data-glow-alpha="0.25" 
