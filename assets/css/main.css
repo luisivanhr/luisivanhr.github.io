@@ -32,9 +32,19 @@ a:hover { text-decoration: underline; }
   font-size: 22px;
   line-height: 1.4;
   pointer-events: none; /* so it doesn’t block hotspots */
-  transform: rotate(5deg) 
+  transform: rotate(4deg) 
 }
-
+.board-math::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url('{{ "/assets/images/desk/chalk_noise_256x256_v1.png" | relative_url }}');
+  background-repeat: repeat;
+  background-size: 256px 256px; /* or 512px 512px if you use the larger one */
+  opacity: 0.10;                /* 0.06–0.18 looks good */
+  mix-blend-mode: screen;       /* or lighten */
+  pointer-events: none;
+}
 
 #banner { height: 84px; display:flex; align-items:center; overflow:hidden; background:#0f131a; border-top:1px solid #1f2a33; }
 #banner .track { display:flex; gap:24px; padding: 0 16px; animation: scroll 18s linear infinite; }
