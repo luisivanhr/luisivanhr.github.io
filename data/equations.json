@@ -1,6 +1,6 @@
 {
   "equations": [
-    "a=b",
+    "\int_a^b f(x) dx",
     "b=c",
     "c=d"
   ]
