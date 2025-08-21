@@ -166,11 +166,11 @@
          data-feed="{{ '/data/models.json' | relative_url }}"
          data-effect="glow-edge"
          data-glow-color="#186fa5" 
-         data-glow-width="10" 
-         data-glow-blur="20" 
+         data-glow-width="7" 
+         data-glow-blur="40" 
          data-glow-alpha="0.12" 
-         data-glow-pulse="1.2" 
-         data-glow-twinkle="true"   
+         data-glow-pulse="2" 
+         data-glow-twinkle="false"   
          style="opacity:0.01;fill:#000000" 
          sodipodi:nodetypes="cccccc" />
       <title
