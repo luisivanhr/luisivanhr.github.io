@@ -1,3 +1,38 @@
+// ===== Stage layout (robust across environments) =====
+const SCENE_AR = 1600 / 900;  // match your SVG viewBox (W/H)
+
+// Choose ONE sizing policy:
+// 1) Fill width (always 100% wide, letterboxed vertically)
+function computeStageSizeFillWidth(vw, vh) {
+  const width = vw;
+  const height = Math.round(width / SCENE_AR);
+  return { width, height };
+}
+
+// 2) Contain within viewport (no overflow; best general default)
+// function computeStageSizeContain(vw, vh) {
+//   const widthByWidth  = vw;
+//   const heightByWidth = Math.round(widthByWidth / SCENE_AR);
+//   const heightByHeight = vh;
+//   const widthByHeight  = Math.round(heightByHeight * SCENE_AR);
+//   // Pick the fit that stays inside the viewport
+//   if (heightByWidth <= vh) return { width: widthByWidth, height: heightByWidth };
+//   return { width: widthByHeight, height: heightByHeight };
+// }
+
+function layoutStage() {
+  const stage = document.querySelector('.stage');
+  if (!stage) return;
+  const vw = Math.max(1, Math.floor(window.innerWidth));
+  const vh = Math.max(1, Math.floor(window.innerHeight));
+  // Pick the policy you want:
+  const { width, height } = computeStageSizeFillWidth(vw, vh);
+  stage.style.width  = width  + 'px';
+  stage.style.height = height + 'px';
+}
+
+
+
 
 // === FX canvas sizing helpers ===
 function resizeFxCanvas() {
@@ -209,6 +244,15 @@ function setupDPRListener() {
   window.addEventListener('load', resizeFxCanvas);
   window.addEventListener('resize', resizeFxCanvas);
   setupDPRListener(); // optional but recommended
+
+  // Layout once early (before/after DOMContentLoaded both ok)
+  window.addEventListener('DOMContentLoaded', layoutStage);
+  // Keep in sync with viewport changes
+  window.addEventListener('resize', layoutStage);
+  if (window.visualViewport) {
+    visualViewport.addEventListener('resize', layoutStage);
+  }
+
 
   // Emitter presets
   const presets = {
