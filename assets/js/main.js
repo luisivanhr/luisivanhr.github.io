@@ -516,3 +516,25 @@
   panel.addEventListener('input', apply);
   apply();
 })();
+
+// Select by id or CSS
+window.fxSel = (q) => document.querySelector(q.startsWith('#') ? q : `#desk-hotspots ${q}`);
+
+// Set an attribute and refresh edge glow cache
+window.fxSet = (q, name, val) => {
+  const el = fxSel(q);
+  if (!el) return null;
+  el.setAttribute(name, String(val));
+  if (typeof rebuildGlowPaths === 'function') rebuildGlowPaths();
+  return el;
+};
+
+// Dump current data-* so you can paste back into the SVG file
+window.fxDump = (q) => {
+  const el = fxSel(q);
+  if (!el) return '';
+  const attrs = Array.from(el.attributes).filter(a => a.name.startsWith('data-'));
+  const txt = attrs.map(a => `${a.name}="${a.value}"`).join(' ');
+  console.log(txt);
+  return txt;
+};
