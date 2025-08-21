@@ -71,18 +71,14 @@
 
   async function loadBoardMath() {
     try {
-      const url = "{{ '/data/equations.json' | relative_url }}";
+      const url = board.getAttribute('data-src') || '/data/equations.json';
       const res = await fetch(url, { cache: 'no-store' });
       if (!res.ok) throw new Error('HTTP ' + res.status);
       const payload = await res.json();
       const list = Array.isArray(payload.equations) ? payload.equations : [];
 
-      // Inject TeX as display math blocks
-      board.innerHTML = list
-        .map(eq => `<div class="eq">$$${eq}$$</div>`)
-        .join('');
+      board.innerHTML = list.map(eq => `<div class="eq">$$${eq}$$</div>`).join('');
 
-      // Render with KaTeX (auto-render)
       if (typeof renderMathInElement === 'function') {
         renderMathInElement(board, {
           delimiters: [
@@ -91,27 +87,13 @@
           ],
           throwOnError: false
         });
-      } else {
-        // If KaTeX hasn’t loaded yet, try once the page is ready
-        document.addEventListener('readystatechange', () => {
-          if (document.readyState === 'complete' && typeof renderMathInElement === 'function') {
-            renderMathInElement(board, {
-              delimiters: [
-                { left: "$$", right: "$$", display: true },
-                { left: "$",  right: "$",  display: false }
-              ],
-              throwOnError: false
-            });
-          }
-        });
       }
     } catch (e) {
       console.warn('Equations load failed:', e);
-      board.textContent = ' '; // keep area empty on error
+      board.textContent = '';
     }
   }
 
-  // Kick it off
   document.addEventListener('DOMContentLoaded', loadBoardMath);
 })();
 
