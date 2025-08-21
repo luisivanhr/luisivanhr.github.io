@@ -1,4 +1,3 @@
-
 <!doctype html>
 <html lang="en">
   <head>
@@ -7,14 +6,37 @@
     <title>{{ page.title }} | {{ site.title }}</title>
     {%- seo -%}
     <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}">
-    <link rel="preload" href="{{ '/assets/images/desk/background.jpg' | relative_url }}" as="image">
-    <script defer src="{{ '/assets/js/katex.min.js' | relative_url }}"></script>
+
+    <!-- KaTeX CSS -->
     <link rel="stylesheet" href="{{ '/assets/css/katex.min.css' | relative_url }}">
-    <script defer src="{{ '/assets/js/auto-render.min.js' | relative_url }}" onload="renderMathInElement(document.body);"></script>
+
+    <!-- Preload background -->
+    <link rel="preload" href="{{ '/assets/images/desk/background.jpg' | relative_url }}" as="image">
+
+    <!-- KaTeX JS -->
+    <script defer src="{{ '/assets/js/katex.min.js' | relative_url }}"></script>
+    <!-- KaTeX Auto-render -->
+    <script defer src="{{ '/assets/js/auto-render.min.js' | relative_url }}"></script>
+
+    <!-- Your own scripts -->
     <script defer src="{{ '/assets/js/main.js' | relative_url }}"></script>
   </head>
   <body>
     <a class="skip" href="{{ '/classic/' | relative_url }}">Skip interactive desk (classic site)</a>
     {{ content }}
+
+    <!-- Run KaTeX AFTER page + scripts are loaded -->
+    <script>
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+          delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "$", right: "$", display: false},
+            {left: "\\[", right: "\\]", display: true},
+            {left: "\\(", right: "\\)", display: false}
+          ]
+        });
+      });
+    </script>
   </body>
 </html>
