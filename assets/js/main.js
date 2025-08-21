@@ -487,8 +487,12 @@
 
 (function(){
   if (!/(\?|&)fx=1\b/.test(location.search)) return;
-  const sel = '#desk-hotspots .hotspot[data-effect*="glow-edge"]';
-  const el = document.querySelector(sel);
+  let el = null;
+  window.fxTarget = (q) => {
+    el = fxSel(q); 
+    return el;
+  };
+
   if (!el) return;
 
   const panel = document.createElement('div');
