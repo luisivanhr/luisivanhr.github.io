@@ -7,7 +7,7 @@
   --scene-ar: 1600/900;  /* use your SVG viewBox width/height */
   --scene-w: 90vw;       /* % of screen width to use (tweak 70–95vw) */
   --bars-color: #000;    /* color for the letterbox bars */
-}
+} 
 
 * { box-sizing: border-box; }
 body {
