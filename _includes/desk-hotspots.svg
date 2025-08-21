@@ -151,12 +151,12 @@
          data-target="models"
          data-feed="{{ '/data/models.json' | relative_url }}"
          data-effect="glow-edge"
-         data-glow-color="#7cc8ff"  
+         data-glow-color="#1773b5b1"  
          data-glow-width="5"        
          data-glow-blur="50"         
          data-glow-alpha="0.12"      
          data-glow-pulse="5"       
-         data-glow-twinkle="false"    
+         data-glow-twinkle="true"    
          style="opacity:0.01;fill:#000000" 
          sodipodi:nodetypes="cccccc" />
       <title

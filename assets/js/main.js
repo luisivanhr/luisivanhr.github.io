@@ -484,3 +484,35 @@
 })();
 
 })(); 
+
+(function(){
+  if (!/(\?|&)fx=1\b/.test(location.search)) return;
+  const sel = '#desk-hotspots .hotspot[data-effect*="glow-edge"]';
+  const el = document.querySelector(sel);
+  if (!el) return;
+
+  const panel = document.createElement('div');
+  panel.style.cssText='position:fixed;right:10px;top:10px;z-index:9999;background:#0b1118cc;color:#e6f0ff;padding:10px;border:1px solid #214;backdrop-filter:blur(4px);border-radius:8px;font:12px/1.3 system-ui';
+  panel.innerHTML = `
+    <div style="margin-bottom:6px">Glow Debug</div>
+    <label>Color <input id="gx" type="color" value="#7cc8ff"></label><br>
+    <label>Width <input id="gw" type="range" min="2" max="24" value="10"></label><br>
+    <label>Blur  <input id="gb" type="range" min="4" max="40" value="20"></label><br>
+    <label>Alpha <input id="ga" type="range" min="0" max="0.4" step="0.01" value="0.12"></label><br>
+    <label>Pulse <input id="gp" type="range" min="1" max="2" step="0.01" value="1.2"></label><br>
+    <label>Twinkle <input id="gt" type="checkbox" checked></label>
+  `;
+  document.body.appendChild(panel);
+
+  const apply = () => {
+    el.setAttribute('data-glow-color', document.getElementById('gx').value);
+    el.setAttribute('data-glow-width', document.getElementById('gw').value);
+    el.setAttribute('data-glow-blur',  document.getElementById('gb').value);
+    el.setAttribute('data-glow-alpha', document.getElementById('ga').value);
+    el.setAttribute('data-glow-pulse', document.getElementById('gp').value);
+    el.setAttribute('data-glow-twinkle', document.getElementById('gt').checked ? 'true' : 'false');
+    (typeof rebuildGlowPaths==='function') && rebuildGlowPaths();
+  };
+  panel.addEventListener('input', apply);
+  apply();
+})();
