@@ -37,8 +37,8 @@ a:hover { text-decoration: underline; }
 .board-math::after {
   content: "";
   position: absolute;
-  inset: 0;
-  background-image: url('{{ "/assets/images/desk/chalk_noise_256x256_v1.png" | relative_url }}');
+  inset: 0; 
+  background-image: url("/assets/images/desk/chalk_noise_256x256_v1.png");
   background-repeat: repeat;
   background-size: 256px 256px; /* or 512px 512px if you use the larger one */
   opacity: 0.10;                /* 0.06–0.18 looks good */
