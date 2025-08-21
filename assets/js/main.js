@@ -123,7 +123,7 @@
     gravity: -2,         // slow rise
     spread: 0.0,         // not used for fog spawn
     size: [30, 45],      // bigger, soft blobs
-    life: [30.0, 45.0],   // long-lived
+    life: [22.0, 35.0],   // long-lived
     rateIdle: 0,         // no emitter “rate”
     rateHover: 0,        // hover doesn’t change density (we keep it calm)
     speed: [1, 3]        // very slow initial motion
@@ -131,7 +131,7 @@
     glow:     { color:'#7bd4ff',  gravity:  8, spread:0.6, size:[1,2],  life:[0.7,1.1],  rateIdle:  5, rateHover: 30, speed:[30,70] },
     paper:    { color:'#c9d7e6',  gravity:  5, spread:0.7, size:[1,2],  life:[0.7,1.3],  rateIdle:  5, rateHover: 28, speed:[25,55] },
     confetti: { color:['#ff6b6b','#ffd166','#06d6a0','#4cc9f0'],
-                gravity: 25, spread:1.0, size:[1,3], life:[0.5,0.9], rateIdle: 5, rateHover: 35, speed:[60,120] }
+                gravity: 25, spread:1.0, size:[1,3], life:[0.5,0.9], rateIdle: 15, rateHover: 35, speed:[60,120] }
   };
 
   const hotspots = Array.from(document.querySelectorAll('#desk-hotspots .hotspot'));
