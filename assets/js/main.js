@@ -128,7 +128,7 @@
     rateHover: 0,        // hover doesn’t change density (we keep it calm)
     speed: [1, 3]        // very slow initial motion
   },
-    glow:     { color:'#7bd4ff',  gravity:  8, spread:0.6, size:[1,2],  life:[0.7,1.1],  rateIdle:  10, rateHover: 30, speed:[30,70] },
+    glow:     { color:'#7bd4ff',  gravity:  5, spread:0.7, size:[2,3],  life:[0.7,1.1],  rateIdle:  15, rateHover: 30, speed:[30,70] },
     paper:    { color:'#eec71cff',  gravity:  5, spread:0.7, size:[1,2],  life:[0.7,1.3],  rateIdle:  10, rateHover: 30, speed:[25,55] },
     confetti: { color:['#ff6b6b','#ffd166','#06d6a0','#4cc9f0'],
                 gravity: 25, spread:1.0, size:[1,3], life:[0.5,0.9], rateIdle: 15, rateHover: 35, speed:[60,120] }

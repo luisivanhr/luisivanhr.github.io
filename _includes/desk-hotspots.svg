@@ -214,7 +214,13 @@
          class="hotspot"
          d="m 768.93143,861.16937 145.18548,31.88409 3.05361,67.52282 -148.087,0.29278 z"
          data-target="cv"
-         data-effect="paper"
+         data-effect="glow-edge" 
+         data-glow-color="#e19741" 
+         data-glow-width="3" 
+         data-glow-blur="16" 
+         data-glow-alpha="0.25" 
+         data-glow-pulse="2" 
+         data-glow-twinkle="false"
          sodipodi:nodetypes="ccccc"
          style="opacity:0.01;fill:#000000" />
       <title
