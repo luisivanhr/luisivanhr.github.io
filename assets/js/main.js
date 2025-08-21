@@ -403,7 +403,7 @@
         const p = cfg.path;
 
         // Base pulse (subtle “breathing”)
-        const pulse = cfg.alpha * (cfg.pulse === 1 ? 1 : (0.5 + 0.5 * Math.sin(t * 1.3)) * (cfg.pulse - 1) + 1 - (cfg.pulse - 1)/2);
+        const pulse = cfg.alpha * (cfg.pulse === 1 ? 1 : (0.5 + 0.5 * Math.sin(t * 2)) * (cfg.pulse - 1) + 1 - (cfg.pulse - 1)/2);
 
         // Outer halo
         ctx.lineWidth = cfg.width;
