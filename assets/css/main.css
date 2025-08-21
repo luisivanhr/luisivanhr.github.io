@@ -22,7 +22,7 @@ a:hover { text-decoration: underline; }
 /* Fill width; height derived from aspect-ratio */
 .stage{
   position: relative;
-  width: 100vw;               /* <- fills horizontally */
+  width: 90vw;               /* <- fills horizontally */
   aspect-ratio: var(--scene-ar);
   /* no max-height clamp, so top/bottom bars appear when needed */
 }
