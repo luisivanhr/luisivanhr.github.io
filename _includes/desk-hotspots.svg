@@ -96,7 +96,6 @@
        style="opacity:0.01;fill:#000000"
        xlink:href="#">
       <path
-         class="hotspot"
          style="opacity:0.64;fill:#000000"
          d="m 834.85007,258.85176 1.60285,38.02175 12.74072,0.0153 -0.87746,-38.80738 z"
          data-target="easter"
