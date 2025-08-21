@@ -32,7 +32,7 @@ a:hover { text-decoration: underline; }
   font-size: 22px;
   line-height: 1.4;
   pointer-events: none; /* so it doesn’t block hotspots */
-  transform: rotate(-5deg) 
+  transform: rotate(-3deg) 
 }
 
 
