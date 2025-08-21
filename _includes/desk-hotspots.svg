@@ -162,7 +162,7 @@
          data-glow-color="#186fa5" 
          data-glow-width="3" 
          data-glow-blur="40" 
-         data-glow-alpha="0.12" 
+         data-glow-alpha="0.22" 
          data-glow-pulse="2" 
          data-glow-twinkle="false"   
          style="opacity:0.01;fill:#000000" 
