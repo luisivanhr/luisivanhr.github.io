@@ -11,22 +11,11 @@ a:hover { text-decoration: underline; }
 #desk-wrap { position: fixed; inset: 0; max-width: none; }
 
 /* The SVG will size itself; no CSS background here */
-.desk-bg {
-  position: absolute;
-  inset: 0;
-  overflow: hidden;
-  background: #111;              /* optional solid color */
-  border-bottom: 1px solid #1f2a33;
-  z-index: 0;
-}
+.desk-bg { position: absolute; inset: 0; overflow: hidden;border-bottom: 1px solid #1f2a33;}
 
 /* Let the SVG size itself to the container */
-.desk-bg svg {
-  width: 100%;
-  height: 100%;
-  display: block;
-  position: static;              /* not absolute */
-}
+/* All SVGs inside the scene fill it */
+.desk-bg svg { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
 
 .patch { position: absolute; pointer-events: none; opacity: 1; }
 /* Adjust these transforms to position your patches roughly */
@@ -61,17 +50,9 @@ a:hover { text-decoration: underline; }
 .classic-nav { display:grid; grid-template-columns: repeat(auto-fit, minmax(160px,1fr)); gap:10px; }
 .classic-nav a { padding:10px 12px; background:#0f131a; border:1px solid #1f2a33; border-radius: 8px; } 
 
-/* FX canvas on top of patches */
-#fx-layer {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;    /* lets clicks pass through */
-  z-index: 3;              /* above patches */
-}
 
-/* Hotspots overlay above the canvas (so outlines/hover styling show) */
-#desk-hotspots {
-  position: absolute;      /* if not already via .desk-bg svg rule */
-  inset: 0;
-  z-index: 5;
-}
+/* Explicit stacking */
+#desk-bg-art { z-index: 1; }      /* give the <svg> in desk-bg.svg id="desk-bg-art" */
+#fx-layer   { z-index: 3; pointer-events: none; position: absolute; inset: 0; }
+#desk-hotspots { z-index: 5; position: absolute; inset: 0; }  /* outlines/hover on top of FX */
+.board-math { z-index: 6; position: absolute; /* existing left/top/size/rotate */ }
