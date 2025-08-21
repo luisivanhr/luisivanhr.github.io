@@ -7,20 +7,31 @@ a:hover { text-decoration: underline; }
 .skip { position: absolute; left: -9999px; top: -9999px; }
 .skip:focus { left: 16px; top: 16px; background:#000; padding:8px 12px; border-radius:6px; }
 
-#desk-wrap { position: relative; max-width: 1600px; margin: 0 auto; }
+/* Make the scene fill the viewport */
+#desk-wrap { position: fixed; inset: 0; max-width: none; }
+
+/* The SVG will size itself; no CSS background here */
 .desk-bg {
-  position: relative;
-  aspect-ratio: 16/9;
-  background: url('../images/desk/background.png') center/cover no-repeat, #111;
+  position: absolute;
+  inset: 0;
   overflow: hidden;
+  background: #111;              /* optional solid color */
   border-bottom: 1px solid #1f2a33;
 }
-.desk-bg svg { position:absolute; inset:0; }
+
+/* Let the SVG size itself to the container */
+.desk-bg svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+  position: static;              /* not absolute */
+}
+
 .patch { position: absolute; pointer-events: none; opacity: 1; }
 /* Adjust these transforms to position your patches roughly */
-.patch.monitor1 {height: 183px; width: 317px; transform: translate(475px, 441px) rotate(-0deg);}
+/*.patch.monitor1 {height: 183px; width: 317px; transform: translate(475px, 441px) rotate(-0deg);}
 .patch.monitor2 {height: 170px; width: 355px; transform: translate(810px, 442px) rotate(-0deg);}
-.patch.board { aspect-ratio: 16 / 9; width: 460px; transform: translate(258px, 152px) rotate(0deg);}
+.patch.board { aspect-ratio: 16 / 9; width: 460px; transform: translate(258px, 152px) rotate(0deg);}*/
 
 .board-math {
   position: absolute;
