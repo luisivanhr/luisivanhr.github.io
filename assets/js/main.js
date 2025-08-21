@@ -485,40 +485,79 @@
 
 })(); 
 
+// === FX Debug Panel (rewritten for dynamic target) =======================
 (function(){
-  if (!/(\?|&)fx=1\b/.test(location.search)) return;
-  let el = null;
-  window.fxTarget = (q) => {
-    el = fxSel(q); 
-    return el;
-  };
-
-  if (!el) return;
-
   const panel = document.createElement('div');
-  panel.style.cssText='position:fixed;right:10px;top:10px;z-index:9999;background:#0b1118cc;color:#e6f0ff;padding:10px;border:1px solid #214;backdrop-filter:blur(4px);border-radius:8px;font:12px/1.3 system-ui';
+  panel.style.cssText = `
+    position:fixed; bottom:10px; right:10px; background:#111; color:#eee;
+    font:12px/1.4 sans-serif; padding:8px; border-radius:8px; z-index:99999;
+    max-width:220px;
+  `;
   panel.innerHTML = `
-    <div style="margin-bottom:6px">Glow Debug</div>
-    <label>Color <input id="gx" type="color" value="#7cc8ff"></label><br>
-    <label>Width <input id="gw" type="range" min="2" max="24" value="10"></label><br>
-    <label>Blur  <input id="gb" type="range" min="4" max="40" value="20"></label><br>
-    <label>Alpha <input id="ga" type="range" min="0" max="0.4" step="0.01" value="0.12"></label><br>
-    <label>Pulse <input id="gp" type="range" min="1" max="2" step="0.01" value="1.2"></label><br>
-    <label>Twinkle <input id="gt" type="checkbox" checked></label>
+    <div style="margin-bottom:6px"><strong>FX Debug Panel</strong></div>
+    <label>Effect <input id="fx-effect" style="width:120px"></label><br>
+    <label>Color <input id="fx-color" type="color"></label><br>
+    <label>RateIdle <input id="fx-rateIdle" type="number" style="width:60px"></label><br>
+    <label>RateHover <input id="fx-rateHover" type="number" style="width:60px"></label><br>
+    <label>GlowPulse <input id="fx-glowPulse" type="range" min="0" max="5" step="0.1"></label>
+    <div style="margin-top:6px">
+      <button id="fx-dump">Dump attrs</button>
+    </div>
+    <div id="fx-status" style="margin-top:6px;color:#9f9"></div>
   `;
   document.body.appendChild(panel);
 
-  const apply = () => {
-    el.setAttribute('data-glow-color', document.getElementById('gx').value);
-    el.setAttribute('data-glow-width', document.getElementById('gw').value);
-    el.setAttribute('data-glow-blur',  document.getElementById('gb').value);
-    el.setAttribute('data-glow-alpha', document.getElementById('ga').value);
-    el.setAttribute('data-glow-pulse', document.getElementById('gp').value);
-    el.setAttribute('data-glow-twinkle', document.getElementById('gt').checked ? 'true' : 'false');
-    (typeof rebuildGlowPaths==='function') && rebuildGlowPaths();
+  let el = null; // current SVG element
+
+  // Expose selector helper + switch target function
+  window.fxSel = (q) => document.querySelector(q);
+  window.fxTarget = (q) => {
+    el = fxSel(q);
+    if(el){
+      document.getElementById('fx-status').textContent = 'Target: '+q;
+      syncInputs();
+    } else {
+      document.getElementById('fx-status').textContent = 'Not found: '+q;
+    }
+    return el;
   };
-  panel.addEventListener('input', apply);
-  apply();
+
+  // Load attributes into inputs
+  function syncInputs(){
+    if(!el) return;
+    fxEffect.value = el.getAttribute('data-effect') || '';
+    fxColor.value = el.getAttribute('data-color') || '#ffffff';
+    fxRateIdle.value = el.getAttribute('data-rateIdle') || 5;
+    fxRateHover.value = el.getAttribute('data-rateHover') || 30;
+    fxGlowPulse.value = el.getAttribute('data-glowPulse') || 1;
+  }
+
+  // Hook up changes back to element
+  function bindInput(id, attr){
+    const input = document.getElementById(id);
+    input.addEventListener('input', ()=>{
+      if(el) el.setAttribute(attr, input.value);
+    });
+  }
+
+  bindInput('fx-effect','data-effect');
+  bindInput('fx-color','data-color');
+  bindInput('fx-rateIdle','data-rateIdle');
+  bindInput('fx-rateHover','data-rateHover');
+  bindInput('fx-glowPulse','data-glowPulse');
+
+  // Dump button
+  document.getElementById('fx-dump').onclick = ()=>{
+    if(!el) return;
+    console.log('Current attrs:', {
+      effect: el.getAttribute('data-effect'),
+      color: el.getAttribute('data-color'),
+      rateIdle: el.getAttribute('data-rateIdle'),
+      rateHover: el.getAttribute('data-rateHover'),
+      glowPulse: el.getAttribute('data-glowPulse')
+    });
+  };
+
 })();
 
 // Select by id or CSS
