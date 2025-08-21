@@ -12,6 +12,10 @@
 
     <!-- Preload background -->
     <link rel="preload" href="{{ '/assets/images/desk/background.png' | relative_url }}" as="image">
+    <link rel="preload" href="{{ '/assets/images/desk/board_patch.png' | relative_url }}" as="image">
+    <link rel="preload" href="{{ '/assets/images/desk/monitor1_patch.png' | relative_url }}" as="image">
+    <link rel="preload" href="{{ '/assets/images/desk/monitor2_patch.png' | relative_url }}" as="image">
+
 
     <!-- KaTeX core JS -->
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js"></script>
@@ -28,19 +32,15 @@
     <!-- Run KaTeX AFTER page + scripts are loaded -->
     <script>
       document.addEventListener("DOMContentLoaded", function() {
-        if (typeof renderMathInElement === "function") {
-          // Scope to the whole page for now; we can narrow to the board below
-          renderMathInElement(document.body, {
+        const board = document.getElementById('board-math');
+        if (board && typeof renderMathInElement === "function") {
+          renderMathInElement(board, {
             delimiters: [
               {left: "$$", right: "$$", display: true},
-              {left: "$",  right: "$",  display: false},
-              {left: "\\[", right: "\\]", display: true},
-              {left: "\\(", right: "\\)", display: false}
+              {left: "$",  right: "$",  display: false}
             ],
             throwOnError: false
           });
-        } else {
-          console.warn("KaTeX auto-render not loaded yet.");
         }
       });
     </script> 

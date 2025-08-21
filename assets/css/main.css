@@ -22,6 +22,19 @@ a:hover { text-decoration: underline; }
 .patch.monitor2 {height: 170px; width: 355px; transform: translate(810px, 442px) rotate(-0deg);}
 .patch.board { aspect-ratio: 16 / 9; width: 460px; transform: translate(258px, 152px) rotate(0deg);}
 
+.board-math {
+  position: absolute;
+  left: 258px;   /* adjust to match your board */
+  top: 152px;
+  width: 460px;
+  aspect-ratio: 16 / 9;
+  color: #fff;
+  font-size: 22px;
+  line-height: 1.4;
+  pointer-events: none; /* so it doesn’t block hotspots */
+}
+
+
 #banner { height: 84px; display:flex; align-items:center; overflow:hidden; background:#0f131a; border-top:1px solid #1f2a33; }
 #banner .track { display:flex; gap:24px; padding: 0 16px; animation: scroll 18s linear infinite; }
 #banner .slide { white-space: nowrap; opacity:.85; }
