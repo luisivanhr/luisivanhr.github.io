@@ -1,4 +1,63 @@
 
+// === FX canvas sizing helpers ===
+function resizeFxCanvas() {
+  const canvas = document.getElementById('fx-layer');
+  if (!canvas) return;
+  const rect = canvas.getBoundingClientRect();
+  const dpr = window.devicePixelRatio || 1;
+  const w = Math.max(1, Math.round(rect.width  * dpr));
+  const h = Math.max(1, Math.round(rect.height * dpr));
+  if (canvas.width !== w || canvas.height !== h) {
+    canvas.width = w;
+    canvas.height = h;
+    const ctx = canvas.getContext('2d');
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0); // draw in CSS pixels
+  }
+}
+
+// optional: keep in sync when DPR changes (browser zoom)
+function setupDPRListener() {
+  const mq = matchMedia(`(resolution: ${window.devicePixelRatio}dppx)`);
+  const onChange = () => {
+    resizeFxCanvas();
+    mq.removeEventListener('change', onChange);
+    setupDPRListener(); // re-arm for the new DPR
+  };
+  mq.addEventListener('change', onChange);
+}
+
+
+// --- Disable browser zoom (Ctrl + wheel, Ctrl +/-/0) ---
+(function disableBrowserZoom(){
+  // Block Ctrl + wheel zoom (desktop browsers)
+  window.addEventListener('wheel', function(e){
+    if (e.ctrlKey) {
+      e.preventDefault();
+    }
+  }, { passive: false });
+
+  // Block common zoom hotkeys
+  window.addEventListener('keydown', function(e){
+    if (!e.ctrlKey) return;
+    // Use code to catch both main row and numpad keys
+    const c = e.code;
+    if (c === 'Equal'     || // Ctrl +  (== + with Shift)
+        c === 'Minus'     || // Ctrl -
+        c === 'Digit0'    || // Ctrl 0
+        c === 'NumpadAdd' ||
+        c === 'NumpadSubtract' ||
+        c === 'Numpad0') {
+      e.preventDefault();
+    }
+  });
+
+  // (Optional) Safari pinch-zoom gesture events
+  ['gesturestart','gesturechange','gestureend'].forEach(type=>{
+    window.addEventListener(type, e => e.preventDefault());
+  });
+})();
+
+
 /* Minimal interactivity for hotspots + banner + tooltips + patch guidance */
 (function(){
   const tooltip = document.getElementById('tooltip');
@@ -127,7 +186,7 @@
   cvs.id = 'fx-layer';
   const ctx = cvs.getContext('2d');
   wrap.appendChild(cvs);
-
+  resizeFxCanvas();
   // Resize to match desk box
   function sizeCanvas(){
     const r = wrap.getBoundingClientRect();
@@ -147,14 +206,16 @@
     return { x: (r.left + r.width/2) - host.left, y: (r.top + r.height/2) - host.top, w: r.width, h: r.height };
   }
 
-
+  window.addEventListener('load', resizeFxCanvas);
+  window.addEventListener('resize', resizeFxCanvas);
+  setupDPRListener(); // optional but recommended
 
   // Emitter presets
   const presets = {
   chalk: {
     renderer: 'fog',     // custom fog renderer
     color: '#ffffff',
-    target: 20,         // maintain ~220 puffs (no bursty spawn)
+    target:50,         // maintain ~220 puffs (no bursty spawn)
     gravity: -2,         // slow rise
     spread: 0.0,         // not used for fog spawn
     size: [30, 45],      // bigger, soft blobs
@@ -163,8 +224,8 @@
     rateHover: 0,        // hover doesn’t change density (we keep it calm)
     speed: [1, 3]        // very slow initial motion
   },
-    glow:     { color:'#7bd4ff',  gravity:  5, spread:0.7, size:[1.5,2.5],  life:[0.7,1.5],  rateIdle:  15, rateHover: 30, speed:[30,70] },
-    paper:    { color:'#eec71cff',  gravity:  5, spread:0.7, size:[1,2],  life:[0.7,1.3],  rateIdle:  15, rateHover: 30, speed:[25,55] },
+    glow:     { color:'#7bd4ff',  gravity:  5, spread:0.7, size:[1.5,2.5],  life:[0.7,1.5],  rateIdle:  15, rateHover: 35, speed:[30,70] },
+    paper:    { color:'#eec71cff',  gravity:  5, spread:0.7, size:[1,2],  life:[0.7,1.3],  rateIdle:  15, rateHover: 35, speed:[25,55] },
     confetti: { color:['#ff6b6b','#ffd166','#06d6a0','#4cc9f0'],
                 gravity: 25, spread:1.0, size:[1,3], life:[0.5,0.9], rateIdle: 10, rateHover: 35, speed:[60,120] }
   };

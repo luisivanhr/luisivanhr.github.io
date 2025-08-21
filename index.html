@@ -3,25 +3,23 @@ title: Home
 layout: default
 ---
 <div id="desk-wrap">
-  <div class="desk-bg" role="img" aria-label="Interactive desk scene">
-    <!-- SVG hotspot overlay -->
-    {% include desk-bg.svg %}         <!-- background only -->
-    {% include desk-hotspots.svg %}   <!-- hotspots only -->
-    <!-- Blackboard math overlay -->
-    <div id="board-math" class="board-math"  data-src="{{ '/data/equations.json' | relative_url }}">
+  <div class="stage">
+    <div class="desk-bg" role="img" aria-label="Interactive desk scene">
+      {% include desk-bg.svg %}         <!-- background-only SVG -->
+      {% include desk-hotspots.svg %}   <!-- hotspots-only SVG -->
+      <div id="board-math" class="board-math" data-src="{{ '/data/equations.json' | relative_url }}"></div>
     </div>
-
   </div>
+</div>
 
-  <div id="banner">
-    <div class="track">
+<div id="banner">
+  <div class="track">
     <div class="slide" data-src="{{ '/data/blog.json' | relative_url }}">Latest Blog</div>
     <div class="slide" data-src="{{ '/data/models.json' | relative_url }}">Latest Models</div>
     <div class="slide" data-src="{{ '/data/courses.json' | relative_url }}">Latest Courses</div>
     <div class="slide" data-src="{{ '/data/hobbies.json' | relative_url }}">Latest Hobbies</div>
     <div class="slide" data-src="{{ '/data/achievements.json' | relative_url }}">Latest Achievements</div>
     <div class="slide" data-src="{{ '/data/news.json' | relative_url }}">Latest News</div>
-    </div>
   </div>
 </div>
 

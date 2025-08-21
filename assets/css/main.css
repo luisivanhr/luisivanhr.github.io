@@ -1,58 +1,82 @@
+:root{
+  --scene-ar: 1.777777778;   /* 16/9 as a single number */
+  --bars-color: #000000;
+}
 
-:root { --bg: #0b0f14; --ink: #e8eef6; --muted: #92a1b0; }
 * { box-sizing: border-box; }
-body { margin: 0; color: var(--ink); background: #0a0c10; font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, 'Helvetica Neue', Arial }
-a { color: #68d5ff; text-decoration: none; }
+body { margin: 0; color: var(--ink); background: #5783ad; font-size: 22px; font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, 'Helvetica Neue', Arial; }
+a { color: #1a388b; text-decoration: none; }
 a:hover { text-decoration: underline; }
 .skip { position: absolute; left: -9999px; top: -9999px; }
 .skip:focus { left: 16px; top: 16px; background:#000; padding:8px 12px; border-radius:6px; }
 
-/* Make the scene fill the viewport */
-#desk-wrap { position: fixed; inset: 0; max-width: none; }
 
-/* The SVG will size itself; no CSS background here */
-.desk-bg { position: absolute; inset: 0; overflow: hidden;border-bottom: 1px solid #1f2a33;}
-
-/* Let the SVG size itself to the container */
-/* All SVGs inside the scene fill it */
-.desk-bg svg { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
-
-.patch { position: absolute; pointer-events: none; opacity: 1; }
-/* Adjust these transforms to position your patches roughly */
-/*.patch.monitor1 {height: 183px; width: 317px; transform: translate(475px, 441px) rotate(-0deg);}
-.patch.monitor2 {height: 170px; width: 355px; transform: translate(810px, 442px) rotate(-0deg);}
-.patch.board { aspect-ratio: 16 / 9; width: 460px; transform: translate(258px, 152px) rotate(0deg);}*/
-
-.board-math {
-  position: absolute;
-  left: 240px;   /* adjust to match your board */
-  top: 164px;
-  width: 460px;
-  aspect-ratio: 16 / 9;
-  color: #fff;
-  font-size: 22px;
-  line-height: 1.4;
-  pointer-events: none; /* so it doesn’t block hotspots */
-  transform: rotate(4deg) 
+/* Letterbox container */
+#desk-wrap{
+  position: fixed; inset: 0;
+  background: var(--bars-color);
+  display:flex; align-items:center; justify-content:center;
+  overflow:hidden;
 }
 
+/* Fill width; height derived from aspect-ratio */
+.stage{
+  position: relative;
+  width: 100vw;               /* <- fills horizontally */
+  aspect-ratio: var(--scene-ar);
+  /* no max-height clamp, so top/bottom bars appear when needed */
+}
 
+/* fill the stage */
+.desk-bg{ position:absolute; inset:0; overflow:hidden; }
+.desk-bg svg, .desk-bg canvas, .board-math{
+  position:absolute; inset:0; width:100%; height:100%; display:block;
+}
+
+/* stacking (unchanged) */
+#desk-bg-art{ z-index:1; }
+#fx-layer{ z-index:8; pointer-events:none; }
+#desk-hotspots{ z-index:5; }
+.board-math{ z-index:6; }
+
+
+/* Blackboard math overlay (keeps your current manual placement) */
+:root{
+  /* From your old px values: left=240, top=164, width=460 on a 1600×900 viewBox */
+  --board-left: 12%;        /* 240 / 1600 * 100 */
+  --board-top: 18.222%;     /* 164 / 900 * 100  */
+  --board-width: 28.75%;    /* 460 / 1600 * 100 */
+  --board-rotate: 4deg;
+}
+
+.board-math{
+  position: absolute;
+  left: var(--board-left);
+  top: var(--board-top);
+  width: var(--board-width);
+  aspect-ratio: 16 / 9;     /* keeps the board rectangular */
+  height: auto;
+  transform: rotate(var(--board-rotate));
+  transform-origin: top left;
+  pointer-events: none;
+  color: #fff;
+  font-size: clamp(14px, 1.4vw, 22px);;          /* stays readable; scale with clamp(...) if you like */
+  line-height: 1.4;
+  z-index: 6;
+}
+
+/* Banner / marquee */
 #banner { height: 84px; display:flex; align-items:center; overflow:hidden; background:#0f131a; border-top:1px solid #1f2a33; }
 #banner .track { display:flex; gap:24px; padding: 0 16px; animation: scroll 18s linear infinite; }
 #banner .slide { white-space: nowrap; opacity:.85; }
 @keyframes scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 
+/* Tooltip */
 #tooltip { position: fixed; z-index: 50; background: #061019ee; border: 1px solid #153244; border-radius: 10px; padding: 10px 12px; width: 320px; box-shadow: 0 10px 30px #0008; }
 #tooltip .thumb { width: 100%; height: 140px; object-fit: cover; border-radius: 8px; display:block; }
 #tooltip .title { font-weight: 700; margin-top: 8px; }
 #tooltip .meta { color: var(--muted); font-size: 0.9rem; }
 
+/* Classic nav */
 .classic-nav { display:grid; grid-template-columns: repeat(auto-fit, minmax(160px,1fr)); gap:10px; }
-.classic-nav a { padding:10px 12px; background:#0f131a; border:1px solid #1f2a33; border-radius: 8px; } 
-
-
-/* Explicit stacking */
-#desk-bg-art { z-index: 1; }      /* give the <svg> in desk-bg.svg id="desk-bg-art" */
-#fx-layer   { z-index: 3; pointer-events: none; position: absolute; inset: 0; }
-#desk-hotspots { z-index: 5; position: absolute; inset: 0; }  /* outlines/hover on top of FX */
-.board-math { z-index: 6; position: absolute; /* existing left/top/size/rotate */ }
+.classic-nav a { padding:10px 12px; background:#0f131a; border:1px solid #1f2a33; border-radius: 8px; }
