@@ -25,7 +25,7 @@ a:hover { text-decoration: underline; }
 .board-math {
   position: absolute;
   left: 240px;   /* adjust to match your board */
-  top: 162px;
+  top: 164px;
   width: 460px;
   aspect-ratio: 16 / 9;
   color: #fff;
