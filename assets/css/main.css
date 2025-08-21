@@ -17,6 +17,7 @@ a:hover { text-decoration: underline; }
   overflow: hidden;
   background: #111;              /* optional solid color */
   border-bottom: 1px solid #1f2a33;
+  z-index: 0;
 }
 
 /* Let the SVG size itself to the container */
