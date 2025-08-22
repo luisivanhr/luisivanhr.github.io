@@ -24,7 +24,7 @@ function relayoutAndResizeFx() {
 
 // Call after you append the canvas
 // scene.appendChild(fx);
-relayoutAndResizeFx();
+
 
 // Keep in sync with viewport
 window.addEventListener('load', relayoutAndResizeFx);
@@ -267,6 +267,7 @@ function setupDPRListener() {
   cvs.id = 'fx-layer';
   const ctx = cvs.getContext('2d');
   wrap.appendChild(cvs);
+  relayoutAndResizeFx();
   resizeFxCanvas();
   // Resize to match desk box
   function sizeCanvas(){
