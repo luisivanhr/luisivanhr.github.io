@@ -1,5 +1,4 @@
 
-
 // === FX canvas sizing helpers ===
 function resizeFxCanvas() {
   const canvas = document.getElementById('fx-layer');
@@ -187,7 +186,7 @@ function setupDPRListener() {
   cvs.id = 'fx-layer';
   const ctx = cvs.getContext('2d');
   wrap.appendChild(cvs);
-  resizeFxCanvas();
+ 
   // Resize to match desk box
   function sizeCanvas(){
     const r = wrap.getBoundingClientRect();
@@ -225,7 +224,7 @@ function setupDPRListener() {
     rateHover: 0,        // hover doesn’t change density (we keep it calm)
     speed: [1, 3]        // very slow initial motion
   },
-    glow:     { color:'#7bd4ff',  gravity:  5, spread:0.7, size:[1.5,2.5],  life:[0.7,1.5],  rateIdle:  15, rateHover: 35, speed:[30,70] },
+    glow:     { color:'#7bd4ff',  gravity:  5, spread:0.7, size:[1.5,2.5],  life:[0.7,1.5],  rateIdle:  15, rateHover: 3, speed:[30,70] },
     paper:    { color:'#eec71cff',  gravity:  5, spread:0.7, size:[1,2],  life:[0.7,1.3],  rateIdle:  15, rateHover: 35, speed:[25,55] },
     confetti: { color:['#ff6b6b','#ffd166','#06d6a0','#4cc9f0'],
                 gravity: 25, spread:1.0, size:[1,3], life:[0.5,0.9], rateIdle: 10, rateHover: 35, speed:[60,120] }
