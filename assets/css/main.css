@@ -59,7 +59,7 @@ a:hover { text-decoration: underline; }
   transform-origin: top left;
   pointer-events: none;
   color: #fff;
-  font-size: clamp(14px, 1.4vw, 22px);;          /* stays readable; scale with clamp(...) if you like */
+            /* stays readable; scale with clamp(...) if you like */
   line-height: 1.4;
   z-index: 10;
 }
