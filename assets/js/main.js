@@ -1,3 +1,24 @@
+// === Board text scaler (JS fallback) ===
+const BASE_FONT_PX = 22;  // font at 1600×900 design size
+function getStageScale(){
+  const st = document.querySelector('.stage');
+  if (!st) return 1;
+  const r = st.getBoundingClientRect();
+  return Math.min(r.width / DESIGN_W, r.height / DESIGN_H);
+}
+function resizeBoardText(){
+  const el = document.querySelector('.board-math');
+  if (!el) return;
+  const s = getStageScale();
+  el.style.fontSize = Math.max(12, Math.round(BASE_FONT_PX * s)) + 'px';
+  // If MathJax is used and you need it to re-typeset line breaks on resize:
+  if (window.MathJax && typeof MathJax.typesetPromise === 'function') {
+    try { MathJax.typesetClear?.([el]); } catch(_) {}
+    MathJax.typesetPromise([el]).catch(()=>{});
+  }
+}
+
+
 // ===== Optional: hard block page zoom (Ctrl/Cmd + wheel, Ctrl/Cmd +/−/0) =====
 (function hardBlockPageZoom(){
   const blockWheel = (e) => {
@@ -221,6 +242,7 @@ window.addEventListener('load', hydrateBoardMath);
     resizeFxCanvas();
     rebuildGlowPaths();
     rebuildParticles(true);
+    resizeBoardText();   // <— add this
   }
   window.addEventListener('load', fullResize);
   window.addEventListener('resize', fullResize);
