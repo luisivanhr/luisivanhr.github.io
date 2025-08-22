@@ -1,3 +1,49 @@
+// ===== FX canvas DPI-safe sizing =====
+let LAST_DPR = window.devicePixelRatio || 1;
+
+function resizeFxCanvas() {
+  const canvas = document.getElementById('fx-layer');
+  if (!canvas) return;
+  const rect = canvas.getBoundingClientRect();
+  const dpr = window.devicePixelRatio || 1;
+  const w = Math.max(1, Math.round(rect.width  * dpr));
+  const h = Math.max(1, Math.round(rect.height * dpr));
+  if (canvas.width !== w || canvas.height !== h) {
+    canvas.width  = w;
+    canvas.height = h;
+    const ctx = canvas.getContext('2d');
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0); // draw in CSS pixels
+  }
+}
+
+// Recompute stage, then re-rasterize canvas
+function relayoutAndResizeFx() {
+  layoutStage();
+  resizeFxCanvas();
+}
+
+// Call after you append the canvas
+// scene.appendChild(fx);
+relayoutAndResizeFx();
+
+// Keep in sync with viewport
+window.addEventListener('load', relayoutAndResizeFx);
+window.addEventListener('resize', relayoutAndResizeFx);
+if (window.visualViewport) {
+  visualViewport.addEventListener('resize', relayoutAndResizeFx);
+}
+
+// React to DPR changes (browser zoom, OS scale)
+function watchDPR() {
+  const dpr = window.devicePixelRatio || 1;
+  if (dpr !== LAST_DPR) {
+    LAST_DPR = dpr;
+    relayoutAndResizeFx();
+  }
+  requestAnimationFrame(watchDPR);
+}
+watchDPR(); // lightweight rAF watcher is the most reliable cross-browser
+
 // ===== Stage layout (robust across environments) =====
 const SCENE_AR = 1600 / 900;  // match your SVG viewBox (W/H)
 
