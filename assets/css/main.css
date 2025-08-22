@@ -26,41 +26,6 @@ a:hover { text-decoration: underline; }
   aspect-ratio: var(--scene-ar);
 }
 
-
-
-/* make the stage a size container so font sizes can scale */
-.stage { container-type: size; }
-
-/* chalk styling for both KaTeX (HTML) and MathJax v3 (CHTML/SVG) */
-.board-math .katex,
-.board-math .mjx-container {
-  --chalk: #f7fbff;
-  color: var(--chalk);
-  text-shadow: 0 0 0.6px rgba(255,255,255,.6), 0 0 1.2px rgba(255,255,255,.25);
-}
-
-/* If using MathJax SVG output, you can apply the filter to the SVG */
-.board-math .mjx-svg { filter: url(#chalky); }
-
-/* If using KaTeX or CHTML, add a subtle noise overlay */
-.board-math {
-  position: relative;
-}
-.board-math::after {
-  content: "";
-  position: absolute; inset: 0;
-  pointer-events: none;
-  opacity: .25;
-  mix-blend-mode: lighten;
-  background-image:
-    radial-gradient(1px 1px at 10% 20%, rgba(255,255,255,.25) 0, transparent 60%),
-    radial-gradient(1px 1px at 70% 80%, rgba(255,255,255,.2) 0, transparent 60%),
-    radial-gradient(1px 1px at 35% 60%, rgba(255,255,255,.2) 0, transparent 60%);
-  background-size: 120px 120px, 160px 160px, 140px 140px;
-}
-
-
-
 /* fill the stage */
 .desk-bg{ position:absolute; inset:0; overflow:hidden; }
 .desk-bg svg, .desk-bg canvas, .board-math{
