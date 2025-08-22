@@ -61,7 +61,7 @@ a:hover { text-decoration: underline; }
   color: #fff;
   font-size: clamp(14px, 1.4vw, 22px);;          /* stays readable; scale with clamp(...) if you like */
   line-height: 1.4;
-  z-index: 6;
+  z-index: 10;
 }
 
 /* Banner / marquee */
