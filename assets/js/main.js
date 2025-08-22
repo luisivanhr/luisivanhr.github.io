@@ -341,7 +341,7 @@ function setupDPRListener(){
       }
     });
   }
-
+window.rebuildGlowPaths = rebuildGlowPaths;
   rebuildGlowPaths();
   window.addEventListener('resize', rebuildGlowPaths);
 
