@@ -1,83 +1,3 @@
-// ===== FX canvas DPI-safe sizing =====
-let LAST_DPR = window.devicePixelRatio || 1;
-
-function resizeFxCanvas() {
-  const canvas = document.getElementById('fx-layer');
-  if (!canvas) return;
-  const rect = canvas.getBoundingClientRect();
-  const dpr = window.devicePixelRatio || 1;
-  const w = Math.max(1, Math.round(rect.width  * dpr));
-  const h = Math.max(1, Math.round(rect.height * dpr));
-  if (canvas.width !== w || canvas.height !== h) {
-    canvas.width  = w;
-    canvas.height = h;
-    const ctx = canvas.getContext('2d');
-    ctx.setTransform(dpr, 0, 0, dpr, 0, 0); // draw in CSS pixels
-  }
-}
-
-// Recompute stage, then re-rasterize canvas
-function relayoutAndResizeFx() {
-  layoutStage();
-  resizeFxCanvas();
-}
-
-// Call after you append the canvas
-// scene.appendChild(fx);
-
-
-// Keep in sync with viewport
-window.addEventListener('load', relayoutAndResizeFx);
-window.addEventListener('resize', relayoutAndResizeFx);
-if (window.visualViewport) {
-  visualViewport.addEventListener('resize', relayoutAndResizeFx);
-}
-
-// React to DPR changes (browser zoom, OS scale)
-function watchDPR() {
-  const dpr = window.devicePixelRatio || 1;
-  if (dpr !== LAST_DPR) {
-    LAST_DPR = dpr;
-    relayoutAndResizeFx();
-  }
-  requestAnimationFrame(watchDPR);
-}
-watchDPR(); // lightweight rAF watcher is the most reliable cross-browser
-
-// ===== Stage layout (robust across environments) =====
-const SCENE_AR = 1600 / 900;  // match your SVG viewBox (W/H)
-
-// Choose ONE sizing policy:
-// 1) Fill width (always 100% wide, letterboxed vertically)
-function computeStageSizeFillWidth(vw, vh) {
-  const width = vw;
-  const height = Math.round(width / SCENE_AR);
-  return { width, height };
-}
-
-// 2) Contain within viewport (no overflow; best general default)
- function computeStageSizeContain(vw, vh) {
-   const widthByWidth  = vw;
-   const heightByWidth = Math.round(widthByWidth / SCENE_AR);
-   const heightByHeight = vh;
-   const widthByHeight  = Math.round(heightByHeight * SCENE_AR);
-   // Pick the fit that stays inside the viewport
-   if (heightByWidth <= vh) return { width: widthByWidth, height: heightByWidth };
-   return { width: widthByHeight, height: heightByHeight };
- }
-
-function layoutStage() {
-  const stage = document.querySelector('.stage');
-  if (!stage) return;
-  const vw = Math.max(1, Math.floor(window.innerWidth));
-  const vh = Math.max(1, Math.floor(window.innerHeight));
-  // Pick the policy you want:
-  const { width, height } = computeStageSizeContain(vw, vh);
-  stage.style.width  = width  + 'px';
-  stage.style.height = height + 'px';
-}
-
-
 
 
 // === FX canvas sizing helpers ===
@@ -267,9 +187,7 @@ function setupDPRListener() {
   cvs.id = 'fx-layer';
   const ctx = cvs.getContext('2d');
   wrap.appendChild(cvs);
- 
-  relayoutAndResizeFx();
-  
+  resizeFxCanvas();
   // Resize to match desk box
   function sizeCanvas(){
     const r = wrap.getBoundingClientRect();
@@ -292,15 +210,6 @@ function setupDPRListener() {
   window.addEventListener('load', resizeFxCanvas);
   window.addEventListener('resize', resizeFxCanvas);
   setupDPRListener(); // optional but recommended
-
-  // Layout once early (before/after DOMContentLoaded both ok)
-  window.addEventListener('DOMContentLoaded', layoutStage);
-  // Keep in sync with viewport changes
-  window.addEventListener('resize', layoutStage);
-  if (window.visualViewport) {
-    visualViewport.addEventListener('resize', layoutStage);
-  }
-
 
   // Emitter presets
   const presets = {
@@ -710,6 +619,7 @@ function setupDPRListener() {
     <label>Twinkle <input id="gt" type="checkbox" checked></label>
   `;
   document.body.appendChild(panel);
+
   // disable controls until a target is chosen
   panel.querySelectorAll('input').forEach(i => i.disabled = true);
 
