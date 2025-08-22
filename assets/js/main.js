@@ -131,6 +131,79 @@ function setupDPRListener(){
   })();
 })();
 
+// ===== Board Math: load JSON and render with KaTeX or MathJax if present =====
+function hydrateBoardMath(){
+  const board = document.querySelector('.board-math');
+  if (!board) return;
+
+  async function renderLatex(latexList){
+    // Clear the board
+    board.innerHTML = '';
+    // Use KaTeX if available
+    if (window.katex && typeof window.katex.render === 'function'){
+      latexList.forEach(src => {
+        const block = document.createElement('div');
+        block.className = 'board-eq';
+        board.appendChild(block);
+        try{
+          window.katex.render(String(src), block, {displayMode: true, throwOnError: false});
+        }catch(_){
+          block.textContent = String(src);
+        }
+      });
+      return;
+    }
+    // Else use MathJax v3 if available
+    if (window.MathJax && typeof window.MathJax.typesetPromise === 'function'){
+      const html = latexList.map(s => `$$${String(s)}$$`).join('\n');
+      board.innerHTML = html;
+      try { await window.MathJax.typesetPromise([board]); } catch(_){}
+      return;
+    }
+    // Fallback: plain TeX text
+    board.innerHTML = latexList.map(s => `<pre style="margin:0">${String(s)}</pre>`).join('\n');
+  }
+
+  const src = board.getAttribute('data-src');
+  if (!src){
+    // No data source: just typeset existing content if any
+    const existing = board.textContent.trim();
+    if (existing) renderLatex([existing]);
+    return;
+  }
+
+  // Fetch JSON and pick reasonable fields
+  fetch(src, {cache:'no-store'}).then(r => r.ok ? r.json() : null).then(data => {
+    if (!data){ return; }
+    let list = [];
+    if (Array.isArray(data)){
+      list = data.map(String);
+    } else if (Array.isArray(data.equations)){
+      list = data.equations.map(String);
+    } else if (Array.isArray(data.items)){
+      // try common "items" format: {items:[{latex:'..'} or {math:'..'} or {text:'..'}]}
+      list = data.items.map(it => String(it.latex || it.math || it.text || '')).filter(Boolean);
+    } else if (typeof data.latex === 'string'){
+      list = [data.latex];
+    } else if (typeof data.math === 'string'){
+      list = [data.math];
+    } else if (typeof data === 'object'){
+      // Generic: concatenate string values
+      list = Object.values(data).filter(v => typeof v === 'string');
+    }
+    if (list.length === 0) return;
+    renderLatex(list);
+  }).catch(()=>{
+    // ignore errors; leave board empty
+  });
+}
+
+// Ensure board hydrates after DOM and when fonts load
+window.addEventListener('load', hydrateBoardMath);
+
+
+
+
 // ===== FX system (scaled & zoom-resilient) =====
 (function(){
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
