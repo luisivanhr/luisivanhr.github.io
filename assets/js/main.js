@@ -708,7 +708,7 @@ function setupDPRListener() {
     <label>Twinkle <input id="gt" type="checkbox" checked></label>
   `;
   document.body.appendChild(panel);
-
+  resizeFxCanvas();
   // disable controls until a target is chosen
   panel.querySelectorAll('input').forEach(i => i.disabled = true);
 
