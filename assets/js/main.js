@@ -186,7 +186,7 @@ function setupDPRListener() {
   cvs.id = 'fx-layer';
   const ctx = cvs.getContext('2d');
   wrap.appendChild(cvs);
- 
+  resizeFxCanvas();
   // Resize to match desk box
   function sizeCanvas(){
     const r = wrap.getBoundingClientRect();
