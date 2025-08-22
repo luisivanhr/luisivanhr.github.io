@@ -3,6 +3,12 @@ title: Courses
 layout: default
 permalink: /courses/
 ---
+
+
+![As promised:]({{ '/courses/esponja.png' | relative_url }})
+
+
+
 <h1>Courses</h1>
 <ul>
 {% for p in site.courses %}
