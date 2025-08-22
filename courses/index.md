@@ -5,8 +5,6 @@ permalink: /courses/
 ---
 
 
-![As promised:]({{ '/courses/esponja.png' | relative_url }})
-
 
 
 <h1>Courses</h1>
