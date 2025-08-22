@@ -45,7 +45,7 @@ a:hover { text-decoration: underline; }
   --board-left: 14%;        /* 240 / 1600 * 100 */
   --board-top: 18.222%;     /* 164 / 900 * 100  */
   --board-width: 28.75%;    /* 460 / 1600 * 100 */
-  --board-rotate: 4deg;
+  --board-rotate: 3deg;
 }
 
 .board-math{
