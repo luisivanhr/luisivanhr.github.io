@@ -2,6 +2,13 @@
 title: Home
 layout: default
 ---
+<svg aria-hidden="true" focusable="false" width="0" height="0" style="position:absolute">
+  <filter id="chalky" x="-5%" y="-5%" width="110%" height="110%">
+    <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="7" result="noise"/>
+    <feDisplacementMap in="SourceGraphic" in2="noise" scale="0.6" xChannelSelector="R" yChannelSelector="G"/>
+  </filter>
+</svg>
+
 <div id="desk-wrap">
   <div class="stage">
     <div class="desk-bg" role="img" aria-label="Interactive desk scene">
