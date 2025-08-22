@@ -56,15 +56,15 @@ function computeStageSizeFillWidth(vw, vh) {
 }
 
 // 2) Contain within viewport (no overflow; best general default)
-// function computeStageSizeContain(vw, vh) {
-//   const widthByWidth  = vw;
-//   const heightByWidth = Math.round(widthByWidth / SCENE_AR);
-//   const heightByHeight = vh;
-//   const widthByHeight  = Math.round(heightByHeight * SCENE_AR);
-//   // Pick the fit that stays inside the viewport
-//   if (heightByWidth <= vh) return { width: widthByWidth, height: heightByWidth };
-//   return { width: widthByHeight, height: heightByHeight };
-// }
+ function computeStageSizeContain(vw, vh) {
+   const widthByWidth  = vw;
+   const heightByWidth = Math.round(widthByWidth / SCENE_AR);
+   const heightByHeight = vh;
+   const widthByHeight  = Math.round(heightByHeight * SCENE_AR);
+   // Pick the fit that stays inside the viewport
+   if (heightByWidth <= vh) return { width: widthByWidth, height: heightByWidth };
+   return { width: widthByHeight, height: heightByHeight };
+ }
 
 function layoutStage() {
   const stage = document.querySelector('.stage');
@@ -72,7 +72,7 @@ function layoutStage() {
   const vw = Math.max(1, Math.floor(window.innerWidth));
   const vh = Math.max(1, Math.floor(window.innerHeight));
   // Pick the policy you want:
-  const { width, height } = computeStageSizeFillWidth(vw, vh);
+  const { width, height } = computeStageSizeContain(vw, vh);
   stage.style.width  = width  + 'px';
   stage.style.height = height + 'px';
 }
