@@ -367,7 +367,7 @@ window.addEventListener('load', hydrateBoardMath);
         const addNow = Math.min(4, Math.max(0, need));
         for (let k = 0; k < addNow; k++) {
           const c = st.center;
-          const px = c.x + (Math.random() - 0.5) * c.w * 0.9;
+          const px = c.x + (Math.random() - 0.9) * c.w * 0.9;
           const py = c.y + (Math.random() - 0.2) * c.h * 0.6;
           const vx = (Math.random() - 0.5) * 2 * s;
           const vy = (-Math.random() * 2 - 0.5) * s;
