@@ -3,7 +3,7 @@ title: Courses
 layout: default
 permalink: /courses/
 ---
-![Course overview]({{ '/courses/esponja.png' | relative_url }})
+
 
 
 
