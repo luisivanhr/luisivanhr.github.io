@@ -310,7 +310,7 @@ window.addEventListener('load', hydrateBoardMath);
 
   // ==== Particles (scaled) ====
   const presets = {
-    glow:     { color:'#7bd4ff',  gravity:  5, spread:0.7, size:[1.5,2.5], life:[0.7,1.5], rateIdle:15, rateHover:35, speed:[0,70] },
+    glow:     { color:'#7bd4ff',  gravity:  5, spread:0.7, size:[1.5,2.5], life:[0.7,1.5], rateIdle:15, rateHover:35, speed:[-30,70] },
     paper:    { color:'#eec71cff', gravity:  5, spread:0.7, size:[1.5,2.5], life:[0.7,1.3], rateIdle:15, rateHover:35, speed:[25,55] },
     confetti: { color:['#ff6b6b','#ffd166','#06d6a0','#4cc9f0'], gravity:25, spread:1.0, size:[1,3], life:[0.5,0.9], rateIdle:10, rateHover:35, speed:[60,120] },
     chalk:    { renderer:'fog', color:'#ffffff', target:50, gravity:-2, spread:0.0, size:[30,45], life:[22.0,35.0], rateIdle:0, rateHover:0, speed:[1,3] }
