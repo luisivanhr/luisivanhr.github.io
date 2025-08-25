@@ -66,6 +66,7 @@ a:hover { text-decoration: underline; }
 /* Overlay “screen” area that we can paint into */
 .screen.models {
   position: absolute;
+  z-index: 10;
   left: 61.5%;   /* adjust to fit your monitor */
   top: 58.0%;    /* adjust */
   width: 22.5%;  /* adjust */
@@ -75,7 +76,7 @@ a:hover { text-decoration: underline; }
   display: block;
   overflow: hidden;
   border-radius: 6px;
-  box-shadow: inset 0 0 18px rgb(95, 211, 232);
+  box-shadow: inset 0 0 18px rgba(95, 211, 232, 0.55);
   text-decoration: none;
   pointer-events: auto;   /* clickable */
 }
@@ -100,7 +101,7 @@ a:hover { text-decoration: underline; }
 
 .screen.models .slide .caption {
   position: relative;
-  z-index: 9;
+  z-index: 1;
   padding: 6px 8px;
   background: linear-gradient(180deg, rgba(8,14,20,0) 0%, rgba(8,14,20,.85) 60%, rgba(8,14,20,.95) 100%);
   color: #e8f3ff;
@@ -122,7 +123,7 @@ a:hover { text-decoration: underline; }
   opacity: .25;
 }
 
- 
+
 
 /* Banner / marquee */
 #banner { height: 84px; display:flex; align-items:center; overflow:hidden; background:#0f131a; border-top:1px solid #1f2a33; }
