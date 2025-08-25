@@ -100,7 +100,7 @@ a:hover { text-decoration: underline; }
 
 .screen.models .slide .caption {
   position: relative;
-  z-index: 1;
+  z-index: 9;
   padding: 6px 8px;
   background: linear-gradient(180deg, rgba(8,14,20,0) 0%, rgba(8,14,20,.85) 60%, rgba(8,14,20,.95) 100%);
   color: #e8f3ff;
