@@ -67,24 +67,26 @@ a:hover { text-decoration: underline; }
 .screen.models {
   position: absolute;
   /* % values so it scales like the board */
-  left: 61.5%;
-  top: 58.0%;
-  width: 22.5%;
-  height: 15%;
+  left: 30.0%;
+  top: 49.6%;
+  width: 23%;
+  height: 19.7%;
   z-index: 10;
   overflow: hidden;
 
   /* shape it into a parallelogram (tweak these points) */
   /* order: top-left, top-right, bottom-right, bottom-left */
-  clip-path: polygon(6% 4%, 100% 0%, 94% 96%, 0% 100%);
+  clip-path: polygon(0% 0%, 84% 0%, 84.1% 84.9%, 0% 100%);
   -webkit-clip-path: polygon(6% 4%, 100% 0%, 94% 96%, 0% 100%); /* Safari */
 
   /* visual styling */
-  border-radius: 6px;            /* optional */
-  box-shadow: inset 0 0 18px rgba(0,0,0,.55);
+  border-radius: 3px;            /* optional */
+  box-shadow: inset 0 0 18px rgba(51, 177, 223, 0.55);
   will-change: clip-path;
 }
-
+.screen.models .caption {
+  font-size: clamp(4px, 1vw, 16px);
+}
 /* your existing internals can stay the same */
 .screen.models .slide { position:absolute; inset:0; opacity:0; transition:opacity .5s; display:grid; grid-template-rows:1fr auto; background:#0b1118; }
 .screen.models .slide.show { opacity:1; }
