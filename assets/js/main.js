@@ -118,25 +118,46 @@ function setupDPRListener(){
 
   const hotspots = document.querySelectorAll('#desk-hotspots .hotspot');
   hotspots.forEach(h => {
-    const feed = h.getAttribute('data-feed');
-    h.addEventListener('mouseenter', async () => {
-      if (!feed) return;
-      const data = await getFeed(feed);
-      const item = data.items?.[0] || {};
-      const r = h.getBoundingClientRect();
-      showTooltip(r.right, r.top, item);
+  const feed = h.getAttribute('data-feed');
+  const label = h.getAttribute('data-label') || h.querySelector('title')?.textContent || '';
+
+  h.addEventListener('mouseenter', (e) => {
+    const r = h.getBoundingClientRect();
+
+    // Step 1: show instantly with just label
+    showTooltip(r.right, r.top, {
+      title: label,
+      summary: '',
+      date: null,
+      image: ''
     });
-    h.addEventListener('mouseleave', hideTooltip);
-    h.addEventListener('click', () => {
-      const mapping = {
-        blog: '/blog/', models: '/models/', courses: '/courses/', hobbies: '/hobbies/',
-        achievements: '/achievements/', publications: '/publications/', news: '/news/',
-        cv: '/cv/', about: '/about/', presentations: '/presentations/'
-      };
-      const href = mapping[h.getAttribute('data-target') || ''] || '/';
-      location.href = href;
-    });
+
+    // Step 2: fetch in background, then update
+    if (feed) {
+      getFeed(feed).then(data => {
+        const item = data.items?.[0] || {};
+        showTooltip(r.right, r.top, {
+          title: item.title || label,
+          summary: item.summary || '',
+          date: item.date,
+          image: item.image
+        });
+      });
+    }
   });
+
+  h.addEventListener('mouseleave', hideTooltip);
+
+  h.addEventListener('click', () => {
+    const mapping = {
+      blog: '/blog/', models: '/models/', courses: '/courses/', hobbies: '/hobbies/',
+      achievements: '/achievements/', publications: '/publications/', news: '/news/',
+      cv: '/cv/', about: '/about/', presentations: '/presentations/'
+    };
+    const href = mapping[h.getAttribute('data-target') || ''] || '/';
+    location.href = href;
+  });
+});
 
 // --- Rotating screen for "models" feed --------------------------------
 (function(){
