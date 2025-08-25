@@ -117,45 +117,75 @@ function setupDPRListener(){
   function hideTooltip(){ tooltip.hidden = true; }
 
   const hotspots = document.querySelectorAll('#desk-hotspots .hotspot');
-  hotspots.forEach(h => {
+  // Helper: get a fast label from the SVG hotspot
+function getHotspotLabel(h) {
+  // 1) explicit data-label
+  const dl = h.getAttribute('data-label');
+  if (dl) return dl;
+
+  // 2) <title> as a child of the path
+  const tChild = h.querySelector && h.querySelector('title');
+  if (tChild && tChild.textContent) return tChild.textContent.trim();
+
+  // 3) <title> on the wrapping <a> (common in your file)
+  const p = h.closest && h.closest('a');
+  const tParent = p && p.querySelector('title');
+  if (tParent && tParent.textContent) return tParent.textContent.trim();
+
+  // 4) aria-label (if present)
+  const aria = h.getAttribute('aria-label') || (p && p.getAttribute('aria-label'));
+  if (aria) return aria;
+
+  // 5) fallback from data-target
+  const target = h.getAttribute('data-target') || '';
+  return target ? target.charAt(0).toUpperCase() + target.slice(1) : '';
+}
+
+hotspots.forEach(h => {
   const feed = h.getAttribute('data-feed');
-  const label = h.getAttribute('data-label') || h.querySelector('title')?.textContent || '';
+  const label = getHotspotLabel(h);
+  let hoverToken = 0;
 
-  h.addEventListener('mouseenter', (e) => {
+  h.addEventListener('mouseenter', () => {
     const r = h.getBoundingClientRect();
+    hoverToken++;                 // track this hover instance
+    const tok = hoverToken;
 
-    // Step 1: show instantly with just label
-    showTooltip(r.right, r.top, {
-      title: label,
-      summary: '',
-      date: null,
-      image: ''
-    });
+    // ✅ Show instantly with the SVG label (no network)
+    showTooltip(r.right, r.top, { title: label, summary: '' });
 
-    // Step 2: fetch in background, then update
+    // Optional: enrich later, *without* delaying the instant label
     if (feed) {
-      getFeed(feed).then(data => {
-        const item = data.items?.[0] || {};
-        showTooltip(r.right, r.top, {
-          title: item.title || label,
-          summary: item.summary || '',
-          date: item.date,
-          image: item.image
-        });
+      // small microtask delay keeps UI snappy; remove if you want
+      Promise.resolve().then(async () => {
+        try {
+          const data = await getFeed(feed);
+          if (tok !== hoverToken) return; // user left; abort update
+          const item = data.items?.[0] || {};
+          const r2 = h.getBoundingClientRect(); // update position
+          showTooltip(r2.right, r2.top, {
+            title: item.title || label,
+            summary: item.summary || '',
+            date: item.date,
+            image: item.image || ''
+          });
+        } catch (_) { /* silent */ }
       });
     }
   });
 
-  h.addEventListener('mouseleave', hideTooltip);
+  h.addEventListener('mouseleave', () => {
+    hoverToken++;  // cancel any pending enrich
+    hideTooltip();
+  });
 
   h.addEventListener('click', () => {
     const mapping = {
-      blog: '/blog/', models: '/models/', courses: '/courses/', hobbies: '/hobbies/',
-      achievements: '/achievements/', publications: '/publications/', news: '/news/',
-      cv: '/cv/', about: '/about/', presentations: '/presentations/'
+      blog:'/blog/', models:'/models/', courses:'/courses/', hobbies:'/hobbies/',
+      achievements:'/achievements/', publications:'/publications/', news:'/news/',
+      cv:'/cv/', about:'/about/', presentations:'/presentations/'
     };
-    const href = mapping[h.getAttribute('data-target') || ''] || '/';
-    location.href = href;
+    location.href = mapping[h.getAttribute('data-target') || ''] || '/';
   });
 });
 
