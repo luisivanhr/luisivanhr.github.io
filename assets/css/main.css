@@ -109,50 +109,50 @@ a:hover { text-decoration: underline; }
 #tooltip .title { font-weight: 700; margin-top: 8px; }
 #tooltip .meta { color: var(--muted); font-size: 0.9rem; }
 
-/* Classic nav */
-.classic-nav { display:grid; grid-template-columns: repeat(auto-fit, minmax(160px,1fr)); gap:10px; }
-.classic-nav a { padding:10px 12px; background:#0f131a; border:1px solid #1f2a33; border-radius: 8px; }
-
-
+/* Top bar */
 .site-nav {
   position: sticky; top: 0; z-index: 9999;
-  display: flex; align-items: center; gap: 16px;
-  padding: 10px 14px;
+  padding: 0; margin: 0;
   background: rgba(8,14,20,0.85);
   backdrop-filter: blur(6px);
   border-bottom: 1px solid rgba(255,255,255,0.08);
 }
 
-.site-nav .brand {
-  font-weight: 700; letter-spacing: .2px; text-decoration: none;
-  color: #eaf2ff;
+/* Teaser button */
+.nav-teaser {
+  all: unset; /* reset */
+  display: flex; align-items: center; justify-content: space-between;
+  width: 100%;
+  padding: 10px 14px;
+  cursor: pointer;
+  color: #dbe8ff;
+}
+.nav-teaser:focus-visible { outline: 2px solid #64aaff; outline-offset: 2px; }
+.nav-teaser .teaser-text { font-size: 14px; opacity: .9; }
+.nav-teaser .chev { transition: transform .25s ease; }
+
+/* Menu list */
+#nav-list[hidden] { display: none; }
+#nav-list {
+  padding: 8px 12px 12px;
+  animation: slideDown .25s ease;
+}
+@media (prefers-reduced-motion: reduce) {
+  #nav-list { animation: none; }
+  .nav-teaser .chev { transition: none; }
 }
 
-.site-nav nav ul {
-  display: flex; flex-wrap: wrap; gap: 10px 14px;
-  margin: 0; padding: 0; list-style: none;
+#nav-list ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 10px 14px; }
+#nav-list a {
+  display: inline-block; padding: 4px 8px; border-radius: 6px;
+  color: #cfe1ff; text-decoration: none;
 }
+#nav-list a:hover, #nav-list a:focus { background: rgba(255,255,255,0.08); outline: none; }
+#nav-list a.active { background: rgba(27, 129, 160, 0.774); color: #ffffff; }
 
-.site-nav nav a {
-  color: #cfe1ff; text-decoration: none; padding: 4px 8px; border-radius: 6px;
-}
-.site-nav nav a:hover,
-.site-nav nav a:focus {
-  background: rgba(255,255,255,0.08);
-  outline: none;
-}
+[aria-expanded="true"] .chev { transform: rotate(180deg); }
+
+@keyframes slideDown { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: translateY(0); } }
 
 /* Keep desk visible under the nav */
 #desk-wrap { margin-top: 8px; }
-
-.site-nav nav a {
-  display: inline-block;
-  padding: 4px 8px;
-  border-radius: 6px;
-  text-decoration: none;
-}
-
-.site-nav nav a.active {
-  background: rgba(27, 129, 160, 0.774);
-  color: #ffffff;
-}

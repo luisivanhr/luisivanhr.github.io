@@ -30,48 +30,32 @@
     <a class="skip" href="{{ '/classic/' | relative_url }}">Skip interactive desk (classic site)</a>
     
     <header class="site-nav" role="navigation" aria-label="Primary">
-    <a class="brand" >Luis Iván Hernández Ruíz</a>
-    <nav>
-      <ul>
-        {% assign here = page.url | relative_url %}
-        <li><a href="{{ '/' | relative_url }}"
-              class="{% if here == '/' %}active{% endif %}">Home</a></li>
-
-        <li><a href="{{ '/about/' | relative_url }}"
-              class="{% assign u='/about/' | relative_url %}{% if here == u or here contains u %}active{% endif %}">About</a></li>
-
-        <li><a href="{{ '/news/' | relative_url }}"
-              class="{% assign u='/news/' | relative_url %}{% if here == u or here contains u %}active{% endif %}">News</a></li>
-        
-        <li><a href="{{ '/blog/' | relative_url }}"
-              class="{% assign u='/blog/' | relative_url %}{% if here == u or here contains u %}active{% endif %}">Blog</a></li>
-
-        <li><a href="{{ '/models/' | relative_url }}"
-              class="{% assign u='/models/' | relative_url %}{% if here == u or here contains u %}active{% endif %}">Models</a></li>
-
-        <li><a href="{{ '/courses/' | relative_url }}"
-              class="{% assign u='/courses/' | relative_url %}{% if here == u or here contains u %}active{% endif %}">Courses</a></li>
-
-        <li><a href="{{ '/publications/' | relative_url }}"
-              class="{% assign u='/publications/' | relative_url %}{% if here == u or here contains u %}active{% endif %}">Publications</a></li>
-
-        <li><a href="{{ '/presentations/' | relative_url }}"
-              class="{% assign u='/presentations/' | relative_url %}{% if here == u or here contains u %}active{% endif %}">Presentations</a></li>
-        
-        <li><a href="{{ '/achievements/' | relative_url }}"
-              class="{% assign u='/achievements/' | relative_url %}{% if here == u or here contains u %}active{% endif %}">Achievements</a></li>
-
-        <li><a href="{{ '/hobbies/' | relative_url }}"
-              class="{% assign u='/hobbies/' | relative_url %}{% if here == u or here contains u %}active{% endif %}">Hobbies</a></li>
-
-        <li><a href="{{ '/cv/' | relative_url }}"
-              class="{% assign u='/cv/' | relative_url %}{% if here == u or here contains u %}active{% endif %}">CV</a></li>
-
-        
-      </ul>
+  <button id="nav-toggle"
+          class="nav-teaser"
+          aria-expanded="false"
+          aria-controls="nav-list">
+    <span class="teaser-text">Tip: explore the desk! Click here for the classic menu</span>
+    <span class="chev" aria-hidden="true">⌄</span>
+  </button>
+  <a class="brand" >Luis Iván Hernández Ruíz</a>
+  <nav id="nav-list" hidden>
+    <ul>
+      {% assign here = page.url | relative_url %}
+      <li><a href="{{ '/' | relative_url }}" class="{% if here == '/' %}active{% endif %}">Home</a></li>
+      {% assign u='/about/' | relative_url %}<li><a href="{{ '/about/' | relative_url }}" class="{% if here == u or here contains u %}active{% endif %}">About</a></li>
+      {% assign u='/news/' | relative_url %}<li><a href="{{ '/news/' | relative_url }}" class="{% if here == u or here contains u %}active{% endif %}">News</a></li>
+      {% assign u='/blog/' | relative_url %}<li><a href="{{ '/blog/' | relative_url }}" class="{% if here == u or here contains u %}active{% endif %}">Blog</a></li>
+      {% assign u='/models/' | relative_url %}<li><a href="{{ '/models/' | relative_url }}" class="{% if here == u or here contains u %}active{% endif %}">Models</a></li>
+      {% assign u='/courses/' | relative_url %}<li><a href="{{ '/courses/' | relative_url }}" class="{% if here == u or here contains u %}active{% endif %}">Courses</a></li>
+      {% assign u='/publications/' | relative_url %}<li><a href="{{ '/publications/' | relative_url }}" class="{% if here == u or here contains u %}active{% endif %}">Publications</a></li>
+      {% assign u='/presentations/' | relative_url %}<li><a href="{{ '/presentations/' | relative_url }}" class="{% if here == u or here contains u %}active{% endif %}">Presentations</a></li>
+      {% assign u='/achievements/' | relative_url %}<li><a href="{{ '/achievements/' | relative_url }}" class="{% if here == u or here contains u %}active{% endif %}">Achievements</a></li>
+      {% assign u='/hobbies/' | relative_url %}<li><a href="{{ '/hobbies/' | relative_url }}" class="{% if here == u or here contains u %}active{% endif %}">Hobbies</a></li>
+      {% assign u='/cv/' | relative_url %}<li><a href="{{ '/cv/' | relative_url }}" class="{% if here == u or here contains u %}active{% endif %}">CV</a></li>
       
-    </nav>
-  </header>
+    </ul>
+  </nav>
+</header>
     
     {{ content }}
 
