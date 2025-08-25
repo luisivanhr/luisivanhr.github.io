@@ -54,7 +54,8 @@ a:hover { text-decoration: underline; }
   width: var(--board-width);
   aspect-ratio: 16 / 9;     /* keeps the board rectangular */
   height: auto;
-  transform: skewX(-10deg) skewY(6deg) rotate(var(--board-rotate));
+  transform: perspective(260px) rotateX(8deg) rotateY(-4deg);
+  will-change: transform;
   transform-origin: center;
   pointer-events: none;
   color: #fff;
