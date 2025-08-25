@@ -37,9 +37,10 @@
     <span class="teaser-text">Tip: explore the desk! Click here for the classic menu</span>
     <span class="chev" aria-hidden="true">⌄</span>
   </button>
-  <a class="brand" >Luis Iván Hernández Ruíz</a>
+  
   <nav id="nav-list" hidden>
     <ul>
+      <a class="brand" >Luis Iván Hernández Ruíz</a>
       {% assign here = page.url | relative_url %}
       <li><a href="{{ '/' | relative_url }}" class="{% if here == '/' %}active{% endif %}">Home</a></li>
       {% assign u='/about/' | relative_url %}<li><a href="{{ '/about/' | relative_url }}" class="{% if here == u or here contains u %}active{% endif %}">About</a></li>
