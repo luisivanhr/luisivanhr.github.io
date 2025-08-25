@@ -168,27 +168,25 @@ function setupDPRListener(){
     idx = (i + items.length) % items.length;
     const item = items[idx];
 
-    // Click-through link
+    // Click-through to the model page
     el.href = item.url || '#';
 
     const next = makeSlide(item);
+    el.appendChild(next);
 
-    // append inside the .skew wrapper
-    const skewWrap = el.querySelector('.skew');
-    skewWrap.appendChild(next);
-
-    // trigger transition
+    // force reflow to enable transition
+    // eslint-disable-next-line no-unused-expressions
     next.offsetHeight;
     next.classList.add('show');
 
     // remove old slides after fade
-    const olds = skewWrap.querySelectorAll('.slide.show');
+    const olds = el.querySelectorAll('.slide.show');
     if (olds.length > 1) {
       setTimeout(() => {
         olds.forEach((s, k) => { if (k < olds.length - 1) s.remove(); });
       }, 550);
     }
-}
+  }
 
   async function start(){
     try {
