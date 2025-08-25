@@ -88,7 +88,7 @@ a:hover { text-decoration: underline; }
   font-size: clamp(1px, 1vw, 16px);
 }
 /* your existing internals can stay the same */
-.screen.models .slide { position:absolute; inset:0; opacity:0; transition:opacity .5s; display:grid; grid-template-rows:1fr auto; background:#0b1118; }
+.screen.models .slide { position:absolute; inset:0; opacity:0; transition:opacity .5s; display:grid; grid-template-rows:1fr auto; background:transparent; }
 .screen.models .slide.show { opacity:1; }
 .screen.models .slide .img { position:absolute; inset:0; background-size:cover; background-position:center; filter:brightness(1.05) contrast(1.05) saturate(1.05); }
 .screen.models .slide .caption { position:relative; z-index:1; padding:6px 8px; background:linear-gradient(180deg, rgba(8,14,20,0) 0%, rgba(8,14,20,.85) 60%, rgba(8,14,20,.95) 100%); color:#e8f3ff; font-size:12px; line-height:1.2; text-shadow:0 1px 2px rgba(0,0,0,.6); }
