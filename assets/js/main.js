@@ -138,6 +138,101 @@ function setupDPRListener(){
     });
   });
 
+// --- Rotating screen for "models" feed --------------------------------
+(function(){
+  const el = document.getElementById('screen-models');
+  if (!el) return;
+
+  const src = el.getAttribute('data-src');
+  let items = [];
+  let idx = 0;
+  let timer = null;
+
+  // Make a slide DOM node for an item
+  function makeSlide(item){
+    const div = document.createElement('div');
+    div.className = 'slide';
+    const imgUrl = item.image || item.cover || '';
+    div.innerHTML = `
+      <div class="img" style="${imgUrl ? `background-image:url('${imgUrl}')` : ''}"></div>
+      <div class="caption">
+        <strong>${item.title || 'Untitled model'}</strong>
+      </div>
+    `;
+    return div;
+  }
+
+  // Swap slides with fade
+  function show(i){
+    if (!items.length) return;
+    idx = (i + items.length) % items.length;
+    const item = items[idx];
+
+    // Click-through to the model page
+    el.href = item.url || '#';
+
+    const next = makeSlide(item);
+    el.appendChild(next);
+
+    // force reflow to enable transition
+    // eslint-disable-next-line no-unused-expressions
+    next.offsetHeight;
+    next.classList.add('show');
+
+    // remove old slides after fade
+    const olds = el.querySelectorAll('.slide.show');
+    if (olds.length > 1) {
+      setTimeout(() => {
+        olds.forEach((s, k) => { if (k < olds.length - 1) s.remove(); });
+      }, 550);
+    }
+  }
+
+  async function start(){
+    try {
+      // use your existing getFeed if available; otherwise fetch here
+      const data = (typeof getFeed === 'function')
+        ? await getFeed(src)
+        : await (await fetch(src, {cache:'no-store'})).json();
+
+      // prefer items that have images; fallback to all
+      const all = Array.isArray(data.items) ? data.items : [];
+      const withImg = all.filter(x => x.image || x.cover);
+      items = withImg.length ? withImg : all;
+
+      if (!items.length) {
+        el.innerHTML = '<div class="slide show"><div class="caption"><strong>No models yet</strong></div></div>';
+        return;
+      }
+
+      // Preload first few images for smoother start
+      items.slice(0,4).forEach(x => { if (x.image) { const im = new Image(); im.src = x.image; } });
+
+      show(0);
+
+      // rotation cadence (respect reduced motion by slowing down)
+      const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const period = reduce ? 10000 : 6000; // ms between slides
+
+      // clear any existing timer
+      if (timer) clearInterval(timer);
+      timer = setInterval(() => show(idx + 1), period);
+
+      // pause on hover (optional)
+      el.addEventListener('mouseenter', () => timer && clearInterval(timer));
+      el.addEventListener('mouseleave', () => {
+        timer = setInterval(() => show(idx + 1), period);
+      });
+    } catch (e) {
+      console.warn('Models screen failed:', e);
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', start);
+})();
+
+
+
   // Banner
   (async function hydrateBanner(){
     const slides = document.querySelectorAll('#banner .slide');
