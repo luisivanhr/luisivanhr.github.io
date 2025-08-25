@@ -33,6 +33,7 @@
     <a class="brand" href="{{ '/' | relative_url }}">Luis Iván</a>
     <nav>
       <ul>
+        {% assign here = page.url | relative_url %}
         <li><a href="{{ '/' | relative_url }}">Home</a></li>
         <li><a href="{{ '/blog/' | relative_url }}">Blog</a></li>
         <li><a href="{{ '/models/' | relative_url }}">Models</a></li>
@@ -45,6 +46,7 @@
         <li><a href="{{ '/cv/' | relative_url }}">CV</a></li>
         <li><a href="{{ '/about/' | relative_url }}">About</a></li>
       </ul>
+      
     </nav>
   </header>
     
