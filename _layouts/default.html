@@ -35,7 +35,8 @@
           aria-expanded="false"
           aria-controls="nav-list">
     <span class="teaser-text">
-       <strong>Explore the desk!          </strong>  <span class="hint">Click objects, or click here to open the classic menu ▼</span>
+       <li><a href="{{ '/' | relative_url }}" class="{% if here == '/' %}active{% endif %}">Home</a></li>&nbsp;
+       <strong>Explore the desk!</strong> &nbsp; <span class="hint">Click objects, or click here to open the classic menu ▼</span>
       
     </span>
 
