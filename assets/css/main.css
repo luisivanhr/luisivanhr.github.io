@@ -144,4 +144,15 @@ a:hover { text-decoration: underline; }
 
 /* Keep desk visible under the nav */
 #desk-wrap { margin-top: 8px; }
-.site-nav nav a.active { background: rgb(24, 182, 58); color: #c8d601; }
+
+.site-nav nav a {
+  display: inline-block;
+  padding: 4px 8px;
+  border-radius: 6px;
+  text-decoration: none;
+}
+
+.site-nav nav a.active {
+  background: rgb(24, 182, 58);
+  color: #c8d601;
+}
