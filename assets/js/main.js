@@ -87,7 +87,7 @@ function setupDPRListener(){
   mq.addEventListener('change', onChange);
 }
 
-// ===== Tooltips, feeds, banner (unchanged minimal) =====
+// ===== Tooltips, feeds (unchanged minimal) =====
 (function(){
   const tooltip = document.getElementById('tooltip');
   function fmtDate(iso){ try { return new Date(iso).toLocaleDateString(); } catch(e){ return ''; } }
@@ -231,20 +231,6 @@ function setupDPRListener(){
   document.addEventListener('DOMContentLoaded', start);
 })();
 
-
-
-  // Banner
-  (async function hydrateBanner(){
-    const slides = document.querySelectorAll('#banner .slide');
-    for (const s of slides) {
-      const src = s.getAttribute('data-src');
-      const data = await getFeed(src);
-      const item = data.items?.[0];
-      if(item){
-        s.innerHTML = `<strong>${s.textContent}:</strong> <a href="${item.url}">${item.title}</a>`;
-      }
-    }
-  })();
 })();
 
 // ===== Board Math: load JSON and render with KaTeX or MathJax if present =====

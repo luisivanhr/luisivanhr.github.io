@@ -28,6 +28,25 @@
   </head>
   <body>
     <a class="skip" href="{{ '/classic/' | relative_url }}">Skip interactive desk (classic site)</a>
+    
+    <header class="site-nav" role="navigation" aria-label="Primary">
+    <a class="brand" href="{{ '/' | relative_url }}">Luis Iván</a>
+    <nav>
+      <ul>
+        {% assign here = page.url | relative_url %}
+        {% for item in site.data.nav %}
+        {% assign here = page.url | relative_url %}
+        <li><a href="{{ '/models/' | relative_url }}" 
+        class="{% if here == '/models/' %}active{% endif %}">Models</a></li>
+        <li>
+          <a href="{{ item.url | relative_url }}"
+            class="{% if here == item.url %}active{% endif %}">{{ item.title }}</a>
+        </li>
+        {% endfor %}
+      </ul>
+    </nav>
+  </header>
+    
     {{ content }}
 
     <!-- Run KaTeX AFTER page + scripts are loaded -->
