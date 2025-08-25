@@ -1,16 +1,20 @@
-
-{%- assign max_items = page.max_items | default: 6 -%}
+---
+# no front matter fields here besides layout marker
+---
 {
-  "updated": "{{ 'now' | date_to_xmlschema }}",
+  "title": {{ page.title | jsonify }},
   "items": [
-    {%- for p in page.collection_items limit:max_items -%}
+  {% assign items = page.collection_items | default: site.posts %}
+  {% assign items = items | sort: "date" | reverse %}
+  {% if page.max_items %}{% assign items = items | slice: 0, page.max_items %}{% endif %}
+  {% for it in items %}
     {
-      "title": {{ p.title | jsonify }},
-      "url": {{ p.url | absolute_url | jsonify }},
-      "date": "{{ p.date | date_to_xmlschema }}",
-      "summary": {{ p.excerpt | strip_html | strip_newlines | jsonify }},
-      "image": {{ p.image | default: p.hero_image | jsonify }}
-    }{%- unless forloop.last -%},{%- endunless -%}
-    {%- endfor -%}
+      "title": {{ it.title | jsonify }},
+      "url": {{ (it.url | relative_url) | jsonify }},
+      "date": {{ it.date | date_to_xmlschema | jsonify }},
+      "summary": {{ (it.summary | default: it.excerpt | default: "") | strip_html | strip_newlines | jsonify }},
+      "image": {{ (it.image | default: "") | relative_url | jsonify }}
+    }{% if forloop.last == false %},{% endif %}
+  {% endfor %}
   ]
 }
