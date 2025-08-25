@@ -96,7 +96,7 @@ a:hover { text-decoration: underline; }
 /* if you kept the scanline gloss, it must be clipped too */
 .screen.models::after{
   content:""; position:absolute; inset:0;
-  background:repeating-linear-gradient(to bottom, rgba(255,255,255,0.04), rgba(255,255,255,0.04) 1px, transparent 1px, transparent 3px);
+  background:#123242;
   mix-blend-mode:screen; pointer-events:none; opacity:.25;
   clip-path: inherit; -webkit-clip-path: inherit;
 }
