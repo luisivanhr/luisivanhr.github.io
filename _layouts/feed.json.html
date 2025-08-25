@@ -1,20 +1,32 @@
 ---
-# no front matter fields here besides layout marker
 ---
 {
   "title": {{ page.title | jsonify }},
   "items": [
-  {% assign items = page.collection_items | default: site.posts %}
-  {% assign items = items | sort: "date" | reverse %}
-  {% if page.max_items %}{% assign items = items | slice: 0, page.max_items %}{% endif %}
-  {% for it in items %}
+  {%- assign items = nil -%}
+  {%- comment -%}
+    Prefer page.collection_name (e.g., "models", "courses")
+    Fallback: page.collection (same thing)
+    Final fallback: site.posts
+  {%- endcomment -%}
+  {%- assign coll_name = page.collection_name | default: page.collection -%}
+  {%- if coll_name -%}
+    {%- assign items = site[coll_name] -%}
+  {%- endif -%}
+  {%- if items == nil -%}
+    {%- assign items = site.posts -%}
+  {%- endif -%}
+
+  {%- assign items = items | sort: "date" | reverse -%}
+  {%- if page.max_items -%}{%- assign items = items | slice: 0, page.max_items -%}{%- endif -%}
+  {%- for it in items -%}
     {
       "title": {{ it.title | jsonify }},
       "url": {{ (it.url | relative_url) | jsonify }},
       "date": {{ it.date | date_to_xmlschema | jsonify }},
       "summary": {{ (it.summary | default: it.excerpt | default: "") | strip_html | strip_newlines | jsonify }},
       "image": {{ (it.image | default: "") | relative_url | jsonify }}
-    }{% if forloop.last == false %},{% endif %}
-  {% endfor %}
+    }{%- if forloop.last == false -%},{%- endif -%}
+  {%- endfor -%}
   ]
 }

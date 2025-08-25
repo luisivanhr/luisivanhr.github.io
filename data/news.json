@@ -1,6 +1,7 @@
 ---
 layout: feed.json
-collection_items: site.news
+title: "News feed"
+collection_name: news
 permalink: /data/news.json
-max_items: 6
+max_items: 8
 ---

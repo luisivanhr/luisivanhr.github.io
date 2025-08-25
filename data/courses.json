@@ -1,6 +1,7 @@
 ---
 layout: feed.json
-collection_items: site.courses
+title: "Courses feed"
+collection_name: courses
 permalink: /data/courses.json
-max_items: 6
+max_items: 8
 ---

@@ -1,6 +1,7 @@
 ---
 layout: feed.json
-collection_items: site.achievements
+title: "Achievements feed"
+collection_name: achievements
 permalink: /data/achievements.json
-max_items: 6
+max_items: 8
 ---

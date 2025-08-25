@@ -1,7 +1,7 @@
 ---
 layout: feed.json
 title: "Models feed"
-collection_items: site.models
+collection_name: models
 permalink: /data/models.json
-max_items: 6
+max_items: 8
 ---

@@ -1,6 +1,7 @@
 ---
 layout: feed.json
-collection_items: site.hobbies
+title: "Hobbies feed"
+collection_name: hobbies
 permalink: /data/hobbies.json
-max_items: 6
+max_items: 8
 ---
