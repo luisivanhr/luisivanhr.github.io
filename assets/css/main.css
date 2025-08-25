@@ -66,39 +66,62 @@ a:hover { text-decoration: underline; }
 /* Overlay “screen” area that we can paint into */
 .screen.models {
   position: absolute;
-  /* % values so it scales like the board */
-  left: 61.5%;
-  top: 58.0%;
-  width: 22.5%;
-  height: 15%;
   z-index: 10;
+  left: 61.5%;   /* adjust to fit your monitor */
+  top: 58.0%;    /* adjust */
+  width: 22.5%;  /* adjust */
+  height: 15%;   /* adjust */
+  transform: rotate(-0.6deg);
+
+  display: block;
   overflow: hidden;
-
-  /* shape it into a parallelogram (tweak these points) */
-  /* order: top-left, top-right, bottom-right, bottom-left */
-  clip-path: polygon(6% 4%, 100% 0%, 94% 96%, 0% 100%);
-  -webkit-clip-path: polygon(6% 4%, 100% 0%, 94% 96%, 0% 100%); /* Safari */
-
-  /* visual styling */
-  border-radius: 6px;            /* optional */
-  box-shadow: inset 0 0 18px rgba(0,0,0,.55);
-  will-change: clip-path;
+  border-radius: 6px;
+  box-shadow: inset 0 0 18px rgba(95, 211, 232, 0.55);
+  text-decoration: none;
+  pointer-events: auto;   /* clickable */
 }
 
-/* your existing internals can stay the same */
-.screen.models .slide { position:absolute; inset:0; opacity:0; transition:opacity .5s; display:grid; grid-template-rows:1fr auto; background:#0b1118; }
-.screen.models .slide.show { opacity:1; }
-.screen.models .slide .img { position:absolute; inset:0; background-size:cover; background-position:center; filter:brightness(1.05) contrast(1.05) saturate(1.05); }
-.screen.models .slide .caption { position:relative; z-index:1; padding:6px 8px; background:linear-gradient(180deg, rgba(8,14,20,0) 0%, rgba(8,14,20,.85) 60%, rgba(8,14,20,.95) 100%); color:#e8f3ff; font-size:12px; line-height:1.2; text-shadow:0 1px 2px rgba(0,0,0,.6); }
+/* The slide itself (image background + caption ribbon) */
+.screen.models .slide {
+  position: absolute; inset: 0;
+  opacity: 0; transition: opacity .5s ease;
+  background: #0b1118;
+  display: grid;
+  grid-template-rows: 1fr auto;
+}
 
-/* if you kept the scanline gloss, it must be clipped too */
+.screen.models .slide.show { opacity: 1; }
+
+.screen.models .slide .img {
+  position: absolute; inset: 0;
+  background-size: cover;
+  background-position: center;
+  filter: brightness(1.05) contrast(1.05) saturate(1.05);
+}
+
+.screen.models .slide .caption {
+  position: relative;
+  z-index: 1;
+  padding: 6px 8px;
+  background: linear-gradient(180deg, rgba(8,14,20,0) 0%, rgba(8,14,20,.85) 60%, rgba(8,14,20,.95) 100%);
+  color: #e8f3ff;
+  font-size: 12px;
+  line-height: 1.2;
+  text-shadow: 0 1px 2px rgba(0,0,0,.6);
+}
+
+/* optional “scanline” gloss for screen feel */
 .screen.models::after{
   content:""; position:absolute; inset:0;
-  background:repeating-linear-gradient(to bottom, rgba(255,255,255,0.04), rgba(255,255,255,0.04) 1px, transparent 1px, transparent 3px);
-  mix-blend-mode:screen; pointer-events:none; opacity:.25;
-  clip-path: inherit; -webkit-clip-path: inherit;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(255,255,255,0.04), rgba(255,255,255,0.04) 1px,
+    transparent 1px, transparent 3px
+  );
+  mix-blend-mode: screen;
+  pointer-events: none;
+  opacity: .25;
 }
-
 
 
 
