@@ -85,7 +85,7 @@ a:hover { text-decoration: underline; }
   will-change: clip-path;
 }
 .screen.models .caption {
-  font-size: clamp(4px, 1vw, 16px);
+  font-size: clamp(1px, 1vw, 16px);
 }
 /* your existing internals can stay the same */
 .screen.models .slide { position:absolute; inset:0; opacity:0; transition:opacity .5s; display:grid; grid-template-rows:1fr auto; background:#0b1118; }
