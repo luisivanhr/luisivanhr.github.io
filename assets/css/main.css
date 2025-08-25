@@ -55,7 +55,7 @@ a:hover { text-decoration: underline; }
   aspect-ratio: 16 / 9;     /* keeps the board rectangular */
   height: auto;
   transform: skewX(-10deg) skewY(6deg) rotate(var(--board-rotate));
-  transform-origin: top left;
+  transform-origin: center;
   pointer-events: none;
   color: #fff;
             /* stays readable; scale with clamp(...) if you like */
