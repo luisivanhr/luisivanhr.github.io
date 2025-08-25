@@ -41,7 +41,7 @@ a:hover { text-decoration: underline; }
 /* Blackboard math overlay (keeps your current manual placement) */
 :root{
   /* From your old px values: left=240, top=164, width=460 on a 1600×900 viewBox */
-  --board-left: 15%;        /* 240 / 1600 * 100 */
+  --board-left: 17%;        /* 240 / 1600 * 100 */
   --board-top: 18.5%;     /* 164 / 900 * 100  */
   --board-width: 28.75%;    /* 460 / 1600 * 100 */
   --board-rotate: 0.5deg;
