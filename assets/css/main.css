@@ -153,6 +153,6 @@ a:hover { text-decoration: underline; }
 }
 
 .site-nav nav a.active {
-  background: rgb(24, 182, 58);
-  color: #c8d601;
+  background: rgba(27, 129, 160, 0.774);
+  color: #ffffff;
 }
