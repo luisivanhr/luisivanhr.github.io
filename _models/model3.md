@@ -1,7 +1,7 @@
 ---
 title: "My Third Model"
 date: 2025-08-20
-image: /assets/thumbs/models/model3.jpg   # used on the monitor
+image: /assets/thumbs/models/model3.png   # used on the monitor
 summary: "Just a test."
 # optional:
 # tags: [nlp, diffusion]
