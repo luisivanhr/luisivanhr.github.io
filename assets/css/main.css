@@ -179,5 +179,23 @@ a:hover { text-decoration: underline; }
 
 @keyframes slideDown { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: translateY(0); } }
 
+
+/* Home link styled like a button */
+.nav-teaser .home-link {
+  margin-left: auto;
+  padding: 4px 10px;
+  border-radius: 6px;
+  background: rgba(100,170,255,0.18);
+  color: #fff;
+  font-weight: 600;
+  text-decoration: none;
+  font-size: 1rem;
+}
+.nav-teaser .home-link:hover,
+.nav-teaser .home-link:focus {
+  background: rgba(100,170,255,0.3);
+  outline: none;
+}
+
 /* Keep desk visible under the nav */
 #desk-wrap { margin-top: 8px; }

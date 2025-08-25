@@ -34,9 +34,10 @@
           class="nav-teaser"
           aria-expanded="false"
           aria-controls="nav-list">
+    <a href="{{ '/' | relative_url }}" class="home-link">Home</a>
     <span class="teaser-text">
        <li><a href="{{ '/' | relative_url }}" class="{% if here == '/' %}active{% endif %}">Home</a></li>&nbsp;
-       <strong>Explore the desk!</strong> &nbsp; <span class="hint">Click objects, or click here to open the classic menu ▼</span>
+       <strong>Explore the desk! Click objects, or click here to open the classic menu ▼</strong> &nbsp; 
       
     </span>
 
@@ -45,8 +46,7 @@
   <nav id="nav-list" hidden>
     <ul>
       <a class="brand" >Luis Iván Hernández Ruíz</a>
-      {% assign here = page.url | relative_url %}
-      <li><a href="{{ '/' | relative_url }}" class="{% if here == '/' %}active{% endif %}">Home</a></li>
+      
       {% assign u='/about/' | relative_url %}<li><a href="{{ '/about/' | relative_url }}" class="{% if here == u or here contains u %}active{% endif %}">About</a></li>
       {% assign u='/news/' | relative_url %}<li><a href="{{ '/news/' | relative_url }}" class="{% if here == u or here contains u %}active{% endif %}">News</a></li>
       {% assign u='/blog/' | relative_url %}<li><a href="{{ '/blog/' | relative_url }}" class="{% if here == u or here contains u %}active{% endif %}">Blog</a></li>
