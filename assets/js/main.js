@@ -10,7 +10,7 @@ function resizeBoardText(){
   const el = document.querySelector('.board-math');
   if (!el) return;
   const s = getStageScale();
-  el.style.fontSize = Math.max(4, Math.round(BASE_FONT_PX * s)) + 'px';
+  el.style.fontSize = Math.max(1, Math.round(BASE_FONT_PX * s)) + 'px';
   // If MathJax is used and you need it to re-typeset line breaks on resize:
   if (window.MathJax && typeof MathJax.typesetPromise === 'function') {
     try { MathJax.typesetClear?.([el]); } catch(_) {}
