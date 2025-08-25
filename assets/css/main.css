@@ -137,7 +137,7 @@ a:hover { text-decoration: underline; }
 
 
 .nav-teaser .teaser-text strong {
-  font-size: 1.1 rem;
+  font-size: 1.5rem;
   color: #ffffff; /* accent color */
 }
 .nav-teaser .teaser-text .hint {
@@ -189,7 +189,7 @@ a:hover { text-decoration: underline; }
   color: #fff;
   font-weight: 600;
   text-decoration: none;
-  font-size: 2rem;
+  font-size: 1.5rem;
 }
 .nav-teaser .home-link:hover,
 .nav-teaser .home-link:focus {
