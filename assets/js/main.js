@@ -19,30 +19,7 @@ function resizeBoardText(){
 }
 
 
-// ===== Optional: hard block page zoom (Ctrl/Cmd + wheel, Ctrl/Cmd +/−/0) =====
-(function hardBlockPageZoom(){
-  const blockWheel = (e) => {
-    if (e.ctrlKey || e.metaKey) { e.preventDefault(); e.stopImmediatePropagation(); }
-  };
-  window.addEventListener('wheel', blockWheel, { passive: false, capture: true });
-  document.addEventListener('wheel', blockWheel, { passive: false, capture: true });
 
-  const blockKeys = (e) => {
-    if (!(e.ctrlKey || e.metaKey)) return;
-    const code = e.code, key = e.key;
-    if (code === 'Equal' || code === 'Minus' || code === 'Digit0' ||
-        code === 'NumpadAdd' || code === 'NumpadSubtract' || code === 'Numpad0' ||
-        key === '+' || key === '=' || key === '-' || key === '0') {
-      e.preventDefault(); e.stopImmediatePropagation();
-    }
-  };
-  window.addEventListener('keydown', blockKeys, { capture: true });
-  document.addEventListener('keydown', blockKeys, { capture: true });
-
-  ['gesturestart','gesturechange','gestureend'].forEach(t => {
-    window.addEventListener(t, e => { e.preventDefault(); e.stopImmediatePropagation(); }, { capture: true });
-  });
-})();
 
 // ===== FX metrics & canvas sizing =====
 const DESIGN_W = 1600;   // match your SVG/viewBox width
