@@ -110,31 +110,31 @@ a:hover { text-decoration: underline; }
 #tooltip .meta { color: var(--muted); font-size: 0.9rem; }
 
 /* Classic nav */
-.classic-nav { display:grid; grid-template-columns: repeat(auto-fit, minmax(160px,1fr)); gap:10px; }
-.classic-nav a { padding:10px 12px; background:#0f131a; border:1px solid #1f2a33; border-radius: 8px; }
+.classic-nav { display:grid; grid-template-columns: repeat(auto-fit, minmax(16%,1fr)); gap:1%; }
+.classic-nav a { padding:0.1% 1.2%; background:#0f131a; border:0.1% solid #1f2a33; border-radius: 0.8%; }
 
 
 .site-nav {
   position: sticky; top: 0; z-index: 9999;
-  display: flex; align-items: center; gap: 16px;
-  padding: 10px 14px;
+  display: flex; align-items: center; gap: 1%;
+  padding: 1% 1%;
   background: rgba(8,14,20,0.85);
   backdrop-filter: blur(6px);
-  border-bottom: 1px solid rgba(255,255,255,0.08);
+  border-bottom: 0.1% solid rgba(255,255,255,0.08);
 }
 
 .site-nav .brand {
-  font-weight: 700; letter-spacing: .2px; text-decoration: none;
+  font-weight: 700; letter-spacing: 0.02%; text-decoration: none;
   color: #eaf2ff;
 }
 
 .site-nav nav ul {
-  display: flex; flex-wrap: wrap; gap: 10px 14px;
+  display: flex; flex-wrap: wrap; gap: 0.1% 1.4%;
   margin: 0; padding: 0; list-style: none;
 }
 
 .site-nav nav a {
-  color: #cfe1ff; text-decoration: none; padding: 4px 8px; border-radius: 6px;
+  color: #cfe1ff; text-decoration: none; padding: 0.4% 0.8%; border-radius: 0.6%;
 }
 .site-nav nav a:hover,
 .site-nav nav a:focus {
@@ -147,8 +147,8 @@ a:hover { text-decoration: underline; }
 
 .site-nav nav a {
   display: inline-block;
-  padding: 4px 8px;
-  border-radius: 6px;
+  padding: 0.4% 0.8%;
+  border-radius: 0.6%;
   text-decoration: none;
 }
 
