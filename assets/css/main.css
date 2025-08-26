@@ -114,13 +114,13 @@ a:hover { text-decoration: underline; }
   display: grid;
   /* min column width scales with viewport width; never smaller than ~10rem */
   grid-template-columns: repeat(auto-fit, minmax(clamp(1rem, 22vw, 18rem), 1fr));
-  gap: 1rem; /* relative to root */
+  gap: 0.3rem; /* relative to root */
 }
 .classic-nav a{
-  padding: 0.75em 1em;             /* scales with element font-size */
+  padding: 0.2em 0.4em;             /* scales with element font-size */
   background:#0f131a;
   border: 1px solid #1f2a33;       /* hairline can stay px if you prefer */
-  border-radius: 0.6em;            /* scales */
+  border-radius: 0.3em;            /* scales */
   text-decoration: none;
 }
 
@@ -133,10 +133,10 @@ a:hover { text-decoration: underline; }
      - grows with viewport (0.6vw)
      - max 1.05rem
   */
-  font-size: clamp(0.01rem, 0.6rem + 0.6vw, 1.05rem);
+  font-size: clamp(0.2rem, 0.4vw, 1.05rem);
 
-  display: flex; align-items: center; gap: 1em;   /* gap scales with font-size */
-  padding: 0.7em 0.9em;                           /* was 10px 14px */
+  display: flex; align-items: center; gap: 0.3em;   /* gap scales with font-size */
+  padding: 0.2em 0.4em;                           /* was 10px 14px */
   background: rgba(8,14,20,0.85);
   backdrop-filter: blur(6px);
   border-bottom: 1px solid rgba(255,255,255,0.08);
