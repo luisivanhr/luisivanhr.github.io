@@ -133,9 +133,9 @@ a:hover { text-decoration: underline; }
      - grows with viewport (0.6vw)
      - max 1.05rem
   */
-  font-size: clamp(0.4rem, 1.0vw, 1.05rem);
+  font-size: clamp(1.0rem, 1.0vw, 1.05rem);
 
-  display: flex; align-items: center; gap: 0.6em;   /* gap scales with font-size */
+  display: flex; align-items: center; gap: 0.3em;   /* gap scales with font-size */
   padding: 0.2em 0.4em;                           /* was 10px 14px */
   background: rgba(8,14,20,0.85);
   backdrop-filter: blur(6px);
@@ -144,13 +144,13 @@ a:hover { text-decoration: underline; }
 
 /* Optional brand, if you keep it somewhere */
 .site-nav .brand{
-  font-weight: 700; letter-spacing: 0.02em;
+  font-weight: 700; letter-spacing: 0.02em; gap: 0.8em;
   color: #eaf2ff; text-decoration: none;
 }
 
 /* Horizontal list scales via em */
 .site-nav nav ul{
-  display: flex; flex-wrap: wrap; gap: 0.8em 1em;
+  display: flex; flex-wrap: wrap; gap: 0.8em 1em; 
   margin: 0; padding: 0; list-style: none;
 }
 
