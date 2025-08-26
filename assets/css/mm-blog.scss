@@ -1,0 +1,16 @@
+---
+# Jekyll must see front matter for Sass to compile
+---
+
+$minimal-mistakes-skin: "air"; // or "air", "dirt", "neon", etc.
+@import "minimal-mistakes/skins/#{$minimal-mistakes-skin}";
+@import "minimal-mistakes";
+
+// small overrides so it plays nice with your site
+.page,
+.layout--single,
+.layout--archive {
+  max-width: 68rem;   // keep it readable
+  margin: 0 auto;
+  padding: clamp(0.8rem, 1.2vw, 1.6rem);
+}
