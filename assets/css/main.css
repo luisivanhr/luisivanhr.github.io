@@ -133,9 +133,9 @@ a:hover { text-decoration: underline; }
      - grows with viewport (0.6vw)
      - max 1.05rem
   */
-  font-size: clamp(0.2rem, 1.8rem, 1.05rem);
+  font-size: clamp(0.2rem, 0.8vw, 1.05rem);
 
-  display: flex; align-items: center; gap: 0.3em;   /* gap scales with font-size */
+  display: flex; align-items: center; gap: 0.5em;   /* gap scales with font-size */
   padding: 0.2em 0.4em;                           /* was 10px 14px */
   background: rgba(8,14,20,0.85);
   backdrop-filter: blur(6px);
