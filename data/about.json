@@ -1,9 +1,6 @@
----
-layout: null
-permalink: /data/about.json
----
-{% raw %}{
-  "name": "{{ site.title | escape }}",
-  "tagline": "{{ site.description | escape }}",
+{
+  "name": "Luis Iván",
+  "title": "Research & Projects",
+  "bio": "Short bio goes here.",
   "email": "name@example.com"
-}{% endraw %}
+}
