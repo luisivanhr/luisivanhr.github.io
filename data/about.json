@@ -1,6 +1,7 @@
-{
-  "name": "Luis Iván",
-  "title": "Research & Projects",
-  "bio": "Short bio goes here.",
-  "email": "name@example.com"
-}
+---
+layout: feed.json
+title: "About feed"
+collection_name: about
+permalink: /data/about.json
+max_items: 1
+---
