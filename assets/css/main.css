@@ -109,69 +109,105 @@ a:hover { text-decoration: underline; }
 #tooltip .title { font-weight: 700; margin-top: 8px; }
 #tooltip .meta { color: var(--muted); font-size: 0.9rem; }
 
-/* ========== Classic grid menu (if you show it elsewhere) ========== */
-.classic-nav{
-  display: grid;
-  /* min column width scales with viewport width; never smaller than ~10rem */
-  grid-template-columns: repeat(auto-fit, minmax(clamp(1rem, 22vw, 18rem), 1fr));
-  gap: 0.3rem; /* relative to root */
-}
-.classic-nav a{
-  padding: 0.2em 0.4em;             /* scales with element font-size */
-  background:#0f131a;
-  border: 1px solid #1f2a33;       /* hairline can stay px if you prefer */
-  border-radius: 0.3em;            /* scales */
-  text-decoration: none;
-}
-
-/* ========== Top site nav (ALWAYS VISIBLE) ========== */
-.site-nav{
+/* ========== Top bar wrapper ========== */
+.site-nav {
   position: sticky; top: 0; z-index: 9999;
-
-  /* Fluid typography for the whole bar:
-     - never below 0.9rem
-     - grows with viewport (0.6vw)
-     - max 1.05rem
-  */
-  font-size: clamp(0.4rem, 1.0vw, 1.05rem);
-
-  display: flex; align-items: center; gap: 1.0em;   /* gap scales with font-size */
-  padding: 0.2em 0.4em;                           /* was 10px 14px */
+  margin: 0;
   background: rgba(8,14,20,0.85);
   backdrop-filter: blur(6px);
   border-bottom: 1px solid rgba(255,255,255,0.08);
+
+  /* Fluid base font size for the whole teaser bar */
+  font-size: clamp(0.4rem, 1.0vw, 1.05rem);
 }
 
-/* Optional brand, if you keep it somewhere */
-.site-nav .brand{
-  font-weight: 700; letter-spacing: 0.02em;
-  color: #eaf2ff; text-decoration: none;
+/* ========== Teaser button ========== */
+.nav-teaser {
+  all: unset;
+  display: flex; align-items: center;
+  gap: 1em;                        /* was 2rem */
+  width: 100%;
+  padding: 0.4em 0.6em;            /* was 14px 18px */
+  cursor: pointer;
+  background: rgba(8,14,20,0.85);
+  color: #eaf3ff;
+  border-bottom: 1px solid #123242;
 }
 
-/* Horizontal list scales via em */
-.site-nav nav ul{
-  display: flex; flex-wrap: wrap; gap: 0.8em 1em; 
-  margin: 0; padding: 0; list-style: none;
+.nav-teaser:focus-visible { outline: 0.15em solid #64aaff; outline-offset: 0.2em; }
+
+.nav-teaser .teaser-text { font-size: 1em; opacity: .9; }   /* scales with base */
+.nav-teaser .chev { transition: transform .25s ease; }
+
+/* Emphasized part */
+.nav-teaser .teaser-text strong {
+  font-size: 1.2em;          /* relative to bar size */
+  color: #ffffff;
+  margin-right: 0.3em;
+}
+.nav-teaser .teaser-text .hint {
+  display: inline;
+  font-size: 1em;            /* keep same scale; or 0.9em if you want it smaller */
+  color: #1aa2e6;
 }
 
-/* Links: no px; all em so they scale with the nav’s font-size */
-.site-nav nav a{
+/* Icon rotation */
+[aria-expanded="true"] .icon { transform: rotate(90deg); }
+
+/* Remove the old fixed font-size */
+.nav-teaser { font-size: inherit; }
+
+/* ========== Menu list when expanded ========== */
+#nav-list[hidden] { display: none; }
+#nav-list {
+  padding: 0.6em 0.8em;
+  animation: slideDown .25s ease;
+}
+@media (prefers-reduced-motion: reduce) {
+  #nav-list { animation: none; }
+  .nav-teaser .chev { transition: none; }
+}
+
+#nav-list ul {
+  list-style: none; margin: 0; padding: 0;
+  display: flex; flex-wrap: wrap; gap: 0.6em 0.8em;
+}
+#nav-list a {
   display: inline-block;
-  padding: 0.35em 0.6em;          /* was 4px 8px */
-  border-radius: 0.45em;          /* was 6px */
+  padding: 0.35em 0.6em;
+  border-radius: 0.45em;
   color: #cfe1ff; text-decoration: none;
 }
-.site-nav nav a:hover,
-.site-nav nav a:focus{
+#nav-list a:hover, #nav-list a:focus {
   background: rgba(255,255,255,0.08);
   outline: none;
 }
-
-/* Active item */
-.site-nav nav a.active{
+#nav-list a.active {
   background: rgba(27,129,160,0.78);
+  color: #ffffff;
+}
+
+[aria-expanded="true"] .chev { transform: rotate(180deg); }
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-0.4em); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ========== Home link styled like a button in teaser ========== */
+.nav-teaser .home-link {
+  padding: 0.3em 0.6em;
+  border-radius: 0.4em;
+  background: rgba(100,170,255,0.18);
   color: #fff;
   font-weight: 600;
+  text-decoration: none;
+  font-size: 1em; /* scales with base font */
+}
+.nav-teaser .home-link:hover,
+.nav-teaser .home-link:focus {
+  background: rgba(100,170,255,0.3);
+  outline: none;
 }
 
 /* Keep desk visible under the nav */
