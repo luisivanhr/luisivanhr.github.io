@@ -1,7 +1,9 @@
 ---
-layout: feed.json
-title: "About feed"
-collection_name: about
+layout: null
 permalink: /data/about.json
-max_items: 1
 ---
+{% raw %}{
+  "name": "{{ site.title | escape }}",
+  "tagline": "{{ site.description | escape }}",
+  "email": "name@example.com"
+}{% endraw %}

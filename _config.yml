@@ -36,11 +36,17 @@ collections:
     output: true
     permalink: /blog/:title/
 
-defaults:
-  - scope: {path: ""}
+  defaults:
+  - scope:
+      path: ""
     values:
       layout: default
       image: /assets/images/og-default.png
+  - scope:
+      path: "data"
+    values:
+      layout: null
+
 
 markdown: kramdown
 kramdown:
