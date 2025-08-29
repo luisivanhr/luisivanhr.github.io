@@ -27,7 +27,11 @@ a:hover { text-decoration: underline; }
 }
 
 /* fill the stage */
-.desk-bg{ position:absolute; inset:0; overflow:hidden; }
+.desk-bg {
+  position: absolute; inset:0; overflow:hidden;
+  background: url('{{ "/assets/images/desk/desk-bg.png" | relative_url }}')
+              center / cover no-repeat; /* or contain, depending on your export */
+}
 .desk-bg svg, .desk-bg canvas, .board-math{
   position:absolute; inset:0; width:100%; height:100%; display:block;
 }
