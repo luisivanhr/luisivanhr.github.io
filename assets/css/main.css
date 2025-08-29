@@ -29,7 +29,7 @@ a:hover { text-decoration: underline; }
 /* fill the stage */
 .desk-bg {
   position: absolute; inset:0; overflow:hidden;
-  background: url('{{ "/assets/images/desk/background.png" | relative_url }}')
+  background: url('/assets/images/desk/background.png')
               center / cover no-repeat; /* or contain, depending on your export */
 }
 .desk-bg svg, .desk-bg canvas, .board-math{
