@@ -1,6 +1,6 @@
 ---
 layout: default
-comments: true
+disqus_shortname: luisivanhr
 ---
 <link rel="stylesheet" href="{{ '/assets/css/post.css' | relative_url }}">
 <article class="post">
@@ -23,7 +23,7 @@ comments: true
       </div>
       <section id="comments" class="comments">
         <h2>Comments</h2>
-        {% if page.comments %}
+        {% if site.disqus_shortname %}
         <div id="disqus_thread"></div>
         <script>
         var disqus_config = function () {
