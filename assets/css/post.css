@@ -28,6 +28,6 @@
   margin-right: 0.5rem;
 }
 
-.ember-view.share.btn.standard { width: 0px; margin-left: -30px; visibility: hidden; }
-.nav-secondary>ul>li.share-menu { display: none; }
-.post-content footer .share { display: none; }
+[1].ember-view.share.btn.standard { width: 0px; margin-left: -30px; visibility: hidden; }
+[5].nav-secondary>ul>li.share-menu { display: none; }
+[5].post-content footer .share { display: none; }
