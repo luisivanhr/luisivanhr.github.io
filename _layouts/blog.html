@@ -22,8 +22,11 @@ layout: default
       <h2>Categories</h2>
       <ul>
       {% for category in site.categories %}
+        {% assign cat_slug = category[0] | slugify %}
+        {% assign cat_path = '/assets/thumbs/' | append: cat_slug | append: '.png' %}
+        {% assign cat_file = site.static_files | where: 'path', cat_path | first %}
         <li>
-          <img src="{{ '/assets/thumbs/' | append: category[0] | append: '.png' | relative_url }}" alt="{{ category[0] }} icon" onerror="this.src='{{ '/assets/thumbs/default-category.png' | relative_url }}'">
+          <img src="{{ cat_file.path | default: '/assets/thumbs/default-category.png' | relative_url }}" alt="{{ category[0] }} icon">
           <span>{{ category[0] }} ({{ category[1] | size }})</span>
         </li>
       {% endfor %}
