@@ -1,0 +1,44 @@
+.blog-container {
+  display: flex;
+  gap: 2rem;
+}
+
+.blog-main {
+  flex: 3;
+}
+
+.post-card {
+  display: flex;
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 1rem;
+}
+
+.post-card img {
+  width: 120px;
+  height: 80px;
+  object-fit: cover;
+  margin-right: 1rem;
+}
+
+.blog-sidebar {
+  flex: 1;
+}
+
+.categories-panel ul {
+  list-style: none;
+  padding: 0;
+}
+
+.categories-panel li {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.categories-panel img {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+  margin-right: 0.5rem;
+}

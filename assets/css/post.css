@@ -1,0 +1,29 @@
+.post-body {
+  display: flex;
+  gap: 2rem;
+}
+
+.post-sidebar {
+  flex: 0 0 200px;
+}
+
+.post-sidebar nav ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.post-sidebar nav li {
+  margin-bottom: 0.5rem;
+}
+
+.post-content {
+  flex: 1;
+}
+
+.share {
+  margin-top: 1rem;
+}
+
+#share-links a {
+  margin-right: 0.5rem;
+}

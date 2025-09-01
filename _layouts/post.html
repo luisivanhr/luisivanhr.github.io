@@ -1,0 +1,36 @@
+---
+layout: default
+---
+<link rel="stylesheet" href="{{ '/assets/css/post.css' | relative_url }}">
+<article class="post">
+  <header class="post-header">
+    <h1>{{ page.title }}</h1>
+    <p class="post-meta">{{ page.date | date: "%B %d, %Y" }}</p>
+  </header>
+  <div class="post-body">
+    <aside class="post-sidebar">
+      <nav id="post-nav" class="local-nav"></nav>
+    </aside>
+    <div class="post-content">
+      {{ content }}
+      <div class="share">
+        <button id="share-btn" type="button">Share</button>
+        <div id="share-links" hidden>
+          <a href="https://twitter.com/intent/tweet?url={{ page.url | absolute_url }}&text={{ page.title }}" target="_blank" rel="noopener">Twitter</a>
+          <a href="https://www.linkedin.com/sharing/share-offsite/?url={{ page.url | absolute_url }}" target="_blank" rel="noopener">LinkedIn</a>
+        </div>
+      </div>
+      <section id="comments" class="comments">
+        <h2>Comments</h2>
+        <script src="https://utteranc.es/client.js"
+            repo="luisivanhr/luisivanhr.github.io"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+        </script>
+      </section>
+    </div>
+  </div>
+</article>
+<script src="{{ '/assets/js/post.js' | relative_url }}"></script>

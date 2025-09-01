@@ -1,0 +1,33 @@
+---
+layout: default
+---
+<link rel="stylesheet" href="{{ '/assets/css/blog.css' | relative_url }}">
+<div class="blog-container">
+  <main class="blog-main">
+    <h1>Blog</h1>
+    {% for p in site.posts %}
+    <article class="post-card">
+      <a href="{{ p.url | relative_url }}">
+        <img src="{{ p.image | default: '/assets/thumbs/default-post.png' | relative_url }}" alt="{{ p.title }} thumbnail" class="post-thumb">
+        <div class="post-card-content">
+          <h2>{{ p.title }}</h2>
+          <p>{{ p.excerpt | strip_html | truncatewords: 30 }}</p>
+        </div>
+      </a>
+    </article>
+    {% endfor %}
+  </main>
+  <aside class="blog-sidebar">
+    <section class="categories-panel">
+      <h2>Categories</h2>
+      <ul>
+      {% for category in site.categories %}
+        <li>
+          <img src="{{ '/assets/thumbs/' | append: category[0] | append: '.png' | relative_url }}" alt="{{ category[0] }} icon" onerror="this.src='{{ '/assets/thumbs/default-category.png' | relative_url }}'">
+          <span>{{ category[0] }} ({{ category[1] | size }})</span>
+        </li>
+      {% endfor %}
+      </ul>
+    </section>
+  </aside>
+</div>
