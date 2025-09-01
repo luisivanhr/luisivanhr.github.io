@@ -22,13 +22,22 @@ layout: default
       </div>
       <section id="comments" class="comments">
         <h2>Comments</h2>
-        <script src="https://utteranc.es/client.js"
-            repo="luisivanhr/luisivanhr.github.io"
-            issue-term="pathname"
-            theme="icy-dark"
-            crossorigin="anonymous"
-            async>
+        {% if site.disqus_shortname %}
+        <div id="disqus_thread"></div>
+        <script>
+        var disqus_config = function () {
+          this.page.url = "{{ page.url | absolute_url }}";
+          this.page.identifier = "{{ page.url }}";
+        };
+        (function() {
+          var d = document, s = d.createElement('script');
+          s.src = 'https://{{ site.disqus_shortname }}.disqus.com/embed.js';
+          s.setAttribute('data-timestamp', +new Date());
+          (d.head || d.body).appendChild(s);
+        })();
         </script>
+        <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+        {% endif %}
       </section>
     </div>
   </div>

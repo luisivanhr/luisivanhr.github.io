@@ -4,6 +4,8 @@ description: "Research blog, models, courses, and more."
 url: "https://luisivanhr.github.io"  # set to your custom domain (e.g., https://luisivanhr.com)
 baseurl: ""
 
+disqus_shortname: luisivanhr
+
 theme: minima
 
 plugins:
