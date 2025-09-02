@@ -13,7 +13,6 @@
 }
 
 
-
 .post-card {
   display: flex;
   margin-bottom: 1.5rem;
@@ -34,7 +33,7 @@
   flex: 0.5;
   background: #527e88;
   height: 100vh;
-  width:
+  width:100vw;
 }
 
 .sidebar-search {
