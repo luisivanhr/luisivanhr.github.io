@@ -1,0 +1,9 @@
+---
+layout: post
+title: "Welcome to my blog"
+date: 2025-08-19
+excerpt: "First placeholder post."
+image: /assets/thumbs/blog/blog1.png
+categories: [general]
+---
+This is a placeholder blog post. Replace me with real content.
