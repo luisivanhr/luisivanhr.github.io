@@ -4,20 +4,26 @@ layout: default
 <link rel="stylesheet" href="{{ '/assets/css/blog.css' | relative_url }}">
 <div class="blog-container">
   <main class="blog-main">
-    <h1>Blog</h1>
+    <h1>{{ page.title }}</h1>
     <div id="posts-list">
-    {% for p in site.posts %}
-    <article class="post-card">
-      <a href="{{ p.url | relative_url }}">
-        <img src="{{ p.image | default: '/assets/thumbs/default-post.png' | relative_url }}" alt="{{ p.title }} thumbnail" class="post-thumb">
-        <div class="post-card-content">
-          <h2>{{ p.title }}</h2>
-          <p>{{ p.excerpt | strip_html | truncatewords: 30 }}</p>
-        </div>
-      </a>
-    </article>
-    {% endfor %}
+      {% assign cat_posts = site.categories[page.category] %}
+      {% if cat_posts %}
+        {% for p in cat_posts %}
+        <article class="post-card">
+          <a href="{{ p.url | relative_url }}">
+            <img src="{{ p.image | default: '/assets/thumbs/default-post.png' | relative_url }}" alt="{{ p.title }} thumbnail" class="post-thumb">
+            <div class="post-card-content">
+              <h2>{{ p.title }}</h2>
+              <p>{{ p.excerpt | strip_html | truncatewords: 30 }}</p>
+            </div>
+          </a>
+        </article>
+        {% endfor %}
+      {% else %}
+        <p>No posts found in this category.</p>
+      {% endif %}
     </div>
+    <div id="pagination-controls"></div>
   </main>
   <aside class="blog-sidebar">
     <div class="sidebar-search">

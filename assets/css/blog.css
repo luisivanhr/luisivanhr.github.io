@@ -4,8 +4,8 @@
 }
 
 .blog-main {
-  margin-left: 2rem;
   flex: 3;
+  margin-left: 2rem;
 }
 
 .post-card {
@@ -26,15 +26,30 @@
   flex: 1;
 }
 
+.sidebar-search {
+  margin-bottom: 1rem;
+}
+
+.sidebar-search input {
+  width: 100%;
+  padding: 0.5rem;
+  box-sizing: border-box;
+}
+
 .categories-panel ul {
   list-style: none;
   padding: 0;
 }
 
 .categories-panel li {
+  margin-bottom: 0.5rem;
+}
+
+.categories-panel li a {
   display: flex;
   align-items: center;
-  margin-bottom: 0.5rem;
+  text-decoration: none;
+  color: inherit;
 }
 
 .categories-panel img {
@@ -42,4 +57,13 @@
   height: 40px;
   object-fit: cover;
   margin-right: 0.5rem;
+}
+
+#pagination-controls {
+  margin-top: 1rem;
+  text-align: center;
+}
+
+#pagination-controls button {
+  margin: 0 0.25rem;
 }
