@@ -18,7 +18,20 @@ function resizeBoardText(){
   }
 }
 
+const isTouch = window.matchMedia('(pointer: coarse)').matches;
 
+if (!isTouch) {
+  hotspots.forEach(h => {
+    const feed = h.getAttribute('data-feed');
+    h.addEventListener('mouseenter', async (e)=>{
+      const data = await getFeed(feed);
+      const item = data.items?.[0] || {};
+      const rect = h.getBoundingClientRect();
+      showTooltip(rect.right, rect.top, item);
+    });
+    h.addEventListener('mouseleave', hideTooltip);
+  });
+}
 // ===== Optional: hard block page zoom (Ctrl/Cmd + wheel, Ctrl/Cmd +/−/0) =====
 (function hardBlockPageZoom(){
   const blockWheel = (e) => {
