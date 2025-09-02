@@ -43,19 +43,13 @@ a:hover { text-decoration: underline; }
 
 
 /* Blackboard math overlay (keeps your current manual placement) */
-:root{
-  /* From your old px values: left=240, top=164, width=460 on a 1600×900 viewBox */
-  --board-left: 17%;        /* 240 / 1600 * 100 */
-  --board-top: 18.5%;     /* 164 / 900 * 100  */
-  --board-width: 28.75%;    /* 460 / 1600 * 100 */
-  --board-rotate: 0.5deg;
-}
+
 
 .board-math{
   position: absolute; 
-  left: var(--board-left);
-  top: var(--board-top);
-  width: var(--board-width);
+  left: 17%;        /* 240 / 1600 * 100 */
+  top: 18.5%;     /* 164 / 900 * 100  */
+  width: 28.75%;    /* 460 / 1600 * 100 */
   aspect-ratio: 16 / 9;     /* keeps the board rectangular */
   height: auto;
   transform: perspective(8vw) rotateX(5deg) rotateY(4deg) rotateZ(3.5deg);
@@ -108,9 +102,7 @@ a:hover { text-decoration: underline; }
 
 
 /* Tooltip */
-@media (hover: none) and (pointer: coarse) {
-  #tooltip { display: none !important; }
-}
+
 
 #tooltip { position: fixed; z-index: 50; background: #061019ee; border: 1px solid #153244; border-radius: 10px; padding: 10px 12px; width: 320px; box-shadow: 0 10px 30px #0008; }
 #tooltip .thumb { width: 100%; height: 140px; object-fit: cover; border-radius: 8px; display:block; }
