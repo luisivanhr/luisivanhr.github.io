@@ -8,11 +8,9 @@
   flex: 1.8;
   margin-left: 6rem;
   margin-right: 5rem;
-}
-
-.blog-body{
   background-image: linear-gradient(to right, #123242, #8bdbdf)
 }
+
 
 .post-card {
   display: flex;
