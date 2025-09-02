@@ -3,16 +3,24 @@
   gap: 2rem;
 }
 
+
 .blog-main {
-  flex: 3;
-  margin-left: 2rem;
+  flex: 1.8;
+  margin-left: 6rem;
+  margin-right: 5rem;
+}
+
+.blog-body{
+  background-image: linear-gradient(to right, #123242, #8bdbdf)
 }
 
 .post-card {
   display: flex;
   margin-bottom: 1.5rem;
-  border-bottom: 1px solid #ddd;
-  padding-bottom: 1rem;
+  border-bottom: 1rem solid #bebebe;
+  padding: 1rem;
+  background: #66abc3;
+  border-radius: 15px 50px 30px;
 }
 
 .post-card img {
@@ -23,17 +31,26 @@
 }
 
 .blog-sidebar {
-  flex: 1;
+  flex: 0.5;
+  background: #527e88;
+  height: 100vw;
 }
 
 .sidebar-search {
   margin-bottom: 1rem;
+  margin-right: 2rem;
+  margin-top: 1rem;
+  margin-left: 1.5rem;
 }
 
 .sidebar-search input {
   width: 100%;
   padding: 0.5rem;
   box-sizing: border-box;
+}
+
+.categories-panel {
+  margin-left: 1.5rem; 
 }
 
 .categories-panel ul {
