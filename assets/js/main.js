@@ -1,3 +1,7 @@
+const isTouch = window.matchMedia('(pointer: coarse)').matches;
+// alt fallback (covers some edge devices):
+// const isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+
 // === Board text scaler (JS fallback) ===
 const BASE_FONT_PX = 22;  // font at 1600×900 design size
 function getStageScale(){
@@ -18,20 +22,7 @@ function resizeBoardText(){
   }
 }
 
-const isTouch = window.matchMedia('(pointer: coarse)').matches;
 
-if (!isTouch) {
-  hotspots.forEach(h => {
-    const feed = h.getAttribute('data-feed');
-    h.addEventListener('mouseenter', async (e)=>{
-      const data = await getFeed(feed);
-      const item = data.items?.[0] || {};
-      const rect = h.getBoundingClientRect();
-      showTooltip(rect.right, rect.top, item);
-    });
-    h.addEventListener('mouseleave', hideTooltip);
-  });
-}
 // ===== Optional: hard block page zoom (Ctrl/Cmd + wheel, Ctrl/Cmd +/−/0) =====
 (function hardBlockPageZoom(){
   const blockWheel = (e) => {
@@ -245,7 +236,9 @@ function setupDPRListener(){
 })();
 
 })();
- 
+
+
+
 (function(){
   const btn = document.getElementById('nav-toggle');
   const list = document.getElementById('nav-list');
@@ -791,3 +784,21 @@ window.fxDump = (q) => {
   console.log(txt);
   return txt;
 };
+// --- HOTSPOT HOVERS (desktop only) ---
+if (!isTouch) {
+  const hotspots = document.querySelectorAll('#desk-hotspots .hotspot');
+  hotspots.forEach(h => {
+    const feed = h.getAttribute('data-feed');
+    h.addEventListener('mouseenter', async () => {
+      const data = await getFeed(feed);
+      const item = data.items?.[0] || {};
+      const rect = h.getBoundingClientRect();
+      showTooltip(rect.right, rect.top, item);
+    });
+    h.addEventListener('mouseleave', hideTooltip);
+  });
+} else {
+  // ensure tooltip stays hidden on touch
+  const tt = document.getElementById('tooltip');
+  if (tt) tt.hidden = true;
+}
