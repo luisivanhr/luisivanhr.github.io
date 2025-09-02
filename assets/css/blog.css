@@ -1,6 +1,7 @@
 .blog-container {
   display: flex;
   gap: 2rem;
+  background-image: linear-gradient(to right, #123242, #8bdbdf)
 }
 
 
@@ -10,9 +11,7 @@
   margin-right: 5rem;
 }
 
-.body{
-  background-image: linear-gradient(to right, #123242, #8bdbdf)
-}
+
 
 .post-card {
   display: flex;
