@@ -20,6 +20,7 @@
   padding: 1rem;
   background: #66abc3;
   border-radius: 15px 50px 30px;
+  font-size: clamp(0.4rem, 1.0vw, 1.05rem);
 }
 
 .post-card img {
