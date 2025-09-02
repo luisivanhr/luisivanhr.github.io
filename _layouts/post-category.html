@@ -11,7 +11,7 @@ layout: default
         {% for p in cat_posts %}
         <article class="post-card">
           <a href="{{ p.url | relative_url }}">
-            <img src="{{ p.image | default: '/assets/thumbs/default-post.png' | relative_url }}" alt="{{ p.title }} thumbnail" class="post-thumb">
+            <img src="{{ p.image | default: '/assets/thumbs/blog/default-post.png' | relative_url }}" alt="{{ p.title }} thumbnail" class="post-thumb">
             <div class="post-card-content">
               <h2>{{ p.title }}</h2>
               <p>{{ p.excerpt | strip_html | truncatewords: 30 }}</p>
@@ -38,7 +38,7 @@ layout: default
         {% assign cat_file = site.static_files | where: 'path', cat_path | first %}
         <li>
           <a href="{{ '/blog/category/' | append: cat_slug | relative_url }}">
-            <img src="{{ cat_file.path | default: '/assets/thumbs/default-category.png' | relative_url }}" alt="{{ category[0] }} icon">
+            <img src="{{ cat_file.path | default: '/assets/thumbs/blog/default-category.png' | relative_url }}" alt="{{ category[0] }} icon">
             <span>{{ category[0] }} ({{ category[1] | size }})</span>
           </a>
         </li>

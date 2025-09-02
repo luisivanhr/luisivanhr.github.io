@@ -16,10 +16,13 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function render() {
+    allPosts.forEach(p => p.style.display = 'none');
     if (pagination) {
       const totalPages = Math.max(1, Math.ceil(filteredPosts.length / perPage));
       filteredPosts.forEach((p, i) => {
-        p.style.display = (i >= (page - 1) * perPage && i < page * perPage) ? '' : 'none';
+        if (i >= (page - 1) * perPage && i < page * perPage) {
+          p.style.display = '';
+        }
       });
       renderControls(totalPages);
     } else {
