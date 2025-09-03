@@ -7,9 +7,14 @@ layout: default
     <h1>Blog</h1>
     <div id="posts-list">
     {% for p in site.posts %}
-    <article class="post-card">
+      {% assign post_cats = '' %}
+      {% for c in p.categories %}
+        {% assign cat_slug = c | slugify %}
+        {% assign post_cats = post_cats | append: cat_slug | append: ' ' %}
+      {% endfor %}
+    <article class="post-card" data-categories="{{ post_cats | strip }}">
       <a href="{{ p.url | relative_url }}">
-        <img src="{{ p.image | default: '/assets/thumbs/blog/default-post.png' | relative_url }}" alt="{{ p.title }} thumbnail" class="post-thumb">
+        <img src="{{ p.image | default: '/assets/thumbs/default-post.png' | relative_url }}" alt="{{ p.title }} thumbnail" class="post-thumb">
         <div class="post-card-content">
           <h2>{{ p.title }}</h2>
           <p>{{ p.excerpt | strip_html | truncatewords: 30 }}</p>
@@ -18,6 +23,7 @@ layout: default
     </article>
     {% endfor %}
     </div>
+    <div id="pagination-controls"></div>
   </main>
   <aside class="blog-sidebar">
     <div class="sidebar-search">
@@ -26,15 +32,21 @@ layout: default
     <section class="categories-panel">
       <h2>Categories</h2>
       <ul>
+        <li>
+          <button data-category="all">
+            <img src="{{ '/assets/thumbs/default-category.png' | relative_url }}" alt="All icon">
+            <span>All</span>
+          </button>
+        </li>
       {% for category in site.categories %}
         {% assign cat_slug = category[0] | slugify %}
         {% assign cat_path = '/assets/thumbs/' | append: cat_slug | append: '.png' %}
         {% assign cat_file = site.static_files | where: 'path', cat_path | first %}
         <li>
-          <a href="{{ '/blog/category/' | append: cat_slug | relative_url }}">
-            <img src="{{ cat_file.path | default: '/assets/thumbs/blog/default-category.png' | relative_url }}" alt="{{ category[0] }} icon">
+          <button data-category="{{ cat_slug }}">
+            <img src="{{ cat_file.path | default: '/assets/thumbs/default-category.png' | relative_url }}" alt="{{ category[0] }} icon">
             <span>{{ category[0] }} ({{ category[1] | size }})</span>
-          </a>
+          </button>
         </li>
       {% endfor %}
       </ul>

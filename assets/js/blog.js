@@ -3,14 +3,21 @@ document.addEventListener('DOMContentLoaded', () => {
   const postsContainer = document.getElementById('posts-list');
   if (!postsContainer) return;
   const allPosts = Array.from(postsContainer.children);
-  let filteredPosts = allPosts.slice();
+  const categoryButtons = document.querySelectorAll('.categories-panel [data-category]');
   const pagination = document.getElementById('pagination-controls');
-  const perPage = 5;
+  const perPage = 6;
   let page = 1;
+  let currentCategory = 'all';
+  let filteredPosts = allPosts.slice();
 
-  function filterPosts() {
+  function applyFilters() {
     const term = searchInput ? searchInput.value.toLowerCase() : '';
-    filteredPosts = allPosts.filter(p => p.textContent.toLowerCase().includes(term));
+    filteredPosts = allPosts.filter(p => {
+      const textMatch = p.textContent.toLowerCase().includes(term);
+      const cats = (p.dataset.categories || '').split(' ');
+      const catMatch = currentCategory === 'all' || cats.includes(currentCategory);
+      return textMatch && catMatch;
+    });
     page = 1;
     render();
   }
@@ -48,8 +55,16 @@ document.addEventListener('DOMContentLoaded', () => {
     );
   }
 
-  if (searchInput) searchInput.addEventListener('input', filterPosts);
-  filterPosts();
+  categoryButtons.forEach(btn => {
+    btn.addEventListener('click', e => {
+      e.preventDefault();
+      currentCategory = btn.dataset.category;
+      applyFilters();
+    });
+  });
+
+  if (searchInput) searchInput.addEventListener('input', applyFilters);
+  applyFilters();
 
   // dynamic layout resize similar to main.js
   const container = document.querySelector('.blog-container');
