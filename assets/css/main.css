@@ -1,6 +1,7 @@
 :root{
   --scene-ar: 1.777777778;   /* 16/9 as a single number */
   --bars-color: #000000;
+  --ink: #000000;
 }
 
 * { box-sizing: border-box; }
