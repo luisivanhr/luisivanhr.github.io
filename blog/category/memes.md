@@ -1,6 +1,6 @@
 ---
 layout: post-category
 title: Memes
-category: memes
+category: Memes
 permalink: /blog/category/memes/
 ---

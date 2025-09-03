@@ -1,6 +1,6 @@
 ---
 layout: post-category
 title: General
-category: general
+category: General
 permalink: /blog/category/general/
 ---

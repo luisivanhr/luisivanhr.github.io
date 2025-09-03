@@ -1,6 +1,6 @@
 ---
 layout: post-category
 title: Research
-category: research
+category: Research
 permalink: /blog/category/research/
 ---

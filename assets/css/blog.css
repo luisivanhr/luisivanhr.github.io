@@ -1,13 +1,14 @@
 .blog-container {
   display: flex;
   gap: 2rem;
-  background-image: linear-gradient(to right, #123242, #8bdbdf)
+  background-image: linear-gradient(to right, #162229, #116367);
 }
 
 .blog-main {
   flex: 3;
   margin-left: 2em;
   margin-top: 2em;
+  color: #ffffff;
 }
 
 #posts-list {
@@ -39,6 +40,7 @@
 
 
 .post-card {
+  box-shadow: 11px 1px 8px 0 rgb(0 0 0), 1px 6px 20px 0 rgb(0 0 0 / 35%);
   display: flex;
   margin-bottom: 1.5rem;
   border-bottom: 1rem solid #bebebe;
@@ -77,9 +79,10 @@
 
 
 .blog-sidebar {
+  box-shadow: 0 10px 13px 0 rgb(0 0 0), 0 6px 20px 0 rgb(0 0 0 / 35%);
   flex: 0.5;
-  background: #527e88;
-  height: 1000vh;
+  background: #11282d;
+  height: 110vh;
   width:100vw;
 }
 
@@ -98,7 +101,8 @@
 
 .categories-panel {
   font-size: clamp(0.4rem, 1.9rem, 4rem);
-  margin-left: 1.5rem; 
+  margin-left: 1.5rem;
+  color: #ffffff; 
 }
 
 .categories-panel ul {
@@ -121,6 +125,7 @@
   padding: 0;
   cursor: pointer;
   text-align: left;
+  color: #ffffff;
 }
 
 /*
