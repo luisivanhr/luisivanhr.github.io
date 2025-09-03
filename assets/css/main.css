@@ -127,7 +127,7 @@ a:hover { text-decoration: underline; }
   all: unset;
   display: flex; align-items: center;
   gap: 1em;                        /* was 2rem */
-  width: 100vw;
+  width: 100%;
   padding: 0.4em 0.0em;            /* was 14px 18px */
   cursor: pointer;
   background: rgba(8,14,20,0.85);
