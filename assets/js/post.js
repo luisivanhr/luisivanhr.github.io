@@ -26,4 +26,17 @@ document.addEventListener('DOMContentLoaded', function() {
       shareLinks.hidden = !shareLinks.hidden;
     });
   }
+
+  // dynamic layout resize similar to main.js
+  const body = document.querySelector('.post-body');
+  function resizePost() {
+    if (!body) return;
+    if (window.innerWidth <= 700) {
+      body.classList.add('compact');
+    } else {
+      body.classList.remove('compact');
+    }
+  }
+  resizePost();
+  window.addEventListener('resize', resizePost);
 });

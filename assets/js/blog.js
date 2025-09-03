@@ -50,4 +50,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (searchInput) searchInput.addEventListener('input', filterPosts);
   filterPosts();
+
+  // dynamic layout resize similar to main.js
+  const container = document.querySelector('.blog-container');
+  function resizeLayout() {
+    if (!container) return;
+    if (window.innerWidth <= 700) {
+      container.classList.add('compact');
+    } else {
+      container.classList.remove('compact');
+    }
+  }
+  resizeLayout();
+  window.addEventListener('resize', resizeLayout);
 });

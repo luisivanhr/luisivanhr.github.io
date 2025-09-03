@@ -4,13 +4,29 @@
   background-image: linear-gradient(to right, #123242, #8bdbdf)
 }
 
+.blog-container.compact {
+  flex-direction: column;
+}
 
+.blog-container.compact .blog-main {
+  order: 1;
+}
+
+.blog-container.compact .blog-sidebar {
+  order: 2;
+}
+
+.blog-main {
+  flex: 3;
+}
+
+/*
 .blog-main {
   flex: 1.8;
   margin-left: 6rem;
   margin-right: 5rem;
   width: 100vw;
-}
+} */
 
 
 .post-card {
@@ -23,11 +39,21 @@
   font-size: clamp(0.4rem, 1.0vw, 1.05rem);
 }
 
+.blog-container.compact .post-card {
+  flex-direction: column;
+}
+
 .post-card img {
   width: 120px;
   height: 80px;
   object-fit: cover;
   margin-right: 1rem;
+}
+
+.blog-container.compact .post-card img {
+  width: 100%;
+  height: auto;
+  margin: 0 0 0.5rem 0;
 }
 
 .blog-sidebar {
