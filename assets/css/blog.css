@@ -13,8 +13,8 @@
 
 #posts-list {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(680px, 1fr));
+  gap: 5rem;
 }
 
 .blog-container.compact {
