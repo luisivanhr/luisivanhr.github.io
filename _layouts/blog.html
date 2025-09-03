@@ -14,7 +14,7 @@ layout: default
       {% endfor %}
     <article class="post-card" data-categories="{{ post_cats | strip }}">
       <a href="{{ p.url | relative_url }}">
-        <img src="{{ p.image | default: '/assets/thumbs/default-post.png' | relative_url }}" alt="{{ p.title }} thumbnail" class="post-thumb">
+        <img src="{{ p.image | default: '/assets/thumbs/blog/default-post.png' | relative_url }}" alt="{{ p.title }} thumbnail" class="post-thumb">
         <div class="post-card-content">
           <h2>{{ p.title }}</h2>
           <p>{{ p.excerpt | strip_html | truncatewords: 30 }}</p>
@@ -34,7 +34,7 @@ layout: default
       <ul>
         <li>
           <button data-category="all">
-            <img src="{{ '/assets/thumbs/default-category.png' | relative_url }}" alt="All icon">
+            <img src="{{ '/assets/thumbs/blog/default-category.png' | relative_url }}" alt="All icon">
             <span>All</span>
           </button>
         </li>
@@ -44,7 +44,7 @@ layout: default
         {% assign cat_file = site.static_files | where: 'path', cat_path | first %}
         <li>
           <button data-category="{{ cat_slug }}">
-            <img src="{{ cat_file.path | default: '/assets/thumbs/default-category.png' | relative_url }}" alt="{{ category[0] }} icon">
+            <img src="{{ cat_file.path | default: '/assets/thumbs/blog/default-category.png' | relative_url }}" alt="{{ category[0] }} icon">
             <span>{{ category[0] }} ({{ category[1] | size }})</span>
           </button>
         </li>
