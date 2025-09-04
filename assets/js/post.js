@@ -23,8 +23,33 @@ document.addEventListener('DOMContentLoaded', function() {
   const shareBtn = document.getElementById('share-btn');
   const shareLinks = document.getElementById('share-links');
   if (shareBtn && shareLinks) {
-    shareBtn.addEventListener('click', function() {
+    const url = encodeURIComponent(window.location.href);
+    const titleEl = document.querySelector('.post-header h1');
+    const text = encodeURIComponent(titleEl ? titleEl.textContent : document.title);
+
+    const targets = {
+      x:       `https://twitter.com/intent/tweet?url=${url}&text=${text}`,
+      linkedin:`https://www.linkedin.com/sharing/share-offsite/?url=${url}`,
+      facebook:`https://www.facebook.com/sharer/sharer.php?u=${url}`,
+      gmail:   `https://mail.google.com/mail/?view=cm&fs=1&su=${text}&body=${url}`,
+      whatsapp:`https://api.whatsapp.com/send?text=${text}%20${url}`,
+      line:    `https://social-plugins.line.me/lineit/share?url=${url}`
+    };
+    Object.entries(targets).forEach(([id, href]) => {
+      const a = document.getElementById(`share-${id}`);
+      if (a) a.href = href;
+    });
+
+    shareBtn.addEventListener('click', () => {
       shareLinks.hidden = !shareLinks.hidden;
+      shareBtn.setAttribute('aria-expanded', String(!shareLinks.hidden));
+    });
+
+    shareLinks.addEventListener('click', e => {
+      if (e.target.closest('a')) {
+        shareLinks.hidden = true;
+        shareBtn.setAttribute('aria-expanded', 'false');
+      }
     });
   }
   const shareCopy = document.getElementById('share-copy');
