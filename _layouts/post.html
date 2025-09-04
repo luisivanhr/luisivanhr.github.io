@@ -4,10 +4,6 @@ layout: default
 <link rel="stylesheet" href="{{ '/assets/css/post.css' | relative_url }}">
 <article class="post">
   <div class="post-body">
-    <aside class="post-sidebar">
-      <a class="nav-btn back-top" href="{{ '/blog/' | relative_url }}">Back to top</a>
-      <nav id="post-nav" class="local-nav"></nav>
-    </aside>
     <div class="post-content">
       <header class="post-header">
         <h1>{{ page.title }}</h1>
@@ -17,27 +13,27 @@ layout: default
       <div class="share">
         <button id="share-btn" type="button" class="nav-btn">Share</button>
         <div id="share-links" hidden>
-          <a class="nav-btn" href="https://twitter.com/intent/tweet?url={{ page.url | absolute_url | uri_escape }}&text={{ page.title | uri_escape }}" target="_blank" rel="noopener">
+          <a id="share-x" class="nav-btn" href="#" target="_blank" rel="noopener">
             <img src="{{ '/assets/icons/x.svg' | relative_url }}" alt="X">
             X
           </a>
-          <a class="nav-btn" href="https://www.linkedin.com/sharing/share-offsite/?url={{ page.url | absolute_url | uri_escape }}" target="_blank" rel="noopener">
+          <a id="share-linkedin" class="nav-btn" href="#" target="_blank" rel="noopener">
             <img src="{{ '/assets/icons/linkedin.svg' | relative_url }}" alt="LinkedIn">
             LinkedIn
           </a>
-          <a class="nav-btn" href="https://www.facebook.com/sharer/sharer.php?u={{ page.url | absolute_url | uri_escape }}" target="_blank" rel="noopener">
+          <a id="share-facebook" class="nav-btn" href="#" target="_blank" rel="noopener">
             <img src="{{ '/assets/icons/facebook.svg' | relative_url }}" alt="Facebook">
             Facebook
           </a>
-          <a class="nav-btn" href="https://mail.google.com/mail/?view=cm&fs=1&su={{ page.title | uri_escape }}&body={{ page.url | absolute_url | uri_escape }}" target="_blank" rel="noopener">
+          <a id="share-gmail" class="nav-btn" href="#" target="_blank" rel="noopener">
             <img src="{{ '/assets/icons/gmail.svg' | relative_url }}" alt="Gmail">
             Gmail
           </a>
-          <a class="nav-btn" href="https://api.whatsapp.com/send?text={{ page.title | uri_escape }}%20{{ page.url | absolute_url | uri_escape }}" target="_blank" rel="noopener">
+          <a id="share-whatsapp" class="nav-btn" href="#" target="_blank" rel="noopener">
             <img src="{{ '/assets/icons/whatsapp.svg' | relative_url }}" alt="WhatsApp">
             WhatsApp
           </a>
-          <a class="nav-btn" href="https://social-plugins.line.me/lineit/share?url={{ page.url | absolute_url | uri_escape }}" target="_blank" rel="noopener">
+          <a id="share-line" class="nav-btn" href="#" target="_blank" rel="noopener">
             <img src="{{ '/assets/icons/line.svg' | relative_url }}" alt="LINE">
             LINE
           </a>
@@ -67,6 +63,10 @@ layout: default
         {% endif %}
       </section>
     </div>
+    <aside class="post-sidebar">
+      <a class="nav-btn back-top" href="{{ '/blog/' | relative_url }}">Back to top</a>
+      <nav id="post-nav" class="local-nav"></nav>
+    </aside>
   </div>
 </article>
 <script src="{{ '/assets/js/post.js' | relative_url }}"></script>
