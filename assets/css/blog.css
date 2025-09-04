@@ -87,10 +87,10 @@
 }
 
 .sidebar-search {
-  margin-bottom: 1rem;
-  margin-right: 2rem;
-  margin-top: 1rem;
-  margin-left: 1.5rem;
+  margin-bottom: 1vw;
+  margin-right: 1.6vw;
+  margin-top: 2vh;
+  margin-left: 1.6vw;
 }
 
 .sidebar-search input {
@@ -109,8 +109,8 @@
 }
 
 .categories-panel {
-  font-size: clamp(0.4rem, 1.9rem, 4rem);
-  margin-left: 1.5rem;
+  font-size: clamp(0.4vw, 1.1vw, 4vw);
+  margin-left: 2.0vw;
   color: #ffffff; 
 }
 
@@ -125,7 +125,7 @@
 
 
 .categories-panel li button {
-  font-size: clamp(0.4rem, 2.0rem, 4rem);
+  font-size: clamp(0.4vw, 1.4vw, 4vw);
   display: flex;
   align-items: center;
   width: 100%;
