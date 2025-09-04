@@ -47,11 +47,11 @@ document.addEventListener('DOMContentLoaded', () => {
       return b;
     }
     pagination.append(
-      btn('First', page === 1, () => { page = 1; render(); }),
-      btn('Prev', page === 1, () => { page--; render(); }),
+      btn('|◀', page === 1, () => { page = 1; render(); }),
+      btn('◀◀', page === 1, () => { page--; render(); }),
       document.createTextNode(` Page ${page} of ${total} `),
-      btn('Next', page === total, () => { page++; render(); }),
-      btn('Last', page === total, () => { page = total; render(); })
+      btn('▶▶', page === total, () => { page++; render(); }),
+      btn('▶|', page === total, () => { page = total; render(); })
     );
   }
 
