@@ -3,15 +3,16 @@ layout: default
 ---
 <link rel="stylesheet" href="{{ '/assets/css/post.css' | relative_url }}">
 <article class="post">
-  <header class="post-header">
-    <h1>{{ page.title }}</h1>
-    <p class="post-meta">{{ page.date | date: "%B %d, %Y" }}</p>
-  </header>
   <div class="post-body">
     <aside class="post-sidebar">
+      <a class="back-top" href="{{ '/blog/' | relative_url }}">Back to top</a>
       <nav id="post-nav" class="local-nav"></nav>
     </aside>
     <div class="post-content">
+      <header class="post-header">
+        <h1>{{ page.title }}</h1>
+        <p class="post-meta">{{ page.date | date: "%B %d, %Y" }}</p>
+      </header>
       {{ content }}
       <div class="share">
         <button id="share-btn" type="button">Share</button>
@@ -42,4 +43,4 @@ layout: default
     </div>
   </div>
 </article>
-<script src="{{ '/assets/js/post.js' | relative_url }}"></script> 
+<script src="{{ '/assets/js/post.js' | relative_url }}"></script>
