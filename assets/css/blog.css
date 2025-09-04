@@ -100,6 +100,12 @@
   border-radius: 10px;
   background: #1b1c1c;
   color: #ffffff;
+  box-shadow: 0.5px 0.5px 5px 0px #ffffff;
+}
+
+#post-search::placeholder {
+  color: #cdcdcd;      /* pick any color */
+  opacity: 1;       /* ensures full opacity in Safari/Firefox */
 }
 
 .categories-panel {
@@ -159,7 +165,3 @@
   color: #ffffff;
 }
 
-#post-search::placeholder {
-  color: #cdcdcd;      /* pick any color */
-  opacity: 1;       /* ensures full opacity in Safari/Firefox */
-}
