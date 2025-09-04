@@ -52,8 +52,8 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     shareBtn.addEventListener('click', () => {
-      shareLinks.hidden = !shareLinks.hidden;
-      shareBtn.setAttribute('aria-expanded', String(!shareLinks.hidden));
+      shareLinks.classList.toggle('open');
+      shareBtn.setAttribute('aria-expanded', String(shareLinks.classList.contains('open')));
     });
 
     shareLinks.addEventListener('click', e => {
@@ -61,7 +61,7 @@ document.addEventListener('DOMContentLoaded', function() {
       if (link) {
         window.open(link.href, '_blank', 'noopener');
         e.preventDefault();
-        shareLinks.hidden = true;
+        shareLinks.classList.remove('open');
         shareBtn.setAttribute('aria-expanded', 'false');
       }
     });
