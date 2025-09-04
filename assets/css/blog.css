@@ -152,8 +152,14 @@
 }
 
 #pagination-controls button {
+  box-shadow: 1px 1px 4px 0px #ffffff;
   margin: 0 0.25rem;
   background: #000000;
   border-radius: 10px;
   color: #ffffff;
+}
+
+#post-search::placeholder {
+  color: #cdcdcd;      /* pick any color */
+  opacity: 1;       /* ensures full opacity in Safari/Firefox */
 }
