@@ -3,7 +3,7 @@ layout: post
 title: "Feature Demo"
 date: 2025-08-20
 categories: [Research]
-image: /assets/thumbs/blog1.jpg
+image: /assets/thumbs/blog/blog1.jpg
 ---
 
 This post demonstrates sections, notebook embeds, and images.
@@ -26,7 +26,7 @@ Below is an embedded notebook:
 
 Here is an image included in the post:
 
-![Sample image](/assets/thumbs/blog1.jpg)
+![Sample image](/assets/thumbs/blog/blog1.jpg)
 
 ## Conclusion
 
