@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const a = document.createElement('a');
         a.textContent = h.textContent;
         a.href = '#' + id;
+        a.classList.add('nav-btn');
         li.appendChild(a);
         ul.appendChild(li);
       });
@@ -24,6 +25,12 @@ document.addEventListener('DOMContentLoaded', function() {
   if (shareBtn && shareLinks) {
     shareBtn.addEventListener('click', function() {
       shareLinks.hidden = !shareLinks.hidden;
+    });
+  }
+  const shareCopy = document.getElementById('share-copy');
+  if (shareCopy) {
+    shareCopy.addEventListener('click', function() {
+      navigator.clipboard.writeText(window.location.href);
     });
   }
 
