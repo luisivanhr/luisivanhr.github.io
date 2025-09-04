@@ -18,6 +18,17 @@ document.addEventListener('DOMContentLoaded', function() {
       });
       nav.appendChild(ul);
     }
+    // smooth scrolling with offset for fixed header
+    nav.addEventListener('click', e => {
+      const link = e.target.closest('a');
+      if (!link || !link.hash) return;
+      e.preventDefault();
+      const target = document.getElementById(link.hash.slice(1));
+      if (target) {
+        const y = target.getBoundingClientRect().top + window.scrollY - 100;
+        window.scrollTo({ top: y, behavior: 'smooth' });
+      }
+    });
   }
 
   const shareBtn = document.getElementById('share-btn');
