@@ -20,7 +20,7 @@ Additional detail under the introduction.
 
 Below is an embedded notebook:
 
-{% include notebook.html src="/assets/notebooks/Levy2.ipynb" %}
+{% include notebook.html src="/assets/notebooks/Levy2.html" %}
 
 ## Image Example
 
