@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', function() {
     if (headings.length > 0) {
       const ul = document.createElement('ul');
       headings.forEach(h => {
-        const id = h.id || h.textContent.trim().toLowerCase().replace(/[^a-z0-9]+/g,'-');
+        const id = h.id || h.textContent.trim().toLowerCase().replace(/[^a-z0-9]+/g, '-');
         h.id = id;
         const li = document.createElement('li');
         const a = document.createElement('a');
@@ -39,16 +39,19 @@ document.addEventListener('DOMContentLoaded', function() {
     const text = encodeURIComponent(titleEl ? titleEl.textContent : document.title);
 
     const targets = {
-      x:       `https://twitter.com/intent/tweet?url=${url}&text=${text}`,
-      linkedin:`https://www.linkedin.com/sharing/?url=${url}`,
-      facebook:`https://www.facebook.com/sharer.php?u=${url}`,
-      gmail:   `https://mail.google.com/mail/?view=cm&fs=1&su=${text}&body=${url}`,
-      whatsapp:`https://api.whatsapp.com/send?text=${text}%20${url}`,
-      line:    `https://social-plugins.line.me/lineit/share?url=${url}`
+      x: `https://twitter.com/intent/tweet?url=${url}&text=${text}`,
+      linkedin: `https://www.linkedin.com/sharing/?url=${url}`,
+      facebook: `https://www.facebook.com/sharer.php?u=${url}`,
+      gmail: `https://mail.google.com/mail/?view=cm&fs=1&su=${text}&body=${url}`,
+      whatsapp: `https://api.whatsapp.com/send?text=${text}%20${url}`,
+      line: `https://social-plugins.line.me/lineit/share?url=${url}`
     };
     Object.entries(targets).forEach(([id, href]) => {
       const a = document.getElementById(`share-${id}`);
-      if (a) a.href = href;
+      if (a) {
+        a.href = '#'; // CHANGE 1: Prevent default navigation
+        a.dataset.href = href; // CHANGE 1: Store URL in data attribute
+      }
     });
 
     shareBtn.addEventListener('click', () => {
@@ -58,10 +61,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
     shareLinks.addEventListener('click', e => {
       const link = e.target.closest('a');
-      if (link) {
+      // Ensure the link is a share link by checking for the data-href attribute
+      if (link && link.dataset.href) { 
         e.preventDefault();
         e.stopPropagation();
-        window.open(link.href, '_blank', 'noopener');
+        // CHANGE 2: Use the URL from the data attribute
+        window.open(link.dataset.href, '_blank', 'noopener'); 
         shareLinks.classList.remove('open');
         shareBtn.setAttribute('aria-expanded', 'false');
       }
