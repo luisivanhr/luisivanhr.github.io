@@ -3,7 +3,6 @@ document.addEventListener('DOMContentLoaded', function() {
   const content = document.querySelector('.post-content');
   const sidebar = document.querySelector('.post-sidebar');
   const navToggle = document.getElementById('post-nav-toggle');
-  const postBody = document.querySelector('.post-body');
   if (nav && content) {
     const headings = content.querySelectorAll('h2, h3');
     if (headings.length > 0) {
@@ -44,23 +43,20 @@ document.addEventListener('DOMContentLoaded', function() {
   const shareBtn = document.getElementById('share-btn');
   const shareLinks = document.getElementById('share-links');
   if (shareBtn && shareLinks) {
-    const currentUrl = window.location.href;
-    const url = encodeURIComponent(currentUrl);
+    const url = encodeURIComponent(window.location.href);
     const titleEl = document.querySelector('.post-header h1');
     const metaImage = document.querySelector('meta[property="og:image"]');
     const rawTitle = titleEl ? titleEl.textContent : document.title;
     const text = encodeURIComponent(rawTitle);
-    const imageUrl = metaImage ? metaImage.getAttribute('content') : '';
-    const image = encodeURIComponent(imageUrl);
-    const body = encodeURIComponent(currentUrl + (imageUrl ? '\n' + imageUrl : ''));
+    const image = encodeURIComponent(metaImage ? metaImage.getAttribute('content') : '');
 
     const targets = {
-      x: `https://twitter.com/intent/tweet?url=${url}&text=${text}`,
-      linkedin: `https://www.linkedin.com/shareArticle?mini=true&url=${url}&title=${text}${image ? `&source=${image}` : ''}`,
-      facebook: `https://www.facebook.com/sharer/sharer.php?u=${url}&quote=${text}${image ? `&picture=${image}` : ''}`,
-      gmail: `https://mail.google.com/mail/?view=cm&fs=1&su=${text}&body=${body}`,
-      whatsapp: `https://api.whatsapp.com/send?text=${text}%20${url}${image ? `%20${image}` : ''}`,
-      line: `https://social-plugins.line.me/lineit/share?url=${url}${image ? `%0A${image}` : ''}`,
+      x:       `https://twitter.com/intent/tweet?url=${url}&text=${text}`,
+      linkedin:`https://www.linkedin.com/shareArticle?mini=true&url=${url}&title=${text}` + (image ? `&source=${image}` : ''),
+      facebook:`https://www.facebook.com/sharer/sharer.php?u=${url}&quote=${text}` + (image ? `&picture=${image}` : ''),
+      gmail:   `https://mail.google.com/mail/?view=cm&fs=1&su=${text}&body=${url}`,
+      whatsapp:`https://api.whatsapp.com/send?text=${text}%20${url}`,
+      line:    `https://social-plugins.line.me/lineit/share?url=${url}`
     };
     Object.entries(targets).forEach(([id, href]) => {
       const a = document.getElementById(`share-${id}`);
@@ -76,22 +72,8 @@ document.addEventListener('DOMContentLoaded', function() {
         shareNative.addEventListener('click', async e => {
           e.preventDefault();
           e.stopPropagation();
-          const shareData = { title: rawTitle, text: rawTitle, url: currentUrl };
           try {
-            if (imageUrl && navigator.canShare) {
-              try {
-                const res = await fetch(imageUrl);
-                const blob = await res.blob();
-                const fileName = imageUrl.split('/').pop() || 'share-image';
-                const file = new File([blob], fileName, { type: blob.type });
-                if (navigator.canShare({ files: [file] })) {
-                  shareData.files = [file];
-                }
-              } catch (err) {
-                console.warn('Share image load failed', err);
-              }
-            }
-            await navigator.share(shareData);
+            await navigator.share({ title: rawTitle, text: rawTitle, url: window.location.href });
           } catch (err) {
             console.error('Share failed', err);
           }
@@ -127,7 +109,7 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   function resizePost() {
-    if (!sidebar || !navToggle || !postBody) return;
+    if (!sidebar || !navToggle) return;
     if (window.innerWidth <= 700) {
       sidebar.classList.add('hide');
       sidebar.classList.remove('show');
@@ -135,11 +117,9 @@ document.addEventListener('DOMContentLoaded', function() {
       navToggle.textContent = '▶';
       navToggle.setAttribute('aria-label', 'Show navigation');
       navToggle.setAttribute('aria-expanded', 'false');
-      postBody.classList.add('compact');
     } else {
       sidebar.classList.remove('hide', 'show');
       navToggle.style.display = 'none';
-      postBody.classList.remove('compact');
     }
   }
   resizePost();
