@@ -50,6 +50,26 @@ document.addEventListener('DOMContentLoaded', function() {
       slack:   `https://slack.com/intl/en-gb/share?url=${url}&text=${text}`,
       discord: `https://discord.com/channels/@me?url=${url}`
     };
+    const slackBtn = document.getElementById('share-slack');
+slackBtn.addEventListener('click', async e => {
+  e.preventDefault();
+  const shareData = {
+    title: document.title,
+    text: "Check this out!",
+    url: window.location.href
+  };
+  if (navigator.share) {
+    try {
+      await navigator.share(shareData);   // opens OS share sheet
+    } catch (err) {
+      console.error('Share canceled or failed', err);
+    }
+  } else {
+    // fallback: open Slack/Discord share link in new tab
+    window.open(slackBtn.href, '_blank', 'noopener');
+  }
+});
+
     Object.entries(targets).forEach(([id, href]) => {
       const a = document.getElementById(`share-${id}`);
       if (a) {
