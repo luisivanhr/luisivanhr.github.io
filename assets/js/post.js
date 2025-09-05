@@ -40,8 +40,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     const targets = {
       x:       `https://twitter.com/intent/tweet?url=${url}&text=${text}`,
-      linkedin:`https://www.linkedin.com/sharing/share-offsite/?url=${url}`,
-      facebook:`https://www.facebook.com/sharer/sharer.php?u=${url}`,
+      linkedin:`https://www.linkedin.com/share-offsite/?url=${url}`,
+      facebook:`https://www.facebook.com/sharer.php?u=${url}`,
       gmail:   `https://mail.google.com/mail/?view=cm&fs=1&su=${text}&body=${url}`,
       whatsapp:`https://api.whatsapp.com/send?text=${text}%20${url}`,
       line:    `https://social-plugins.line.me/lineit/share?url=${url}`
@@ -60,9 +60,7 @@ document.addEventListener('DOMContentLoaded', function() {
       const link = e.target.closest('a');
       if (link) {
         e.preventDefault();
-        e.stopPropagation();
-        const w = window.open(link.href, '_blank');
-        if (w) w.opener = null;
+        window.open(link.href, '_blank', 'noopener');
         shareLinks.classList.remove('open');
         shareBtn.setAttribute('aria-expanded', 'false');
       }
