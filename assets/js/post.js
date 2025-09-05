@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', function() {
     if (headings.length > 0) {
       const ul = document.createElement('ul');
       headings.forEach(h => {
-        const id = h.id || h.textContent.trim().toLowerCase().replace(/[^a-z0-9]+/g, '-');
+        const id = h.id || h.textContent.trim().toLowerCase().replace(/[^a-z0-9]+/g,'-');
         h.id = id;
         const li = document.createElement('li');
         const a = document.createElement('a');
@@ -36,21 +36,25 @@ document.addEventListener('DOMContentLoaded', function() {
   if (shareBtn && shareLinks) {
     const url = encodeURIComponent(window.location.href);
     const titleEl = document.querySelector('.post-header h1');
+    const metaImage = document.querySelector('meta[property="og:image"]');
     const text = encodeURIComponent(titleEl ? titleEl.textContent : document.title);
+    const image = encodeURIComponent(metaImage ? metaImage.getAttribute('content') : '');
 
     const targets = {
-      x: `https://twitter.com/intent/tweet?url=${url}&text=${text}`,
-      linkedin: `https://www.linkedin.com/sharing/share-offsite/?url=${url}`,
-      facebook: `https://www.facebook.com/sharer.php?u=${url}`,
-      gmail: `https://mail.google.com/mail/?view=cm&fs=1&su=${text}&body=${url}`,
-      whatsapp: `https://api.whatsapp.com/send?text=${text}%20${url}`,
-      line: `https://social-plugins.line.me/lineit/share?url=${url}`
+      x:       `https://twitter.com/intent/tweet?url=${url}&text=${text}`,
+      linkedin:`https://www.linkedin.com/shareArticle?mini=true&url=${url}&title=${text}` + (image ? `&source=${image}` : ''),
+      facebook:`https://www.facebook.com/sharer/sharer.php?u=${url}&quote=${text}` + (image ? `&picture=${image}` : ''),
+      gmail:   `https://mail.google.com/mail/?view=cm&fs=1&su=${text}&body=${url}`,
+      whatsapp:`https://api.whatsapp.com/send?text=${text}%20${url}`,
+      line:    `https://social-plugins.line.me/lineit/share?url=${url}`,
+      slack:   `https://slack.com/intl/en-gb/share?url=${url}&text=${text}`,
+      discord: `https://discord.com/channels/@me?url=${url}`
     };
     Object.entries(targets).forEach(([id, href]) => {
       const a = document.getElementById(`share-${id}`);
       if (a) {
-        a.href = '#'; // CHANGE 1: Prevent default navigation
-        a.dataset.href = href; // CHANGE 1: Store URL in data attribute
+        a.href = '#';
+        a.dataset.href = href;
       }
     });
 
@@ -61,12 +65,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
     shareLinks.addEventListener('click', e => {
       const link = e.target.closest('a');
-      // Ensure the link is a share link by checking for the data-href attribute
-      if (link && link.dataset.href) { 
+      if (link && link.dataset.href) {
         e.preventDefault();
         e.stopPropagation();
-        // CHANGE 2: Use the URL from the data attribute
-        window.open(link.dataset.href, '_blank', 'noopener'); 
+        window.open(link.dataset.href, '_blank', 'noopener');
         shareLinks.classList.remove('open');
         shareBtn.setAttribute('aria-expanded', 'false');
       }
