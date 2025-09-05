@@ -17,13 +17,12 @@
 .post-sidebar {
   flex: 0 0 200px;
   position: sticky;
-  top: 0;
+  top: 5vh;
   align-self: flex-start;
   order: 1;
   max-height: 100vh;
   overflow-y: auto;
   padding-top: 1rem;
-  margin-top: 5vh;
 }
 
 .post-sidebar.hide {
