@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     const targets = {
       x:       `https://twitter.com/intent/tweet?url=${url}&text=${text}`,
-      linkedin:`https://www.linkedin.com/sharing/share-offsite/?url=${url}`,
+      linkedin:`https://www.facebook.com/dialog/share?app_id=145634995501895&display=popup&href=${url}`,
       facebook:`https://www.facebook.com/sharer.php?u=${url}`,
       gmail:   `https://mail.google.com/mail/?view=cm&fs=1&su=${text}&body=${url}`,
       whatsapp:`https://api.whatsapp.com/send?text=${text}%20${url}`,
