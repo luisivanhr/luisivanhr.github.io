@@ -3,10 +3,6 @@
   gap: 2rem;
 }
 
-.post-body.compact {
-  flex-direction: column;
-}
-
 .post-content {
   flex: 1;
   order: 2;
@@ -20,16 +16,30 @@
   order: 1;
 }
 
-.post-body.compact .post-content {
-  order: 1;
+.post-sidebar.hide {
+  display: none;
 }
 
-.post-body.compact .post-sidebar {
-  order: 2;
-  flex: none;
-  width: 100%;
-  position: static;
-  top: auto;
+.post-sidebar.show {
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 200px;
+  padding: 1rem;
+  background: #fff;
+  overflow-y: auto;
+  z-index: 1000;
+  box-shadow: 0 0 10px rgba(0,0,0,0.2);
+}
+
+#nav-toggle {
+  display: none;
+  position: fixed;
+  left: 0.5rem;
+  top: 0.5rem;
+  z-index: 1001;
 }
 
 /* sidebar buttons */

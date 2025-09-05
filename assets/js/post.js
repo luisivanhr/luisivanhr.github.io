@@ -1,6 +1,8 @@
 document.addEventListener('DOMContentLoaded', function() {
   const nav = document.getElementById('post-nav');
   const content = document.querySelector('.post-content');
+  const sidebar = document.querySelector('.post-sidebar');
+  const navToggle = document.getElementById('nav-toggle');
   if (nav && content) {
     const headings = content.querySelectorAll('h2, h3');
     if (headings.length > 0) {
@@ -27,6 +29,12 @@ document.addEventListener('DOMContentLoaded', function() {
       if (target) {
         const y = target.getBoundingClientRect().top + window.scrollY - 100;
         window.scrollTo({ top: y, behavior: 'smooth' });
+      }
+      if (window.innerWidth <= 700 && sidebar && navToggle) {
+        sidebar.classList.remove('show');
+        sidebar.classList.add('hide');
+        navToggle.textContent = 'Show navigation';
+        navToggle.setAttribute('aria-expanded', 'false');
       }
     });
   }
@@ -99,16 +107,35 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 
-  // dynamic layout resize similar to main.js
-  const body = document.querySelector('.post-body');
   function resizePost() {
-    if (!body) return;
+    if (!sidebar || !navToggle) return;
     if (window.innerWidth <= 700) {
-      body.classList.add('compact');
+      sidebar.classList.add('hide');
+      sidebar.classList.remove('show');
+      navToggle.style.display = 'block';
+      navToggle.textContent = 'Show navigation';
+      navToggle.setAttribute('aria-expanded', 'false');
     } else {
-      body.classList.remove('compact');
+      sidebar.classList.remove('hide', 'show');
+      navToggle.style.display = 'none';
     }
   }
   resizePost();
   window.addEventListener('resize', resizePost);
+
+  if (navToggle) {
+    navToggle.addEventListener('click', () => {
+      if (sidebar.classList.contains('show')) {
+        sidebar.classList.remove('show');
+        sidebar.classList.add('hide');
+        navToggle.textContent = 'Show navigation';
+        navToggle.setAttribute('aria-expanded', 'false');
+      } else {
+        sidebar.classList.add('show');
+        sidebar.classList.remove('hide');
+        navToggle.textContent = 'Hide navigation';
+        navToggle.setAttribute('aria-expanded', 'true');
+      }
+    });
+  }
 });
