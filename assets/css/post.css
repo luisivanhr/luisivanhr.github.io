@@ -3,9 +3,14 @@
   gap: 2rem;
 }
 
+.post-body.compact {
+  flex-direction: column;
+}
+
 .post-content {
   flex: 1;
   order: 2;
+  min-width: 0;
 }
 
 .post-sidebar {
@@ -118,4 +123,10 @@
   width: 100%;
   height: 600px;
   border: 1px solid #ddd;
+}
+
+.post-content img,
+.post-content iframe {
+  max-width: 100%;
+  height: auto;
 }

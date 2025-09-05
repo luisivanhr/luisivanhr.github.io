@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', function() {
   const content = document.querySelector('.post-content');
   const sidebar = document.querySelector('.post-sidebar');
   const navToggle = document.getElementById('post-nav-toggle');
+  const postBody = document.querySelector('.post-body');
   if (nav && content) {
     const headings = content.querySelectorAll('h2, h3');
     if (headings.length > 0) {
@@ -109,7 +110,7 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   function resizePost() {
-    if (!sidebar || !navToggle) return;
+    if (!sidebar || !navToggle || !postBody) return;
     if (window.innerWidth <= 700) {
       sidebar.classList.add('hide');
       sidebar.classList.remove('show');
@@ -117,9 +118,11 @@ document.addEventListener('DOMContentLoaded', function() {
       navToggle.textContent = '▶';
       navToggle.setAttribute('aria-label', 'Show navigation');
       navToggle.setAttribute('aria-expanded', 'false');
+      postBody.classList.add('compact');
     } else {
       sidebar.classList.remove('hide', 'show');
       navToggle.style.display = 'none';
+      postBody.classList.remove('compact');
     }
   }
   resizePost();
