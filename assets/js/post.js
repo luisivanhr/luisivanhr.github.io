@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     const targets = {
       x:       `https://twitter.com/intent/tweet?url=${url}&text=${text}`,
-      linkedin:`https://www.linkedin.com/share-offsite/?url=${url}`,
+      linkedin:`https://www.linkedin.com/sharing/?url=${url}`,
       facebook:`https://www.facebook.com/sharer.php?u=${url}`,
       gmail:   `https://mail.google.com/mail/?view=cm&fs=1&su=${text}&body=${url}`,
       whatsapp:`https://api.whatsapp.com/send?text=${text}%20${url}`,
@@ -59,8 +59,10 @@ document.addEventListener('DOMContentLoaded', function() {
     shareLinks.addEventListener('click', e => {
       const link = e.target.closest('a');
       if (link) {
-        e.preventDefault();
+        
         window.open(link.href, '_blank', 'noopener');
+        e.preventDefault();
+        e.stopPropagation();
         shareLinks.classList.remove('open');
         shareBtn.setAttribute('aria-expanded', 'false');
       }
