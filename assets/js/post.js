@@ -59,8 +59,8 @@ document.addEventListener('DOMContentLoaded', function() {
     shareLinks.addEventListener('click', e => {
       const link = e.target.closest('a');
       if (link) {
-        window.open(link.href, '_blank', 'noopener');
         e.preventDefault();
+        window.open(link.href, '_blank', 'noopener');
         shareLinks.classList.remove('open');
         shareBtn.setAttribute('aria-expanded', 'false');
       }
