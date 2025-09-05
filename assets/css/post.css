@@ -34,11 +34,12 @@
   box-shadow: 0 0 10px rgba(0,0,0,0.2);
 }
 
-#nav-toggle {
+#post-nav-toggle {
   display: none;
   position: fixed;
-  left: 0.5rem;
-  top: 0.5rem;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
   z-index: 1001;
 }
 

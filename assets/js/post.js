@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', function() {
   const nav = document.getElementById('post-nav');
   const content = document.querySelector('.post-content');
   const sidebar = document.querySelector('.post-sidebar');
-  const navToggle = document.getElementById('nav-toggle');
+  const navToggle = document.getElementById('post-nav-toggle');
   if (nav && content) {
     const headings = content.querySelectorAll('h2, h3');
     if (headings.length > 0) {
@@ -33,7 +33,8 @@ document.addEventListener('DOMContentLoaded', function() {
       if (window.innerWidth <= 700 && sidebar && navToggle) {
         sidebar.classList.remove('show');
         sidebar.classList.add('hide');
-        navToggle.textContent = 'Show navigation';
+        navToggle.textContent = '▶';
+        navToggle.setAttribute('aria-label', 'Show navigation');
         navToggle.setAttribute('aria-expanded', 'false');
       }
     });
@@ -113,7 +114,8 @@ document.addEventListener('DOMContentLoaded', function() {
       sidebar.classList.add('hide');
       sidebar.classList.remove('show');
       navToggle.style.display = 'block';
-      navToggle.textContent = 'Show navigation';
+      navToggle.textContent = '▶';
+      navToggle.setAttribute('aria-label', 'Show navigation');
       navToggle.setAttribute('aria-expanded', 'false');
     } else {
       sidebar.classList.remove('hide', 'show');
@@ -128,12 +130,14 @@ document.addEventListener('DOMContentLoaded', function() {
       if (sidebar.classList.contains('show')) {
         sidebar.classList.remove('show');
         sidebar.classList.add('hide');
-        navToggle.textContent = 'Show navigation';
+        navToggle.textContent = '▶';
+        navToggle.setAttribute('aria-label', 'Show navigation');
         navToggle.setAttribute('aria-expanded', 'false');
       } else {
         sidebar.classList.add('show');
         sidebar.classList.remove('hide');
-        navToggle.textContent = 'Hide navigation';
+        navToggle.textContent = '◀';
+        navToggle.setAttribute('aria-label', 'Hide navigation');
         navToggle.setAttribute('aria-expanded', 'true');
       }
     });
