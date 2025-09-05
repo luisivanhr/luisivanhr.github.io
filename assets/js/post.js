@@ -107,7 +107,14 @@ document.addEventListener('DOMContentLoaded', function() {
               const blob = await response.blob();
               const fileName = `share-image.${blob.type.split('/')[1] || 'jpg'}`;
               const imageFile = new File([blob], fileName, { type: blob.type });
-              const fileShareData = { ...shareData, files: [imageFile] };
+
+              // When sharing files, some platforms might ignore the 'url' field.
+              // To ensure the link is shared, we append it to the 'text' field.
+              const fileShareData = {
+                ...shareData,
+                files: [imageFile],
+                text: `${rawTitle}\n\n${window.location.href}`,
+              };
 
               // Check if the browser can share files, then share with image.
               if (navigator.canShare && navigator.canShare(fileShareData)) {
