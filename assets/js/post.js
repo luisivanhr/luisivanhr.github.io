@@ -37,7 +37,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const url = encodeURIComponent(window.location.href);
     const titleEl = document.querySelector('.post-header h1');
     const metaImage = document.querySelector('meta[property="og:image"]');
-    const text = encodeURIComponent(titleEl ? titleEl.textContent : document.title);
+    const rawTitle = titleEl ? titleEl.textContent : document.title;
+    const text = encodeURIComponent(rawTitle);
     const image = encodeURIComponent(metaImage ? metaImage.getAttribute('content') : '');
 
     const targets = {
@@ -46,30 +47,8 @@ document.addEventListener('DOMContentLoaded', function() {
       facebook:`https://www.facebook.com/sharer/sharer.php?u=${url}&quote=${text}` + (image ? `&picture=${image}` : ''),
       gmail:   `https://mail.google.com/mail/?view=cm&fs=1&su=${text}&body=${url}`,
       whatsapp:`https://api.whatsapp.com/send?text=${text}%20${url}`,
-      line:    `https://social-plugins.line.me/lineit/share?url=${url}`,
-      slack:   `https://slack.com/intl/en-gb/share?url=${url}&text=${text}`,
-      discord: `https://discord.com/channels/@me?url=${url}`
+      line:    `https://social-plugins.line.me/lineit/share?url=${url}`
     };
-    const slackBtn = document.getElementById('share-slack');
-slackBtn.addEventListener('click', async e => {
-  e.preventDefault();
-  const shareData = {
-    title: document.title,
-    text: "Check this out!",
-    url: window.location.href
-  };
-  if (navigator.share) {
-    try {
-      await navigator.share(shareData);   // opens OS share sheet
-    } catch (err) {
-      console.error('Share canceled or failed', err);
-    }
-  } else {
-    // fallback: open Slack/Discord share link in new tab
-    window.open(slackBtn.href, '_blank', 'noopener');
-  }
-});
-
     Object.entries(targets).forEach(([id, href]) => {
       const a = document.getElementById(`share-${id}`);
       if (a) {
@@ -77,6 +56,25 @@ slackBtn.addEventListener('click', async e => {
         a.dataset.href = href;
       }
     });
+
+    const shareNative = document.getElementById('share-native');
+    if (shareNative) {
+      if (navigator.share) {
+        shareNative.addEventListener('click', async e => {
+          e.preventDefault();
+          e.stopPropagation();
+          try {
+            await navigator.share({ title: rawTitle, text: rawTitle, url: window.location.href });
+          } catch (err) {
+            console.error('Share failed', err);
+          }
+          shareLinks.classList.remove('open');
+          shareBtn.setAttribute('aria-expanded', 'false');
+        });
+      } else {
+        shareNative.style.display = 'none';
+      }
+    }
 
     shareBtn.addEventListener('click', () => {
       shareLinks.classList.toggle('open');
