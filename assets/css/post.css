@@ -128,7 +128,10 @@
   height: 600px;
   border: 1px solid #ddd;
 }
-
+#share-btn {
+  font-size: 1.1rem;     /* increase text size */
+  padding: 0.6em 1em;    /* larger click area */
+}
 .post-content img,
 .post-content iframe {
   max-width: 100%;
