@@ -30,6 +30,7 @@
 }
 
 .post-sidebar.show {
+  margin-top: 5vh;
   display: block;
   position: fixed;
   top: 0;
