@@ -55,6 +55,8 @@ document.addEventListener('DOMContentLoaded', function() {
       linkedin:`https://www.linkedin.com/shareArticle?mini=true&url=${url}&title=${text}` + (image ? `&source=${image}` : ''),
       facebook:`https://www.facebook.com/sharer/sharer.php?u=${url}&quote=${text}` + (image ? `&picture=${image}` : ''),
       gmail:   `https://mail.google.com/mail/?view=cm&fs=1&su=${text}&body=${url}`
+      //whatsapp:`https://api.whatsapp.com/send?text=${text}%20${url}`,
+      //line:    `https://social-plugins.line.me/lineit/share?url=${url}`
     };
     Object.entries(targets).forEach(([id, href]) => {
       const a = document.getElementById(`share-${id}`);
