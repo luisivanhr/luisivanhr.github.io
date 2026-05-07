@@ -721,17 +721,38 @@ figcaption {
   margin-top: 42px;
   padding-top: 20px;
   border-top: 1px solid var(--post-rule);
-  color: var(--post-ink);
+  color: #172329;
   background: #ffffff;
 }
 
 #disqus_thread {
-  color: var(--post-ink);
-  background: #ffffff;
+  color: #172329 !important;
+  background: #ffffff !important;
+  color-scheme: light;
 }
 
 #disqus_thread a {
-  color: var(--post-teal);
+  color: var(--post-teal) !important;
+}
+
+#disqus_thread iframe {
+  background: #ffffff !important;
+  color-scheme: light;
+}
+
+.disqus-color-probe {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  color: #172329 !important;
+  background: #ffffff !important;
+  white-space: nowrap;
 }
 
 .notebook-embed {
