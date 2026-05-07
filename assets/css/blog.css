@@ -1,5 +1,6 @@
 .blog-container {
-  --blog-sidebar-width: 12rem;
+  --blog-sidebar-width: 14rem;
+  --blog-sidebar-inline-padding: 1.25rem;
 
   display: flex;
   gap: 2rem;
@@ -83,18 +84,18 @@
 
 
 .blog-sidebar {
+  box-sizing: border-box;
   box-shadow: 0 -2px 13px 0 rgb(0 0 0), 0 -6px 10px 0 rgb(0 0 0 / 35%);
   flex: 0 0 var(--blog-sidebar-width);
   background: #11282d;
   height: 160vh;
+  padding-inline: var(--blog-sidebar-inline-padding);
   width: var(--blog-sidebar-width);
 }
 
 .sidebar-search {
   margin-bottom: 1vw;
-  margin-right: 1.6vw;
   margin-top: 2vh;
-  margin-left: 1.6vw;
 }
 
 .sidebar-search input {
@@ -114,7 +115,7 @@
 
 .categories-panel {
   font-size: clamp(1.0rem, 1.4vw, 4vw);
-  margin-left: 2.0vw;
+  margin: 0;
   color: #ffffff; 
 }
 

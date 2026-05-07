@@ -42,6 +42,12 @@ document.addEventListener('DOMContentLoaded', () => {
     pagination.setAttribute('role', 'navigation');
     pagination.setAttribute('aria-label', 'Blog pagination');
 
+    function goToPage(nextPage) {
+      page = nextPage;
+      render();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
     function btn(label, ariaLabel, disabled, handler) {
       const b = document.createElement('button');
       b.type = 'button';
@@ -57,11 +63,11 @@ document.addEventListener('DOMContentLoaded', () => {
     status.textContent = `Page ${page} of ${total}`;
 
     pagination.append(
-      btn('First', 'First page', page === 1, () => { page = 1; render(); }),
-      btn('Previous', 'Previous page', page === 1, () => { page--; render(); }),
+      btn('First', 'First page', page === 1, () => { goToPage(1); }),
+      btn('Previous', 'Previous page', page === 1, () => { goToPage(page - 1); }),
       status,
-      btn('Next', 'Next page', page === total, () => { page++; render(); }),
-      btn('Last', 'Last page', page === total, () => { page = total; render(); })
+      btn('Next', 'Next page', page === total, () => { goToPage(page + 1); }),
+      btn('Last', 'Last page', page === total, () => { goToPage(total); })
     );
   }
 
