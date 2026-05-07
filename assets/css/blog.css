@@ -1,5 +1,5 @@
 .blog-container {
-  --blog-sidebar-width: 14rem;
+  --blog-sidebar-width: 12rem;
   --blog-sidebar-inline-padding: 1.25rem;
 
   display: flex;
