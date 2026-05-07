@@ -1,7 +1,7 @@
 ---
 title: "About me"
 date: 2025-08-19
-excerpt: "Placeholder entry in news."
-image: /assets/thumbs/about1.jpg
+excerpt: "Luis Iván Hernández Ruíz | Kyoto University | Mathematics PhD"
+image: /assets/thumbs/hover-feeds/about_thumb.png
 ---
-This is a placeholder news entry.
+Luis Iván Hernández Ruíz | Kyoto University | Mathematics PhD

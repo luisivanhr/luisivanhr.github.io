@@ -105,7 +105,8 @@ function setupDPRListener(){
       return {"items":[{"title":"(placeholder)","url":"#","date": new Date().toISOString(),"summary":"No feed yet.","image":""}]};
     }
   }
-  function showTooltip(x, y, item){
+  function showTooltip(x, y, item, target){
+    tooltip.dataset.target = target || '';
     tooltip.querySelector('.title').textContent = item.title || '';
     tooltip.querySelector('.meta').textContent = ((item.summary||'') + ' · ' + fmtDate(item.date||'')).trim();
     const img = tooltip.querySelector('.thumb');
@@ -124,7 +125,7 @@ function setupDPRListener(){
       const data = await getFeed(feed);
       const item = data.items?.[0] || {};
       const r = h.getBoundingClientRect();
-      showTooltip(r.right, r.top, item);
+      showTooltip(r.right, r.top, item, h.getAttribute('data-target') || '');
     });
     h.addEventListener('mouseleave', hideTooltip);
     h.addEventListener('click', () => {
@@ -465,6 +466,7 @@ window.addEventListener('load', hydrateBoardMath);
     const hotspots = document.querySelectorAll('#desk-hotspots .hotspot');
     hotspots.forEach(h => {
       const effect = h.getAttribute('data-effect') || 'glow';
+      if (effect.includes('glow-edge')) return;
       const cfg = presets[effect] || presets.glow;
       emitters.set(h, {
         el: h,
@@ -500,7 +502,7 @@ window.addEventListener('load', hydrateBoardMath);
       const n = Math.floor(st.accum);
       st.accum -= n;
 
-      if (st.cfg.renderer === 'fog' || (st.el.getAttribute('data-effect')||'').includes('glow-edge')) {
+      if (st.cfg.renderer === 'fog') {
         // maintain roughly constant puff density
         const target = Math.round((st.cfg.target || 200) * area);
         const need = target - st.fogCount;

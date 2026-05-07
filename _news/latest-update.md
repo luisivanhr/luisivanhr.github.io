@@ -1,7 +1,7 @@
 ---
-title: "Latest Update"
+title: "Page under construction"
 date: 2025-08-19
-excerpt: "Placeholder entry in news."
-image: /assets/thumbs/news1.jpg
+excerpt: "Page under construction, release soon!"
+image: /assets/thumbs/hover-feeds/news_placeholder.svg
 ---
-This is a placeholder news entry.
+Page under construction, release soon!

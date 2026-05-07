@@ -16,12 +16,14 @@
     <a class="skip" href="{{ '/classic/' | relative_url }}">Skip interactive desk (classic site)</a>
 
     <header class="site-nav" role="navigation" aria-label="Primary">
-      <button id="nav-toggle" class="nav-teaser" aria-expanded="false" aria-controls="nav-list">
+      <div class="nav-teaser">
         <a href="{{ '/' | relative_url }}" class="home-link">Home</a>
-        <span class="teaser-text">
+        <button id="nav-toggle" class="nav-menu-toggle" type="button" aria-expanded="false" aria-controls="nav-list">
+          <span class="teaser-text">
           <strong>Explore the desk! Click objects, or click here to open the classic menu &#9662;</strong>
-        </span>
-      </button>
+          </span>
+        </button>
+      </div>
 
       <nav id="nav-list" hidden>
         <ul>

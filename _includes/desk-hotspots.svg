@@ -57,7 +57,6 @@
          class="hotspot"
          d="m 747.61038,661.39105 -0.88887,44.4907 c 0,0 30.81907,18.86855 48.16907,0.55366 23.09258,-24.37683 15.50522,-31.23412 15.50522,-31.23412 0,0 -4.63273,-3.89291 -12.63246,-9.46405 -7.99973,-5.57115 -28.82035,-19.20256 -50.15296,-4.34619 z"
          data-target="hobbies"
-         data-feed="{{ '/data/hobbies.json' | relative_url }}"
          data-effect="paper"
          id="hot-hobbies"
          sodipodi:nodetypes="ccscsc"
@@ -101,7 +100,6 @@
          class="hotspot"
          d="m 156.95469,686.45161 49.2225,21.82359 76.8124,-13.0428 C 275.74207,660.84538 269.81248,636.90779 263.8206,591.28861 l -40.80214,-7.47482 -54.08382,4.68339 z"
          data-target="publications"
-         data-feed="{{ '/data/publications.json' | relative_url }}"
          data-effect="paper"
          sodipodi:nodetypes="ccccccc"
          style="opacity:0.01;fill:#000000" /><title
@@ -114,7 +112,6 @@
          class="hotspot"
          d="m 312.0867,503.56175 427.534,-3.9405 1.25967,131.67306 -225.38803,-12.81419 -202.87136,21.15818 z"
          data-target="models"
-         data-feed="{{ '/data/models.json' | relative_url }}"
          data-effect="glow"
          style="opacity:0.01;fill:#000000"
          sodipodi:nodetypes="cccccc" /><title
@@ -127,7 +124,6 @@
          class="hotspot"
          d="m 143.05472,201.68933 304.97784,44.28668 -0.87746,164.55355 -304.75152,-7.63995 z"
          data-target="courses"
-         data-feed="{{ '/data/courses.json' | relative_url }}"
          data-equations="true"
          data-effect="chalk"
          sodipodi:nodetypes="ccccc"
@@ -178,7 +174,6 @@
          class="hotspot"
          d="m 77.936194,119.94605 c 37.090766,3.92164 41.999356,3.49592 85.391996,6.72576 l -2.12882,28.18541 -27.61883,15.60027 11.24287,27.55197 -36.59704,-3.29195 -2.25036,-29.46815 -19.67877,-14.75811 z"
          data-target="achievements"
-         data-feed="{{ '/data/achievements.json' | relative_url }}"
          data-effect="confetti"
          style="opacity:0.01;fill:#000000"
          sodipodi:nodetypes="ccccccccc" /><title
