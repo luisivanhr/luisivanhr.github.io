@@ -1,4 +1,6 @@
 .blog-container {
+  --blog-sidebar-width: 12rem;
+
   display: flex;
   gap: 2rem;
   background-image: linear-gradient(to right, #162229, #116367);
@@ -27,6 +29,8 @@
 
 .blog-container.compact .blog-sidebar {
   order: 2;
+  flex: none;
+  width: 100%;
 }
 
 
@@ -80,10 +84,10 @@
 
 .blog-sidebar {
   box-shadow: 0 -2px 13px 0 rgb(0 0 0), 0 -6px 10px 0 rgb(0 0 0 / 35%);
-  flex: 0.5;
+  flex: 0 0 var(--blog-sidebar-width);
   background: #11282d;
   height: 160vh;
-  width:100vw;
+  width: var(--blog-sidebar-width);
 }
 
 .sidebar-search {
@@ -153,15 +157,40 @@
 }
 
 #pagination-controls {
-  margin-top: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 1.5rem;
   text-align: center;
 }
 
 #pagination-controls button {
-  box-shadow: 1px 1px 4px 0px #ffffff;
-  margin: 0 0.25rem;
-  background: #000000;
-  border-radius: 10px;
+  padding: 0.45rem 0.75rem;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  border-radius: 0.35rem;
   color: #ffffff;
+  cursor: pointer;
+  font: inherit;
+}
+
+#pagination-controls button:hover:not(:disabled),
+#pagination-controls button:focus-visible:not(:disabled) {
+  background: rgba(255, 255, 255, 0.18);
+  border-color: rgba(255, 255, 255, 0.75);
+  outline: none;
+}
+
+#pagination-controls button:disabled {
+  cursor: default;
+  opacity: 0.45;
+}
+
+.pagination-status {
+  color: #ffffff;
+  font-weight: 700;
+  padding: 0.45rem 0.35rem;
 }
 

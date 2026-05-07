@@ -39,19 +39,29 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function renderControls(total) {
     pagination.innerHTML = '';
-    function btn(label, disabled, handler) {
+    pagination.setAttribute('role', 'navigation');
+    pagination.setAttribute('aria-label', 'Blog pagination');
+
+    function btn(label, ariaLabel, disabled, handler) {
       const b = document.createElement('button');
+      b.type = 'button';
       b.textContent = label;
+      b.setAttribute('aria-label', ariaLabel);
       b.disabled = disabled;
       b.addEventListener('click', handler);
       return b;
     }
+
+    const status = document.createElement('span');
+    status.className = 'pagination-status';
+    status.textContent = `Page ${page} of ${total}`;
+
     pagination.append(
-      btn('|◀', page === 1, () => { page = 1; render(); }),
-      btn('◀◀', page === 1, () => { page--; render(); }),
-      document.createTextNode(` Page ${page} of ${total} `),
-      btn('▶▶', page === total, () => { page++; render(); }),
-      btn('▶|', page === total, () => { page = total; render(); })
+      btn('First', 'First page', page === 1, () => { page = 1; render(); }),
+      btn('Previous', 'Previous page', page === 1, () => { page--; render(); }),
+      status,
+      btn('Next', 'Next page', page === total, () => { page++; render(); }),
+      btn('Last', 'Last page', page === total, () => { page = total; render(); })
     );
   }
 
@@ -66,7 +76,6 @@ document.addEventListener('DOMContentLoaded', () => {
   if (searchInput) searchInput.addEventListener('input', applyFilters);
   applyFilters();
 
-  // dynamic layout resize similar to main.js
   const container = document.querySelector('.blog-container');
   function resizeLayout() {
     if (!container) return;
