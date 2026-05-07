@@ -621,6 +621,13 @@ figcaption {
   margin: 0;
 }
 
+.post-actions .share > #share-btn,
+.post-actions > .post-action-btn {
+  padding: 0.62em 0.95em;
+  font-size: 15px;
+  line-height: 1.25;
+}
+
 #share-links {
   display: none;
   flex-wrap: wrap;
