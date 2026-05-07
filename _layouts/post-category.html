@@ -14,7 +14,7 @@ layout: default
             <img src="{{ p.image | default: '/assets/thumbs/blog/default-post.png' | relative_url }}" alt="{{ p.title }} thumbnail" class="post-thumb">
             <div class="post-card-content">
               <h2>{{ p.title }}</h2>
-              <p>{{ p.excerpt | strip_html | truncatewords: 30 }}</p>
+              <p>{{ p.summary | default: p.excerpt | strip_html | truncatewords: 30 }}</p>
             </div>
           </a>
         </article>

@@ -2,51 +2,85 @@
 layout: default
 ---
 <link rel="stylesheet" href="{{ '/assets/css/post.css' | relative_url }}">
-<article class="post">
+{% assign post_style = page.post_style | default: 'paper' %}
+<article class="post post--{{ post_style }}">
   <div class="post-body">
-    <div class="post-content">
+    <div class="post-content post-paper">
       <header class="post-header">
+        <div class="post-kicker">
+          <span>{{ page.post_kind | default: 'Research note' }}</span>
+          {% if page.categories and page.categories.size > 0 %}
+          <span>{{ page.categories | first }}</span>
+          {% endif %}
+          {% if page.reading_time %}
+          <span>{{ page.reading_time }}</span>
+          {% endif %}
+        </div>
         <h1>{{ page.title }}</h1>
-        <p class="post-meta">{{ page.date | date: "%B %d, %Y" }}</p>
+        {% if page.summary %}
+        <p class="post-dek">{{ page.summary }}</p>
+        {% endif %}
+        <div class="article-meta" aria-label="Post metadata">
+          <div>
+            <b>Author</b>
+            <span>{{ page.author | default: site.author | default: 'Luis Ivan Hernandez Ruiz' }}</span>
+          </div>
+          <div>
+            <b>Published</b>
+            <span>{{ page.date | date: "%B %d, %Y" }}</span>
+          </div>
+          <div>
+            <b>Materials</b>
+            <span>{{ page.materials | default: 'Post' }}</span>
+          </div>
+        </div>
       </header>
       {{ content }}
-      <div class="share">
-        <button id="share-btn" type="button" class="nav-btn">Share</button>
-        <div id="share-links">
-          <a id="share-x" class="nav-btn" href="#" title="X">
-            <img src="{{ '/assets/icons/x.svg' | relative_url }}" alt="X">
+      <div class="post-actions">
+        <div class="share">
+          <button id="share-btn" type="button" class="nav-btn">Share</button>
+          <div id="share-links">
+            <a id="share-x" class="nav-btn" href="#" title="X">
+              <img src="{{ '/assets/icons/x.svg' | relative_url }}" alt="X">
 
-          </a>
-          <a id="share-linkedin" class="nav-btn" href="#" title="LinkedIn">
-            <img src="{{ '/assets/icons/linkedin2.svg' | relative_url }}" alt="LinkedIn">
+            </a>
+            <a id="share-linkedin" class="nav-btn" href="#" title="LinkedIn">
+              <img src="{{ '/assets/icons/linkedin2.svg' | relative_url }}" alt="LinkedIn">
 
-          </a>
-          <a id="share-facebook" class="nav-btn" href="#" title="Facebook">
-            <img src="{{ '/assets/icons/facebook2.svg' | relative_url }}" alt="Facebook">
+            </a>
+            <a id="share-facebook" class="nav-btn" href="#" title="Facebook">
+              <img src="{{ '/assets/icons/facebook2.svg' | relative_url }}" alt="Facebook">
 
-          </a>
-          <a id="share-gmail" class="nav-btn" href="#" title="Gmail">
-            <img src="{{ '/assets/icons/gmail.svg' | relative_url }}" alt="Gmail">
+            </a>
+            <a id="share-gmail" class="nav-btn" href="#" title="Gmail">
+              <img src="{{ '/assets/icons/gmail.svg' | relative_url }}" alt="Gmail">
 
-          </a>
-          <a id="share-native" class="nav-btn" href="#" title="Choose App">
-            <img src="{{ '/assets/icons/share.svg' | relative_url }}" alt="Share">
+            </a>
+            <a id="share-native" class="nav-btn" href="#" title="Choose App">
+              <img src="{{ '/assets/icons/share.svg' | relative_url }}" alt="Share">
 
-          </a>
-          <button id="share-copy" type="button" class="nav-btn" title="Copy URL">
-            <img src="{{ '/assets/icons/link.svg' | relative_url }}" alt="Copy link">
+            </a>
+            <button id="share-copy" type="button" class="nav-btn" title="Copy URL">
+              <img src="{{ '/assets/icons/link.svg' | relative_url }}" alt="Copy link">
 
-          </button>
+            </button>
+          </div>
         </div>
+        {% if page.citation %}
+        <button id="citation-copy" type="button" class="nav-btn post-action-btn" data-citation="{{ page.citation | escape }}">Copy citation</button>
+        {% endif %}
+        {% if page.notebook %}
+        <a class="nav-btn post-action-btn" href="{{ page.notebook | relative_url }}">Open notebook</a>
+        {% endif %}
       </div>
-      <section id="comments" class="comments">
-        <h2>Comments</h2>
+      <section id="post-comments" class="comments">
+        <h2 id="comments">Comments</h2>
         {% if site.disqus_shortname %}
         <div id="disqus_thread"></div>
         <script>
         var disqus_config = function () {
-          this.page.url = "{{content.absolute_url }}";
-          this.page.identifier = "{{ content_id }}";
+          this.page.url = "{{ page.url | absolute_url }}";
+          this.page.identifier = "{{ page.id | default: page.url }}";
         };
         (function() {
           var d = document, s = d.createElement('script');
@@ -62,8 +96,38 @@ layout: default
     <aside class="post-sidebar">
       <a class="nav-btn back-top" href="{{ '/blog/' | relative_url }}">Back to top</a>
       <nav id="post-nav" class="local-nav"></nav>
+      {% assign sidebar_tags = page.tags %}
+      {% if sidebar_tags == nil or sidebar_tags.size == 0 %}
+        {% assign sidebar_tags = page.categories %}
+      {% endif %}
+      {% if sidebar_tags and sidebar_tags.size > 0 %}
+      <div class="sidebar-tools" aria-label="Post tags">
+        <strong>Tags</strong>
+        <div class="post-tags">
+          {% for tag in sidebar_tags %}
+          <span class="tag-chip">#{{ tag }}</span>
+          {% endfor %}
+        </div>
+      </div>
+      {% endif %}
     </aside>
     <button id="post-nav-toggle" class="nav-btn nav-toggle" type="button" aria-expanded="false" aria-label="Show navigation">&#9664;</button>
   </div>
 </article>
 <script src="{{ '/assets/js/post.js' | relative_url }}"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const post = document.querySelector(".post-content");
+    if (post && typeof renderMathInElement === "function") {
+      renderMathInElement(post, {
+        delimiters: [
+          {left: "$$", right: "$$", display: true},
+          {left: "$", right: "$", display: false},
+          {left: "\\(", right: "\\)", display: false},
+          {left: "\\[", right: "\\]", display: true}
+        ],
+        throwOnError: false
+      });
+    }
+  });
+</script>

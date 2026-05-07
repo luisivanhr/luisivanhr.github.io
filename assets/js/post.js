@@ -6,6 +6,31 @@ document.addEventListener('DOMContentLoaded', function() {
   const showNavIcon = '\u25c0';
   const hideNavIcon = '\u25b6';
 
+  async function writeClipboardText(value) {
+    if (navigator.clipboard && window.isSecureContext) {
+      try {
+        await navigator.clipboard.writeText(value);
+        return true;
+      } catch (err) {
+        // Some browser automation and privacy settings expose the API but reject writes.
+      }
+    }
+
+    const textarea = document.createElement('textarea');
+    textarea.value = value;
+    textarea.setAttribute('readonly', '');
+    textarea.style.position = 'fixed';
+    textarea.style.left = '-9999px';
+    textarea.style.top = '0';
+    document.body.appendChild(textarea);
+    textarea.focus();
+    textarea.select();
+    textarea.setSelectionRange(0, textarea.value.length);
+    const copied = document.execCommand('copy');
+    textarea.remove();
+    return copied;
+  }
+
   if (nav && content) {
     const headings = content.querySelectorAll('h2, h3');
     if (headings.length > 0) {
@@ -107,8 +132,25 @@ document.addEventListener('DOMContentLoaded', function() {
 
   const shareCopy = document.getElementById('share-copy');
   if (shareCopy) {
-    shareCopy.addEventListener('click', function() {
-      navigator.clipboard.writeText(window.location.href);
+    shareCopy.addEventListener('click', async function() {
+      await writeClipboardText(window.location.href);
+    });
+  }
+
+  const citationCopy = document.getElementById('citation-copy');
+  if (citationCopy) {
+    const originalLabel = citationCopy.textContent;
+    citationCopy.addEventListener('click', async function() {
+      try {
+        const copied = await writeClipboardText(citationCopy.dataset.citation || '');
+        if (!copied) throw new Error('Copy command was rejected');
+        citationCopy.textContent = 'Citation copied';
+        window.setTimeout(() => {
+          citationCopy.textContent = originalLabel;
+        }, 1600);
+      } catch (err) {
+        console.error('Citation copy failed', err);
+      }
     });
   }
 
