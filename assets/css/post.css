@@ -150,9 +150,16 @@
 
 @media (max-width: 700px) {
   .post-body {
+    --post-mobile-left-gutter: 0.5rem;
+
     width: 100%;
     margin-left: 0;
     margin-right: 0;
+  }
+
+  .post-content {
+    box-sizing: border-box;
+    padding-left: var(--post-mobile-left-gutter);
   }
 
   .post-sidebar.hide,
