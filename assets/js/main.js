@@ -107,10 +107,41 @@ function setupDPRListener(){
   }
   function showTooltip(x, y, item, target){
     tooltip.dataset.target = target || '';
-    tooltip.querySelector('.title').textContent = item.title || '';
-    tooltip.querySelector('.meta').textContent = ((item.summary||'') + ' · ' + fmtDate(item.date||'')).trim();
+    const title = tooltip.querySelector('.title');
+    const meta = tooltip.querySelector('.meta');
+    title.textContent = item.title || '';
+    meta.textContent = ((item.summary||'') + ' · ' + fmtDate(item.date||'')).trim();
     const img = tooltip.querySelector('.thumb');
+    tooltip.classList.toggle('has-thumb', Boolean(item.image));
     if(item.image){ img.src = item.image; img.hidden = false; } else { img.hidden = true; }
+
+    if (target === 'about') {
+      const parts = (item.summary || '').split('|').map(part => part.trim()).filter(Boolean);
+      title.textContent = parts[0] || item.title || 'About me';
+      title.classList.add('about-name');
+      meta.textContent = '';
+
+      const detail = document.createElement('div');
+      detail.className = 'about-detail';
+      detail.textContent = parts.slice(1).join(' | ');
+
+      const cta = document.createElement('strong');
+      cta.className = 'about-cta';
+      cta.textContent = 'Click to learn more!';
+
+      if (detail.textContent) meta.appendChild(detail);
+      meta.appendChild(cta);
+
+      if (item.image) {
+        img.src = item.image;
+        img.hidden = false;
+      } else {
+        img.removeAttribute('src');
+        img.hidden = true;
+      }
+    } else {
+      title.classList.remove('about-name');
+    }
     tooltip.style.left = (x+16) + 'px';
     tooltip.style.top  = (y+16) + 'px';
     tooltip.hidden = false;
@@ -118,16 +149,25 @@ function setupDPRListener(){
   function hideTooltip(){ tooltip.hidden = true; }
 
   const hotspots = document.querySelectorAll('#desk-hotspots .hotspot');
+  let activeHotspot = null;
+  let hoverRequestId = 0;
   hotspots.forEach(h => {
     const feed = h.getAttribute('data-feed');
     h.addEventListener('mouseenter', async () => {
       if (!feed) return;
+      activeHotspot = h;
+      const requestId = ++hoverRequestId;
       const data = await getFeed(feed);
+      if (requestId !== hoverRequestId || activeHotspot !== h) return;
       const item = data.items?.[0] || {};
       const r = h.getBoundingClientRect();
       showTooltip(r.right, r.top, item, h.getAttribute('data-target') || '');
     });
-    h.addEventListener('mouseleave', hideTooltip);
+    h.addEventListener('mouseleave', () => {
+      if (activeHotspot === h) activeHotspot = null;
+      hoverRequestId += 1;
+      hideTooltip();
+    });
     h.addEventListener('click', () => {
       const mapping = {
         blog: '/blog/', models: '/models/', courses: '/courses/', hobbies: '/hobbies/',
