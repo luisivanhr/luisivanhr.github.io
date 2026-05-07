@@ -1,8 +1,12 @@
 .post-body {
+  --post-left-gutter: 10%;
+  --post-right-gutter: 2rem;
+
   display: flex;
   gap: 2rem;
-  width: 90%;
-  margin-left: 10%;
+  width: calc(100% - var(--post-left-gutter) - var(--post-right-gutter));
+  margin-left: var(--post-left-gutter);
+  margin-right: var(--post-right-gutter);
 }
 
 .post-body.compact {
@@ -148,6 +152,7 @@
   .post-body {
     width: 100%;
     margin-left: 0;
+    margin-right: 0;
   }
 
   .post-sidebar.hide,
