@@ -2,6 +2,7 @@
   display: flex;
   gap: 2rem;
   width: 90%;
+  margin-left: 10%;
 }
 
 .post-body.compact {
@@ -144,6 +145,11 @@
 }
 
 @media (max-width: 700px) {
+  .post-body {
+    width: 100%;
+    margin-left: 0;
+  }
+
   .post-sidebar.hide,
   .post-sidebar.show {
     display: block;
