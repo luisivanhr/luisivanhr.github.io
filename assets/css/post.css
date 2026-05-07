@@ -53,11 +53,11 @@
 
 .post-body {
   display: grid;
-  grid-template-columns: minmax(0, 880px) 210px;
-  gap: clamp(24px, 4vw, 48px);
-  max-width: 1180px;
+  grid-template-columns: minmax(0, 1fr) clamp(230px, 16vw, 250px);
+  gap: clamp(28px, 4vw, 56px);
+  max-width: 1560px;
   margin: 0 auto;
-  padding: 46px clamp(18px, 2vw, 32px) 72px clamp(18px, 8vw, 112px);
+  padding: 46px clamp(24px, 3vw, 54px) 72px clamp(24px, 5vw, 72px);
   align-items: start;
   min-width: 0;
 }
@@ -179,7 +179,7 @@
 }
 
 .post-header h1 {
-  max-width: 780px;
+  max-width: 980px;
   margin: 0;
   color: var(--post-ink);
   font-size: clamp(36px, 5vw, 66px);
@@ -190,7 +190,7 @@
 }
 
 .post-dek {
-  max-width: 760px;
+  max-width: 920px;
   margin: 22px 0 0;
   color: #2b3a42;
   font-size: clamp(18px, 2vw, 22px);
@@ -721,6 +721,17 @@ figcaption {
   margin-top: 42px;
   padding-top: 20px;
   border-top: 1px solid var(--post-rule);
+  color: var(--post-ink);
+  background: #ffffff;
+}
+
+#disqus_thread {
+  color: var(--post-ink);
+  background: #ffffff;
+}
+
+#disqus_thread a {
+  color: var(--post-teal);
 }
 
 .notebook-embed {
