@@ -6,77 +6,60 @@
     <title>{{ page.title }} | {{ site.title }}</title>
     {%- seo -%}
     <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}">
-
-    <!-- KaTeX CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css">
-
-    <!-- Preload background -->
-
-
-
-    <!-- KaTeX core JS -->
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js"></script>
-    <!-- KaTeX auto-render -->
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js"></script>
-
-    <!-- Your own scripts -->
     <script defer src="{{ '/assets/js/main.js' | relative_url }}"></script>
-
-    <!-- Cloudflare Web Analytics -->
-     <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "46cee38d896e4f968d458e9b1d5039cb"}'></script>
-     <!-- End Cloudflare Web Analytics -->
+    <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "46cee38d896e4f968d458e9b1d5039cb"}'></script>
   </head>
   <body>
     <a class="skip" href="{{ '/classic/' | relative_url }}">Skip interactive desk (classic site)</a>
-    
-    <header class="site-nav" role="navigation" aria-label="Primary">
-  <button id="nav-toggle"
-          class="nav-teaser"
-          aria-expanded="false"
-          aria-controls="nav-list">
-    <a href="{{ '/' | relative_url }}" class="home-link">Home</a>
-    <span class="teaser-text">
-       <strong>Explore the desk! Click objects, or click here to open the classic menu ▼</strong> &nbsp; 
-      
-    </span>
 
-  </button>
-  
-  <nav id="nav-list" hidden>
-    <ul>
-      <a class="brand" >Luis Iván Hernández Ruíz</a>
-      {% assign here = page.url | relative_url %}
-      {% assign u='/about/' | relative_url %}<li><a href="{{ '/about/' | relative_url }}" class="{% if here == u or here contains u %}active{% endif %}">About</a></li>
-      {% assign u='/news/' | relative_url %}<li><a href="{{ '/news/' | relative_url }}" class="{% if here == u or here contains u %}active{% endif %}">News</a></li>
-      {% assign u='/blog/' | relative_url %}<li><a href="{{ '/blog/' | relative_url }}" class="{% if here == u or here contains u %}active{% endif %}">Blog</a></li>
-      {% assign u='/models/' | relative_url %}<li><a href="{{ '/models/' | relative_url }}" class="{% if here == u or here contains u %}active{% endif %}">Models</a></li>
-      {% assign u='/courses/' | relative_url %}<li><a href="{{ '/courses/' | relative_url }}" class="{% if here == u or here contains u %}active{% endif %}">Courses</a></li>
-      {% assign u='/publications/' | relative_url %}<li><a href="{{ '/publications/' | relative_url }}" class="{% if here == u or here contains u %}active{% endif %}">Publications</a></li>
-      {% assign u='/presentations/' | relative_url %}<li><a href="{{ '/presentations/' | relative_url }}" class="{% if here == u or here contains u %}active{% endif %}">Presentations</a></li>
-      {% assign u='/achievements/' | relative_url %}<li><a href="{{ '/achievements/' | relative_url }}" class="{% if here == u or here contains u %}active{% endif %}">Achievements</a></li>
-      {% assign u='/hobbies/' | relative_url %}<li><a href="{{ '/hobbies/' | relative_url }}" class="{% if here == u or here contains u %}active{% endif %}">Hobbies</a></li>
-      {% assign u='/cv/' | relative_url %}<li><a href="{{ '/cv/' | relative_url }}" class="{% if here == u or here contains u %}active{% endif %}">CV</a></li>
-      
-    </ul>
-  </nav>
-</header>
-    
+    <header class="site-nav" role="navigation" aria-label="Primary">
+      <button id="nav-toggle" class="nav-teaser" aria-expanded="false" aria-controls="nav-list">
+        <a href="{{ '/' | relative_url }}" class="home-link">Home</a>
+        <span class="teaser-text">
+          <strong>Explore the desk! Click objects, or click here to open the classic menu &#9662;</strong>
+        </span>
+      </button>
+
+      <nav id="nav-list" hidden>
+        <ul>
+          <li><a class="brand">Luis Iv&aacute;n Hern&aacute;ndez Ru&iacute;z</a></li>
+          {% assign here = page.url | relative_url %}
+          {% for item in site.data.nav %}
+          {% assign item_url = item.url | relative_url %}
+          {% assign is_active = false %}
+          {% if here == item_url %}
+            {% assign is_active = true %}
+          {% elsif item_url != '/' and here contains item_url %}
+            {% assign is_active = true %}
+          {% endif %}
+          <li>
+            <a href="{{ item.url | relative_url }}" class="{% if is_active %}active{% endif %}">
+              {{ item.title }}
+            </a>
+          </li>
+          {% endfor %}
+        </ul>
+      </nav>
+    </header>
+
     {{ content }}
 
-    <!-- Run KaTeX AFTER page + scripts are loaded -->
     <script>
       document.addEventListener("DOMContentLoaded", function() {
-        const board = document.getElementById('board-math');
+        const board = document.getElementById("board-math");
         if (board && typeof renderMathInElement === "function") {
           renderMathInElement(board, {
             delimiters: [
               {left: "$$", right: "$$", display: true},
-              {left: "$",  right: "$",  display: false}
+              {left: "$", right: "$", display: false}
             ],
             throwOnError: false
           });
         }
       });
-    </script> 
+    </script>
   </body>
 </html>

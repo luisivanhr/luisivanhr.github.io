@@ -20,12 +20,16 @@
   {%- assign items = items | sort: "date" | reverse -%}
   {%- if page.max_items -%}{%- assign items = items | slice: 0, page.max_items -%}{%- endif -%}
   {%- for it in items -%}
+    {%- assign item_url = it.url | relative_url -%}
+    {%- assign item_summary = it.summary | default: it.excerpt | default: "" | strip_html | strip_newlines -%}
+    {%- assign item_image = it.image | default: "" -%}
+    {%- if item_image != "" -%}{%- assign item_image = item_image | relative_url -%}{%- endif -%}
     {
       "title": {{ it.title | jsonify }},
-      "url": {{ (it.url | relative_url) | jsonify }},
+      "url": {{ item_url | jsonify }},
       "date": {{ it.date | date_to_xmlschema | jsonify }},
-      "summary": {{ (it.summary | default: it.excerpt | default: "") | strip_html | strip_newlines | jsonify }},
-      "image": {{ (it.image | default: "") | relative_url | jsonify }}
+      "summary": {{ item_summary | jsonify }},
+      "image": {{ item_image | jsonify }}
     }{%- if forloop.last == false -%},{%- endif -%}
   {%- endfor -%}
   ]

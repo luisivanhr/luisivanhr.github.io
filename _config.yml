@@ -13,6 +13,9 @@ plugins:
   - jekyll-seo-tag
 
 collections:
+  about:
+    output: true
+    permalink: /about/:title/
   models:
     output: true
     permalink: /models/:title/
@@ -31,9 +34,6 @@ collections:
   publications:
     output: true
     permalink: /publications/:title/
-  blog:
-    output: true
-    permalink: /blog/:title/
 
 defaults:
   - scope: {path: ""}

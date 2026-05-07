@@ -1,7 +1,7 @@
 ---
 layout: feed.json
 title: "Blog feed"
-collection_name: blog
+collection_name: posts
 permalink: /data/blog.json
 max_items: 8
 ---
