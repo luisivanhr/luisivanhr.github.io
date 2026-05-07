@@ -726,18 +726,19 @@ figcaption {
 }
 
 #disqus_thread {
-  color: #172329 !important;
-  background: #ffffff !important;
-  color-scheme: light;
+  margin-top: 20px;
+  padding: 18px;
+  border: 1px solid #cbd4da;
+  background: #8c9aa3 !important;
+  color: #f7fafb !important;
 }
 
 #disqus_thread a {
-  color: var(--post-teal) !important;
+  color: #d8eef1 !important;
 }
 
 #disqus_thread iframe {
-  background: #ffffff !important;
-  color-scheme: light;
+  background: transparent !important;
 }
 
 .disqus-color-probe {
@@ -750,9 +751,13 @@ figcaption {
   overflow: hidden;
   clip: rect(0 0 0 0);
   clip-path: inset(50%);
-  color: #172329 !important;
-  background: #ffffff !important;
+  color: #f7fafb !important;
+  background: #66727a !important;
   white-space: nowrap;
+}
+
+.disqus-color-probe a {
+  color: #d8eef1 !important;
 }
 
 .notebook-embed {
