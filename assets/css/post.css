@@ -10,7 +10,7 @@
 
 .post-content {
   flex: 1;
-  order: 2;
+  order: 1;
   min-width: 0;
 }
 
@@ -19,7 +19,7 @@
   position: sticky;
   top: 5vh;
   align-self: flex-start;
-  order: 1;
+  order: 2;
   max-height: 100vh;
   overflow-y: auto;
   padding-top: 1rem;
@@ -34,7 +34,7 @@
   display: block;
   position: fixed;
   top: 0;
-  left: 0;
+  right: 0;
   bottom: 0;
   width: 200px;
   padding: 1rem;
@@ -47,7 +47,7 @@
 #post-nav-toggle {
   display: none;
   position: fixed;
-  left: 0;
+  right: 0;
   top: 50%;
   transform: translateY(-50%);
   z-index: 1001;
@@ -141,4 +141,33 @@
 .post-content iframe {
   max-width: 100%;
   height: 40vh;
+}
+
+@media (max-width: 700px) {
+  .post-sidebar.hide,
+  .post-sidebar.show {
+    display: block;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: auto;
+    width: 200px;
+    padding: 1rem;
+    background: transparent;
+    overflow-y: auto;
+    z-index: 1000;
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    transition: transform 0.2s ease;
+  }
+
+  .post-sidebar.hide {
+    pointer-events: none;
+    transform: translateX(100%);
+  }
+
+  .post-sidebar.show {
+    pointer-events: auto;
+    transform: translateX(0);
+  }
 }

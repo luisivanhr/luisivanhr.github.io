@@ -3,6 +3,9 @@ document.addEventListener('DOMContentLoaded', function() {
   const content = document.querySelector('.post-content');
   const sidebar = document.querySelector('.post-sidebar');
   const navToggle = document.getElementById('post-nav-toggle');
+  const showNavIcon = '\u25c0';
+  const hideNavIcon = '\u25b6';
+
   if (nav && content) {
     const headings = content.querySelectorAll('h2, h3');
     if (headings.length > 0) {
@@ -33,7 +36,7 @@ document.addEventListener('DOMContentLoaded', function() {
       if (window.innerWidth <= 700 && sidebar && navToggle) {
         sidebar.classList.remove('show');
         sidebar.classList.add('hide');
-        navToggle.textContent = '▶';
+        navToggle.textContent = showNavIcon;
         navToggle.setAttribute('aria-label', 'Show navigation');
         navToggle.setAttribute('aria-expanded', 'false');
       }
@@ -101,6 +104,7 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     });
   }
+
   const shareCopy = document.getElementById('share-copy');
   if (shareCopy) {
     shareCopy.addEventListener('click', function() {
@@ -114,7 +118,7 @@ document.addEventListener('DOMContentLoaded', function() {
       sidebar.classList.add('hide');
       sidebar.classList.remove('show');
       navToggle.style.display = 'block';
-      navToggle.textContent = '▶';
+      navToggle.textContent = showNavIcon;
       navToggle.setAttribute('aria-label', 'Show navigation');
       navToggle.setAttribute('aria-expanded', 'false');
     } else {
@@ -122,6 +126,7 @@ document.addEventListener('DOMContentLoaded', function() {
       navToggle.style.display = 'none';
     }
   }
+
   resizePost();
   window.addEventListener('resize', resizePost);
 
@@ -130,13 +135,13 @@ document.addEventListener('DOMContentLoaded', function() {
       if (sidebar.classList.contains('show')) {
         sidebar.classList.remove('show');
         sidebar.classList.add('hide');
-        navToggle.textContent = '▶';
+        navToggle.textContent = showNavIcon;
         navToggle.setAttribute('aria-label', 'Show navigation');
         navToggle.setAttribute('aria-expanded', 'false');
       } else {
         sidebar.classList.add('show');
         sidebar.classList.remove('hide');
-        navToggle.textContent = '◀';
+        navToggle.textContent = hideNavIcon;
         navToggle.setAttribute('aria-label', 'Hide navigation');
         navToggle.setAttribute('aria-expanded', 'true');
       }
