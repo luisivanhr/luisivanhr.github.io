@@ -100,7 +100,7 @@
 }
 
 .post-card-content h2 {
-  font-size: clamp(var(--blog-card-title-font-min), 0.72rem + 0.25vw, 1.25rem);
+  font-size: clamp(var(--blog-card-title-font-min), 0.76rem + 0.28vw, 1.35rem);
   line-height: 1.15;
   margin: 0 0 0.5rem;
 }
