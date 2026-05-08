@@ -53,7 +53,7 @@
   padding: 1rem;
   background: #ffffff;
   border-radius: 15px 50px 30px;
-  font-size: clamp(0.9rem, 0.82rem + 0.22vw, 1.05rem);
+  font-size: clamp(0.78rem, 0.7rem + 0.18vw, 1rem);
 }
 
 .blog-container.compact .post-card {
@@ -72,12 +72,12 @@
 }
 
 .post-card-content h2 {
-  font-size: clamp(1.05rem, 0.94rem + 0.35vw, 1.35rem);
+  font-size: clamp(0.88rem, 0.78rem + 0.28vw, 1.25rem);
   margin: 0 0 0.5rem;
 }
 
 .post-card-content p {
-  font-size: clamp(0.9rem, 0.82rem + 0.22vw, 1rem);
+  font-size: clamp(0.76rem, 0.68rem + 0.18vw, 0.95rem);
   margin: 0;
 }
 

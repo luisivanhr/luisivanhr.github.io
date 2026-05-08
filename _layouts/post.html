@@ -1,7 +1,8 @@
 ---
 layout: default
 ---
-<link rel="stylesheet" href="{{ '/assets/css/post.css' | relative_url }}">
+{% assign asset_version = site.github.build_revision | default: site.time | url_encode %}
+<link rel="stylesheet" href="{{ '/assets/css/post.css' | relative_url }}?v={{ asset_version }}">
 {% assign post_style = page.post_style | default: 'paper' %}
 <article class="post post--{{ post_style }}">
   <div class="post-body">
@@ -116,7 +117,7 @@ layout: default
     <button id="post-nav-toggle" class="nav-btn nav-toggle" type="button" aria-expanded="false" aria-label="Show navigation">&#9664;</button>
   </div>
 </article>
-<script src="{{ '/assets/js/post.js' | relative_url }}"></script>
+<script src="{{ '/assets/js/post.js' | relative_url }}?v={{ asset_version }}"></script>
 <script>
   document.addEventListener("DOMContentLoaded", function() {
     const post = document.querySelector(".post-content");

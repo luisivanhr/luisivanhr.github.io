@@ -1,7 +1,8 @@
 ---
 layout: default
 ---
-<link rel="stylesheet" href="{{ '/assets/css/blog.css' | relative_url }}">
+{% assign asset_version = site.github.build_revision | default: site.time | url_encode %}
+<link rel="stylesheet" href="{{ '/assets/css/blog.css' | relative_url }}?v={{ asset_version }}">
 <div class="blog-container">
   <main class="blog-main">
     <h1>{{ page.title }}</h1>
@@ -47,4 +48,4 @@ layout: default
     </section>
   </aside>
 </div>
-<script src="{{ '/assets/js/blog.js' | relative_url }}"></script>
+<script src="{{ '/assets/js/blog.js' | relative_url }}?v={{ asset_version }}"></script>
