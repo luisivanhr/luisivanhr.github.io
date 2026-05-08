@@ -85,7 +85,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const container = document.querySelector('.blog-container');
   function resizeLayout() {
     if (!container) return;
-    if (window.innerWidth <= 700) {
+    const mobileLandscape = window.innerHeight <= 520 && window.innerWidth <= 1000;
+    if (window.innerWidth <= 700 || mobileLandscape) {
       container.classList.add('compact');
     } else {
       container.classList.remove('compact');

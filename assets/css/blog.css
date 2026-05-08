@@ -1,6 +1,13 @@
 .blog-container {
   --blog-sidebar-width: 12rem;
   --blog-sidebar-inline-padding: 1.25rem;
+  --blog-card-min-inline-size: 13rem;
+  --blog-card-max-inline-size: 23rem;
+  --blog-card-min-block-size: clamp(13rem, 24vw, 16rem);
+  --blog-card-aspect-ratio: 1.15 / 1;
+  --blog-card-font-min: 0.7rem;
+  --blog-card-title-font-min: 0.8rem;
+  --blog-card-summary-font-min: 0.68rem;
 
   display: flex;
   gap: 2rem;
@@ -16,8 +23,9 @@
 
 #posts-list {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 25vw));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--blog-card-min-inline-size)), var(--blog-card-max-inline-size)));
   gap: 5rem;
+  justify-content: start;
 }
 
 .blog-container.compact {
@@ -45,7 +53,9 @@
 
 
 .post-card {
-  height: 25vh;
+  min-height: var(--blog-card-min-block-size);
+  height: auto;
+  aspect-ratio: var(--blog-card-aspect-ratio);
   box-shadow: 3px 1px 10px 0 rgb(0 0 0), 0px -6px 10px 0 rgb(0 0 0 / 35%);
   display: flex;
   margin-bottom: 1.5rem;
@@ -53,7 +63,7 @@
   padding: 1rem;
   background: #ffffff;
   border-radius: 15px 50px 30px;
-  font-size: clamp(0.78rem, 0.7rem + 0.18vw, 1rem);
+  font-size: clamp(var(--blog-card-font-min), 0.66rem + 0.18vw, 1rem);
 }
 
 .blog-container.compact .post-card {
@@ -72,13 +82,28 @@
 }
 
 .post-card-content h2 {
-  font-size: clamp(0.88rem, 0.78rem + 0.28vw, 1.25rem);
+  font-size: clamp(var(--blog-card-title-font-min), 0.72rem + 0.25vw, 1.25rem);
+  line-height: 1.15;
   margin: 0 0 0.5rem;
 }
 
 .post-card-content p {
-  font-size: clamp(0.76rem, 0.68rem + 0.18vw, 0.95rem);
+  font-size: clamp(var(--blog-card-summary-font-min), 0.62rem + 0.17vw, 0.95rem);
+  line-height: 1.28;
   margin: 0;
+}
+
+@media (max-width: 700px), (max-height: 520px) and (max-width: 1000px) {
+  .blog-container {
+    --blog-card-min-inline-size: 12.5rem;
+    --blog-card-max-inline-size: 16rem;
+    --blog-card-min-block-size: clamp(12rem, 44vw, 14.5rem);
+    --blog-card-aspect-ratio: 1.08 / 1;
+  }
+
+  #posts-list {
+    gap: 3rem;
+  }
 }
 
 
