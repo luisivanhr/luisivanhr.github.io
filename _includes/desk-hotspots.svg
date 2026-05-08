@@ -12,7 +12,6 @@
    xml:space="preserve"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-   xmlns:xlink="http://www.w3.org/1999/xlink"
    xmlns="http://www.w3.org/2000/svg"
    xmlns:svg="http://www.w3.org/2000/svg"><sodipodi:namedview
      id="namedview17"
@@ -53,7 +52,7 @@
        id="a20"
        transform="matrix(1.6563298,0,0,1.3882075,-71.047681,-270.57799)"
        style="opacity:0.01;fill:#000000"
-       xlink:href="#"><path
+       href="#"><path
          class="hotspot"
          d="m 747.61038,661.39105 -0.88887,44.4907 c 0,0 30.81907,18.86855 48.16907,0.55366 23.09258,-24.37683 15.50522,-31.23412 15.50522,-31.23412 0,0 -4.63273,-3.89291 -12.63246,-9.46405 -7.99973,-5.57115 -28.82035,-19.20256 -50.15296,-4.34619 z"
          data-target="hobbies"
@@ -65,7 +64,7 @@
        id="a19"
        transform="matrix(1.642321,0,0,0.98285497,66.726642,-172.72799)"
        style="opacity:0.01;fill:#000000"
-       xlink:href="#"><path
+       href="#"><path
          style="opacity:0.64;fill:#000000"
          d="m 834.85007,258.85176 1.60285,38.02175 12.74072,0.0153 -0.87746,-38.80738 z"
          data-target="easter"
@@ -76,7 +75,7 @@
        id="a18"
        transform="matrix(1.7041717,0,0,1.3551485,-44.364561,-184.00094)"
        style="opacity:0.01;fill:#000000"
-       xlink:href="#"><path
+       href="#"><path
          class="hotspot"
          d="M 459.58717,681.83715 540.22736,715.52041 645.60944,686.64904 562.942,657.60782 Z"
          data-target="news"
@@ -92,7 +91,7 @@
          sodipodi:nodetypes="ccccc"
          style="opacity:0.02;fill:#000000" /><title
          id="title18">News</title></a><a
-       xlink:href="#"
+       href="#"
        id="a9"
        transform="matrix(1.6765232,0,0,1.4993433,-26.365646,-343.37339)"
        style="opacity:0.01;fill:#000000"><path
@@ -104,7 +103,7 @@
          sodipodi:nodetypes="ccccccc"
          style="opacity:0.01;fill:#000000" /><title
          id="title9">Publications</title></a><a
-       xlink:href="#"
+       href="#"
        id="a11"
        transform="matrix(1.642321,0,0,1.4323407,-44.223213,-281.8718)"
        style="opacity:0.01;fill:#000000"><path
@@ -116,7 +115,7 @@
          style="opacity:0.01;fill:#000000"
          sodipodi:nodetypes="cccccc" /><title
          id="title11">Models</title></a><a
-       xlink:href="#"
+       href="#"
        id="a12"
        transform="matrix(1.5215106,0,0,1.3082487,33.902539,-119.24191)"
        style="opacity:0.01;fill:#000000"><path
@@ -129,7 +128,7 @@
          sodipodi:nodetypes="ccccc"
          style="opacity:0.01;fill:#000000" /><title
          id="title12">Courses</title></a><a
-       xlink:href="#"
+       href="#"
        id="a13"
        transform="matrix(0.83878809,0,0,1.0022281,469.79698,27.71662)"
        style="opacity:0.01;fill:#000000"><path
@@ -148,7 +147,7 @@
          sodipodi:nodetypes="ccccc"
          style="opacity:0.01;fill:#000000" /><title
          id="title13">Blog</title></a><a
-       xlink:href="#"
+       href="#"
        id="a14"
        transform="matrix(1.642321,0,0,1.5007504,-150.88674,-542.02468)"
        style="opacity:0.01;fill:#000000"><path
@@ -166,7 +165,7 @@
          sodipodi:nodetypes="ccccc"
          style="opacity:0.01;fill:#000000" /><title
          id="title14">CV</title></a><a
-       xlink:href="#"
+       href="#"
        id="a15"
        transform="matrix(1.642321,0,0,1.5003771,-118.34415,-87.970058)"
        style="opacity:0.01;fill:#000000"><path
@@ -178,7 +177,7 @@
          style="opacity:0.01;fill:#000000"
          sodipodi:nodetypes="ccccccccc" /><title
          id="title15">Achievements</title></a><a
-       xlink:href="#"
+       href="#"
        id="a16"
        transform="matrix(1.7077121,0,0,1.5005301,38.447345,-140.36664)"
        style="opacity:0.01;fill:#000000"><path
@@ -197,7 +196,7 @@
          style="opacity:0.01;fill:#000000"
          sodipodi:nodetypes="ccccc" /><title
          id="title16">About me</title></a><a
-       xlink:href="#"
+       href="#"
        id="a17"
        transform="matrix(1.3547704,0,0,0.99769323,169.83402,-126.76251)"
        style="opacity:0.01;fill:#000000"><path

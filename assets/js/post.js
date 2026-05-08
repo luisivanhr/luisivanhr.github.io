@@ -7,28 +7,14 @@ document.addEventListener('DOMContentLoaded', function() {
   const hideNavIcon = '\u25b6';
 
   async function writeClipboardText(value) {
-    if (navigator.clipboard && window.isSecureContext) {
-      try {
-        await navigator.clipboard.writeText(value);
-        return true;
-      } catch (err) {
-        // Some browser automation and privacy settings expose the API but reject writes.
-      }
+    if (!navigator.clipboard || !window.isSecureContext) return false;
+    try {
+      await navigator.clipboard.writeText(value);
+      return true;
+    } catch (err) {
+      console.error('Copy failed', err);
+      return false;
     }
-
-    const textarea = document.createElement('textarea');
-    textarea.value = value;
-    textarea.setAttribute('readonly', '');
-    textarea.style.position = 'fixed';
-    textarea.style.left = '-9999px';
-    textarea.style.top = '0';
-    document.body.appendChild(textarea);
-    textarea.focus();
-    textarea.select();
-    textarea.setSelectionRange(0, textarea.value.length);
-    const copied = document.execCommand('copy');
-    textarea.remove();
-    return copied;
   }
 
   if (nav && content) {
