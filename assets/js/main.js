@@ -19,30 +19,8 @@ function resizeBoardText(){
 }
 
 
-// ===== Optional: hard block page zoom (Ctrl/Cmd + wheel, Ctrl/Cmd +/−/0) =====
-(function hardBlockPageZoom(){
-  const blockWheel = (e) => {
-    if (e.ctrlKey || e.metaKey) { e.preventDefault(); e.stopImmediatePropagation(); }
-  };
-  window.addEventListener('wheel', blockWheel, { passive: false, capture: true });
-  document.addEventListener('wheel', blockWheel, { passive: false, capture: true });
-
-  const blockKeys = (e) => {
-    if (!(e.ctrlKey || e.metaKey)) return;
-    const code = e.code, key = e.key;
-    if (code === 'Equal' || code === 'Minus' || code === 'Digit0' ||
-        code === 'NumpadAdd' || code === 'NumpadSubtract' || code === 'Numpad0' ||
-        key === '+' || key === '=' || key === '-' || key === '0') {
-      e.preventDefault(); e.stopImmediatePropagation();
-    }
-  };
-  window.addEventListener('keydown', blockKeys, { capture: true });
-  document.addEventListener('keydown', blockKeys, { capture: true });
-
-  ['gesturestart','gesturechange','gestureend'].forEach(t => {
-    window.addEventListener(t, e => { e.preventDefault(); e.stopImmediatePropagation(); }, { capture: true });
-  });
-})();
+// Browser zoom is enabled; desk FX below resync on viewport resize, DPR,
+// and visual viewport changes so the scene can be tested at real zoom levels.
 
 // ===== FX metrics & canvas sizing =====
 const DESIGN_W = 1600;   // match your SVG/viewBox width
@@ -77,14 +55,22 @@ function resizeFxCanvas(){
   canvas.__metrics = m;
 }
 
-function setupDPRListener(){
+function setupDPRListener(onDPRChange = resizeFxCanvas){
   let mq = matchMedia(`(resolution: ${window.devicePixelRatio}dppx)`);
   const onChange = () => {
-    resizeFxCanvas();
-    mq.removeEventListener('change', onChange);
-    setupDPRListener(); // rebind for the new DPR
+    onDPRChange();
+    if (typeof mq.removeEventListener === 'function') {
+      mq.removeEventListener('change', onChange);
+    } else if (typeof mq.removeListener === 'function') {
+      mq.removeListener(onChange);
+    }
+    setupDPRListener(onDPRChange); // rebind for the new DPR
   };
-  mq.addEventListener('change', onChange);
+  if (typeof mq.addEventListener === 'function') {
+    mq.addEventListener('change', onChange);
+  } else if (typeof mq.addListener === 'function') {
+    mq.addListener(onChange);
+  }
 }
 
 // ===== Tooltips, feeds (unchanged minimal) =====
@@ -401,22 +387,8 @@ window.addEventListener('load', hydrateBoardMath);
   const ctx = cvs.getContext('2d');
   wrap.appendChild(cvs);
 
-  // Initial sizing + listeners
-  function fullResize(){
-    resizeFxCanvas();
-    rebuildGlowPaths();
-    rebuildParticles(true);
-    resizeBoardText();   // <— add this
-  }
-  window.addEventListener('load', fullResize);
-  window.addEventListener('resize', fullResize);
-  setupDPRListener();
-  // Also react to stage size changes
+  // Initial sizing happens after emitters are created; resize events only resync geometry.
   const stage = document.querySelector('.stage') || wrap;
-  try {
-    const ro = new ResizeObserver(fullResize);
-    ro.observe(stage);
-  } catch(_) {}
 
   // ==== Geometry helpers ====
   function ptFromRectCenter(el){
@@ -504,6 +476,24 @@ window.addEventListener('load', hydrateBoardMath);
 
   const emitters = new Map();
   const parts = [];
+  const particleListenerTargets = new WeakSet();
+
+  function bindParticleHotspot(h){
+    if (particleListenerTargets.has(h)) return;
+    h.addEventListener('mouseenter', () => {
+      const st = emitters.get(h);
+      if (st) st.hover = true;
+    });
+    h.addEventListener('mouseleave', () => {
+      const st = emitters.get(h);
+      if (st) st.hover = false;
+    });
+    h.addEventListener('click', () => {
+      const st = emitters.get(h);
+      if (st) st.burst = 1;
+    });
+    particleListenerTargets.add(h);
+  }
 
   function rebuildParticles(hard=false){
     if (hard) parts.length = 0;
@@ -523,10 +513,50 @@ window.addEventListener('load', hydrateBoardMath);
         seed: Math.random() * 1000,
         fogCount: 0
       });
-      h.addEventListener('mouseenter', ()=>{ const st = emitters.get(h); if(st) st.hover = true; });
-      h.addEventListener('mouseleave', ()=>{ const st = emitters.get(h); if(st) st.hover = false; });
-      h.addEventListener('click', ()=>{ const st = emitters.get(h); if(st) st.burst = 1; });
+      bindParticleHotspot(h);
     });
+  }
+
+  function syncParticleGeometry(clearParticles=false){
+    emitters.forEach(st => {
+      st.center = ptFromRectCenter(st.el);
+      if (clearParticles) {
+        st.accum = 0;
+        st.burst = 0;
+        st.fogCount = 0;
+      }
+    });
+    if (clearParticles) parts.length = 0;
+  }
+
+  function fullResize({ clearParticles = true } = {}){
+    resizeFxCanvas();
+    rebuildGlowPaths();
+    syncParticleGeometry(clearParticles);
+    resizeBoardText();
+  }
+
+  let resizeFrame = 0;
+  function scheduleFullResize(clearParticles = true){
+    if (resizeFrame) cancelAnimationFrame(resizeFrame);
+    resizeFrame = requestAnimationFrame(() => {
+      resizeFrame = 0;
+      fullResize({ clearParticles });
+    });
+  }
+
+  function bindResizeSignals(){
+    const queueResize = () => scheduleFullResize(true);
+    window.addEventListener('load', queueResize, { once: true });
+    window.addEventListener('resize', queueResize, { passive: true });
+    setupDPRListener(queueResize);
+    try {
+      const ro = new ResizeObserver(queueResize);
+      ro.observe(stage);
+    } catch(_) {}
+    if (window.visualViewport && typeof window.visualViewport.addEventListener === 'function') {
+      window.visualViewport.addEventListener('resize', queueResize, { passive: true });
+    }
   }
 
   function rand(a,b){ return a + Math.random()*(b-a); }
@@ -748,9 +778,9 @@ window.addEventListener('load', hydrateBoardMath);
   }
 
   // Kickoff
-  resizeFxCanvas();
-  rebuildGlowPaths();
   rebuildParticles(true);
+  fullResize({ clearParticles: true });
+  bindResizeSignals();
   requestAnimationFrame(tick);
 })();
 
