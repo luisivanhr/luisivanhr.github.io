@@ -142,9 +142,14 @@ function setupDPRListener(){
     } else {
       title.classList.remove('about-name');
     }
-    tooltip.style.left = (x+16) + 'px';
-    tooltip.style.top  = (y+16) + 'px';
     tooltip.hidden = false;
+    const margin = 16;
+    const width = tooltip.offsetWidth || 320;
+    const height = tooltip.offsetHeight || 160;
+    const maxLeft = Math.max(margin, window.innerWidth - width - margin);
+    const maxTop = Math.max(margin, window.innerHeight - height - margin);
+    tooltip.style.left = Math.min(Math.max(margin, x + margin), maxLeft) + 'px';
+    tooltip.style.top  = Math.min(Math.max(margin, y + margin), maxTop) + 'px';
   }
   function hideTooltip(){ tooltip.hidden = true; }
 
