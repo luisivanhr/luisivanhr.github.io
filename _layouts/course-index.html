@@ -1,0 +1,59 @@
+---
+layout: default
+---
+{% assign asset_version = site.github.build_revision | default: site.time | url_encode %}
+<link rel="stylesheet" href="{{ '/assets/css/course-material.css' | relative_url }}?v={{ asset_version }}">
+
+{% assign course_title = page.course_title | default: page.title %}
+{% assign course_url = page.course_url | default: "/courses/" %}
+{% assign course_slug = page.course_slug %}
+{% unless course_slug %}
+  {% assign course_slug = course_url | remove_first: "/courses/" | split: "/" | first %}
+{% endunless %}
+
+<article
+  class="course-index-page"
+  data-course-material
+  data-course-index-page
+  data-course-slug="{{ course_slug | escape }}"
+  data-course-url="{{ course_url | relative_url }}"
+  data-index-source="{{ '/courses/course-index-data.json' | relative_url }}">
+  <section class="course-index-shell" aria-labelledby="course-index-title">
+    <header class="course-index-hero">
+      <div>
+        <div class="course-kicker">
+          <span>{{ course_title }}</span>
+          <span>Index</span>
+        </div>
+        <h1 id="course-index-title">{{ course_title }} Index</h1>
+        <p>{{ page.summary | default: "A generated index of the concepts that appear throughout this course, grouped in the style of the back matter of a book." }}</p>
+      </div>
+
+      <div class="course-index-controls" aria-label="Index controls">
+        <label class="course-index-search">
+          <span>Search the index</span>
+          <input data-index-search type="search" placeholder="Search terms, subentries, or sections" autocomplete="off">
+        </label>
+        <nav class="course-letter-rail" data-index-letters aria-label="Index letters"></nav>
+      </div>
+    </header>
+
+    <div class="course-index-body">
+      <main class="course-index-book" data-index-results aria-live="polite">
+        <p class="course-muted">Loading course index entries...</p>
+      </main>
+
+      <aside class="course-index-side" aria-label="Course index details">
+        <a class="course-directory-button" href="{{ course_url | relative_url }}">Back to course page</a>
+        <a class="course-directory-button" href="{{ '/courses/' | relative_url }}">Course Directory</a>
+        <section class="course-index-side-card">
+          <h2>Entry Markup</h2>
+          <p>Use <code>[[probability measure]]</code> for a top-level entry.</p>
+          <p>Use <code>[[convergence::weak convergence]]</code> to place a subentry under a main term.</p>
+        </section>
+      </aside>
+    </div>
+  </section>
+</article>
+
+<script src="{{ '/assets/js/course-material.js' | relative_url }}?v={{ asset_version }}" defer></script>

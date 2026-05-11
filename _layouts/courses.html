@@ -98,7 +98,7 @@ layout: default
           {% endif %}
           {% assign index_url = course.index_url %}
           {% unless index_url %}
-            {% assign index_url = course.url | append: "#index" %}
+            {% assign index_url = course.url | append: "index/" %}
           {% endunless %}
 
           <article class="course-detail"{% unless forloop.first %} hidden{% endunless %} data-course-detail data-course-id="{{ course_id }}">

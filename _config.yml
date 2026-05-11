@@ -22,6 +22,9 @@ collections:
   courses:
     output: true
     permalink: /courses/:title/
+  course_sections:
+    output: true
+    permalink: /courses/:path/
   hobbies:
     output: true
     permalink: /hobbies/:title/
@@ -40,6 +43,13 @@ defaults:
     values:
       layout: default
       image: /assets/images/og-default.png
+  - scope: {path: "", type: "courses"}
+    values:
+      layout: course
+  - scope: {path: "", type: "course_sections"}
+    values:
+      layout: course-section
+      course_section_style: theory
 
 markdown: kramdown
 kramdown:

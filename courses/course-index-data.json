@@ -1,0 +1,39 @@
+---
+layout: null
+permalink: /courses/course-index-data.json
+---
+{
+  "courses": [
+    {%- for course in site.courses -%}
+      {%- assign course_slug = course.url | remove_first: "/courses/" | split: "/" | first -%}
+      {%- assign course_index_url = course.index_url -%}
+      {%- unless course_index_url -%}
+        {%- assign course_index_url = course.url | append: "index/" -%}
+      {%- endunless -%}
+      {
+        "slug": {{ course_slug | jsonify }},
+        "title": {{ course.title | jsonify }},
+        "url": {{ course.url | relative_url | jsonify }},
+        "indexUrl": {{ course_index_url | relative_url | jsonify }},
+        "pages": [
+          {
+            "title": {{ course.title | jsonify }},
+            "url": {{ course.url | relative_url | jsonify }},
+            "content": {{ course.content | jsonify }}
+          }
+          {%- for section in site.course_sections -%}
+            {%- if section.url contains course.url -%}
+              {%- unless section.layout == "course-index" -%}
+                ,{
+                  "title": {{ section.title | jsonify }},
+                  "url": {{ section.url | relative_url | jsonify }},
+                  "content": {{ section.content | jsonify }}
+                }
+              {%- endunless -%}
+            {%- endif -%}
+          {%- endfor -%}
+        ]
+      }{%- unless forloop.last -%},{%- endunless -%}
+    {%- endfor -%}
+  ]
+}

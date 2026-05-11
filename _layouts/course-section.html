@@ -1,0 +1,104 @@
+---
+layout: default
+---
+{% assign asset_version = site.github.build_revision | default: site.time | url_encode %}
+<link rel="stylesheet" href="{{ '/assets/css/course-material.css' | relative_url }}?v={{ asset_version }}">
+
+{% assign section_style = page.course_section_style | default: page.course_style | default: "theory" %}
+{% assign course_title = page.course_title | default: page.course | default: "Course" %}
+{% assign course_url = page.course_url | default: "/courses/" %}
+{% assign index_url = page.index_url %}
+{% unless index_url %}
+  {% assign index_url = course_url | append: "index/" %}
+{% endunless %}
+
+<article class="course-section course-section--{{ section_style }}" data-course-material>
+  <div class="course-section-body">
+    <main class="course-section-main">
+      <article class="course-section-paper">
+        <header class="course-section-header">
+          <div class="course-kicker">
+            <span>{{ course_title }}</span>
+            {% if page.section_number %}<span>Section {{ page.section_number }}</span>{% endif %}
+            {% if page.section_kind %}<span>{{ page.section_kind }}</span>{% endif %}
+          </div>
+          <h1>{{ page.title }}</h1>
+          {% if page.summary %}
+            <p>{{ page.summary }}</p>
+          {% endif %}
+
+          {% if page.prerequisites or page.reading_time or page.exercises %}
+            <div class="course-meta-grid" aria-label="Section metadata">
+              <div><b>Prerequisites</b><span>{{ page.prerequisites | default: "None listed" }}</span></div>
+              <div><b>Reading time</b><span>{{ page.reading_time | default: "Self-paced" }}</span></div>
+              <div><b>Exercises</b><span>{{ page.exercises | default: "Included where useful" }}</span></div>
+            </div>
+          {% endif %}
+
+          {% if page.lab_summary and page.lab_summary.size > 0 %}
+            <div class="course-lab-summary" aria-label="Lab summary">
+              {% for item in page.lab_summary %}
+                <div>
+                  <b>{{ item.label }}</b>
+                  <span>{{ item.value }}</span>
+                </div>
+              {% endfor %}
+            </div>
+          {% endif %}
+        </header>
+
+        <div class="course-section-content">
+          {{ content }}
+        </div>
+
+        {% if page.previous_section or page.next_section %}
+          <nav class="course-section-pager" aria-label="Section navigation">
+            {% if page.previous_section %}
+              {% assign previous_title = page.previous_section.title | default: "Previous section" %}
+              {% assign previous_url = page.previous_section.url | default: "#" %}
+              <a class="course-pager-link" href="{{ previous_url | relative_url }}">
+                <small>Previous section</small>
+                <b>{{ previous_title }}</b>
+              </a>
+            {% else %}
+              <span></span>
+            {% endif %}
+
+            {% if page.next_section %}
+              {% assign next_title = page.next_section.title | default: "Next section" %}
+              {% assign next_url = page.next_section.url | default: "#" %}
+              <a class="course-pager-link" href="{{ next_url | relative_url }}">
+                <small>Next section</small>
+                <b>{{ next_title }}</b>
+              </a>
+            {% endif %}
+          </nav>
+        {% endif %}
+      </article>
+    </main>
+
+    <aside class="course-section-sidebar" aria-label="Course section navigation">
+      <a class="course-side-link" href="{{ course_url | relative_url }}">Back to course page</a>
+      <nav id="course-section-nav" class="course-local-nav">
+        {% if page.subsections and page.subsections.size > 0 %}
+          {% for subsection in page.subsections %}
+            {% assign subsection_title = subsection.title | default: subsection %}
+            {% assign subsection_url = subsection.url | default: "#" %}
+            <a class="course-side-link{% if forloop.first %} active{% endif %}" href="{{ subsection_url | relative_url }}">{{ subsection_title }}</a>
+          {% endfor %}
+        {% endif %}
+      </nav>
+      <a class="course-side-link" href="{{ index_url | relative_url }}">Index</a>
+      {% if page.sidebar_note or page.sidebar_tools %}
+        <div class="course-sidebar-tools">
+          <strong>{{ page.sidebar_tools | default: "Section Tools" }}</strong>
+          {{ page.sidebar_note | default: "Notes, exercises, and index anchors" }}
+        </div>
+      {% endif %}
+    </aside>
+
+    <button id="course-nav-toggle" class="course-nav-toggle" type="button" aria-expanded="false" aria-label="Show navigation">&#9664;</button>
+  </div>
+</article>
+
+<script src="{{ '/assets/js/course-material.js' | relative_url }}?v={{ asset_version }}" defer></script>
