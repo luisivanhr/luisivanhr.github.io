@@ -1,0 +1,301 @@
+---
+layout: default
+---
+{% assign asset_version = site.github.build_revision | default: site.time | url_encode %}
+<link rel="stylesheet" href="{{ '/assets/css/courses.css' | relative_url }}?v={{ asset_version }}">
+
+{% assign courses = site.courses | sort: "date" | reverse %}
+
+<main class="courses-page" data-courses-page>
+  <section class="courses-shell" aria-labelledby="courses-title">
+    <header class="courses-bar">
+      <div>
+        <h1 id="courses-title">{{ page.title | default: "Course Directory" }}</h1>
+        <p>{{ page.summary | default: "Works when the number of courses grows but one selected course still deserves full context." }}</p>
+      </div>
+      <label class="courses-search">
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2"></circle>
+          <path d="m16.5 16.5 4 4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+        </svg>
+        <span class="sr-only">Search courses and indexes</span>
+        <input id="course-search" type="search" placeholder="Search courses and indexes" autocomplete="off">
+      </label>
+    </header>
+
+    {{ content }}
+
+    {% if courses and courses.size > 0 %}
+    <div class="courses-layout courses-default-view" data-default-view>
+      <section class="course-tile-grid" aria-label="Course cards">
+        {% for course in courses %}
+          {% assign course_id = course.url | slugify %}
+          {% assign track = course.track | default: course.course_track | default: "Course" %}
+          {% capture raw_summary %}
+            {% if course.summary %}
+              {{ course.summary }}
+            {% elsif course.excerpt %}
+              {{ course.excerpt | strip_html }}
+            {% else %}
+              {{ course.content | strip_html | truncatewords: 24 }}
+            {% endif %}
+          {% endcapture %}
+          {% assign course_summary = raw_summary | strip | normalize_whitespace %}
+          {% assign section_count = 1 %}
+          {% if course.sections and course.sections.size > 0 %}
+            {% assign section_count = course.sections | size %}
+          {% elsif course.sections_count %}
+            {% assign section_count = course.sections_count %}
+          {% endif %}
+          {% assign index_count = 0 %}
+          {% if course.index_terms %}
+            {% assign index_count = course.index_terms | size %}
+          {% elsif course.index_terms_count %}
+            {% assign index_count = course.index_terms_count %}
+          {% endif %}
+          <button
+            class="course-tile{% if forloop.first %} active{% endif %}"
+            type="button"
+            data-course-card
+            data-course-id="{{ course_id }}"
+            aria-pressed="{% if forloop.first %}true{% else %}false{% endif %}">
+            <span class="course-type-label">{{ track }}</span>
+            <strong>{{ course.title }}</strong>
+            <span class="course-tile-summary">{{ course_summary }}</span>
+            <span class="course-meta" aria-label="{{ course.title }} metadata">
+              <span>{{ section_count }} {% if section_count == 1 %}section{% else %}sections{% endif %}</span>
+              <span>{% if index_count and index_count != 0 %}{{ index_count }} terms{% else %}index pending{% endif %}</span>
+            </span>
+          </button>
+        {% endfor %}
+      </section>
+
+      <aside class="course-detail-drawer" aria-label="Selected course details">
+        {% for course in courses %}
+          {% assign course_id = course.url | slugify %}
+          {% assign track = course.track | default: course.course_track | default: "Course" %}
+          {% capture raw_summary %}
+            {% if course.summary %}
+              {{ course.summary }}
+            {% elsif course.excerpt %}
+              {{ course.excerpt | strip_html }}
+            {% else %}
+              {{ course.content | strip_html | truncatewords: 24 }}
+            {% endif %}
+          {% endcapture %}
+          {% assign course_summary = raw_summary | strip | normalize_whitespace %}
+          {% assign section_count = 1 %}
+          {% if course.sections and course.sections.size > 0 %}
+            {% assign section_count = course.sections | size %}
+          {% elsif course.sections_count %}
+            {% assign section_count = course.sections_count %}
+          {% endif %}
+          {% assign index_count = 0 %}
+          {% if course.index_terms %}
+            {% assign index_count = course.index_terms | size %}
+          {% elsif course.index_terms_count %}
+            {% assign index_count = course.index_terms_count %}
+          {% endif %}
+          {% assign index_url = course.index_url %}
+          {% unless index_url %}
+            {% assign index_url = course.url | append: "#index" %}
+          {% endunless %}
+
+          <article class="course-detail"{% unless forloop.first %} hidden{% endunless %} data-course-detail data-course-id="{{ course_id }}">
+            <header class="course-detail-header">
+              <span class="course-type-label">Selected course</span>
+              <h2>{{ course.title }}</h2>
+              <div class="course-meta">
+                {% if course.date %}<span>Updated {{ course.date | date: "%b %Y" }}</span>{% endif %}
+                <span>{% if index_count and index_count != 0 %}Index: {{ index_count }} terms{% else %}Index pending{% endif %}</span>
+              </div>
+            </header>
+
+            <div class="course-drawer-body">
+              <div class="course-drawer-tabs" role="tablist" aria-label="{{ course.title }} detail views">
+                <button class="active" type="button" role="tab" aria-selected="true" data-course-tab="outline">Outline</button>
+                <button type="button" role="tab" aria-selected="false" data-course-tab="updates">Updates</button>
+                <button type="button" role="tab" aria-selected="false" data-course-tab="index">Index</button>
+              </div>
+
+              <section class="course-tab-panel" data-course-panel="outline" aria-label="{{ course.title }} outline">
+                <div class="course-chapter-list">
+                  {% if course.sections and course.sections.size > 0 %}
+                    {% for section in course.sections %}
+                      {% assign section_title = section.title | default: section %}
+                      {% assign section_url = section.url | default: course.url %}
+                      {% assign section_meta = section.meta | default: section.note | default: "section" %}
+                      {% if section.subsections %}
+                        {% assign subsection_count = section.subsections | size %}
+                        {% assign section_meta = subsection_count | append: " subsections" %}
+                      {% endif %}
+                      <div class="course-chapter-row">
+                        <b>{% if forloop.index < 10 %}0{{ forloop.index }}{% else %}{{ forloop.index }}{% endif %}</b>
+                        <a href="{{ section_url | relative_url }}">{{ section_title }}</a>
+                        <small>{{ section_meta }}</small>
+                      </div>
+                    {% endfor %}
+                  {% else %}
+                    <div class="course-chapter-row">
+                      <b>01</b>
+                      <a href="{{ course.url | relative_url }}">{{ course.title }}</a>
+                      <small>course page</small>
+                    </div>
+                  {% endif %}
+                  <div class="course-chapter-row">
+                    <b>IX</b>
+                    <a href="{{ index_url | relative_url }}">Course Index</a>
+                    <small>{% if index_count and index_count != 0 %}A-Z{% else %}pending{% endif %}</small>
+                  </div>
+                </div>
+              </section>
+
+              <section class="course-tab-panel" data-course-panel="updates" hidden aria-label="{{ course.title }} updates">
+                {% if course.updates and course.updates.size > 0 %}
+                  <div class="course-update-list">
+                    {% for update in course.updates %}
+                      {% assign update_title = update.title | default: update %}
+                      {% assign update_summary = update.summary | default: update.note | default: course_summary %}
+                      {% assign update_url = update.url | default: course.url %}
+                      <a class="course-section-hit" href="{{ update_url | relative_url }}">
+                        <small>{{ update.date | default: "Course update" }}</small>
+                        <strong>{{ update_title }}</strong>
+                        <span>{{ update_summary }}</span>
+                      </a>
+                    {% endfor %}
+                  </div>
+                {% else %}
+                  <a class="course-section-hit" href="{{ course.url | relative_url }}">
+                    <small>Latest update</small>
+                    <strong>{{ course.latest_update_title | default: course.title }}</strong>
+                    <span>{{ course.latest_update | default: course_summary }}</span>
+                  </a>
+                {% endif %}
+              </section>
+
+              <section class="course-tab-panel" data-course-panel="index" hidden aria-label="{{ course.title }} index terms">
+                {% if course.index_terms and course.index_terms.size > 0 %}
+                  <div class="course-index-chip-list">
+                    {% for term in course.index_terms %}
+                      {% assign term_title = term.title | default: term %}
+                      {% assign term_url = term.url | default: index_url %}
+                      <a class="course-index-chip" href="{{ term_url | relative_url }}">{{ term_title }}</a>
+                    {% endfor %}
+                  </div>
+                {% else %}
+                  <p class="course-muted">Index terms can be added with <code>index_terms</code> in the course front matter.</p>
+                {% endif %}
+              </section>
+
+              <a class="course-primary-link" href="{{ course.url | relative_url }}">Open course page</a>
+            </div>
+          </article>
+        {% endfor %}
+      </aside>
+    </div>
+
+    <div class="courses-layout courses-search-view" data-search-view hidden>
+      <section class="course-search-results" aria-live="polite" aria-label="Course search results">
+        <div class="course-search-list" data-search-list></div>
+      </section>
+      <aside class="course-detail-drawer course-search-drawer" aria-label="Search details">
+        <article class="course-detail">
+          <header class="course-detail-header">
+            <span class="course-type-label">Search detail</span>
+            <h2>Grouped matches</h2>
+          </header>
+          <div class="course-drawer-body">
+            <p class="course-muted" data-search-summary>Type to search course titles, section titles, updates, and index terms.</p>
+          </div>
+        </article>
+      </aside>
+    </div>
+
+    <div class="course-search-sources" hidden>
+      {% for course in courses %}
+        {% assign course_id = course.url | slugify %}
+        {% assign track = course.track | default: course.course_track | default: "Course" %}
+        {% capture raw_summary %}
+          {% if course.summary %}
+            {{ course.summary }}
+          {% elsif course.excerpt %}
+            {{ course.excerpt | strip_html }}
+          {% else %}
+            {{ course.content | strip_html | truncatewords: 24 }}
+          {% endif %}
+        {% endcapture %}
+        {% assign course_summary = raw_summary | strip | normalize_whitespace %}
+        <div
+          data-search-source
+          data-course-id="{{ course_id }}"
+          data-kind="Course match"
+          data-title="{{ course.title | escape }}"
+          data-meta="{{ track | escape }}"
+          data-summary="{{ course_summary | escape }}"
+          data-url="{{ course.url | relative_url }}"
+          data-search-text="{{ course.title | append: ' ' | append: track | append: ' ' | append: course_summary | escape }}">
+        </div>
+
+        {% if course.sections and course.sections.size > 0 %}
+          {% for section in course.sections %}
+            {% assign section_title = section.title | default: section %}
+            {% assign section_url = section.url | default: course.url %}
+            {% assign section_meta = section.meta | default: section.note | default: "Section" %}
+            <div
+              data-search-source
+              data-course-id="{{ course_id }}"
+              data-kind="Subtitle match"
+              data-title="{{ section_title | escape }}"
+              data-meta="{{ course.title | escape }}"
+              data-summary="{{ section_meta | escape }}"
+              data-url="{{ section_url | relative_url }}"
+              data-search-text="{{ course.title | append: ' ' | append: section_title | append: ' ' | append: section_meta | escape }}">
+            </div>
+          {% endfor %}
+        {% endif %}
+
+        {% if course.index_terms and course.index_terms.size > 0 %}
+          {% for term in course.index_terms %}
+            {% assign term_title = term.title | default: term %}
+            {% assign term_url = term.url | default: course.url %}
+            <div
+              data-search-source
+              data-course-id="{{ course_id }}"
+              data-kind="Index match"
+              data-title="{{ term_title | escape }}"
+              data-meta="{{ course.title | escape }}"
+              data-summary="Index term"
+              data-url="{{ term_url | relative_url }}"
+              data-search-text="{{ course.title | append: ' ' | append: term_title | escape }}">
+            </div>
+          {% endfor %}
+        {% endif %}
+
+        {% if course.updates and course.updates.size > 0 %}
+          {% for update in course.updates %}
+            {% assign update_title = update.title | default: update %}
+            {% assign update_summary = update.summary | default: update.note | default: course_summary %}
+            {% assign update_url = update.url | default: course.url %}
+            <div
+              data-search-source
+              data-course-id="{{ course_id }}"
+              data-kind="Update match"
+              data-title="{{ update_title | escape }}"
+              data-meta="{{ course.title | escape }}"
+              data-summary="{{ update_summary | escape }}"
+              data-url="{{ update_url | relative_url }}"
+              data-search-text="{{ course.title | append: ' ' | append: update_title | append: ' ' | append: update_summary | escape }}">
+            </div>
+          {% endfor %}
+        {% endif %}
+      {% endfor %}
+    </div>
+    {% else %}
+      <div class="courses-empty">
+        <p>{{ page.empty_message | default: "No courses yet." }}</p>
+      </div>
+    {% endif %}
+  </section>
+</main>
+
+<script src="{{ '/assets/js/courses.js' | relative_url }}?v={{ asset_version }}" defer></script>
