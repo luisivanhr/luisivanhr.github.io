@@ -1405,6 +1405,7 @@
   }
 
   .course-section-sidebar.show {
+    margin-top: 5vh;
     pointer-events: auto;
     transform: translateX(0);
   }
