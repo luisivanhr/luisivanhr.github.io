@@ -104,7 +104,7 @@ layout: default
           <article class="course-detail"{% unless forloop.first %} hidden{% endunless %} data-course-detail data-course-id="{{ course_id }}">
             <header class="course-detail-header">
               <span class="course-type-label">Selected course</span>
-              <h2>{{ course.title }}</h2>
+              <h2><a class="course-detail-title-link" href="{{ course.url | relative_url }}">{{ course.title }}</a></h2>
               <div class="course-meta">
                 {% if course.date %}<span>Updated {{ course.date | date: "%b %Y" }}</span>{% endif %}
                 <span>{% if index_count and index_count != 0 %}Index: {{ index_count }} terms{% else %}Index pending{% endif %}</span>
@@ -186,8 +186,6 @@ layout: default
                   <p class="course-muted">Index terms can be added with <code>index_terms</code> in the course front matter.</p>
                 {% endif %}
               </section>
-
-              <a class="course-primary-link" href="{{ course.url | relative_url }}">Open course page</a>
             </div>
           </article>
         {% endfor %}
