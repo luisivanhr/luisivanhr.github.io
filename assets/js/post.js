@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', function() {
   const navToggle = document.getElementById('post-nav-toggle');
   const showNavIcon = '\u25c0';
   const hideNavIcon = '\u25b6';
+  const sidebarCollapseQuery = window.matchMedia('(max-width: 1024px)');
 
   async function writeClipboardText(value) {
     if (!navigator.clipboard || !window.isSecureContext) return false;
@@ -44,12 +45,8 @@ document.addEventListener('DOMContentLoaded', function() {
         const y = target.getBoundingClientRect().top + window.scrollY - 100;
         window.scrollTo({ top: y, behavior: 'smooth' });
       }
-      if (window.innerWidth <= 700 && sidebar && navToggle) {
-        sidebar.classList.remove('show');
-        sidebar.classList.add('hide');
-        navToggle.textContent = showNavIcon;
-        navToggle.setAttribute('aria-label', 'Show navigation');
-        navToggle.setAttribute('aria-expanded', 'false');
+      if (isSidebarCollapsible()) {
+        setSidebarOpen(false);
       }
     });
   }
@@ -140,18 +137,30 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 
+  function isSidebarCollapsible() {
+    return sidebarCollapseQuery.matches;
+  }
+
+  function setSidebarOpen(isOpen) {
+    if (!sidebar || !navToggle) return;
+    sidebar.classList.toggle('show', isOpen);
+    sidebar.classList.toggle('hide', !isOpen);
+    navToggle.textContent = isOpen ? hideNavIcon : showNavIcon;
+    navToggle.setAttribute('aria-label', isOpen ? 'Hide navigation' : 'Show navigation');
+    navToggle.setAttribute('aria-expanded', String(isOpen));
+  }
+
   function resizePost() {
     if (!sidebar || !navToggle) return;
-    if (window.innerWidth <= 700) {
-      sidebar.classList.add('hide');
-      sidebar.classList.remove('show');
+    if (isSidebarCollapsible()) {
       navToggle.style.display = 'block';
-      navToggle.textContent = showNavIcon;
-      navToggle.setAttribute('aria-label', 'Show navigation');
-      navToggle.setAttribute('aria-expanded', 'false');
+      setSidebarOpen(false);
     } else {
       sidebar.classList.remove('hide', 'show');
       navToggle.style.display = 'none';
+      navToggle.textContent = showNavIcon;
+      navToggle.setAttribute('aria-label', 'Show navigation');
+      navToggle.setAttribute('aria-expanded', 'false');
     }
   }
 
@@ -160,19 +169,19 @@ document.addEventListener('DOMContentLoaded', function() {
 
   if (navToggle) {
     navToggle.addEventListener('click', () => {
-      if (sidebar.classList.contains('show')) {
-        sidebar.classList.remove('show');
-        sidebar.classList.add('hide');
-        navToggle.textContent = showNavIcon;
-        navToggle.setAttribute('aria-label', 'Show navigation');
-        navToggle.setAttribute('aria-expanded', 'false');
-      } else {
-        sidebar.classList.add('show');
-        sidebar.classList.remove('hide');
-        navToggle.textContent = hideNavIcon;
-        navToggle.setAttribute('aria-label', 'Hide navigation');
-        navToggle.setAttribute('aria-expanded', 'true');
-      }
+      setSidebarOpen(!sidebar.classList.contains('show'));
     });
   }
+
+  document.addEventListener('click', e => {
+    if (!isSidebarCollapsible() || !sidebar || !navToggle || !sidebar.classList.contains('show')) return;
+    if (sidebar.contains(e.target) || navToggle.contains(e.target)) return;
+    setSidebarOpen(false);
+  });
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && isSidebarCollapsible() && sidebar && sidebar.classList.contains('show')) {
+      setSidebarOpen(false);
+    }
+  });
 });

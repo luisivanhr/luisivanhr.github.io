@@ -96,7 +96,7 @@ layout: default
         {% endif %}
       </section>
     </div>
-    <aside class="post-sidebar">
+    <aside id="post-sidebar" class="post-sidebar">
       <a class="nav-btn back-top" href="{{ '/blog/' | relative_url }}">Back to top</a>
       <nav id="post-nav" class="local-nav"></nav>
       {% assign sidebar_tags = page.tags %}
@@ -114,7 +114,7 @@ layout: default
       </div>
       {% endif %}
     </aside>
-    <button id="post-nav-toggle" class="nav-btn nav-toggle" type="button" aria-expanded="false" aria-label="Show navigation">&#9664;</button>
+    <button id="post-nav-toggle" class="nav-btn nav-toggle" type="button" aria-controls="post-sidebar" aria-expanded="false" aria-label="Show navigation">&#9664;</button>
   </div>
 </article>
 <script src="{{ '/assets/js/post.js' | relative_url }}?v={{ asset_version }}"></script>
