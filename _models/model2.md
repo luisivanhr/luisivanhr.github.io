@@ -1,10 +1,31 @@
 ---
-title: "My Second Model"
-date: 2025-08-20
-image: /assets/thumbs/models/model2.png   # used on the monitor
-summary: "Just a test."
-# optional:
-# tags: [nlp, diffusion]
-# external_url: https://arxiv.org/abs/...
+title: "Hierarchical Demand Forecast"
+date: 2026-03-27
+updated: 2026-05-12
+image: /assets/thumbs/models/model2.png
+summary: "Bayesian time-series model for sparse regional demand with partial pooling and holiday-aware uncertainty bands."
+model_type: Statistical
+domain: Forecasting
+language: Stan and R
+inputs: Sparse regional panels
+outputs: Posterior forecasts
+maturity: Method note and notebook draft
+tags: [Bayesian modeling, forecasting, uncertainty]
+resources:
+  - label: Method notes
+    type: paper
+    url: "#method-notes"
+  - label: Example notebook
+    type: notebook
+    url: "#example-notebook"
 ---
-A few lines of detail for the standalone page. You can embed images, etc.
+
+This model entry is a placeholder for a hierarchical forecasting model. It is meant to document the pooling structure, priors, diagnostics, and examples for sparse panel data.
+
+## Method Notes
+
+Add derivation notes, assumptions, and diagnostic checks here.
+
+## Example Notebook
+
+Add a notebook showing regional forecasts and posterior intervals here.

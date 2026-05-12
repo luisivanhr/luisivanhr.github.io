@@ -17,11 +17,13 @@
     {%- assign items = site.posts -%}
   {%- endif -%}
 
-  {%- assign items = items | sort: "date" | reverse -%}
+  {%- assign sort_field = page.sort_field | default: "date" -%}
+  {%- assign items = items | sort: sort_field | reverse -%}
   {%- if page.max_items -%}{%- assign items = items | slice: 0, page.max_items -%}{%- endif -%}
   {%- for it in items -%}
     {%- assign item_url = it.url | relative_url -%}
     {%- assign item_summary = it.summary | default: it.excerpt | default: "" | strip_html | strip_newlines -%}
+    {%- assign item_date = it.updated | default: it.date -%}
     {%- assign item_image = "" -%}
     {%- unless it.hide_feed_image -%}
       {%- assign item_image = it.feed_image | default: it.image | default: "" -%}
@@ -30,7 +32,7 @@
     {
       "title": {{ it.title | jsonify }},
       "url": {{ item_url | jsonify }},
-      "date": {{ it.date | date_to_xmlschema | jsonify }},
+      "date": {{ item_date | date_to_xmlschema | jsonify }},
       "summary": {{ item_summary | jsonify }},
       "image": {{ item_image | jsonify }}
     }{%- if forloop.last == false -%},{%- endif -%}

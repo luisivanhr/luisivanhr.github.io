@@ -1,0 +1,379 @@
+---
+layout: default
+---
+{% assign asset_version = site.github.build_revision | default: site.time | url_encode %}
+<link rel="stylesheet" href="{{ '/assets/css/models.css' | relative_url }}?v={{ asset_version }}">
+
+{% assign models = site.models | sort: "updated" | reverse %}
+{% assign source_count = 0 %}
+{% assign notebook_count = 0 %}
+{% assign demo_count = 0 %}
+{% for model in models %}
+  {% assign has_source = false %}
+  {% assign has_notebook = false %}
+  {% assign has_demo = false %}
+  {% if model.resources and model.resources.size > 0 %}
+    {% for resource in model.resources %}
+      {% assign resource_kind = resource.type | default: resource.label | downcase %}
+      {% if has_source == false and resource_kind contains "github" %}
+        {% assign has_source = true %}
+      {% elsif has_source == false and resource_kind contains "source" %}
+        {% assign has_source = true %}
+      {% endif %}
+      {% if has_notebook == false and resource_kind contains "notebook" %}
+        {% assign has_notebook = true %}
+      {% endif %}
+      {% if has_demo == false and resource_kind contains "demo" %}
+        {% assign has_demo = true %}
+      {% elsif has_demo == false and resource_kind contains "deploy" %}
+        {% assign has_demo = true %}
+      {% elsif has_demo == false and resource_kind contains "app" %}
+        {% assign has_demo = true %}
+      {% endif %}
+    {% endfor %}
+  {% endif %}
+  {% if has_source %}{% assign source_count = source_count | plus: 1 %}{% endif %}
+  {% if has_notebook %}{% assign notebook_count = notebook_count | plus: 1 %}{% endif %}
+  {% if has_demo %}{% assign demo_count = demo_count | plus: 1 %}{% endif %}
+{% endfor %}
+
+<main class="models-page" data-models-page>
+  <svg aria-hidden="true" focusable="false" class="models-icons">
+    <symbol id="models-icon-search" viewBox="0 0 24 24">
+      <path d="M10.8 18.2a7.4 7.4 0 1 1 0-14.8 7.4 7.4 0 0 1 0 14.8Zm5.3-2.1 4.5 4.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+    </symbol>
+    <symbol id="models-icon-arrow" viewBox="0 0 24 24">
+      <path d="M5 12h13M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+    </symbol>
+    <symbol id="models-icon-github" viewBox="0 0 24 24">
+      <path d="M12 2.8a9.2 9.2 0 0 0-2.9 17.9c.46.08.63-.2.63-.44v-1.6c-2.57.56-3.12-1.1-3.12-1.1-.42-1.07-1.03-1.36-1.03-1.36-.84-.58.06-.57.06-.57.93.07 1.43.96 1.43.96.83 1.42 2.18 1.01 2.71.77.08-.6.32-1.01.59-1.24-2.05-.23-4.21-1.03-4.21-4.57 0-1.01.36-1.84.96-2.49-.1-.23-.42-1.18.09-2.45 0 0 .79-.25 2.56.95a8.9 8.9 0 0 1 4.66 0c1.77-1.2 2.55-.95 2.55-.95.51 1.27.19 2.22.09 2.45.6.65.96 1.48.96 2.49 0 3.55-2.16 4.34-4.22 4.57.33.29.63.85.63 1.72v2.54c0 .24.17.52.64.44A9.2 9.2 0 0 0 12 2.8Z" fill="currentColor"></path>
+    </symbol>
+    <symbol id="models-icon-note" viewBox="0 0 24 24">
+      <path d="M7 3h7l4 4v14H7V3Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"></path>
+      <path d="M14 3v5h5M9.5 12h5M9.5 16h5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+    </symbol>
+    <symbol id="models-icon-paper" viewBox="0 0 24 24">
+      <path d="M6 4h12v16H6V4Z" fill="none" stroke="currentColor" stroke-width="2"></path>
+      <path d="M9 8h6M9 12h6M9 16h4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+    </symbol>
+    <symbol id="models-icon-deploy" viewBox="0 0 24 24">
+      <path d="M12 3v10M8 7l4-4 4 4M5 14v5h14v-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+    </symbol>
+    <symbol id="models-icon-external" viewBox="0 0 24 24">
+      <path d="M9 5h10v10M19 5 8 16M18 18H5V5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+    </symbol>
+  </svg>
+
+  <section class="models-shell" aria-labelledby="models-title">
+    <header class="models-hero">
+      <div>
+        <h1 id="models-title">{{ page.title | default: "Models" }}</h1>
+        <p>{{ page.summary | default: "A searchable library of models and modeling notes across machine learning, physical, mathematical, statistical, simulation, and computational work." }}</p>
+      </div>
+      <dl class="models-stats" aria-label="Models library summary">
+        <div>
+          <dt>{{ models | size }}</dt>
+          <dd>{% if models.size == 1 %}model tracked{% else %}models tracked{% endif %}</dd>
+        </div>
+        <div>
+          <dt>{{ notebook_count }}</dt>
+          <dd>{% if notebook_count == 1 %}with notebook{% else %}with notebooks{% endif %}</dd>
+        </div>
+        <div>
+          <dt>{{ source_count }}</dt>
+          <dd>{% if source_count == 1 %}with source{% else %}with source code{% endif %}</dd>
+        </div>
+        <div>
+          <dt>{{ demo_count }}</dt>
+          <dd>{% if demo_count == 1 %}with demo{% else %}with demos{% endif %}</dd>
+        </div>
+      </dl>
+    </header>
+
+    {{ content }}
+
+    {% if models and models.size > 0 %}
+      <section class="models-toolbar" aria-label="Model search and filters">
+        <label class="models-search">
+          <svg aria-hidden="true" focusable="false"><use href="#models-icon-search"></use></svg>
+          <span class="sr-only">Search models</span>
+          <input id="model-search" type="search" placeholder="Search by model, method, output, or domain" autocomplete="off">
+        </label>
+        <div class="models-controls">
+          <div class="models-filter-row" aria-label="Filter by model type">
+            <button class="active" type="button" data-model-filter="all" aria-pressed="true">All</button>
+            <button type="button" data-model-filter="machine-learning" aria-pressed="false">ML</button>
+            <button type="button" data-model-filter="physical" aria-pressed="false">Physical</button>
+            <button type="button" data-model-filter="mathematical" aria-pressed="false">Mathematical</button>
+            <button type="button" data-model-filter="statistical" aria-pressed="false">Statistical</button>
+            <button type="button" data-model-filter="simulation" aria-pressed="false">Simulation</button>
+            <button type="button" data-model-filter="computational" aria-pressed="false">Computational</button>
+          </div>
+          <label class="models-sort">
+            <span>Sort</span>
+            <select id="model-sort">
+              <option value="date-desc">Recently updated</option>
+              <option value="title-asc">Name A-Z</option>
+              <option value="type-asc">Type A-Z</option>
+            </select>
+          </label>
+        </div>
+      </section>
+
+      <div class="models-library-body">
+        <section class="models-table-region" aria-labelledby="models-list-title" id="models-list">
+          <div class="models-list-header">
+            <h2 id="models-list-title">Model library</h2>
+            <p data-model-count>Showing {{ models | size }} {% if models.size == 1 %}model{% else %}models{% endif %}</p>
+          </div>
+
+          <table class="models-table">
+            <thead>
+              <tr>
+                <th scope="col">Model</th>
+                <th scope="col">Type</th>
+                <th scope="col">Metadata</th>
+                <th scope="col">Resources</th>
+              </tr>
+            </thead>
+            <tbody data-model-list>
+              {% for model in models %}
+                {% assign model_id = model.url | slugify %}
+                {% assign model_type = model.model_type | default: model.type | default: "Model" %}
+                {% assign type_slug = model_type | slugify %}
+                {% capture raw_summary %}
+                  {% if model.summary %}
+                    {{ model.summary }}
+                  {% elsif model.excerpt %}
+                    {{ model.excerpt | strip_html }}
+                  {% else %}
+                    {{ model.content | strip_html | truncatewords: 24 }}
+                  {% endif %}
+                {% endcapture %}
+                {% assign model_summary = raw_summary | strip | normalize_whitespace %}
+                {% assign model_updated = model.updated | default: model.date %}
+                {% capture model_search_text %}{{ model.title }} {{ model_type }} {{ model_summary }} {{ model.domain }} {{ model.language }} {{ model.inputs }} {{ model.outputs }} {{ model.maturity }} {{ model.status }} {{ model.tags | join: ' ' }}{% endcapture %}
+                <tr
+                  class="model-row{% if forloop.first %} active{% endif %}"
+                  data-model-row
+                  data-model-id="{{ model_id }}"
+                  data-model-type="{{ type_slug }}"
+                  data-model-title="{{ model.title | escape }}"
+                  data-model-date="{{ model_updated | date: '%Y-%m-%d' }}"
+                  data-model-created="{{ model.date | date: '%Y-%m-%d' }}"
+                  data-search-text="{{ model_search_text | strip | normalize_whitespace | escape }}"
+                  role="button"
+                  tabindex="0"
+                  aria-pressed="{% if forloop.first %}true{% else %}false{% endif %}">
+                  <td data-label="Model">
+                    <div class="models-table-model">
+                      <span class="models-thumb" aria-hidden="true">
+                        {% if model.image %}
+                          <img src="{{ model.image | relative_url }}" alt="">
+                        {% else %}
+                          <span class="models-thumb-fallback"></span>
+                        {% endif %}
+                      </span>
+                      <span>
+                        <strong>{{ model.title }}</strong>
+                        <span>{{ model_summary }}</span>
+                      </span>
+                    </div>
+                  </td>
+                  <td data-label="Type">
+                    <span class="model-type-label model-type-{{ type_slug }}">{{ model_type }}</span>
+                  </td>
+                  <td data-label="Metadata" class="models-table-meta">
+                    {% if model_updated %}<span>Updated {{ model_updated | date: "%b %Y" }}</span>{% endif %}
+                    {% if model.inputs %}<span>Inputs: {{ model.inputs }}</span>{% endif %}
+                    {% if model.outputs %}<span>Outputs: {{ model.outputs }}</span>{% endif %}
+                    {% if model.language %}<span>{{ model.language }}</span>{% endif %}
+                  </td>
+                  <td data-label="Resources">
+                    <div class="models-resource-list">
+                      <a class="models-page-link" href="{{ model.url | relative_url }}" data-no-row-select>
+                        Page
+                        <svg aria-hidden="true" focusable="false"><use href="#models-icon-arrow"></use></svg>
+                      </a>
+                      {% if model.resources and model.resources.size > 0 %}
+                        {% for resource in model.resources limit: 2 %}
+                          {% assign resource_url = resource.url | default: model.url %}
+                          {% assign resource_prefix = resource_url | slice: 0 %}
+                          {% if resource_prefix == "#" %}
+                            {% assign resource_url = model.url | append: resource_url %}
+                          {% endif %}
+                          {% assign resource_kind = resource.type | default: resource.label | downcase %}
+                          <a class="models-resource-link" href="{% if resource_url contains '://' %}{{ resource_url }}{% else %}{{ resource_url | relative_url }}{% endif %}" data-no-row-select>
+                            <svg aria-hidden="true" focusable="false">
+                              {% if resource_kind contains "github" or resource_kind contains "source" %}
+                                <use href="#models-icon-github"></use>
+                              {% elsif resource_kind contains "notebook" %}
+                                <use href="#models-icon-note"></use>
+                              {% elsif resource_kind contains "paper" %}
+                                <use href="#models-icon-paper"></use>
+                              {% elsif resource_kind contains "demo" or resource_kind contains "deploy" or resource_kind contains "app" %}
+                                <use href="#models-icon-deploy"></use>
+                              {% else %}
+                                <use href="#models-icon-external"></use>
+                              {% endif %}
+                            </svg>
+                            <span>{{ resource.label | default: resource.type | default: "Resource" }}</span>
+                          </a>
+                        {% endfor %}
+                      {% endif %}
+                    </div>
+                  </td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+
+          <div class="models-empty" data-model-empty hidden>No models match the current search and filters.</div>
+        </section>
+
+        <aside class="models-detail-pane" id="models-detail" aria-label="Selected model details" data-model-detail-pane>
+          <div class="models-detail-stack">
+            {% for model in models %}
+              {% assign model_id = model.url | slugify %}
+              {% assign model_type = model.model_type | default: model.type | default: "Model" %}
+              {% assign type_slug = model_type | slugify %}
+              {% capture raw_summary %}
+                {% if model.summary %}
+                  {{ model.summary }}
+                {% elsif model.excerpt %}
+                  {{ model.excerpt | strip_html }}
+                {% else %}
+                  {{ model.content | strip_html | truncatewords: 24 }}
+                {% endif %}
+              {% endcapture %}
+              {% assign model_summary = raw_summary | strip | normalize_whitespace %}
+              {% assign model_updated = model.updated | default: model.date %}
+              <article class="models-detail"{% unless forloop.first %} hidden{% endunless %} data-model-detail data-model-id="{{ model_id }}">
+                <header class="models-detail-header">
+                  <span class="models-selected-label">Selected model</span>
+                  <span class="model-type-label model-type-{{ type_slug }}">{{ model_type }}</span>
+                </header>
+
+                <a class="models-detail-thumb" href="{{ model.url | relative_url }}">
+                  {% if model.image %}
+                    <img src="{{ model.image | relative_url }}" alt="{{ model.title }} thumbnail">
+                  {% else %}
+                    <span class="models-thumb-fallback"></span>
+                  {% endif %}
+                </a>
+
+                <h2>{{ model.title }}</h2>
+                <p>{{ model_summary }}</p>
+
+                <dl class="models-detail-meta">
+                  {% if model_updated %}
+                    <div><dt>Updated</dt><dd>{{ model_updated | date: "%b %-d, %Y" }}</dd></div>
+                  {% endif %}
+                  {% if model.updated and model.date and model.updated != model.date %}
+                    <div><dt>Created</dt><dd>{{ model.date | date: "%b %-d, %Y" }}</dd></div>
+                  {% endif %}
+                  {% if model.domain %}
+                    <div><dt>Domain</dt><dd>{{ model.domain }}</dd></div>
+                  {% endif %}
+                  {% if model.language %}
+                    <div><dt>Platform</dt><dd>{{ model.language }}</dd></div>
+                  {% endif %}
+                  {% if model.inputs %}
+                    <div><dt>Inputs</dt><dd>{{ model.inputs }}</dd></div>
+                  {% endif %}
+                  {% if model.outputs %}
+                    <div><dt>Outputs</dt><dd>{{ model.outputs }}</dd></div>
+                  {% endif %}
+                  {% if model.maturity or model.status %}
+                    <div><dt>Status</dt><dd>{{ model.maturity | default: model.status }}</dd></div>
+                  {% endif %}
+                </dl>
+
+                {% if model.tags and model.tags.size > 0 %}
+                  <div class="models-tag-list" aria-label="{{ model.title }} tags">
+                    {% for tag in model.tags %}
+                      <span>{{ tag }}</span>
+                    {% endfor %}
+                  </div>
+                {% endif %}
+
+                <div class="models-detail-actions">
+                  <a class="models-primary-link" href="{{ model.url | relative_url }}">
+                    Open model page
+                    <svg aria-hidden="true" focusable="false"><use href="#models-icon-arrow"></use></svg>
+                  </a>
+                  <button class="models-browse-button" type="button" data-browse-models>Browse models</button>
+                </div>
+
+                <div class="models-detail-resources">
+                  <h3>Resources</h3>
+                  <div class="models-resource-list">
+                    {% if model.resources and model.resources.size > 0 %}
+                      {% for resource in model.resources %}
+                        {% assign resource_url = resource.url | default: model.url %}
+                        {% assign resource_prefix = resource_url | slice: 0 %}
+                        {% if resource_prefix == "#" %}
+                          {% assign resource_url = model.url | append: resource_url %}
+                        {% endif %}
+                        {% assign resource_kind = resource.type | default: resource.label | downcase %}
+                        <a class="models-resource-link" href="{% if resource_url contains '://' %}{{ resource_url }}{% else %}{{ resource_url | relative_url }}{% endif %}">
+                          <svg aria-hidden="true" focusable="false">
+                            {% if resource_kind contains "github" or resource_kind contains "source" %}
+                              <use href="#models-icon-github"></use>
+                            {% elsif resource_kind contains "notebook" %}
+                              <use href="#models-icon-note"></use>
+                            {% elsif resource_kind contains "paper" %}
+                              <use href="#models-icon-paper"></use>
+                            {% elsif resource_kind contains "demo" or resource_kind contains "deploy" or resource_kind contains "app" %}
+                              <use href="#models-icon-deploy"></use>
+                            {% else %}
+                              <use href="#models-icon-external"></use>
+                            {% endif %}
+                          </svg>
+                          <span>{{ resource.label | default: resource.type | default: "Resource" }}</span>
+                        </a>
+                      {% endfor %}
+                    {% else %}
+                      <a class="models-resource-link" href="{{ model.url | relative_url }}">
+                        <svg aria-hidden="true" focusable="false"><use href="#models-icon-note"></use></svg>
+                        <span>Documentation</span>
+                      </a>
+                    {% endif %}
+                  </div>
+                </div>
+              </article>
+            {% endfor %}
+
+            {% assign latest_models = models | slice: 0, 3 %}
+            <section class="models-monitor-summary" aria-labelledby="models-monitor-title">
+              <div class="models-monitor-heading">
+                <h2 id="models-monitor-title">Latest on desk</h2>
+                <span>3 frames</span>
+              </div>
+              <div class="models-monitor-strip">
+                {% for model in latest_models %}
+                  <a href="{{ model.url | relative_url }}">
+                    <span class="models-monitor-thumb" aria-hidden="true">
+                      {% if model.image %}
+                        <img src="{{ model.image | relative_url }}" alt="">
+                      {% else %}
+                        <span class="models-thumb-fallback"></span>
+                      {% endif %}
+                    </span>
+                    <span>{{ model.title }}</span>
+                  </a>
+                {% endfor %}
+              </div>
+            </section>
+          </div>
+        </aside>
+      </div>
+    {% else %}
+      <div class="models-empty models-empty-page">
+        <p>{{ page.empty_message | default: "No models yet." }}</p>
+      </div>
+    {% endif %}
+  </section>
+</main>
+
+<script src="{{ '/assets/js/models.js' | relative_url }}?v={{ asset_version }}" defer></script>
