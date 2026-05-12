@@ -26,6 +26,15 @@
   color: #ffffff;
 }
 
+.blog-main h1 {
+  margin: 0 0 1rem;
+  color: #ffffff;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(2.25rem, 4.8vw, 4rem);
+  line-height: 1;
+  letter-spacing: 0;
+}
+
 #posts-list {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--blog-card-min-inline-size)), var(--blog-card-max-inline-size)));
@@ -309,4 +318,3 @@
   font-weight: 700;
   padding: 0.45rem 0.35rem;
 }
-
