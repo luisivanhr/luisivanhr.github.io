@@ -4,4 +4,5 @@ title: "Courses feed"
 collection_name: courses
 permalink: /data/courses.json
 max_items: 8
+sort_field: updated
 ---

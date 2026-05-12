@@ -4,7 +4,7 @@ layout: default
 {% assign asset_version = site.github.build_revision | default: site.time | url_encode %}
 <link rel="stylesheet" href="{{ '/assets/css/courses.css' | relative_url }}?v={{ asset_version }}">
 
-{% assign courses = site.courses | sort: "date" | reverse %}
+{% assign courses = site.courses | sort: "date" | reverse | sort: "updated" | reverse %}
 
 <main class="courses-page" data-courses-page>
   <section class="courses-shell" aria-labelledby="courses-title">
@@ -13,6 +13,12 @@ layout: default
         <h1 id="courses-title">{{ page.title | default: "Course Directory" }}</h1>
         <p>{{ page.summary | default: "Works when the number of courses grows but one selected course still deserves full context." }}</p>
       </div>
+    </header>
+
+    {{ content }}
+
+    {% if courses and courses.size > 0 %}
+    <section class="courses-toolbar" aria-label="Course search and sort">
       <label class="courses-search">
         <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
           <circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2"></circle>
@@ -21,16 +27,25 @@ layout: default
         <span class="sr-only">Search courses and indexes</span>
         <input id="course-search" type="search" placeholder="Search courses and indexes" autocomplete="off">
       </label>
-    </header>
+      <div class="courses-controls">
+        <label class="courses-sort">
+          <span>Sort</span>
+          <select id="course-sort">
+            <option value="date-desc">Recently updated</option>
+            <option value="title-asc">Name A-Z</option>
+            <option value="track-asc">Track A-Z</option>
+          </select>
+        </label>
+      </div>
+    </section>
 
-    {{ content }}
-
-    {% if courses and courses.size > 0 %}
     <div class="courses-layout courses-default-view" data-default-view>
-      <section class="course-tile-grid" aria-label="Course cards">
+      <section class="course-tile-grid" aria-label="Course cards" data-course-list>
         {% for course in courses %}
           {% assign course_id = course.url | slugify %}
           {% assign track = course.track | default: course.course_track | default: "Course" %}
+          {% assign course_updated = course.updated | default: course.date %}
+          {% assign course_created = course.date | default: course_updated %}
           {% capture raw_summary %}
             {% if course.summary %}
               {{ course.summary }}
@@ -58,6 +73,10 @@ layout: default
             type="button"
             data-course-card
             data-course-id="{{ course_id }}"
+            data-course-title="{{ course.title | escape }}"
+            data-course-track="{{ track | escape }}"
+            data-course-updated="{{ course_updated | date: '%Y-%m-%d' }}"
+            data-course-created="{{ course_created | date: '%Y-%m-%d' }}"
             aria-pressed="{% if forloop.first %}true{% else %}false{% endif %}">
             <span class="course-type-label">{{ track }}</span>
             <strong>{{ course.title }}</strong>
@@ -74,6 +93,8 @@ layout: default
         {% for course in courses %}
           {% assign course_id = course.url | slugify %}
           {% assign track = course.track | default: course.course_track | default: "Course" %}
+          {% assign course_updated = course.updated | default: course.date %}
+          {% assign course_created = course.date | default: course_updated %}
           {% capture raw_summary %}
             {% if course.summary %}
               {{ course.summary }}
@@ -106,7 +127,8 @@ layout: default
               <span class="course-type-label">Selected course</span>
               <h2><a class="course-detail-title-link" href="{{ course.url | relative_url }}">{{ course.title }}</a></h2>
               <div class="course-meta">
-                {% if course.date %}<span>Updated {{ course.date | date: "%b %Y" }}</span>{% endif %}
+                {% if course_updated %}<span>Updated {{ course_updated | date: "%b %Y" }}</span>{% endif %}
+                {% if course_created and course_updated != course_created %}<span>Created {{ course_created | date: "%b %Y" }}</span>{% endif %}
                 <span>{% if index_count and index_count != 0 %}Index: {{ index_count }} terms{% else %}Index pending{% endif %}</span>
               </div>
             </header>
@@ -213,6 +235,8 @@ layout: default
       {% for course in courses %}
         {% assign course_id = course.url | slugify %}
         {% assign track = course.track | default: course.course_track | default: "Course" %}
+        {% assign course_updated = course.updated | default: course.date %}
+        {% assign course_created = course.date | default: course_updated %}
         {% capture raw_summary %}
           {% if course.summary %}
             {{ course.summary }}
@@ -229,6 +253,10 @@ layout: default
           data-kind="Course match"
           data-title="{{ course.title | escape }}"
           data-meta="{{ track | escape }}"
+          data-course-title="{{ course.title | escape }}"
+          data-course-track="{{ track | escape }}"
+          data-course-updated="{{ course_updated | date: '%Y-%m-%d' }}"
+          data-course-created="{{ course_created | date: '%Y-%m-%d' }}"
           data-summary="{{ course_summary | escape }}"
           data-url="{{ course.url | relative_url }}"
           data-search-text="{{ course.title | append: ' ' | append: track | append: ' ' | append: course_summary | escape }}">
@@ -245,6 +273,10 @@ layout: default
               data-kind="Subtitle match"
               data-title="{{ section_title | escape }}"
               data-meta="{{ course.title | escape }}"
+              data-course-title="{{ course.title | escape }}"
+              data-course-track="{{ track | escape }}"
+              data-course-updated="{{ course_updated | date: '%Y-%m-%d' }}"
+              data-course-created="{{ course_created | date: '%Y-%m-%d' }}"
               data-summary="{{ section_meta | escape }}"
               data-url="{{ section_url | relative_url }}"
               data-search-text="{{ course.title | append: ' ' | append: section_title | append: ' ' | append: section_meta | escape }}">
@@ -262,6 +294,10 @@ layout: default
               data-kind="Index match"
               data-title="{{ term_title | escape }}"
               data-meta="{{ course.title | escape }}"
+              data-course-title="{{ course.title | escape }}"
+              data-course-track="{{ track | escape }}"
+              data-course-updated="{{ course_updated | date: '%Y-%m-%d' }}"
+              data-course-created="{{ course_created | date: '%Y-%m-%d' }}"
               data-summary="Index term"
               data-url="{{ term_url | relative_url }}"
               data-search-text="{{ course.title | append: ' ' | append: term_title | escape }}">
@@ -280,6 +316,10 @@ layout: default
               data-kind="Update match"
               data-title="{{ update_title | escape }}"
               data-meta="{{ course.title | escape }}"
+              data-course-title="{{ course.title | escape }}"
+              data-course-track="{{ track | escape }}"
+              data-course-updated="{{ course_updated | date: '%Y-%m-%d' }}"
+              data-course-created="{{ course_created | date: '%Y-%m-%d' }}"
               data-summary="{{ update_summary | escape }}"
               data-url="{{ update_url | relative_url }}"
               data-search-text="{{ course.title | append: ' ' | append: update_title | append: ' ' | append: update_summary | escape }}">

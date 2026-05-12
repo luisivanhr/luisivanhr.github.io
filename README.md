@@ -17,15 +17,22 @@ Navigation items live in `_data/nav.yml`. The interactive menu and `/classic/` f
 
 JSON feeds are generated at `/data/*.json` through `data/*.json` pages and `_layouts/feed.json.html`. The homepage fetches those feeds for hover previews and monitor content.
 
-## Model Updated Dates
+## Updated Dates
 
-Model entries use `date:` for publication or creation date and `updated:` for the latest meaningful edit date. Before committing model changes, run:
+Model and course entries use `date:` for publication or creation date and `updated:` for the latest meaningful edit date. Before committing model or course changes, run:
+
+```bash
+ruby scripts/update_updated.rb --models
+ruby scripts/update_updated.rb --courses
+```
+
+The generic script updates changed files in `_models/`, `_courses/`, and `_course_sections/`. When a course section changes, the parent `_courses/<course-slug>.md` entry is updated too. Use `--all` to refresh every file in the selected scope, `--check` to preview changes, or `--date YYYY-MM-DD` to set a specific date.
+
+The legacy command still works for model-only updates:
 
 ```bash
 ruby scripts/update_model_updated.rb
 ```
-
-The script updates `updated:` for changed files in `_models/`. Use `--all` to refresh every model entry or `--date YYYY-MM-DD` to set a specific date.
 
 ## Blackboard Equations
 

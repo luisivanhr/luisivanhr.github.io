@@ -1,5 +1,6 @@
 ---
 title: Code Template Placeholder
+updated: 2026-05-12
 course_title: Course Intro
 course_url: /courses/course-intro/
 course_section_style: lab

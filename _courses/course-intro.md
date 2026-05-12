@@ -2,6 +2,7 @@
 title: "Course Intro"
 layout: course
 date: 2025-08-19
+updated: 2026-05-12
 excerpt: "Placeholder entry in courses."
 summary: "A placeholder course page using the new course-home template."
 image: /assets/thumbs/courses1.jpg

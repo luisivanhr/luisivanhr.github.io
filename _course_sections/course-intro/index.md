@@ -1,5 +1,6 @@
 ---
 title: Course Intro Index
+updated: 2026-05-12
 layout: course-index
 course_title: Course Intro
 course_slug: course-intro
