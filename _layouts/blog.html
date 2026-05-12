@@ -6,6 +6,21 @@ layout: default
 <div class="blog-container">
   <main class="blog-main">
     <h1>Blog</h1>
+    <p class="blog-intro">Research notes, examples, and small experiments organized for scanning first and reading later.</p>
+    <div class="blog-tools" aria-label="Blog search and filters">
+      <label class="blog-search">
+        <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24">
+          <path d="m21 21-4.3-4.3m1.3-5.2a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        <span class="sr-only">Search posts</span>
+        <input type="search" id="post-search" placeholder="Search posts..." autocomplete="off">
+      </label>
+      <button class="blog-filter-chip" type="button" data-category="all">All</button>
+      {% for category in site.categories %}
+        {% assign cat_slug = category[0] | slugify %}
+        <button class="blog-filter-chip" type="button" data-category="{{ cat_slug }}">{{ category[0] }} ({{ category[1] | size }})</button>
+      {% endfor %}
+    </div>
     <div id="posts-list">
     {% for p in site.posts %}
       {% assign post_cats = '' %}
@@ -17,6 +32,12 @@ layout: default
       <a href="{{ p.url | relative_url }}">
         <img src="{{ p.image | default: '/assets/thumbs/blog/default-post.png' | relative_url }}" alt="{{ p.title }} thumbnail" class="post-thumb">
         <div class="post-card-content">
+          {% if p.post_kind or p.reading_time %}
+          <div class="post-card-meta">
+            {% if p.post_kind %}<span>{{ p.post_kind }}</span>{% endif %}
+            {% if p.reading_time %}<span>{{ p.reading_time }}</span>{% endif %}
+          </div>
+          {% endif %}
           <h2>{{ p.title }}</h2>
           <p>{{ p.summary | default: p.excerpt | strip_html | truncatewords: 30 }}</p>
         </div>
@@ -27,9 +48,6 @@ layout: default
     <div id="pagination-controls"></div>
   </main>
   <aside class="blog-sidebar">
-    <div class="sidebar-search">
-      <input type="text" id="post-search" placeholder="Search posts...">
-    </div>
     <section class="categories-panel">
       <h2>Categories</h2>
       <ul>

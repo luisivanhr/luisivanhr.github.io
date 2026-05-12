@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const postsContainer = document.getElementById('posts-list');
   if (!postsContainer) return;
   const allPosts = Array.from(postsContainer.children);
-  const categoryButtons = document.querySelectorAll('.categories-panel [data-category]');
+  const categoryButtons = document.querySelectorAll('[data-category]');
   const pagination = document.getElementById('pagination-controls');
   const perPage = 6;
   let page = 1;
@@ -35,6 +35,14 @@ document.addEventListener('DOMContentLoaded', () => {
     } else {
       filteredPosts.forEach(p => p.style.display = '');
     }
+  }
+
+  function updateCategoryStates() {
+    categoryButtons.forEach(btn => {
+      const active = btn.dataset.category === currentCategory;
+      btn.classList.toggle('is-active', active);
+      btn.setAttribute('aria-pressed', active ? 'true' : 'false');
+    });
   }
 
   function renderControls(total) {
@@ -72,14 +80,17 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   categoryButtons.forEach(btn => {
+    btn.setAttribute('aria-pressed', btn.dataset.category === currentCategory ? 'true' : 'false');
     btn.addEventListener('click', e => {
       e.preventDefault();
       currentCategory = btn.dataset.category;
+      updateCategoryStates();
       applyFilters();
     });
   });
 
   if (searchInput) searchInput.addEventListener('input', applyFilters);
+  updateCategoryStates();
   applyFilters();
 
   const container = document.querySelector('.blog-container');
