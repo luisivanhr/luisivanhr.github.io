@@ -46,6 +46,9 @@ defaults:
   - scope: {path: "", type: "courses"}
     values:
       layout: course
+  - scope: {path: "", type: "models"}
+    values:
+      layout: model
   - scope: {path: "", type: "course_sections"}
     values:
       layout: course-section

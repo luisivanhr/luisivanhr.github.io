@@ -1,0 +1,149 @@
+---
+layout: default
+---
+{% if jekyll.environment == 'development' %}
+  {% assign asset_version = site.time | date: '%s' %}
+{% else %}
+  {% assign asset_version = site.github.build_revision | default: site.time | url_encode %}
+{% endif %}
+{% assign presentations = site.data.presentations | sort: "date_start" | reverse %}
+{% assign latest_month = presentations.first.date_start | date: '%Y-%m' %}
+{% assign latest_year = presentations.first.date_start | date: '%Y' %}
+{% assign format_filters = "presentation|Presentation,poster|Poster,short-communication|Short communication,online|Online" | split: "," %}
+<link rel="stylesheet" href="{{ '/assets/css/presentations.css' | relative_url }}?v={{ asset_version }}">
+
+<div class="presentations-container" data-presentations-page>
+  <main class="presentations-main">
+    <div class="presentations-heading">
+      <h1>{{ page.title | default: "Presentations" }}</h1>
+      <p class="presentations-intro">{{ page.summary | default: "Talks, seminars, workshops, posters, and invited presentations across stochastic processes, renewal Hawkes processes, statistics, and applied modeling." }}</p>
+      <div class="presentations-tools" aria-label="Presentation search">
+        <label class="presentations-search">
+          <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24">
+            <path d="m21 21-4.3-4.3m1.3-5.2a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+          <span class="sr-only">Search presentations</span>
+          <input type="search" id="presentation-search" placeholder="Search talks" autocomplete="off">
+        </label>
+      </div>
+    </div>
+
+    <div id="presentations-list">
+      {% for talk in presentations %}
+        {% assign filter_values = talk.filters | join: ' ' %}
+        {% capture search_text %}{{ talk.title }} {{ talk.event }} {{ talk.format }} {{ talk.kind }} {{ talk.mode }} {{ talk.date_label }} {{ talk.topics | join: ' ' }}{% endcapture %}
+        <article
+          class="presentation-card"
+          data-presentation-card
+          data-filters="{{ filter_values | escape }}"
+          data-date="{{ talk.date_start }}"
+          data-end-date="{{ talk.date_end | default: talk.date_start }}"
+          data-month="{{ talk.date_start | date: '%Y-%m' }}"
+          data-search-text="{{ search_text | strip | normalize_whitespace | escape }}">
+          <time class="presentation-date-card" datetime="{{ talk.date_start }}">
+            <span>{{ talk.date_card_month }}</span>
+            <strong>{{ talk.date_card_day }}</strong>
+            <small>{{ talk.date_card_year }}</small>
+          </time>
+          <div class="presentation-card-body">
+            <h2>{{ talk.title }}</h2>
+            <p>{{ talk.event }}.</p>
+            <div class="presentation-meta">
+              <span>{{ talk.format }}</span>
+              <span>{{ talk.date_label }}</span>
+            </div>
+            <div class="presentation-card-footer">
+              {% if talk.topics and talk.topics.size > 0 %}
+                <span class="presentation-topic presentation-topic-{{ talk.topics.first | slugify }}">{{ talk.topics.first }}</span>
+              {% endif %}
+              {% if talk.event_url %}
+                <a class="presentation-resource" href="{{ talk.event_url }}">
+                  <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24">
+                    <path d="M9 5h10v10M19 5 8 16M18 18H5V5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                  Event
+                </a>
+              {% endif %}
+              {% if talk.slides_url %}
+                <a class="presentation-resource presentation-resource-slides" href="{{ talk.slides_url }}">
+                  <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24">
+                    <path d="M4 5h16v11H4V5Zm8 11v4m-4 0h8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                  Slides
+                </a>
+              {% endif %}
+              {% if talk.video_url %}
+                <a class="presentation-resource presentation-resource-video" href="{{ talk.video_url }}">
+                  <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24">
+                    <path d="M4 7h11v10H4V7Zm11 3 5-3v10l-5-3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                  Video
+                </a>
+              {% endif %}
+            </div>
+          </div>
+        </article>
+      {% endfor %}
+    </div>
+
+    <p class="presentations-empty" data-presentations-empty hidden>No presentations match the current filters.</p>
+    <div id="presentation-pagination-controls"></div>
+  </main>
+
+  <aside class="presentations-sidebar" aria-label="Presentation filters">
+    <div class="presentations-ledger">
+      <header class="presentations-ledger-header">
+        <h2>Archive</h2>
+        <p>Browse by format, topic, or date.</p>
+      </header>
+      <div class="presentations-filter-stack">
+        <section class="presentations-filter-section" aria-labelledby="presentation-format-filter-title">
+          <h3 id="presentation-format-filter-title">Formats</h3>
+          <div class="presentations-filter-list">
+            <button class="presentation-filter-row" type="button" data-presentation-filter="all">
+              <span>All</span>
+              <strong>{{ presentations | size }}</strong>
+            </button>
+            {% for filter_spec in format_filters %}
+              {% assign parts = filter_spec | split: "|" %}
+              {% assign filter_slug = parts[0] %}
+              {% assign filter_label = parts[1] %}
+              {% assign filter_count = 0 %}
+              {% for talk in presentations %}
+                {% if talk.filters contains filter_slug %}
+                  {% assign filter_count = filter_count | plus: 1 %}
+                {% endif %}
+              {% endfor %}
+              <button class="presentation-filter-row" type="button" data-presentation-filter="{{ filter_slug }}">
+                <span>{{ filter_label }}</span>
+                <strong>{{ filter_count }}</strong>
+              </button>
+            {% endfor %}
+          </div>
+        </section>
+        <section class="presentations-filter-section" aria-labelledby="presentation-date-filter-title">
+          <h3 id="presentation-date-filter-title">Date Filter</h3>
+          <label class="presentation-date-filter-label" for="presentation-year-filter">Years</label>
+          <select class="presentation-date-input" id="presentation-year-filter" data-initial-year="{{ latest_year }}">
+            {% assign seen_years = "" %}
+            {% for talk in presentations %}
+              {% assign talk_year = talk.date_start | date: "%Y" %}
+              {% assign year_token = "|" | append: talk_year | append: "|" %}
+              {% unless seen_years contains year_token %}
+                <option value="{{ talk_year }}"{% if talk_year == latest_year %} selected{% endif %}>{{ talk_year }}</option>
+                {% assign seen_years = seen_years | append: year_token %}
+              {% endunless %}
+            {% endfor %}
+          </select>
+          <button class="presentation-reset-link" id="presentation-month-clear" type="button">Show all months</button>
+        </section>
+        <section class="presentations-filter-section" aria-labelledby="presentation-month-map-title">
+          <h3 id="presentation-month-map-title">Months</h3>
+          <div class="presentation-month-map" id="presentation-month-map"></div>
+        </section>
+      </div>
+    </div>
+  </aside>
+</div>
+
+<script src="{{ '/assets/js/presentations.js' | relative_url }}?v={{ asset_version }}"></script>

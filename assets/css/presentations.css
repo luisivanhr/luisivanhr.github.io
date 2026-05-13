@@ -1,0 +1,754 @@
+.presentations-container {
+  --presentations-sidebar-width: 15.5rem;
+  --presentations-sidebar-inline-padding: 1.25rem;
+  --presentations-card-grid-max-inline-size: 70rem;
+  --presentations-card-column-gap: clamp(1.25rem, 2.4vw, 1.55rem);
+  --presentations-card-row-gap: clamp(1.25rem, 2.6vw, 1.75rem);
+
+  display: flex;
+  gap: 2rem;
+  min-height: calc(100vh - 2.2rem);
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background:
+    linear-gradient(90deg, rgba(8, 16, 22, 0.7), rgba(8, 16, 22, 0) 34%),
+    linear-gradient(to right, #162229, #116367);
+  color: #10161a;
+  font-size: 18px;
+  line-height: 1.55;
+}
+
+.presentations-container,
+.presentations-container * {
+  box-sizing: border-box;
+}
+
+.presentations-container [hidden] {
+  display: none !important;
+}
+
+.presentations-container::before,
+.presentations-container::after {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.presentations-container::before {
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(120, 205, 213, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(120, 205, 213, 0.08) 1px, transparent 1px);
+  background-size: 52px 52px;
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0, black 18%, black 72%, transparent 100%);
+  mask-image: linear-gradient(to bottom, transparent 0, black 18%, black 72%, transparent 100%);
+}
+
+.presentations-container::after {
+  top: 12%;
+  right: 14%;
+  width: min(34vw, 38rem);
+  aspect-ratio: 1;
+  border: 1px solid rgba(120, 205, 213, 0.18);
+  border-radius: 50%;
+}
+
+.presentations-main {
+  flex: 1 1 auto;
+  min-width: 0;
+  position: relative;
+  z-index: 1;
+  margin: 0;
+  padding: clamp(2rem, 4vw, 3.7rem);
+  color: #ffffff;
+  container-type: inline-size;
+}
+
+.presentations-heading {
+  max-width: min(100%, var(--presentations-card-grid-max-inline-size));
+}
+
+.presentations-heading h1 {
+  margin: 0 0 1rem;
+  color: #ffffff;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(2.25rem, 4.8vw, 4rem);
+  line-height: 1;
+  letter-spacing: 0;
+}
+
+.presentations-intro {
+  max-width: 58rem;
+  margin: 0.75rem 0 0;
+  color: rgba(255, 255, 255, 0.88);
+  font-size: clamp(0.98rem, 1.35vw, 1.15rem);
+}
+
+.presentations-tools {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.65rem;
+  margin: 1.4rem 0 2.15rem;
+}
+
+.presentations-search {
+  position: relative;
+  width: min(100%, 24rem);
+}
+
+.presentations-search svg {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  width: 17px;
+  height: 17px;
+  color: #778790;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.presentations-search input {
+  width: 100%;
+  min-height: 42px;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  border-radius: 8px;
+  padding: 9px 12px 9px 38px;
+  background: rgba(255, 255, 255, 0.94);
+  color: #10161a;
+  box-shadow: none;
+}
+
+.presentations-search input::placeholder {
+  color: #64737c;
+  opacity: 1;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+#presentations-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--presentations-card-row-gap) var(--presentations-card-column-gap);
+  max-width: min(100%, var(--presentations-card-grid-max-inline-size));
+}
+
+.presentation-card {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 0.9rem;
+  min-width: 0;
+  border: 1px solid #d9e2e7;
+  border-radius: 8px;
+  padding: 1rem;
+  background: #ffffff;
+  color: #10161a;
+  box-shadow: 0 10px 24px rgba(4, 14, 20, 0.08);
+  transition: transform 160ms ease, box-shadow 160ms ease, border-color 160ms ease;
+}
+
+.presentation-card:hover,
+.presentation-card:focus-within {
+  border-color: rgba(120, 205, 213, 0.58);
+  box-shadow: 0 14px 28px rgba(4, 14, 20, 0.18);
+  transform: translateY(-2px);
+}
+
+.presentation-date-card {
+  display: grid;
+  place-items: center;
+  align-self: start;
+  width: 4.6rem;
+  min-width: 4.6rem;
+  border: 1px solid rgba(18, 59, 136, 0.18);
+  border-radius: 8px;
+  overflow: hidden;
+  background: #ffffff;
+  color: #123b88;
+  text-align: center;
+}
+
+.presentation-date-card span {
+  display: block;
+  width: 100%;
+  padding: 0.28rem 0.35rem;
+  background: #123b88;
+  color: #ffffff;
+  font-size: 0.7rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.presentation-date-card strong {
+  padding: 0.55rem 0.2rem 0.12rem;
+  font-size: 1.45rem;
+  line-height: 1;
+}
+
+.presentation-date-card small {
+  padding: 0 0.2rem 0.55rem;
+  color: #5f6e78;
+  font-size: 0.68rem;
+  font-weight: 800;
+}
+
+.presentation-card-body {
+  min-width: 0;
+}
+
+.presentation-card h2 {
+  margin: 0;
+  color: #10161a;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(1.08rem, 1.35vw, 1.42rem);
+  line-height: 1.12;
+  letter-spacing: 0;
+  overflow-wrap: anywhere;
+}
+
+.presentation-card p {
+  margin: 0.5rem 0 0;
+  color: #33444d;
+  font-size: 0.9rem;
+  line-height: 1.45;
+  overflow-wrap: anywhere;
+}
+
+.presentation-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 0.7rem;
+  margin-top: 0.35rem;
+  color: #5f6e78;
+  font-size: 0.82rem;
+}
+
+.presentation-meta span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.presentation-meta span::before {
+  content: "";
+  width: 0.34rem;
+  height: 0.34rem;
+  border-radius: 999px;
+  background: #17767d;
+}
+
+.presentation-card-footer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  align-items: center;
+  margin-top: 0.85rem;
+}
+
+.presentation-topic,
+.presentation-resource {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  min-height: 1.85rem;
+  border-radius: 999px;
+  padding: 0.3rem 0.65rem;
+  font-size: 0.74rem;
+  font-weight: 900;
+  line-height: 1;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.presentation-topic {
+  border: 1px solid rgba(45, 110, 79, 0.16);
+  background: rgba(45, 110, 79, 0.12);
+  color: #2d6e4f;
+}
+
+.presentation-topic-hawkes-processes,
+.presentation-topic-renewal-hawkes-processes,
+.presentation-topic-multivariate-hawkes-processes {
+  border-color: rgba(18, 59, 136, 0.18);
+  background: rgba(18, 59, 136, 0.08);
+  color: #123b88;
+}
+
+.presentation-topic-limit-theorems,
+.presentation-topic-renewal-theory,
+.presentation-topic-renewal-processes {
+  border-color: rgba(180, 125, 29, 0.22);
+  background: rgba(180, 125, 29, 0.14);
+  color: #785111;
+}
+
+.presentation-topic-statistics {
+  border-color: rgba(139, 47, 61, 0.18);
+  background: rgba(139, 47, 61, 0.1);
+  color: #8b2f3d;
+}
+
+.presentation-resource {
+  border: 1px solid rgba(18, 59, 136, 0.18);
+  background: #ffffff;
+  color: #123b88;
+}
+
+.presentation-resource:hover,
+.presentation-resource:focus-visible {
+  background: rgba(18, 59, 136, 0.08);
+  outline: none;
+}
+
+.presentation-resource svg {
+  width: 0.95rem;
+  height: 0.95rem;
+  flex: 0 0 auto;
+}
+
+.presentation-resource-slides {
+  border-color: rgba(45, 110, 79, 0.22);
+  background: rgba(45, 110, 79, 0.12);
+  color: #2d6e4f;
+}
+
+.presentation-resource-video {
+  border-color: rgba(139, 47, 61, 0.18);
+  background: rgba(139, 47, 61, 0.1);
+  color: #8b2f3d;
+}
+
+.presentations-empty {
+  max-width: min(100%, var(--presentations-card-grid-max-inline-size));
+  margin: 1.5rem 0 0;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 8px;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.08);
+  color: #ffffff;
+}
+
+.presentations-sidebar {
+  box-sizing: border-box;
+  flex: 0 0 var(--presentations-sidebar-width);
+  position: relative;
+  z-index: 1;
+  width: var(--presentations-sidebar-width);
+  min-height: calc(100vh - 2.2rem);
+  padding: clamp(1.3rem, 3vw, 2rem) var(--presentations-sidebar-inline-padding);
+  color: #15262d;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(239, 245, 246, 0.96)),
+    #f8faf7;
+  border-left: 1px solid rgba(180, 125, 29, 0.26);
+  box-shadow: -12px 0 26px rgba(4, 14, 20, 0.28);
+}
+
+.presentations-ledger {
+  position: sticky;
+  top: 3.25rem;
+}
+
+.presentations-ledger-header {
+  padding-bottom: 1.15rem;
+  border-bottom: 1px solid rgba(180, 125, 29, 0.42);
+}
+
+.presentations-ledger-header h2 {
+  margin: 0;
+  color: #10232a;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(1.6rem, 1.1rem + 1vw, 2rem);
+  line-height: 1;
+  letter-spacing: 0;
+}
+
+.presentations-ledger-header p {
+  margin: 0.7rem 0 0;
+  color: #5d686e;
+  font-size: 0.82rem;
+  line-height: 1.45;
+}
+
+.presentations-filter-stack {
+  display: grid;
+  gap: 1.25rem;
+  margin-top: 1.25rem;
+}
+
+.presentations-filter-section h3 {
+  margin: 0 0 0.65rem;
+  color: #40515b;
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  line-height: 1.1;
+  text-transform: uppercase;
+}
+
+.presentations-filter-list {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.presentation-filter-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.8rem;
+  width: 100%;
+  min-height: 2.05rem;
+  border: 0;
+  border-radius: 0;
+  padding: 0.42rem 0.35rem;
+  background: rgba(16, 35, 42, 0.04);
+  color: #15262d;
+  cursor: pointer;
+  font: inherit;
+  text-align: left;
+}
+
+.presentation-filter-row span {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.presentation-filter-row strong {
+  flex: 0 0 auto;
+  color: #b47d1d;
+  font-size: 0.78rem;
+}
+
+.presentation-filter-row:hover,
+.presentation-filter-row:focus-visible,
+.presentation-filter-row.is-active {
+  background: rgba(18, 99, 103, 0.12);
+  color: #0e4d55;
+  outline: none;
+}
+
+.presentation-filter-row.is-active {
+  box-shadow: inset 3px 0 0 #b47d1d;
+}
+
+.presentation-date-filter-label {
+  display: block;
+  margin-bottom: 0.35rem;
+  color: #5d686e;
+  font-size: 0.76rem;
+  font-weight: 800;
+}
+
+.presentation-date-input {
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 2.55rem;
+  border: 1px solid rgba(21, 38, 45, 0.18);
+  border-radius: 8px;
+  padding: 0.45rem 0.65rem;
+  background: rgba(255, 255, 255, 0.9);
+  color: #15262d;
+  font: inherit;
+  font-size: 0.86rem;
+}
+
+.presentation-date-input:focus-visible,
+.presentation-date-input.is-active {
+  border-color: rgba(180, 125, 29, 0.68);
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(180, 125, 29, 0.16);
+}
+
+.presentation-reset-link {
+  margin-top: 0.45rem;
+  border: 0;
+  padding: 0;
+  background: none;
+  color: #0e4d55;
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.78rem;
+  font-weight: 900;
+  text-align: left;
+}
+
+.presentation-reset-link:disabled {
+  cursor: default;
+  opacity: 0.42;
+}
+
+.presentation-reset-link:focus-visible {
+  outline: 2px solid rgba(180, 125, 29, 0.65);
+  outline-offset: 3px;
+}
+
+.presentation-month-map {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.25rem;
+}
+
+.presentation-month,
+.presentation-month-empty {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+  min-height: 2.05rem;
+  border: 0;
+  border-radius: 5px;
+  padding: 0.25rem 0.2rem;
+  font: inherit;
+  font-size: 0.72rem;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.presentation-month-empty {
+  background: rgba(16, 35, 42, 0.035);
+  color: rgba(21, 38, 45, 0.34);
+}
+
+.presentation-month {
+  background: rgba(18, 99, 103, 0.12);
+  color: #0e4d55;
+  cursor: pointer;
+}
+
+.presentation-month:hover,
+.presentation-month:focus-visible,
+.presentation-month.is-selected {
+  background: #123b88;
+  color: #ffffff;
+  outline: none;
+}
+
+.presentation-month-count {
+  position: absolute;
+  top: -0.25rem;
+  right: -0.15rem;
+  display: grid;
+  place-items: center;
+  min-width: 0.72rem;
+  height: 0.72rem;
+  border-radius: 999px;
+  background: #b47d1d;
+  color: #ffffff;
+  font-size: 0.48rem;
+  line-height: 1;
+}
+
+.presentation-mini-calendar {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 0.18rem;
+  padding: 0.35rem;
+  border: 1px solid rgba(21, 38, 45, 0.12);
+  background: rgba(16, 35, 42, 0.035);
+}
+
+.presentation-calendar-weekday,
+.presentation-calendar-empty,
+.presentation-calendar-day {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+  aspect-ratio: 1;
+  font-size: 0.68rem;
+  line-height: 1;
+}
+
+.presentation-calendar-weekday {
+  aspect-ratio: auto;
+  min-height: 1.1rem;
+  color: #6e7b82;
+  font-weight: 900;
+}
+
+.presentation-calendar-day {
+  position: relative;
+  border: 0;
+  border-radius: 5px;
+  color: #15262d;
+  font: inherit;
+  font-size: 0.72rem;
+}
+
+.presentation-calendar-day.is-muted {
+  color: rgba(21, 38, 45, 0.34);
+}
+
+.presentation-calendar-day.has-presentations {
+  background: rgba(18, 99, 103, 0.12);
+  color: #0e4d55;
+  cursor: pointer;
+  font-weight: 900;
+}
+
+.presentation-calendar-day.has-presentations:hover,
+.presentation-calendar-day.has-presentations:focus-visible,
+.presentation-calendar-day.has-presentations.is-selected {
+  background: #123b88;
+  color: #ffffff;
+  outline: none;
+}
+
+.presentation-calendar-count {
+  position: absolute;
+  top: -0.25rem;
+  right: -0.2rem;
+  display: grid;
+  place-items: center;
+  min-width: 0.72rem;
+  height: 0.72rem;
+  border-radius: 999px;
+  background: #b47d1d;
+  color: #ffffff;
+  font-size: 0.48rem;
+  line-height: 1;
+}
+
+.presentation-calendar-note {
+  margin: 0.55rem 0 0;
+  color: #6e7b82;
+  font-size: 0.74rem;
+  line-height: 1.35;
+}
+
+#presentation-pagination-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  max-width: min(100%, var(--presentations-card-grid-max-inline-size));
+  margin-top: 1.5rem;
+  text-align: center;
+}
+
+#presentation-pagination-controls button {
+  padding: 0.45rem 0.75rem;
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  border-radius: 0.35rem;
+  background: rgba(255, 255, 255, 0.08);
+  color: #ffffff;
+  cursor: pointer;
+  font: inherit;
+}
+
+#presentation-pagination-controls button:hover:not(:disabled),
+#presentation-pagination-controls button:focus-visible:not(:disabled) {
+  border-color: rgba(255, 255, 255, 0.75);
+  background: rgba(255, 255, 255, 0.18);
+  outline: none;
+}
+
+#presentation-pagination-controls button:disabled {
+  cursor: default;
+  opacity: 0.45;
+}
+
+.presentation-pagination-status {
+  padding: 0.45rem 0.35rem;
+  color: #ffffff;
+  font-weight: 700;
+}
+
+@media (max-width: 1180px), (max-height: 560px) and (max-width: 1180px) {
+  .presentations-container {
+    --presentations-card-grid-max-inline-size: 100%;
+    flex-direction: column;
+    gap: 0;
+    overflow: visible;
+  }
+
+  .presentations-main {
+    order: 1;
+    padding: clamp(1.6rem, 5vw, 2.5rem);
+  }
+
+  .presentations-sidebar {
+    order: 2;
+    flex: none;
+    width: 100%;
+    min-height: auto;
+    border-top: 1px solid rgba(180, 125, 29, 0.26);
+    border-left: 0;
+    box-shadow: 0 -12px 26px rgba(4, 14, 20, 0.18);
+  }
+
+  .presentations-ledger {
+    position: static;
+  }
+
+  #presentations-list {
+    justify-content: center;
+  }
+
+  .presentations-filter-stack {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    align-items: start;
+  }
+}
+
+@media (max-width: 860px) {
+  #presentations-list {
+    grid-template-columns: minmax(0, min(100%, 34rem));
+  }
+
+  .presentations-filter-stack {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .presentations-heading h1 {
+    font-size: clamp(2rem, 12vw, 3rem);
+  }
+
+  .presentations-search {
+    width: 100%;
+  }
+
+  .presentation-card {
+    grid-template-columns: 1fr;
+  }
+
+  .presentation-date-card {
+    width: 4.4rem;
+    min-width: 4.4rem;
+  }
+}
+
+@media (min-width: 1800px) {
+  .presentations-container {
+    --presentations-card-grid-max-inline-size: min(96rem, calc(100vw - var(--presentations-sidebar-width) - 8rem));
+  }
+
+  #presentations-list {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .presentations-heading,
+  #presentations-list,
+  #presentation-pagination-controls,
+  .presentations-empty {
+    margin-inline: auto;
+  }
+}

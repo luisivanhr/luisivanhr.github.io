@@ -10,6 +10,7 @@ layout: default
 <div class="blog-container">
   <main class="blog-main">
     {% assign latest_post_month = site.posts.first.date | date: '%Y-%m' %}
+    {% assign latest_post_year = site.posts.first.date | date: '%Y' %}
     <div class="blog-heading">
       <h1>Blog</h1>
       <p class="blog-intro">Thoughts, curiosities, and research notes.</p>
@@ -74,14 +75,23 @@ layout: default
         </section>
         <section class="filter-section" aria-labelledby="blog-date-filter-title">
           <h3 id="blog-date-filter-title">Date Filter</h3>
-          <label class="date-filter-label" for="blog-month-filter">Month</label>
-          <input class="date-input" id="blog-month-filter" type="month" value="{{ latest_post_month }}" data-initial-month="{{ latest_post_month }}">
+          <label class="date-filter-label" for="blog-year-filter">Years</label>
+          <select class="date-input" id="blog-year-filter" data-initial-year="{{ latest_post_year }}">
+          {% assign seen_years = "" %}
+          {% for p in site.posts %}
+            {% assign post_year = p.date | date: "%Y" %}
+            {% assign year_token = "|" | append: post_year | append: "|" %}
+            {% unless seen_years contains year_token %}
+            <option value="{{ post_year }}"{% if post_year == latest_post_year %} selected{% endif %}>{{ post_year }}</option>
+              {% assign seen_years = seen_years | append: year_token %}
+            {% endunless %}
+          {% endfor %}
+          </select>
           <button class="reset-link" id="blog-month-clear" type="button">Show all months</button>
         </section>
-        <section class="filter-section" aria-labelledby="blog-calendar-title">
-          <h3 id="blog-calendar-title">Calendar</h3>
-          <div class="mini-calendar" id="blog-calendar"></div>
-          <p class="calendar-note">Post days are highlighted.</p>
+        <section class="filter-section" aria-labelledby="blog-month-map-title">
+          <h3 id="blog-month-map-title">Months</h3>
+          <div class="blog-month-map" id="blog-month-map"></div>
         </section>
       </div>
     </div>

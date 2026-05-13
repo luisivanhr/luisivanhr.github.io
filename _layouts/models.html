@@ -262,7 +262,7 @@ layout: default
                   {% endif %}
                 </a>
 
-                <h2>{{ model.title }}</h2>
+                <h2><a href="{{ model.url | relative_url }}">{{ model.title }}</a></h2>
                 <p>{{ model_summary }}</p>
 
                 <dl class="models-detail-meta">
@@ -298,10 +298,6 @@ layout: default
                 {% endif %}
 
                 <div class="models-detail-actions">
-                  <a class="models-primary-link" href="{{ model.url | relative_url }}">
-                    Open model page
-                    <svg aria-hidden="true" focusable="false"><use href="#models-icon-arrow"></use></svg>
-                  </a>
                   <button class="models-browse-button" type="button" data-browse-models>Browse models</button>
                 </div>
 
@@ -343,28 +339,6 @@ layout: default
                 </div>
               </article>
             {% endfor %}
-
-            {% assign latest_models = models | slice: 0, 3 %}
-            <section class="models-monitor-summary" aria-labelledby="models-monitor-title">
-              <div class="models-monitor-heading">
-                <h2 id="models-monitor-title">Latest on desk</h2>
-                <span>3 frames</span>
-              </div>
-              <div class="models-monitor-strip">
-                {% for model in latest_models %}
-                  <a href="{{ model.url | relative_url }}">
-                    <span class="models-monitor-thumb" aria-hidden="true">
-                      {% if model.image %}
-                        <img src="{{ model.image | relative_url }}" alt="">
-                      {% else %}
-                        <span class="models-thumb-fallback"></span>
-                      {% endif %}
-                    </span>
-                    <span>{{ model.title }}</span>
-                  </a>
-                {% endfor %}
-              </div>
-            </section>
           </div>
         </aside>
       </div>

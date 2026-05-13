@@ -480,6 +480,18 @@
   letter-spacing: 0;
 }
 
+.models-detail h2 a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.models-detail h2 a:hover,
+.models-detail h2 a:focus-visible {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  outline: none;
+}
+
 .models-detail p {
   margin: 0;
   color: var(--models-muted);

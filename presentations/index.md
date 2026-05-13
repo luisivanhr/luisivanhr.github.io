@@ -1,6 +1,6 @@
 ---
 title: Presentations
-layout: default
+layout: presentations
 permalink: /presentations/
+summary: Talks, seminars, workshops, posters, and invited presentations across Mathematics, Physics, Stochastic Processes, Statistics, and Applied Modeling.
 ---
-<p>Placeholder talks and slides.</p>

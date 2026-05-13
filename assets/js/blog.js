@@ -2,62 +2,33 @@ document.addEventListener('DOMContentLoaded', () => {
   const searchInput = document.getElementById('post-search');
   const postsContainer = document.getElementById('posts-list');
   if (!postsContainer) return;
+
   const allPosts = Array.from(postsContainer.children);
-  const categoryButtons = document.querySelectorAll('[data-category]');
-  const monthInput = document.getElementById('blog-month-filter');
+  const categoryButtons = Array.from(document.querySelectorAll('[data-category]'));
+  const yearSelect = document.getElementById('blog-year-filter');
   const clearMonthButton = document.getElementById('blog-month-clear');
-  const calendar = document.getElementById('blog-calendar');
-  const calendarTitle = document.getElementById('blog-calendar-title');
+  const monthMap = document.getElementById('blog-month-map');
+  const monthMapTitle = document.getElementById('blog-month-map-title');
   const pagination = document.getElementById('pagination-controls');
   const perPage = 6;
+
   let page = 1;
   let currentCategory = 'all';
-  let calendarMonth = monthInput ? monthInput.value : '';
-  let dateFilterActive = false;
-  let currentDay = '';
+  let selectedYear = yearSelect ? yearSelect.value : latestPostYear();
+  let selectedMonth = '';
+  let yearFilterActive = false;
   let filteredPosts = allPosts.slice();
-  const postCountsByDate = new Map();
+  const postCountsByMonth = new Map();
 
   allPosts.forEach(post => {
-    const date = post.dataset.date;
-    if (!date) return;
-    postCountsByDate.set(date, (postCountsByDate.get(date) || 0) + 1);
+    const month = post.dataset.month;
+    if (!month) return;
+    postCountsByMonth.set(month, (postCountsByMonth.get(month) || 0) + 1);
   });
 
-  function latestPostMonth() {
-    if (calendarMonth) return calendarMonth;
-    const firstPostDate = allPosts.find(post => post.dataset.month)?.dataset.month;
-    return firstPostDate || '';
-  }
-
-  function applyFilters() {
-    const term = searchInput ? searchInput.value.toLowerCase() : '';
-    filteredPosts = allPosts.filter(p => {
-      const textMatch = p.textContent.toLowerCase().includes(term);
-      const cats = (p.dataset.categories || '').split(' ');
-      const catMatch = currentCategory === 'all' || cats.includes(currentCategory);
-      const monthMatch = !dateFilterActive || Boolean(currentDay) || p.dataset.month === calendarMonth;
-      const dayMatch = !currentDay || p.dataset.date === currentDay;
-      return textMatch && catMatch && monthMatch && dayMatch;
-    });
-    page = 1;
-    updateDateFilterState();
-    render();
-  }
-
-  function render() {
-    allPosts.forEach(p => p.style.display = 'none');
-    if (pagination) {
-      const totalPages = Math.max(1, Math.ceil(filteredPosts.length / perPage));
-      filteredPosts.forEach((p, i) => {
-        if (i >= (page - 1) * perPage && i < page * perPage) {
-          p.style.display = '';
-        }
-      });
-      renderControls(totalPages);
-    } else {
-      filteredPosts.forEach(p => p.style.display = '');
-    }
+  function latestPostYear() {
+    const firstPostDate = allPosts.find(post => post.dataset.date)?.dataset.date;
+    return firstPostDate ? firstPostDate.slice(0, 4) : '';
   }
 
   function updateCategoryStates() {
@@ -69,93 +40,99 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function updateDateFilterState() {
+    const hasDateFilter = yearFilterActive || Boolean(selectedMonth);
     if (clearMonthButton) {
-      clearMonthButton.disabled = !dateFilterActive;
-      clearMonthButton.classList.toggle('is-active', dateFilterActive);
+      clearMonthButton.disabled = !hasDateFilter;
+      clearMonthButton.classList.toggle('is-active', hasDateFilter);
     }
-    if (monthInput) {
-      monthInput.classList.toggle('is-active', dateFilterActive && !currentDay);
+    if (yearSelect) {
+      yearSelect.classList.toggle('is-active', hasDateFilter);
     }
   }
 
-  function formatMonthLabel(monthString) {
-    const parts = monthString.split('-').map(Number);
-    if (parts.length !== 2 || parts.some(Number.isNaN)) return 'Calendar';
-    return new Date(parts[0], parts[1] - 1, 1).toLocaleDateString(undefined, {
-      month: 'long',
-      year: 'numeric'
+  function applyFilters() {
+    const terms = (searchInput ? searchInput.value.toLowerCase() : '').split(/\s+/).filter(Boolean);
+    filteredPosts = allPosts.filter(post => {
+      const text = (post.textContent || '').toLowerCase();
+      const textMatch = terms.every(term => text.includes(term));
+      const cats = (post.dataset.categories || '').split(' ');
+      const catMatch = currentCategory === 'all' || cats.includes(currentCategory);
+      const yearMatch = !yearFilterActive || post.dataset.date.slice(0, 4) === selectedYear;
+      const monthMatch = !selectedMonth || post.dataset.month === selectedMonth;
+      return textMatch && catMatch && yearMatch && monthMatch;
     });
+    page = 1;
+    updateDateFilterState();
+    render();
   }
 
-  function renderCalendar() {
-    if (!calendar) return;
-    const monthString = calendarMonth || latestPostMonth();
-    const parts = monthString.split('-').map(Number);
-    calendar.replaceChildren();
-    if (parts.length !== 2 || parts.some(Number.isNaN)) return;
-
-    const [year, month] = parts;
-    const monthIndex = month - 1;
-    const firstDay = new Date(year, monthIndex, 1);
-    const daysInMonth = new Date(year, month, 0).getDate();
-    const leadingEmptyCells = (firstDay.getDay() + 6) % 7;
-    const weekdayLabels = ['M', 'T', 'W', 'T', 'F', 'S', 'S'];
-
-    if (calendarTitle) {
-      calendarTitle.textContent = formatMonthLabel(monthString);
-    }
-
-    weekdayLabels.forEach(label => {
-      const weekday = document.createElement('span');
-      weekday.className = 'calendar-weekday';
-      weekday.textContent = label;
-      calendar.append(weekday);
+  function render() {
+    allPosts.forEach(post => {
+      post.style.display = 'none';
     });
 
-    for (let i = 0; i < leadingEmptyCells; i += 1) {
-      const empty = document.createElement('span');
-      empty.className = 'calendar-empty';
-      empty.setAttribute('aria-hidden', 'true');
-      calendar.append(empty);
+    if (pagination) {
+      const totalPages = Math.max(1, Math.ceil(filteredPosts.length / perPage));
+      filteredPosts.forEach((post, index) => {
+        if (index >= (page - 1) * perPage && index < page * perPage) {
+          post.style.display = '';
+        }
+      });
+      renderControls(totalPages);
+    } else {
+      filteredPosts.forEach(post => {
+        post.style.display = '';
+      });
+    }
+  }
+
+  function renderMonthMap() {
+    if (!monthMap) return;
+    const year = selectedYear || latestPostYear();
+    const monthLabels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+    monthMap.replaceChildren();
+    if (monthMapTitle) {
+      monthMapTitle.textContent = `${year} Months`;
     }
 
-    for (let day = 1; day <= daysInMonth; day += 1) {
-      const dateString = `${monthString}-${String(day).padStart(2, '0')}`;
-      const count = postCountsByDate.get(dateString) || 0;
+    monthLabels.forEach((label, index) => {
+      const monthNumber = String(index + 1).padStart(2, '0');
+      const candidateMonth = `${year}-${monthNumber}`;
+      const count = postCountsByMonth.get(candidateMonth) || 0;
+
       if (count > 0) {
         const button = document.createElement('button');
         button.type = 'button';
-        button.className = 'calendar-day has-posts';
-        button.dataset.date = dateString;
-        button.setAttribute('aria-label', `${count} post${count === 1 ? '' : 's'} on ${dateString}`);
-        button.setAttribute('aria-pressed', currentDay === dateString ? 'true' : 'false');
-        button.classList.toggle('is-selected', currentDay === dateString);
-
-        const number = document.createElement('span');
-        number.className = 'calendar-number';
-        number.textContent = day;
-        button.append(number);
+        button.className = 'blog-month';
+        button.dataset.month = candidateMonth;
+        button.setAttribute('aria-label', `${count} post${count === 1 ? '' : 's'} in ${label} ${year}`);
+        button.setAttribute('aria-pressed', selectedMonth === candidateMonth ? 'true' : 'false');
+        button.classList.toggle('is-selected', selectedMonth === candidateMonth);
+        button.textContent = label;
 
         const postCount = document.createElement('span');
-        postCount.className = 'calendar-post-count';
+        postCount.className = 'blog-month-count';
         postCount.textContent = count;
         button.append(postCount);
 
         button.addEventListener('click', () => {
-          currentDay = currentDay === dateString ? '' : dateString;
-          dateFilterActive = true;
-          renderCalendar();
+          selectedYear = year;
+          selectedMonth = candidateMonth;
+          yearFilterActive = true;
+          if (yearSelect) yearSelect.value = year;
+          renderMonthMap();
           applyFilters();
         });
-        calendar.append(button);
+        monthMap.append(button);
       } else {
-        const mutedDay = document.createElement('span');
-        mutedDay.className = 'calendar-day is-muted';
-        mutedDay.textContent = day;
-        mutedDay.setAttribute('aria-disabled', 'true');
-        calendar.append(mutedDay);
+        const empty = document.createElement('span');
+        empty.className = 'blog-month-empty';
+        empty.textContent = label;
+        empty.setAttribute('aria-disabled', 'true');
+        monthMap.append(empty);
       }
-    }
+    });
   }
 
   function renderControls(total) {
@@ -194,8 +171,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   categoryButtons.forEach(btn => {
     btn.setAttribute('aria-pressed', btn.dataset.category === currentCategory ? 'true' : 'false');
-    btn.addEventListener('click', e => {
-      e.preventDefault();
+    btn.addEventListener('click', event => {
+      event.preventDefault();
       currentCategory = btn.dataset.category;
       updateCategoryStates();
       applyFilters();
@@ -203,25 +180,26 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   if (searchInput) searchInput.addEventListener('input', applyFilters);
-  if (monthInput) {
-    monthInput.addEventListener('change', () => {
-      calendarMonth = monthInput.value || monthInput.dataset.initialMonth || latestPostMonth();
-      currentDay = '';
-      dateFilterActive = Boolean(monthInput.value);
-      renderCalendar();
+  if (yearSelect) {
+    yearSelect.addEventListener('change', () => {
+      selectedYear = yearSelect.value || yearSelect.dataset.initialYear || latestPostYear();
+      selectedMonth = '';
+      yearFilterActive = Boolean(yearSelect.value);
+      renderMonthMap();
       applyFilters();
     });
   }
   if (clearMonthButton) {
     clearMonthButton.addEventListener('click', () => {
-      currentDay = '';
-      dateFilterActive = false;
-      renderCalendar();
+      selectedMonth = '';
+      yearFilterActive = false;
+      renderMonthMap();
       applyFilters();
     });
   }
+
   updateCategoryStates();
-  renderCalendar();
+  renderMonthMap();
   applyFilters();
 
   const container = document.querySelector('.blog-container');

@@ -1,0 +1,257 @@
+---
+layout: default
+---
+{% assign asset_version = site.github.build_revision | default: site.time | url_encode %}
+<link rel="stylesheet" href="{{ '/assets/css/model.css' | relative_url }}?v={{ asset_version }}">
+
+{% assign model_type = page.model_type | default: page.type | default: "Model" %}
+{% assign type_slug = model_type | slugify %}
+{% assign model_updated = page.updated | default: page.date %}
+{% assign model_summary = page.summary | default: page.excerpt | strip_html | normalize_whitespace %}
+
+<main class="model-page model-page--dossier">
+  <svg aria-hidden="true" focusable="false" class="model-icons">
+    <symbol id="model-icon-arrow" viewBox="0 0 24 24">
+      <path d="M5 12h13M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+    </symbol>
+    <symbol id="model-icon-github" viewBox="0 0 24 24">
+      <path d="M12 2.8a9.2 9.2 0 0 0-2.9 17.9c.46.08.63-.2.63-.44v-1.6c-2.57.56-3.12-1.1-3.12-1.1-.42-1.07-1.03-1.36-1.03-1.36-.84-.58.06-.57.06-.57.93.07 1.43.96 1.43.96.83 1.42 2.18 1.01 2.71.77.08-.6.32-1.01.59-1.24-2.05-.23-4.21-1.03-4.21-4.57 0-1.01.36-1.84.96-2.49-.1-.23-.42-1.18.09-2.45 0 0 .79-.25 2.56.95a8.9 8.9 0 0 1 4.66 0c1.77-1.2 2.55-.95 2.55-.95.51 1.27.19 2.22.09 2.45.6.65.96 1.48.96 2.49 0 3.55-2.16 4.34-4.22 4.57.33.29.63.85.63 1.72v2.54c0 .24.17.52.64.44A9.2 9.2 0 0 0 12 2.8Z" fill="currentColor"></path>
+    </symbol>
+    <symbol id="model-icon-note" viewBox="0 0 24 24">
+      <path d="M7 3h7l4 4v14H7V3Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"></path>
+      <path d="M14 3v5h5M9.5 12h5M9.5 16h5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+    </symbol>
+    <symbol id="model-icon-paper" viewBox="0 0 24 24">
+      <path d="M6 4h12v16H6V4Z" fill="none" stroke="currentColor" stroke-width="2"></path>
+      <path d="M9 8h6M9 12h6M9 16h4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+    </symbol>
+    <symbol id="model-icon-deploy" viewBox="0 0 24 24">
+      <path d="M12 3v10M8 7l4-4 4 4M5 14v5h14v-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+    </symbol>
+    <symbol id="model-icon-external" viewBox="0 0 24 24">
+      <path d="M9 5h10v10M19 5 8 16M18 18H5V5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+    </symbol>
+  </svg>
+
+  <article class="model-dossier-shell">
+    <section class="model-dossier-top">
+      <figure class="model-dossier-media">
+        {% if page.image %}
+          <img src="{{ page.image | relative_url }}" alt="{{ page.image_alt | default: page.title | escape }} thumbnail">
+        {% else %}
+          <span class="model-dossier-media-fallback" aria-hidden="true"></span>
+        {% endif %}
+        <figcaption>
+          <strong>{{ page.title }}</strong>
+          <span>{{ model_type }}{% if page.domain %} &middot; {{ page.domain }}{% endif %}{% if page.language %} &middot; {{ page.language }}{% endif %}</span>
+        </figcaption>
+      </figure>
+
+      <header class="model-dossier-copy">
+        <div class="model-kicker">
+          <span>Model dossier</span>
+          <span>{{ model_type }}</span>
+          {% if model_updated %}<span>Updated {{ model_updated | date: "%b %-d, %Y" }}</span>{% endif %}
+          {% if page.date %}<span>Created {{ page.date | date: "%b %-d, %Y" }}</span>{% endif %}
+        </div>
+        <h1>{{ page.title }}</h1>
+        {% if model_summary %}
+          <p class="model-dek">{{ model_summary }}</p>
+        {% endif %}
+
+        <div class="model-summary-grid" aria-label="Model summary">
+          <div>
+            <b>Type</b>
+            <span class="model-type-label model-type-{{ type_slug }}">{{ model_type }}</span>
+          </div>
+          <div>
+            <b>Inputs</b>
+            <span>{{ page.inputs | default: "Not specified yet" }}</span>
+          </div>
+          <div>
+            <b>Outputs</b>
+            <span>{{ page.outputs | default: "Not specified yet" }}</span>
+          </div>
+        </div>
+      </header>
+    </section>
+
+    <div class="model-dossier-body">
+      <main class="model-dossier-main">
+        <section class="model-dossier-card">
+          <h2>Model Brief</h2>
+          <p>{{ page.brief | default: model_summary | default: "Add a concise model brief here." }}</p>
+          <table class="model-spec-table" aria-label="Model brief">
+            <tbody>
+              <tr>
+                <th scope="row">Purpose</th>
+                <td>{{ page.purpose | default: model_summary | default: "Document what this model is meant to support." }}</td>
+              </tr>
+              <tr>
+                <th scope="row">Relevant for</th>
+                <td>
+                  {% if page.use_cases %}
+                    {% if page.use_cases.first %}{{ page.use_cases | join: "; " }}{% else %}{{ page.use_cases }}{% endif %}
+                  {% elsif page.inputs or page.outputs %}
+                    Workflows that use {{ page.inputs | default: "documented inputs" | downcase }} to produce {{ page.outputs | default: "documented outputs" | downcase }}.
+                  {% else %}
+                    Add use cases or example applications here.
+                  {% endif %}
+                </td>
+              </tr>
+              <tr>
+                <th scope="row">Known limits</th>
+                <td>{{ page.limitations | default: "Add assumptions, caveats, and out-of-scope cases as the model page matures." }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section class="model-dossier-card">
+          <h2>Update Record</h2>
+          {% if page.updates and page.updates.size > 0 %}
+            <div class="model-update-list">
+              {% for update in page.updates %}
+                <article>
+                  <time>{{ update.date | default: model_updated | date: "%b %Y" }}</time>
+                  <span>{{ update.title | default: update }}</span>
+                </article>
+              {% endfor %}
+            </div>
+          {% else %}
+            <div class="model-update-list">
+              {% if model_updated %}
+                <article>
+                  <time>{{ model_updated | date: "%b %Y" }}</time>
+                  <span>Most recent documented update for this model page.</span>
+                </article>
+              {% endif %}
+              {% if page.date %}
+                <article>
+                  <time>{{ page.date | date: "%b %Y" }}</time>
+                  <span>Initial model page publication.</span>
+                </article>
+              {% endif %}
+            </div>
+          {% endif %}
+        </section>
+
+        <div class="model-actions">
+          <div class="model-share">
+            <button id="model-share-btn" type="button" class="model-nav-btn" aria-expanded="false">Share</button>
+            <div id="model-share-links">
+              <a id="model-share-x" class="model-nav-btn" href="#" title="X">
+                <img src="{{ '/assets/icons/x.svg' | relative_url }}" alt="X">
+              </a>
+              <a id="model-share-linkedin" class="model-nav-btn" href="#" title="LinkedIn">
+                <img src="{{ '/assets/icons/linkedin2.svg' | relative_url }}" alt="LinkedIn">
+              </a>
+              <a id="model-share-facebook" class="model-nav-btn" href="#" title="Facebook">
+                <img src="{{ '/assets/icons/facebook2.svg' | relative_url }}" alt="Facebook">
+              </a>
+              <a id="model-share-gmail" class="model-nav-btn" href="#" title="Gmail">
+                <img src="{{ '/assets/icons/gmail.svg' | relative_url }}" alt="Gmail">
+              </a>
+              <a id="model-share-native" class="model-nav-btn" href="#" title="Choose App">
+                <img src="{{ '/assets/icons/share.svg' | relative_url }}" alt="Share">
+              </a>
+              <button id="model-share-copy" type="button" class="model-nav-btn" title="Copy URL">
+                <img src="{{ '/assets/icons/link.svg' | relative_url }}" alt="Copy link">
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <section id="model-comments" class="model-comments">
+          <h2 id="comments">Comments</h2>
+          {% if site.disqus_shortname %}
+            <div id="disqus_thread">
+              <p class="disqus-color-probe" aria-hidden="true">Disqus color probe <a href="#comments" tabindex="-1">link</a></p>
+            </div>
+            <script>
+            var disqus_config = function () {
+              this.page.url = "{{ page.url | absolute_url }}";
+              this.page.identifier = "{{ page.id | default: page.url }}";
+            };
+            (function() {
+              var d = document, s = d.createElement('script');
+              s.src = 'https://{{ site.disqus_shortname }}.disqus.com/embed.js';
+              s.setAttribute('data-timestamp', +new Date());
+              (d.head || d.body).appendChild(s);
+            })();
+            </script>
+            <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+          {% endif %}
+        </section>
+      </main>
+
+      <aside class="model-dossier-side" aria-label="Model context">
+        <section class="model-side-card">
+          <h2>Resource Stack</h2>
+          <div class="model-resource-list">
+            {% if page.resources and page.resources.size > 0 %}
+              {% for resource in page.resources %}
+                {% assign resource_url = resource.url | default: page.url %}
+                {% assign resource_prefix = resource_url | slice: 0 %}
+                {% capture resource_href %}{% if resource_prefix == "#" %}{{ page.url | append: resource_url | relative_url }}{% elsif resource_url contains "://" %}{{ resource_url }}{% else %}{{ resource_url | relative_url }}{% endif %}{% endcapture %}
+                {% assign resource_kind = resource.type | default: resource.label | downcase %}
+                <a class="model-resource-link" href="{{ resource_href | strip }}">
+                  <svg aria-hidden="true" focusable="false">
+                    {% if resource_kind contains "github" or resource_kind contains "source" %}
+                      <use href="#model-icon-github"></use>
+                    {% elsif resource_kind contains "notebook" %}
+                      <use href="#model-icon-note"></use>
+                    {% elsif resource_kind contains "paper" or resource_kind contains "note" %}
+                      <use href="#model-icon-paper"></use>
+                    {% elsif resource_kind contains "demo" or resource_kind contains "deploy" or resource_kind contains "app" %}
+                      <use href="#model-icon-deploy"></use>
+                    {% else %}
+                      <use href="#model-icon-external"></use>
+                    {% endif %}
+                  </svg>
+                  <span>{{ resource.label | default: resource.type | default: "Resource" }}</span>
+                </a>
+              {% endfor %}
+            {% else %}
+              <a class="model-resource-link" href="{{ page.url | relative_url }}">
+                <svg aria-hidden="true" focusable="false"><use href="#model-icon-note"></use></svg>
+                <span>Documentation</span>
+              </a>
+            {% endif %}
+          </div>
+        </section>
+
+        <section class="model-side-card">
+          <h2>Fact Sheet</h2>
+          <dl class="model-fact-list">
+            {% if model_updated %}
+              <div><dt>Updated</dt><dd>{{ model_updated | date: "%b %-d, %Y" }}</dd></div>
+            {% endif %}
+            {% if page.updated and page.date and page.updated != page.date %}
+              <div><dt>Created</dt><dd>{{ page.date | date: "%b %-d, %Y" }}</dd></div>
+            {% endif %}
+            <div><dt>Type</dt><dd>{{ model_type }}</dd></div>
+            {% if page.domain %}<div><dt>Domain</dt><dd>{{ page.domain }}</dd></div>{% endif %}
+            {% if page.language %}<div><dt>Platform</dt><dd>{{ page.language }}</dd></div>{% endif %}
+            {% if page.inputs %}<div><dt>Inputs</dt><dd>{{ page.inputs }}</dd></div>{% endif %}
+            {% if page.outputs %}<div><dt>Outputs</dt><dd>{{ page.outputs }}</dd></div>{% endif %}
+            {% if page.maturity or page.status %}<div><dt>Status</dt><dd>{{ page.maturity | default: page.status }}</dd></div>{% endif %}
+          </dl>
+        </section>
+
+        {% if page.tags and page.tags.size > 0 %}
+          <section class="model-side-card">
+            <h2>Tags</h2>
+            <div class="model-tag-list" aria-label="{{ page.title }} tags">
+              {% for tag in page.tags %}
+                <span>{{ tag }}</span>
+              {% endfor %}
+            </div>
+          </section>
+        {% endif %}
+      </aside>
+    </div>
+  </article>
+</main>
+
+<script src="{{ '/assets/js/model.js' | relative_url }}?v={{ asset_version }}" defer></script>
