@@ -749,6 +749,31 @@
   background: #fcfdfd;
 }
 
+.course-section--hybrid .two-column,
+.course-section--hybrid .two-column > main,
+.course-section--hybrid .two-column > .rail,
+.course-section--hybrid .figure-grid > * {
+  min-width: 0;
+  max-width: 100%;
+}
+
+.course-section--hybrid .math-block,
+.course-section--hybrid .rail-card,
+.course-section--hybrid .figure-box,
+.course-section--hybrid .code-window {
+  width: 100%;
+}
+
+.course-section--hybrid .math-block *,
+.course-section--hybrid .rail-card * {
+  max-width: 100%;
+  overflow-wrap: anywhere;
+}
+
+.course-section--hybrid .rail-card code {
+  white-space: normal;
+}
+
 .course-section--workshop .course-section-paper {
   background:
     linear-gradient(90deg, rgba(180, 125, 29, 0.08), transparent 34%),
@@ -1365,6 +1390,27 @@
     border-left: 0;
     border-top: 1px solid var(--course-rule);
     padding: 22px 0 0;
+  }
+
+  .course-section--hybrid .two-column {
+    gap: 22px;
+  }
+
+  .course-section--hybrid .two-column > main {
+    order: 2;
+  }
+
+  .course-section--hybrid .two-column > .rail {
+    order: 1;
+    display: grid;
+    gap: 14px;
+    border-top: 0;
+    border-bottom: 1px solid var(--course-rule);
+    padding: 0 0 20px;
+  }
+
+  .course-section--hybrid .two-column > .rail .rail-card {
+    margin: 0;
   }
 }
 
