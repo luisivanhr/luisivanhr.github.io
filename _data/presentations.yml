@@ -28,7 +28,6 @@
   date_card_day: "14"
   date_card_year: "2024"
   event_url: "https://www.eng.niigata-u.ac.jp/~nagahata/seminar-20240314.html"
-  video_url: "https://youtu.be/ztKDbWOnC1I?si=ju5IKEJEikGLctYE"
   topics:
     - "Hawkes processes"
   filters:

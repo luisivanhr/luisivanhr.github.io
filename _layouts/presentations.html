@@ -57,7 +57,7 @@ layout: default
                 <span class="presentation-topic presentation-topic-{{ talk.topics.first | slugify }}">{{ talk.topics.first }}</span>
               {% endif %}
               {% if talk.event_url %}
-                <a class="presentation-resource" href="{{ talk.event_url }}">
+                <a class="presentation-resource" href="{{ talk.event_url }}" target="_blank" rel="noopener noreferrer">
                   <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24">
                     <path d="M9 5h10v10M19 5 8 16M18 18H5V5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                   </svg>
@@ -65,7 +65,7 @@ layout: default
                 </a>
               {% endif %}
               {% if talk.slides_url %}
-                <a class="presentation-resource presentation-resource-slides" href="{{ talk.slides_url }}">
+                <a class="presentation-resource presentation-resource-slides" href="{{ talk.slides_url }}" target="_blank" rel="noopener noreferrer">
                   <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24">
                     <path d="M4 5h16v11H4V5Zm8 11v4m-4 0h8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                   </svg>
@@ -73,7 +73,7 @@ layout: default
                 </a>
               {% endif %}
               {% if talk.video_url %}
-                <a class="presentation-resource presentation-resource-video" href="{{ talk.video_url }}">
+                <a class="presentation-resource presentation-resource-video" href="{{ talk.video_url }}" target="_blank" rel="noopener noreferrer">
                   <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24">
                     <path d="M4 7h11v10H4V7Zm11 3 5-3v10l-5-3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                   </svg>
