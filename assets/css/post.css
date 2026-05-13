@@ -833,6 +833,11 @@ figcaption {
     border-top: 1px solid var(--post-rule);
     padding: 22px 0 0;
   }
+
+  .post--notebook .notebook-layout > .research-rail,
+  .post--lecture .lecture-grid > .research-rail {
+    order: -1;
+  }
 }
 
 @media (max-width: 1024px) {
