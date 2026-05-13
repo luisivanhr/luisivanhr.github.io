@@ -106,14 +106,26 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function updateDateFilterState() {
-    const hasDateFilter = yearFilterActive || Boolean(selectedMonth);
+    const hasActiveFilters = Boolean(searchInput?.value.trim()) || currentFilter !== 'all' || yearFilterActive || Boolean(selectedMonth);
     if (clearMonthButton) {
-      clearMonthButton.disabled = !hasDateFilter;
-      clearMonthButton.classList.toggle('is-active', hasDateFilter);
+      clearMonthButton.disabled = !hasActiveFilters;
+      clearMonthButton.classList.toggle('is-active', hasActiveFilters);
     }
     if (yearSelect) {
-      yearSelect.classList.toggle('is-active', hasDateFilter);
+      yearSelect.classList.toggle('is-active', yearFilterActive || Boolean(selectedMonth));
     }
+  }
+
+  function resetFilters() {
+    if (searchInput) searchInput.value = '';
+    currentFilter = 'all';
+    selectedYear = yearSelect?.dataset.initialYear || latestPresentationYear();
+    selectedMonth = '';
+    yearFilterActive = false;
+    if (yearSelect) yearSelect.value = selectedYear;
+    updateFilterStates();
+    renderMonthMap();
+    applyFilters();
   }
 
   function applyFilters() {
@@ -257,12 +269,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
   if (clearMonthButton) {
-    clearMonthButton.addEventListener('click', () => {
-      selectedMonth = '';
-      yearFilterActive = false;
-      renderMonthMap();
-      applyFilters();
-    });
+    clearMonthButton.addEventListener('click', resetFilters);
   }
 
   updateFilterStates();

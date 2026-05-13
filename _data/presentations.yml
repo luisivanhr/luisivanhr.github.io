@@ -9,6 +9,7 @@
   date_card_month: "Mar"
   date_card_day: "24"
   date_card_year: "2025"
+  slides_url: "https://drive.google.com/file/d/1TJS6sKDiZgdGUTz8KrzJMkI1zTDSFW7g/view?usp=sharing"
   topics:
     - "Applied modeling"
   filters:
@@ -27,6 +28,7 @@
   date_card_day: "14"
   date_card_year: "2024"
   event_url: "https://www.eng.niigata-u.ac.jp/~nagahata/seminar-20240314.html"
+  video_url: "https://youtu.be/ztKDbWOnC1I?si=ju5IKEJEikGLctYE"
   topics:
     - "Hawkes processes"
   filters:
