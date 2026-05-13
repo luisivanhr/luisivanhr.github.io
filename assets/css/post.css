@@ -400,7 +400,7 @@ figcaption {
 
 .lab-body {
   grid-template-columns: minmax(0, 1fr) 280px;
-  padding: clamp(28px, 5vw, 56px);
+  padding: clamp(24px, 3vw, 38px) clamp(28px, 5vw, 56px) clamp(28px, 5vw, 56px);
 }
 
 .notebook-layout > *,
@@ -415,9 +415,13 @@ figcaption {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(132px, 100%), 1fr));
   gap: 1px;
-  margin-top: 34px;
+  margin-top: 26px;
   background: var(--post-rule);
   border: 1px solid var(--post-rule);
+}
+
+.lab-summary--header {
+  margin-top: 22px;
 }
 
 .lab-summary div {

@@ -35,6 +35,13 @@ layout: default
             <span>{{ page.materials | default: 'Post' }}</span>
           </div>
         </div>
+        {% if post_style == 'lab' and page.lab_stats %}
+        <div class="lab-summary lab-summary--header" aria-label="Run summary">
+          {% for item in page.lab_stats %}
+          <div><b>{{ item.label }}</b><span>{{ item.value }}</span></div>
+          {% endfor %}
+        </div>
+        {% endif %}
       </header>
       {{ content }}
       <div class="post-actions">
