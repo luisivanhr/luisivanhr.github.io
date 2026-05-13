@@ -11,7 +11,8 @@ layout: default
   <main class="blog-main">
     <h1>Blog</h1>
     <p class="blog-intro">Research notes, examples, and small experiments organized for scanning first and reading later.</p>
-    <div class="blog-tools" aria-label="Blog search and filters">
+    {% assign latest_post_month = site.posts.first.date | date: '%Y-%m' %}
+    <div class="blog-tools" aria-label="Blog search">
       <label class="blog-search">
         <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24">
           <path d="m21 21-4.3-4.3m1.3-5.2a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
@@ -19,11 +20,6 @@ layout: default
         <span class="sr-only">Search posts</span>
         <input type="search" id="post-search" placeholder="Search posts..." autocomplete="off">
       </label>
-      <button class="blog-filter-chip" type="button" data-category="all">All</button>
-      {% for category in site.categories %}
-        {% assign cat_slug = category[0] | slugify %}
-        <button class="blog-filter-chip" type="button" data-category="{{ cat_slug }}">{{ category[0] }} ({{ category[1] | size }})</button>
-      {% endfor %}
     </div>
     <div id="posts-list">
     {% for p in site.posts %}
@@ -32,7 +28,7 @@ layout: default
         {% assign cat_slug = c | slugify %}
         {% assign post_cats = post_cats | append: cat_slug | append: ' ' %}
       {% endfor %}
-    <article class="post-card" data-categories="{{ post_cats | strip }}">
+    <article class="post-card" data-categories="{{ post_cats | strip }}" data-date="{{ p.date | date: '%Y-%m-%d' }}" data-month="{{ p.date | date: '%Y-%m' }}">
       <a href="{{ p.url | relative_url }}">
         <img src="{{ p.image | default: '/assets/thumbs/blog/default-post.png' | relative_url }}" alt="{{ p.title }} thumbnail" class="post-thumb">
         <div class="post-card-content">
@@ -51,29 +47,43 @@ layout: default
     </div>
     <div id="pagination-controls"></div>
   </main>
-  <aside class="blog-sidebar">
-    <section class="categories-panel">
-      <h2>Categories</h2>
-      <ul>
-        <li>
-          <button data-category="all">
-            <img src="{{ '/assets/thumbs/blog/default-category.png' | relative_url }}" alt="All icon">
-            <span>All</span>
-          </button>
-        </li>
-      {% for category in site.categories %}
-        {% assign cat_slug = category[0] | slugify %}
-        {% assign cat_path = '/assets/thumbs/' | append: cat_slug | append: '.png' %}
-        {% assign cat_file = site.static_files | where: 'path', cat_path | first %}
-        <li>
-          <button data-category="{{ cat_slug }}">
-            <img src="{{ cat_file.path | default: '/assets/thumbs/blog/default-category.png' | relative_url }}" alt="{{ category[0] }} icon">
-            <span>{{ category[0] }} ({{ category[1] | size }})</span>
-          </button>
-        </li>
-      {% endfor %}
-      </ul>
-    </section>
+  <aside class="blog-sidebar" aria-label="Blog filters">
+    <div class="blog-ledger">
+      <header class="ledger-header">
+        <p class="ledger-kicker">Index</p>
+        <h2>Archive</h2>
+        <p>A quiet ledger for filtering by category and publication date.</p>
+      </header>
+      <div class="filter-stack">
+        <section class="filter-section" aria-labelledby="blog-category-filter-title">
+          <h3 id="blog-category-filter-title">Categories</h3>
+          <div class="filter-list">
+            <button class="filter-row" type="button" data-category="all">
+              <span>All</span>
+              <strong>{{ site.posts | size }}</strong>
+            </button>
+          {% for category in site.categories %}
+            {% assign cat_slug = category[0] | slugify %}
+            <button class="filter-row" type="button" data-category="{{ cat_slug }}">
+              <span>{{ category[0] }}</span>
+              <strong>{{ category[1] | size }}</strong>
+            </button>
+          {% endfor %}
+          </div>
+        </section>
+        <section class="filter-section" aria-labelledby="blog-date-filter-title">
+          <h3 id="blog-date-filter-title">Date Filter</h3>
+          <label class="date-filter-label" for="blog-month-filter">Month</label>
+          <input class="date-input" id="blog-month-filter" type="month" value="{{ latest_post_month }}" data-initial-month="{{ latest_post_month }}">
+          <button class="reset-link" id="blog-month-clear" type="button">Show all months</button>
+        </section>
+        <section class="filter-section" aria-labelledby="blog-calendar-title">
+          <h3 id="blog-calendar-title">Calendar</h3>
+          <div class="mini-calendar" id="blog-calendar"></div>
+          <p class="calendar-note">Post days are highlighted.</p>
+        </section>
+      </div>
+    </div>
   </aside>
 </div>
 <script src="{{ '/assets/js/blog.js' | relative_url }}?v={{ asset_version }}"></script>
