@@ -1,5 +1,5 @@
 #!/usr/bin/env ruby
-# Updates `updated:` front matter for models, courses, and course sections.
+# Updates `updated:` front matter for models, courses, course sections, and blog posts.
 
 require "date"
 require "open3"
@@ -10,22 +10,25 @@ options = {
   check: false,
   courses: false,
   date: Date.today.iso8601,
-  models: false
+  models: false,
+  posts: false
 }
 
 parser = OptionParser.new do |opts|
   opts.banner = "Usage: ruby scripts/update_updated.rb [options] [files...]"
   opts.on("--models", "Update model files") { options[:models] = true }
   opts.on("--courses", "Update course and course section files") { options[:courses] = true }
+  opts.on("--posts", "Update blog post files") { options[:posts] = true }
   opts.on("--all", "Update every supported file in the selected scope") { options[:all] = true }
   opts.on("--check", "Report files that would change without writing") { options[:check] = true }
   opts.on("--date DATE", "Use a specific YYYY-MM-DD date") { |value| options[:date] = Date.iso8601(value).iso8601 }
 end
 parser.parse!
 
-if !options[:models] && !options[:courses]
+if !options[:models] && !options[:courses] && !options[:posts]
   options[:models] = true
   options[:courses] = true
+  options[:posts] = true
 end
 
 def git_paths(*args)
@@ -53,6 +56,10 @@ def supported_course?(path)
   (path.start_with?("_courses/") || path.start_with?("_course_sections/")) &&
     path.end_with?(".md") &&
     File.file?(path)
+end
+
+def supported_post?(path)
+  path.start_with?("_posts/") && path.end_with?(".md") && File.file?(path)
 end
 
 def course_parent_for(section_path)
@@ -100,6 +107,7 @@ paths = if options[:all]
     selected.concat(Dir.glob("_courses/**/*.md"))
     selected.concat(Dir.glob("_course_sections/**/*.md"))
   end
+  selected.concat(Dir.glob("_posts/**/*.md")) if options[:posts]
   selected
 elsif ARGV.any?
   ARGV
@@ -107,12 +115,15 @@ else
   selected = []
   selected.concat(changed_paths_for("_models")) if options[:models]
   selected.concat(changed_paths_for("_courses", "_course_sections")) if options[:courses]
+  selected.concat(changed_paths_for("_posts")) if options[:posts]
   selected
 end
 
 paths = paths.map { |path| normalize_path(path) }
 paths = paths.select do |path|
-  (options[:models] && supported_model?(path)) || (options[:courses] && supported_course?(path))
+  (options[:models] && supported_model?(path)) ||
+    (options[:courses] && supported_course?(path)) ||
+    (options[:posts] && supported_post?(path))
 end
 
 if options[:courses]

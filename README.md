@@ -19,14 +19,15 @@ JSON feeds are generated at `/data/*.json` through `data/*.json` pages and `_lay
 
 ## Updated Dates
 
-Model and course entries use `date:` for publication or creation date and `updated:` for the latest meaningful edit date. Before committing model or course changes, run:
+Model, course, and blog entries use `date:` for publication or creation date and `updated:` for the latest meaningful edit date. Before committing model, course, or blog post changes, run:
 
 ```bash
 ruby scripts/update_updated.rb --models
 ruby scripts/update_updated.rb --courses
+ruby scripts/update_updated.rb --posts
 ```
 
-The generic script updates changed files in `_models/`, `_courses/`, and `_course_sections/`. When a course section changes, the parent `_courses/<course-slug>.md` entry is updated too. Use `--all` to refresh every file in the selected scope, `--check` to preview changes, or `--date YYYY-MM-DD` to set a specific date.
+The generic script updates changed files in `_models/`, `_courses/`, `_course_sections/`, and `_posts/`. When a course section changes, the parent `_courses/<course-slug>.md` entry is updated too. Use `--all` to refresh every file in the selected scope, `--check` to preview changes, or `--date YYYY-MM-DD` to set a specific date.
 
 The legacy command still works for model-only updates:
 

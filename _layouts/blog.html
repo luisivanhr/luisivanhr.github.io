@@ -9,17 +9,19 @@ layout: default
 <link rel="stylesheet" href="{{ '/assets/css/blog.css' | relative_url }}?v={{ asset_version }}">
 <div class="blog-container">
   <main class="blog-main">
-    <h1>Blog</h1>
-    <p class="blog-intro">Research notes, examples, and small experiments organized for scanning first and reading later.</p>
     {% assign latest_post_month = site.posts.first.date | date: '%Y-%m' %}
-    <div class="blog-tools" aria-label="Blog search">
-      <label class="blog-search">
-        <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24">
-          <path d="m21 21-4.3-4.3m1.3-5.2a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-        </svg>
-        <span class="sr-only">Search posts</span>
-        <input type="search" id="post-search" placeholder="Search posts..." autocomplete="off">
-      </label>
+    <div class="blog-heading">
+      <h1>Blog</h1>
+      <p class="blog-intro">Thoughts, curiosities, and research notes.</p>
+      <div class="blog-tools" aria-label="Blog search">
+        <label class="blog-search">
+          <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24">
+            <path d="m21 21-4.3-4.3m1.3-5.2a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+          <span class="sr-only">Search posts</span>
+          <input type="search" id="post-search" placeholder="Search posts..." autocomplete="off">
+        </label>
+      </div>
     </div>
     <div id="posts-list">
     {% for p in site.posts %}
@@ -50,9 +52,8 @@ layout: default
   <aside class="blog-sidebar" aria-label="Blog filters">
     <div class="blog-ledger">
       <header class="ledger-header">
-        <p class="ledger-kicker">Index</p>
         <h2>Archive</h2>
-        <p>A quiet ledger for filtering by category and publication date.</p>
+        <p>Browse by category or date.</p>
       </header>
       <div class="filter-stack">
         <section class="filter-section" aria-labelledby="blog-category-filter-title">

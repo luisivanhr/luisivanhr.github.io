@@ -64,7 +64,11 @@
   container-type: inline-size;
 }
 
-.blog-main h1 {
+.blog-heading {
+  max-width: min(100%, var(--blog-card-grid-max-inline-size));
+}
+
+.blog-heading h1 {
   margin: 0;
   color: #ffffff;
   font-size: clamp(2.35rem, 4vw, 4rem);
@@ -153,7 +157,7 @@
   border: 0;
 }
 
-.blog-main h1 {
+.blog-heading h1 {
   margin: 0 0 1rem;
   color: #ffffff;
   font-family: Georgia, "Times New Roman", serif;
@@ -417,6 +421,10 @@
     margin-inline: auto;
     justify-content: center;
   }
+
+  .blog-heading {
+    margin-inline: auto;
+  }
 }
 
 
@@ -536,7 +544,6 @@
 
 .filter-row.is-active {
   box-shadow: inset 3px 0 0 #b47d1d;
-  font-weight: 900;
 }
 
 .filter-row.is-active strong {
