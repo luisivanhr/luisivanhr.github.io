@@ -44,6 +44,9 @@ actions:
       - label: "Presentations"
         icon: "presentations"
         url: "/presentations/"
+      - label: "Achievements"
+        icon: "achievements"
+        url: "/achievements/"
 
 summary:
   text: "Mathematician and physicist with over 6 years of research experience in machine learning, stochastic modeling, and complex dynamical systems. My work combines probability theory, point processes, Markov chains, stochastic differential equations, and scientific computing, with applications in deep learning optimization, time-series modeling, causal analysis, finance, neuroscience, and sports forecasting."
@@ -83,16 +86,6 @@ skills:
       - "Julia: 7+ years"
       - "C: self-study"
       - "HTML/CSS: self-study"
-  - category: "Machine learning / Data Analysis"
-    items:
-      - "PyTorch: 3+ years"
-      - "Pandas/Polars: 5+ years"
-      - "NumPy/SciPy: 3+ years"
-      - "CUDA: 3+ years"
-      - "Scikit-learn: 5+ years"
-      - "HuggingFace"
-      - "BERT"
-      - "XGBoost"
   - category: "Mathematics / Statistics"
     items:
       - "Point processes: 8+ years"
@@ -112,6 +105,16 @@ skills:
       - "Signal processing: 8+ years"
       - "Thermodynamics: 8+ years"
       - "Electronic circuits (Arduino): 8+ years"
+  - category: "Machine learning / Data Analysis"
+    items:
+      - "PyTorch: 3+ years"
+      - "Pandas/Polars: 5+ years"
+      - "NumPy/SciPy: 3+ years"
+      - "CUDA: 3+ years"
+      - "Scikit-learn: 5+ years"
+      - "HuggingFace"
+      - "BERT"
+      - "XGBoost"
   - category: "DB"
     items:
       - "DuckDB (SQL): self-study"
