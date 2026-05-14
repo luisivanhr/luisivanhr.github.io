@@ -1,6 +1,5 @@
 ---
 title: CV
-layout: default
+layout: cv
 permalink: /cv/
 ---
-<p>Add a link to your CV PDF here.</p>

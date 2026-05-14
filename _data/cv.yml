@@ -1,0 +1,137 @@
+intro: "Overview of my professional trajectory. Follow any of the links for more detailed information."
+
+actions:
+  - title: "Downloads"
+    links:
+      - label: "CV (English)"
+        icon: "pdf"
+        url: "https://drive.google.com/file/d/1cJ3Mo7XLmmSDYWtsGbKNuUTZY_7QekSC/view?usp=sharing"
+        external: true
+      - label: "Career History"
+        icon: "pdf"
+        url: "https://drive.google.com/file/d/1bj2C_c7OwRzSjGcZE5LJVa0FE4dNHjhE/view?usp=sharing"
+        external: true
+      - label: "履歴書"
+        icon: "pdf"
+        url: "https://drive.google.com/file/d/1W9jR-8pDMQijzFklZZ1c9-__NwPtYeX_/view?usp=sharing"
+        external: true
+      - label: "職務経歴書"
+        icon: "pdf"
+        url: "https://drive.google.com/file/d/1jiXqHQLvqgykGW-pW0Ho_f9ce_1nEkuM/view?usp=sharing"
+        external: true
+  - title: "Socials"
+    links:
+      - label: "LinkedIn"
+        icon: "linkedin"
+        url: "https://www.linkedin.com/in/lihr/"
+        external: true
+      - label: "Github"
+        icon: "github"
+        url: "https://github.com/luisivanhr"
+        external: true
+      - label: "ORCID"
+        icon: "orcid"
+        url: "https://orcid.org/0009-0003-0891-9249"
+        external: true
+      - label: "Email"
+        icon: "email"
+        url: "mailto:luisivanhr@ciencias.unam.mx"
+  - title: "Intellectual Property"
+    links:
+      - label: "Publications"
+        icon: "publications"
+        url: "/publications/"
+        external: true
+      - label: "Presentations"
+        icon: "presentations"
+        url: "/presentations/"
+        external: true
+
+summary:
+  text: "Mathematician and physicist with over 6 years of research experience in machine learning, stochastic modeling, and complex dynamical systems. My work combines probability theory, point processes, Markov chains, stochastic differential equations, and scientific computing, with applications in deep learning optimization, time-series modeling, causal analysis, finance, neuroscience, and sports forecasting."
+  highlights:
+    - "5 peer-reviewed research papers, including 3 single-author papers."
+    - "16 research presentations at seminars, conferences, workshops, and poster sessions."
+
+education:
+  - period: "2024"
+    title: "Doctor in Mathematics - Kyoto University"
+    description: "Fully funded by the MEXT scholarship. Established results in point processes, probability theory, Markov chains, and renewal Hawkes processes."
+  - period: "2021"
+    title: "Master of Science in Physics - Kyoto University"
+    description: "Fully funded by the MEXT scholarship. Developed nonparametric estimation methods for Hawkes processes using RKHS methods and applied them to neural time-series data."
+  - period: "2016"
+    title: "Bachelor in Physics - UNAM"
+    description: "Emphasis in probability theory, topology, analysis, statistical mechanics, and dynamical systems."
+  - period: "2011"
+    title: "International Baccalaureate - ITESM CCM"
+    description: "Graduated with a 36 point diploma, higher level Mathematics, and a perfect score of 7 in Physics."
+
+experience:
+  - period: "May 2024 - Apr 2026"
+    title: "Machine Learning Researcher - Kyoto University"
+    description: "Worked on SGD dynamics in LLM learning, soccer match outcome prediction, and cause-emotion utterance analysis using causal inference. Responsibilities included mathematical formulation, experimental design, implementation, model evaluation, verification, and code review."
+  - period: "Jul 2022 - Dec 2023"
+    title: "Research Assistant - Kyoto University"
+    description: "Studied asymptotic normality for nonparametric estimators in multivariate discrete-time semi-Markov chains and organized the results into a peer-reviewed publication."
+  - period: "Feb 2017 - Dec 2018"
+    title: "Teaching Assistant - UNAM"
+    description: "Supported Differential and Integral Calculus instruction for physics, mathematics, and actuarial majors through exercise design, assignments, student support, and class operation."
+
+skills:
+  - category: "Programming Language"
+    items:
+      - "Python: 3+ years"
+      - "Julia: 7+ years"
+      - "C: self-study"
+      - "HTML/CSS: self-study"
+  - category: "Machine learning / Data Analysis"
+    items:
+      - "PyTorch: 3+ years"
+      - "Pandas/Polars: 5+ years"
+      - "NumPy/SciPy: 3+ years"
+      - "CUDA: 3+ years"
+      - "Scikit-learn: 5+ years"
+      - "HuggingFace"
+      - "BERT"
+      - "XGBoost"
+  - category: "Mathematics / Statistics"
+    items:
+      - "Point processes: 8+ years"
+      - "Hawkes processes: 6+ years"
+      - "Markov processes: 6+ years"
+      - "Time-series analysis / prediction: 8+ years"
+      - "RKHS: 6+ years"
+      - "PDE / SDE: 6+ years"
+      - "Ito / Stratonovich calculus; Malliavin calculus: 6+ years"
+      - "Topology, analysis, coupling methods: 8+ years"
+      - "State-space methods, Bayesian inference, sampling: 6+ years"
+  - category: "Physics"
+    items:
+      - "Statistical mechanics: 8+ years"
+      - "Nonequilibrium systems: 8+ years"
+      - "Dynamical systems: 8+ years"
+      - "Signal processing: 8+ years"
+      - "Thermodynamics: 8+ years"
+      - "Electronic circuits (Arduino): 8+ years"
+  - category: "DB"
+    items:
+      - "DuckDB (SQL): self-study"
+  - category: "Tools"
+    items:
+      - "GitHub: 7+ years"
+      - "Jekyll: self-study"
+      - "Miro: 2+ years"
+
+languages:
+  - language: "Spanish"
+    level: "Native"
+    note: "Mother tongue"
+  - language: "English"
+    level: "Native"
+    note: "TOEFL iBT 111 - 2019"
+  - language: "Japanese"
+    level: "Business fluent"
+    note: "JLPT N2 - Dec 2024"
+  - language: "German"
+    level: "Basic"
