@@ -41,11 +41,9 @@ actions:
       - label: "Publications"
         icon: "publications"
         url: "/publications/"
-        external: true
       - label: "Presentations"
         icon: "presentations"
         url: "/presentations/"
-        external: true
 
 summary:
   text: "Mathematician and physicist with over 6 years of research experience in machine learning, stochastic modeling, and complex dynamical systems. My work combines probability theory, point processes, Markov chains, stochastic differential equations, and scientific computing, with applications in deep learning optimization, time-series modeling, causal analysis, finance, neuroscience, and sports forecasting."
