@@ -17,9 +17,8 @@ layout: default
     <symbol id="publications-icon-chevron" viewBox="0 0 24 24">
       <path d="m6 9 6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
     </symbol>
-    <symbol id="publications-icon-link" viewBox="0 0 64 64">
-      <path d="M35.521,41.288c-3.422,0-6.64-1.333-9.06-3.753c-1.106-1.106-1.106-2.9,0-4.006 c1.106-1.106,2.9-1.106,4.006,0c1.35,1.35,3.145,2.093,5.054,2.093c1.909,0,3.704-0.743,5.054-2.094l7.538-7.538 c2.787-2.787,2.787-7.321,0-10.108c-2.787-2.787-7.321-2.787-10.108,0l-3.227,3.227c-1.106,1.106-2.9,1.106-4.006,0 c-1.106-1.106-1.106-2.9,0-4.006L34,11.877c4.996-4.996,13.124-4.995,18.12,0c4.996,4.996,4.996,13.124,0,18.12l-7.538,7.538 C42.161,39.955,38.944,41.288,35.521,41.288z" fill="currentColor"/>
-      <path d="M20.94,55.869c-3.422,0-6.64-1.333-9.06-3.753c-4.996-4.996-4.996-13.124,0-18.12l7.538-7.538 c4.996-4.995,13.124-4.995,18.12,0c1.106,1.106,1.106,2.9,0,4.006c-1.106,1.106-2.9,1.106-4.006,0 c-2.787-2.787-7.321-2.787-10.108,0l-7.538,7.538c-2.787,2.787-2.787,7.321,0,10.108c1.35,1.35,3.145,2.094,5.054,2.094 c1.909,0,3.704-0.743,5.054-2.093l3.227-3.227c1.106-1.106,2.9-1.106,4.006,0c1.106,1.106,1.106,2.9,0,4.006L30,52.117 C27.58,54.536,24.363,55.869,20.94,55.869z" fill="currentColor"/>
+    <symbol id="publications-icon-link" viewBox="0 0 16 16">
+      <path fill-rule="evenodd" clip-rule="evenodd" d="M14.5 2H9l-.35.15-.65.64-.65-.64L7 2H1.5l-.5.5v10l.5.5h5.29l.86.85h.7l.86-.85h5.29l.5-.5v-10l-.5-.5zm-7 10.32l-.18-.17L7 12H2V3h4.79l.74.74-.03 8.58zM14 12H9l-.35.15-.14.13V3.7l.7-.7H14v9zM6 5H3v1h3V5zm0 4H3v1h3V9zM3 7h3v1H3V7zm10-2h-3v1h3V5zm-3 2h3v1h-3V7zm0 2h3v1h-3V9z" fill="currentColor"/>
     </symbol>
     <symbol id="publications-icon-qr" viewBox="-10 -5 1034 1034">
       <path fill="currentColor" d="M100 226v54v320h373v-374h-373zM527 226v54v320h373v-374h-373zM153 280h54h213v266h-267v-266zM580 280h53h214v266h-267v-266zM207 333v53v107h160v-160h-160zM633 333v53v107h160v-160h-160zM100 653v53v320h373v-373h-373zM687 653v53v54h106v-54h-53v-53h-53z M687 760h-54h-106v106h53v54h-53v53h53v53h107v-160h-54v-53h54v-53zM153 706h54h213v267h-267v-267zM207 760v53v107h160v-160h-160zM847 760v53h-54v160h-53v53h107v-53h53v-213h-53z"/>
@@ -115,7 +114,7 @@ layout: default
               {% if publication.url %}
                 <a class="publication-action" href="{{ publication.url }}" target="_blank" rel="noopener noreferrer">
                   <svg aria-hidden="true" focusable="false"><use href="#publications-icon-link"></use></svg>
-                  <span>URL</span>
+                  <span>Full Text</span>
                 </a>
               {% endif %}
               {% if publication.discount_url %}
