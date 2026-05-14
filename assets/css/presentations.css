@@ -320,18 +320,6 @@
   flex: 0 0 auto;
 }
 
-.presentation-resource-slides {
-  border-color: rgba(45, 110, 79, 0.22);
-  background: rgba(45, 110, 79, 0.12);
-  color: #2d6e4f;
-}
-
-.presentation-resource-video {
-  border-color: rgba(139, 47, 61, 0.18);
-  background: rgba(139, 47, 61, 0.1);
-  color: #8b2f3d;
-}
-
 .presentations-empty {
   max-width: min(100%, var(--presentations-card-grid-max-inline-size));
   margin: 1.5rem 0 0;
