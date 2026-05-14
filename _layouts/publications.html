@@ -1,0 +1,142 @@
+---
+layout: default
+---
+{% if jekyll.environment == 'development' %}
+  {% assign asset_version = site.time | date: '%s' %}
+{% else %}
+  {% assign asset_version = site.github.build_revision | default: site.time | url_encode %}
+{% endif %}
+{% assign publications = site.data.publications | sort: "sort_date" | reverse %}
+<link rel="stylesheet" href="{{ '/assets/css/publications.css' | relative_url }}?v={{ asset_version }}">
+
+<main class="publications-page" data-publications-page>
+  <svg aria-hidden="true" focusable="false" class="publications-icons">
+    <symbol id="publications-icon-search" viewBox="0 0 24 24">
+      <path d="m21 21-4.3-4.3m1.3-5.2a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="publications-icon-chevron" viewBox="0 0 24 24">
+      <path d="m6 9 6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="publications-icon-link" viewBox="0 0 64 64">
+      <path d="M35.521,41.288c-3.422,0-6.64-1.333-9.06-3.753c-1.106-1.106-1.106-2.9,0-4.006 c1.106-1.106,2.9-1.106,4.006,0c1.35,1.35,3.145,2.093,5.054,2.093c1.909,0,3.704-0.743,5.054-2.094l7.538-7.538 c2.787-2.787,2.787-7.321,0-10.108c-2.787-2.787-7.321-2.787-10.108,0l-3.227,3.227c-1.106,1.106-2.9,1.106-4.006,0 c-1.106-1.106-1.106-2.9,0-4.006L34,11.877c4.996-4.996,13.124-4.995,18.12,0c4.996,4.996,4.996,13.124,0,18.12l-7.538,7.538 C42.161,39.955,38.944,41.288,35.521,41.288z" fill="currentColor"/>
+      <path d="M20.94,55.869c-3.422,0-6.64-1.333-9.06-3.753c-4.996-4.996-4.996-13.124,0-18.12l7.538-7.538 c4.996-4.995,13.124-4.995,18.12,0c1.106,1.106,1.106,2.9,0,4.006c-1.106,1.106-2.9,1.106-4.006,0 c-2.787-2.787-7.321-2.787-10.108,0l-7.538,7.538c-2.787,2.787-2.787,7.321,0,10.108c1.35,1.35,3.145,2.094,5.054,2.094 c1.909,0,3.704-0.743,5.054-2.093l3.227-3.227c1.106-1.106,2.9-1.106,4.006,0c1.106,1.106,1.106,2.9,0,4.006L30,52.117 C27.58,54.536,24.363,55.869,20.94,55.869z" fill="currentColor"/>
+    </symbol>
+    <symbol id="publications-icon-qr" viewBox="-10 -5 1034 1034">
+      <path fill="currentColor" d="M100 226v54v320h373v-374h-373zM527 226v54v320h373v-374h-373zM153 280h54h213v266h-267v-266zM580 280h53h214v266h-267v-266zM207 333v53v107h160v-160h-160zM633 333v53v107h160v-160h-160zM100 653v53v320h373v-373h-373zM687 653v53v54h106v-54h-53v-53h-53z M687 760h-54h-106v106h53v54h-53v53h53v53h107v-160h-54v-53h54v-53zM153 706h54h213v267h-267v-267zM207 760v53v107h160v-160h-160zM847 760v53h-54v160h-53v53h107v-53h53v-213h-53z"/>
+    </symbol>
+    <symbol id="publications-icon-arxiv" viewBox="0 0 17.732 24.269">
+      <path d="M573.549,280.916l2.266,2.738,6.674-7.84c.353-.47.52-.717.353-1.117a1.218,1.218,0,0,0-1.061-.748h0a.953.953,0,0,0-.712.262Z" transform="translate(-566.984 -271.548)" fill="#5f5a55"/>
+      <path d="M579.525,282.225l-10.606-10.174a1.413,1.413,0,0,0-.834-.5,1.09,1.09,0,0,0-1.027.66c-.167.4-.047.681.319,1.206l8.44,10.242h0l-6.282,7.716a1.336,1.336,0,0,0-.323,1.3,1.114,1.114,0,0,0,1.04.69A.992.992,0,0,0,571,293l8.519-7.92A1.924,1.924,0,0,0,579.525,282.225Z" transform="translate(-566.984 -271.548)" fill="currentColor"/>
+      <path d="M584.32,293.912l-8.525-10.275,0,0L573.53,280.9l-1.389,1.254a2.063,2.063,0,0,0,0,2.965l10.812,10.419a.925.925,0,0,0,.742.282,1.039,1.039,0,0,0,.953-.667A1.261,1.261,0,0,0,584.32,293.912Z" transform="translate(-566.984 -271.548)" fill="#5f5a55"/>
+    </symbol>
+  </svg>
+
+  <section class="publications-main" aria-labelledby="publications-title">
+    <header class="publications-heading">
+      <h1 id="publications-title">{{ page.title | default: "Publications" }}</h1>
+      <p>{{ page.summary | default: "Peer reviewed papers, book chapters, and proceedings in stochastic processes, renewal theory, Hawkes processes, and statistics." }}</p>
+      {% if publications and publications.size > 0 %}
+      <div class="publications-tools" aria-label="Publication search and filters">
+        <label class="publications-search">
+          <svg aria-hidden="true" focusable="false"><use href="#publications-icon-search"></use></svg>
+          <span class="sr-only">Search publications</span>
+          <input type="search" id="publication-search" placeholder="Search publications..." autocomplete="off">
+        </label>
+        <label class="publications-select-label">
+          <span>Category</span>
+          <select class="publications-select" id="publication-category-filter">
+            <option value="all">All categories</option>
+            <option value="journal-article">Journal Article</option>
+            <option value="conference-proceedings">Conference Proceedings</option>
+            <option value="book-chapter">Book Chapter</option>
+          </select>
+        </label>
+        <label class="publications-select-label">
+          <span>Year</span>
+          <select class="publications-select" id="publication-year-filter">
+            <option value="">All years</option>
+            {% assign seen_years = "" %}
+            {% for publication in publications %}
+              {% assign year_token = "|" | append: publication.year | append: "|" %}
+              {% unless seen_years contains year_token %}
+                <option value="{{ publication.year }}">{{ publication.year }}</option>
+                {% assign seen_years = seen_years | append: year_token %}
+              {% endunless %}
+            {% endfor %}
+          </select>
+        </label>
+        <button class="publications-reset-year" id="publication-year-clear" type="button">Reset year</button>
+      </div>
+      {% endif %}
+    </header>
+
+    {% if publications and publications.size > 0 %}
+      <p class="publications-result-count" data-publication-count>Showing {{ publications | size }} publications</p>
+      <div class="publications-list" id="publications-list">
+        {% for publication in publications %}
+          {% capture search_text %}{{ publication.title }} {{ publication.authors }} {{ publication.year }} {{ publication.publication_type }} {{ publication.citation_html | strip_html }} {{ publication.doi }}{% endcapture %}
+          <article
+            class="publication-card"
+            data-publication-card
+            data-category="{{ publication.category | escape }}"
+            data-year="{{ publication.year | escape }}"
+            data-search-text="{{ search_text | strip | normalize_whitespace | escape }}">
+            <h2>{{ publication.title }}</h2>
+            <div class="publication-type-row">
+              <span class="publication-type publication-type-{{ publication.category }}">{{ publication.publication_type }}</span>
+              {% if publication.review_status %}
+                <span class="publication-type publication-review-status">{{ publication.review_status }}</span>
+              {% endif %}
+            </div>
+            <p class="publication-citation">{{ publication.citation_html }}</p>
+            <p class="publication-doi"><strong>DOI:</strong> {{ publication.doi }}</p>
+            <div class="publication-actions">
+              <button
+                class="publication-action publication-summary-toggle"
+                type="button"
+                aria-expanded="false"
+                aria-controls="publication-summary-{{ publication.id }}">
+                <svg aria-hidden="true" focusable="false"><use href="#publications-icon-chevron"></use></svg>
+                <span>Show summary</span>
+              </button>
+              {% if publication.arxiv_url %}
+                <a class="publication-action" href="{{ publication.arxiv_url }}" target="_blank" rel="noopener noreferrer">
+                  <svg aria-hidden="true" focusable="false"><use href="#publications-icon-arxiv"></use></svg>
+                  <span>arXiv</span>
+                </a>
+              {% endif %}
+              {% if publication.url %}
+                <a class="publication-action" href="{{ publication.url }}" target="_blank" rel="noopener noreferrer">
+                  <svg aria-hidden="true" focusable="false"><use href="#publications-icon-link"></use></svg>
+                  <span>URL</span>
+                </a>
+              {% endif %}
+              {% if publication.discount_url %}
+                <a class="publication-action" href="{{ publication.discount_url }}" target="_blank" rel="noopener noreferrer">
+                  <svg aria-hidden="true" focusable="false"><use href="#publications-icon-qr"></use></svg>
+                  <span>Discount code</span>
+                </a>
+              {% endif %}
+            </div>
+            <div class="publication-summary-panel" id="publication-summary-{{ publication.id }}" hidden>
+              <p>{{ publication.summary }}</p>
+              {% if publication.summary_image %}
+                <img class="publication-summary-image" src="{{ publication.summary_image | relative_url }}" alt="{{ publication.summary_image_alt | default: publication.title }}">
+              {% elsif publication.summary_image_label %}
+                <div class="publication-summary-figure" aria-hidden="true">{{ publication.summary_image_label }}</div>
+              {% endif %}
+            </div>
+          </article>
+        {% endfor %}
+      </div>
+      <p class="publications-empty" data-publications-empty hidden>No publications match the current filters.</p>
+      <div class="publications-pagination" id="publication-pagination-controls"></div>
+    {% else %}
+      <div class="publications-empty publications-empty-page">
+        <p>{{ page.empty_message | default: "No publications yet." }}</p>
+      </div>
+    {% endif %}
+  </section>
+</main>
+
+<script src="{{ '/assets/js/publications.js' | relative_url }}?v={{ asset_version }}" defer></script>

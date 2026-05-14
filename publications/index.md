@@ -1,7 +1,6 @@
 ---
 title: Publications
-layout: collection-index
+layout: publications
 permalink: /publications/
-collection_name: publications
-empty_message: No publications yet.
+summary: An archive of my publications. Learn more by looking at the summaries or the publications themselves.
 ---
