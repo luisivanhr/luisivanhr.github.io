@@ -89,7 +89,14 @@ layout: default
               {% endif %}
             </div>
             <p class="publication-citation">{{ publication.citation_html }}</p>
-            <p class="publication-doi"><strong>DOI:</strong> {{ publication.doi }}</p>
+            {% assign doi_href = publication.doi %}
+            {% unless publication.doi contains "://" %}
+              {% assign doi_href = publication.doi | prepend: "https://doi.org/" %}
+            {% endunless %}
+            <p class="publication-doi">
+              <strong>DOI:</strong>
+              <a href="{{ doi_href | escape }}" target="_blank" rel="noopener noreferrer">{{ publication.doi | escape }}</a>
+            </p>
             <div class="publication-actions">
               <button
                 class="publication-action publication-summary-toggle"

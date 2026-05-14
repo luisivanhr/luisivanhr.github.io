@@ -304,6 +304,18 @@
   color: #10232a;
 }
 
+.publication-doi a {
+  color: var(--publications-blue);
+  text-decoration-color: rgba(18, 59, 136, 0.35);
+  text-underline-offset: 0.16em;
+}
+
+.publication-doi a:hover,
+.publication-doi a:focus-visible {
+  color: #0d2d69;
+  text-decoration-color: currentColor;
+}
+
 .publication-actions {
   display: flex;
   flex-wrap: wrap;
