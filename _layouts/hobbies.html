@@ -1,0 +1,134 @@
+---
+layout: default
+---
+{% if jekyll.environment == 'development' %}
+  {% assign asset_version = site.time | date: '%s' %}
+{% else %}
+  {% assign asset_version = site.github.build_revision | default: site.time | url_encode %}
+{% endif %}
+{% assign hobbies = site.data.hobbies %}
+{% assign playlist_id = hobbies.music.spotify_playlist_id | default: "1xYDVZn3JiJXzMYAFzVgBv" %}
+<link rel="stylesheet" href="{{ '/assets/css/hobbies.css' | relative_url }}?v={{ asset_version }}">
+
+<main class="hobbies-page" data-hobbies-page>
+  <section class="hobbies-main" aria-labelledby="hobbies-title">
+    <header class="hobbies-hero">
+      <div>
+        <h1 id="hobbies-title">Hobbies</h1>
+        <p>A glimpse into some of my passions besides the academic.</p>
+      </div>
+    </header>
+
+    <div class="hobbies-widget-grid">
+      <section class="hobbies-widget is-dark" data-hobbies-widget>
+        <button id="hobbies-games-toggle" class="hobbies-widget-toggle" type="button" aria-expanded="true" aria-controls="hobbies-games-panel">
+          <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M8 5l8 7-8 7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span>Games</span>
+        </button>
+        <div id="hobbies-games-panel" class="hobbies-widget-body games-scroll-panel" role="region" aria-labelledby="hobbies-games-toggle">
+          <ul class="steam-game-list">
+            {% for game in hobbies.games %}
+              {% assign game_url = game.url %}
+              {% assign game_image = game.image %}
+              {% assign game_source = "Local asset fallback" %}
+              {% if game.appid %}
+                {% unless game_url %}
+                  {% assign game_url = "https://store.steampowered.com/app/" | append: game.appid | append: "/" %}
+                {% endunless %}
+                {% assign game_image = "https://cdn.cloudflare.steamstatic.com/steam/apps/" | append: game.appid | append: "/capsule_184x69.jpg" %}
+                {% assign game_source = "Steam appid " | append: game.appid %}
+              {% endif %}
+              {% assign game_image_src = game_image %}
+              {% unless game_image_src contains "://" %}
+                {% assign game_image_src = game_image_src | relative_url %}
+              {% endunless %}
+              <li>
+                <a href="{{ game_url }}" target="_blank" rel="noopener">
+                  <span class="steam-game-title">
+                    {{ game.name }}
+                    <span class="steam-game-source">{{ game_source }}</span>
+                  </span>
+                  <img{% if game_image and game_image != "" %} src="{{ game_image_src }}"{% endif %} data-fallback="{{ game.name | escape }} local asset" alt="{{ game.name }} thumbnail" loading="lazy">
+                </a>
+              </li>
+            {% endfor %}
+          </ul>
+        </div>
+      </section>
+
+      <section class="hobbies-widget is-dark" data-hobbies-widget>
+        <button id="hobbies-music-toggle" class="hobbies-widget-toggle" type="button" aria-expanded="true" aria-controls="hobbies-music-panel">
+          <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M8 5l8 7-8 7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span>Music</span>
+        </button>
+        <div id="hobbies-music-panel" class="hobbies-widget-body" role="region" aria-labelledby="hobbies-music-toggle">
+          <iframe class="spotify-frame" title="Spotify playlist" src="https://open.spotify.com/embed/playlist/{{ playlist_id }}?utm_source=generator&theme=0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+        </div>
+      </section>
+
+      <section class="hobbies-widget is-dark" data-hobbies-widget data-deck-widget="cooking" data-deck-size="4">
+        <button id="hobbies-cooking-toggle" class="hobbies-widget-toggle" type="button" aria-expanded="true" aria-controls="hobbies-cooking-panel">
+          <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M8 5l8 7-8 7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span>Cooking &amp; Bread</span>
+        </button>
+        <div id="hobbies-cooking-panel" class="hobbies-widget-body recipe-widget-body" role="region" aria-labelledby="hobbies-cooking-toggle">
+          <div data-feature-card="cooking"></div>
+          <div class="mini-deck" data-mini-deck="cooking" aria-label="Cooking and bread deck"></div>
+        </div>
+      </section>
+
+      <section class="hobbies-widget is-dark" data-hobbies-widget data-deck-widget="coffee" data-deck-size="4">
+        <button id="hobbies-coffee-toggle" class="hobbies-widget-toggle" type="button" aria-expanded="true" aria-controls="hobbies-coffee-panel">
+          <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M8 5l8 7-8 7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span>Coffee</span>
+        </button>
+        <div id="hobbies-coffee-panel" class="hobbies-widget-body" role="region" aria-labelledby="hobbies-coffee-toggle">
+          <div data-feature-card="coffee"></div>
+          <div class="mini-deck" data-mini-deck="coffee" aria-label="Coffee deck"></div>
+        </div>
+      </section>
+
+      <section class="hobbies-widget is-dark" data-hobbies-widget data-deck-widget="books" data-deck-size="4">
+        <button id="hobbies-books-toggle" class="hobbies-widget-toggle" type="button" aria-expanded="true" aria-controls="hobbies-books-panel">
+          <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M8 5l8 7-8 7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span>Books</span>
+        </button>
+        <div id="hobbies-books-panel" class="hobbies-widget-body" role="region" aria-labelledby="hobbies-books-toggle">
+          <div data-feature-card="books"></div>
+          <div class="mini-deck" data-mini-deck="books" aria-label="Books deck"></div>
+        </div>
+      </section>
+
+      <section class="hobbies-widget is-dark" data-hobbies-widget>
+        <button id="hobbies-fitness-toggle" class="hobbies-widget-toggle" type="button" aria-expanded="true" aria-controls="hobbies-fitness-panel">
+          <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M8 5l8 7-8 7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span>Outdoors &amp; Fitness</span>
+        </button>
+        <div id="hobbies-fitness-panel" class="hobbies-widget-body" role="region" aria-labelledby="hobbies-fitness-toggle">
+          <div class="fitness-list">
+            {% for activity in hobbies.fitness limit: 5 %}
+              <article class="fitness-card">
+                <div>
+                  <span class="label">{{ activity.title }}</span>
+                  <p class="widget-copy">{{ activity.summary }}</p>
+                  {% if activity.tags %}
+                    <ul class="chip-list">
+                      {% for tag in activity.tags %}
+                        <li>{{ tag }}</li>
+                      {% endfor %}
+                    </ul>
+                  {% endif %}
+                </div>
+                <div class="fitness-photo">{{ activity.title }}</div>
+              </article>
+            {% endfor %}
+          </div>
+        </div>
+      </section>
+    </div>
+  </section>
+
+  <script type="application/json" id="hobbies-data">{{ hobbies | jsonify }}</script>
+</main>
+
+<script src="{{ '/assets/js/hobbies.js' | relative_url }}?v={{ asset_version }}" defer></script>

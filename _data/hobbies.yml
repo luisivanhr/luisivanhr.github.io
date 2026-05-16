@@ -1,0 +1,168 @@
+music:
+  spotify_playlist_id: "1xYDVZn3JiJXzMYAFzVgBv"
+
+games:
+  - name: "Elden Ring"
+    appid: 1245620
+  - name: "Dark Souls III"
+    appid: 374320
+  - name: "Sekiro"
+    appid: 814380
+  - name: "Armored Core VI"
+    appid: 1888160
+  - name: "Hollow Knight"
+    appid: 367520
+  - name: "Darkest Dungeon"
+    appid: 262060
+  - name: "Hades"
+    appid: 1145360
+  - name: "For the King"
+    appid: 527230
+  - name: "Valheim"
+    appid: 892970
+  - name: "Bloodborne"
+    url: "https://www.playstation.com/en-us/games/bloodborne/"
+    image: "/assets/images/hobbies/bloodborne.svg"
+  - name: "The Legend of Zelda: Breath of the Wild"
+    url: "https://www.nintendo.com/"
+    image: "/assets/images/hobbies/breath-of-the-wild.svg"
+
+coffee:
+  - title: "Ethiopia Guji Natural"
+    date: "2026-05-14"
+    roaster: "Kurasu Kyoto"
+    origin: "Ethiopia"
+    method: "V60"
+    aroma: "Floral, strawberry, cocoa."
+    taste: "Bright acidity, syrupy body, clean finish."
+    notes: "Best cup after a slightly finer grind and cooler drawdown."
+    rating: 4
+  - title: "Colombia Pink Bourbon"
+    date: "2026-04-30"
+    roaster: "Weekenders Coffee"
+    origin: "Colombia"
+    method: "V60"
+    aroma: "Sweet citrus, peach, honey."
+    taste: "Round sweetness, mild acidity, silky body."
+    notes: "Very forgiving brew and a good late afternoon cup."
+    rating: 4
+  - title: "Kenya AA"
+    date: "2026-03-18"
+    roaster: "Light Up Coffee"
+    origin: "Kenya"
+    method: "Kalita"
+    aroma: "Blackcurrant, grapefruit, brown sugar."
+    taste: "Juicy acidity, medium body, crisp finish."
+    notes: "Best with a shorter ratio and careful agitation."
+    rating: 4
+  - title: "Mexico Chiapas"
+    date: "2026-02-10"
+    roaster: "Home shelf"
+    origin: "Mexico"
+    method: "AeroPress"
+    aroma: "Cocoa, almond, orange peel."
+    taste: "Comforting, sweet, low acidity."
+    notes: "Simple recipe, excellent weekday cup."
+    rating: 3.5
+
+cooking:
+  - title: "Country loaf"
+    date: "2026-05-16"
+    image: ""
+    ingredients:
+      - "Starter"
+      - "Bread flour"
+      - "Rye"
+      - "Sesame"
+    summary: "Sourdough, long fermentation, sesame crust."
+    notes: "Ingredients stay visible; method stays concise on the card."
+    method:
+      - label: "Mix"
+        text: "Starter, flour, water; rest 30 min."
+      - label: "Fold"
+        text: "Salt in, fold twice over 2 hr."
+      - label: "Proof"
+        text: "Shape, chill overnight."
+      - label: "Bake"
+        text: "Dutch oven, 240C, finish uncovered."
+  - title: "Miso soup"
+    date: "2026-05-09"
+    image: ""
+    ingredients:
+      - "Miso"
+      - "Tofu"
+      - "Mushrooms"
+      - "Scallion"
+    summary: "Fast weeknight soup with a clean, savory base."
+    notes: "Keep the simmer gentle after adding miso."
+    method:
+      - label: "Dashi"
+        text: "Warm stock until steaming."
+      - label: "Add"
+        text: "Tofu and mushrooms."
+      - label: "Miso"
+        text: "Dissolve off boil."
+      - label: "Finish"
+        text: "Scallion at the end."
+  - title: "Focaccia"
+    date: "2026-04-28"
+    image: ""
+    ingredients:
+      - "Bread flour"
+      - "Olive oil"
+      - "Rosemary"
+      - "Salt"
+    summary: "Soft crumb, crisp edge, rosemary oil."
+    notes: "Use less tray oil next time."
+    method:
+      - label: "Mix"
+        text: "High hydration dough."
+      - label: "Fold"
+        text: "Two folds, 45 min apart."
+      - label: "Proof"
+        text: "Pan proof until bubbly."
+      - label: "Bake"
+        text: "Hot oven, deep dimples."
+
+books:
+  - title: "The Left Hand of Darkness"
+    date: "2026-05-10"
+    cover: ""
+    about: "Political and social imagination under deep ambiguity."
+    impression: "Quiet, cold, precise, and humane."
+    for_who: "Patient science fiction readers who like ideas under pressure."
+  - title: "Invisible Cities"
+    date: "2026-04-21"
+    cover: ""
+    about: "Cities as memory, desire, language, and structure."
+    impression: "Tiny chapters that keep echoing after they end."
+    for_who: "Readers who enjoy fragments, architecture, and poetic systems."
+  - title: "Ficciones"
+    date: "2026-03-12"
+    cover: ""
+    about: "Labyrinths, libraries, mirrors, and precise intellectual puzzles."
+    impression: "Dense, playful, and sharper than its page count suggests."
+    for_who: "Readers who like compact stories with mathematical pressure."
+  - title: "Thinking in Systems"
+    date: "2026-02-05"
+    cover: ""
+    about: "Feedback loops, stocks, flows, delays, and leverage points."
+    impression: "Useful mental models without unnecessary ceremony."
+    for_who: "Anyone who likes reusable explanations for messy behavior."
+
+fitness:
+  - title: "Kamo River run"
+    summary: "Easy routes for recovery days and quiet thinking."
+    tags:
+      - "Running"
+      - "Outdoors"
+  - title: "Weightlifting"
+    summary: "Simple strength blocks, descriptive notes, no full tracker."
+    tags:
+      - "Weights"
+      - "Training"
+  - title: "Trail walks"
+    summary: "Longer outdoor walks when the schedule allows."
+    tags:
+      - "Hiking"
+      - "Recovery"
