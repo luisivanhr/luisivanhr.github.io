@@ -1,6 +1,5 @@
 ---
 title: About Me
-layout: default
+layout: about
 permalink: /about/
 ---
-<p>Placeholder about me. Replace with your bio and research interests.</p>

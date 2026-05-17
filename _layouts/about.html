@@ -1,0 +1,125 @@
+---
+layout: default
+---
+{% if jekyll.environment == 'development' %}
+  {% assign asset_version = site.time | date: '%s' %}
+{% else %}
+  {% assign asset_version = site.github.build_revision | default: site.time | url_encode %}
+{% endif %}
+<link rel="stylesheet" href="{{ '/assets/css/about.css' | relative_url }}?v={{ asset_version }}">
+
+<main class="about-page" data-about-page>
+  <section class="about-main" aria-labelledby="about-title">
+    <header class="about-head">
+      <h1 id="about-title">About me</h1>
+      <ul class="about-tags" aria-label="Research fields">
+        <li>Mathematics</li>
+        <li>Physics</li>
+        <li>Machine learning</li>
+      </ul>
+    </header>
+
+    <div class="about-dossier-grid">
+      <aside class="about-portrait-card" data-about-portrait-card>
+        <figure class="about-portrait-frame">
+          <img src="{{ '/assets/thumbs/hover-feeds/about_thumb.gif' | relative_url }}" alt="Luis Ivan Hernandez Ruiz portrait">
+        </figure>
+        <div>
+          <span class="about-label">Luis Ivan Hernandez Ruiz</span>
+          <p>Mathematics PhD, Kyoto University. Research in probability, stochastic processes, and learning systems.</p>
+        </div>
+        <div class="about-identity-row">
+          <strong>Current affiliation:</strong>
+          <p>Kyoto University</p>
+        </div>
+        <div class="about-identity-row">
+          <strong>Contact info:</strong>
+          <p>Email, GitHub, ORCID, and LinkedIn</p>
+        </div>
+      </aside>
+
+      <div class="about-dossier-right">
+        <section class="about-panel" data-about-panel>
+          <button id="about-short-bio-toggle" class="about-panel-head" type="button" aria-expanded="true" aria-controls="about-short-bio-panel" data-about-toggle>
+            <svg class="about-chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5l8 7-8 7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <h2>Short bio</h2>
+          </button>
+          <div class="about-panel-body" id="about-short-bio-panel" role="region" aria-labelledby="about-short-bio-toggle">
+            <p>My work combines rigorous probability theory with computational experimentation, especially around Hawkes processes, Markov models, time-series structure, and learning dynamics.</p>
+          </div>
+        </section>
+
+        <section class="about-panel about-research-prose" data-about-panel>
+          <button id="about-research-toggle" class="about-panel-head" type="button" aria-expanded="true" aria-controls="about-research-panel" data-about-toggle>
+            <svg class="about-chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5l8 7-8 7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <h2>Research interests</h2>
+          </button>
+          <div class="about-panel-body" id="about-research-panel" role="region" aria-labelledby="about-research-toggle">
+            <p>My research interests are interdisciplinary and span Physics, Mathematics, Probability Theory and Statistics, Machine Learning, and Applied Modeling in diverse fields like Finance and Sports Analysis. I am especially interested in stochastic processes, point processes, Markovian structure, time-series modeling, and the mathematical behavior of learning systems.</p>
+          </div>
+        </section>
+
+        <section class="about-photo-panel" data-about-panel>
+          <button id="about-photo-notes-toggle" class="about-panel-head" type="button" aria-expanded="true" aria-controls="about-photo-notes-panel" data-about-toggle>
+            <svg class="about-chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5l8 7-8 7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <h2>Photo notes</h2>
+          </button>
+          <div class="about-panel-body" id="about-photo-notes-panel" role="region" aria-labelledby="about-photo-notes-toggle">
+            <div class="about-scroll-widget" aria-label="Scrollable photo notes">
+              <ul class="about-photo-list">
+                <li>
+                  <button class="about-photo-card" type="button" data-preview-title="Seminar visit" data-preview-caption="Placeholder for photos from seminars, talks, and academic visits." data-preview-tone="blue">
+                    <span class="about-photo-title">Seminar visit <small>Academic travel</small></span>
+                    <span class="about-photo-thumb">Seminar</span>
+                  </button>
+                </li>
+                <li>
+                  <button class="about-photo-card" type="button" data-preview-title="Research meeting" data-preview-caption="Placeholder for photos when meeting collaborators or researchers." data-preview-tone="green">
+                    <span class="about-photo-title">Research meeting <small>Collaborators</small></span>
+                    <span class="about-photo-thumb is-green">Meeting</span>
+                  </button>
+                </li>
+                <li>
+                  <button class="about-photo-card" type="button" data-preview-title="Conference hallway" data-preview-caption="Placeholder for conference photos and informal academic moments." data-preview-tone="red">
+                    <span class="about-photo-title">Conference hallway <small>Conferences</small></span>
+                    <span class="about-photo-thumb is-red">Conference</span>
+                  </button>
+                </li>
+                <li>
+                  <button class="about-photo-card" type="button" data-preview-title="Desk notes" data-preview-caption="Placeholder for research notes, boards, notebooks, or draft work." data-preview-tone="warm">
+                    <span class="about-photo-title">Desk notes <small>Work in progress</small></span>
+                    <span class="about-photo-thumb is-warm">Desk</span>
+                  </button>
+                </li>
+                <li>
+                  <button class="about-photo-card" type="button" data-preview-title="Workshop board" data-preview-caption="Placeholder for workshop boards, equations, and discussion snapshots." data-preview-tone="blue">
+                    <span class="about-photo-title">Workshop board <small>Blackboard moments</small></span>
+                    <span class="about-photo-thumb">Workshop</span>
+                  </button>
+                </li>
+                <li>
+                  <button class="about-photo-card" type="button" data-preview-title="Campus walk" data-preview-caption="Placeholder for photos around universities, institutes, and academic travel." data-preview-tone="green">
+                    <span class="about-photo-title">Campus walk <small>Places</small></span>
+                    <span class="about-photo-thumb is-green">Campus</span>
+                  </button>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </section>
+
+  <div class="about-modal-backdrop" id="about-photo-modal" hidden>
+    <div class="about-photo-modal" role="dialog" aria-modal="true" aria-labelledby="about-photo-modal-title">
+      <div class="about-photo-modal-visual" id="about-photo-modal-visual">Photo preview</div>
+      <div class="about-photo-modal-body">
+        <h2 id="about-photo-modal-title">Photo preview</h2>
+        <p id="about-photo-modal-caption">Placeholder caption.</p>
+      </div>
+    </div>
+  </div>
+</main>
+
+<script src="{{ '/assets/js/about.js' | relative_url }}?v={{ asset_version }}" defer></script>
