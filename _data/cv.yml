@@ -33,6 +33,10 @@ actions:
         icon: "orcid"
         url: "https://orcid.org/0009-0003-0891-9249"
         external: true
+      - label: "Google Scholar"
+        icon: "scholar"
+        url: "https://scholar.google.com/citations?user=MeAEnBcAAAAJ&hl=en"
+        external: true
       - label: "Email"
         icon: "email"
         url: "mailto:luisivanhr@ciencias.unam.mx"

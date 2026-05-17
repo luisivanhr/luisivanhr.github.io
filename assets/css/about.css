@@ -181,6 +181,49 @@
   letter-spacing: 0.05em;
 }
 
+.about-cv-row {
+  align-items: center;
+}
+
+.about-cv-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  justify-self: start;
+  gap: 0.4rem;
+  min-height: 2rem;
+  border: 1px solid rgba(18, 59, 136, 0.22);
+  border-radius: 6px;
+  padding: 0.35rem 0.55rem;
+  background:
+    linear-gradient(rgba(18, 59, 136, 0.04), rgba(18, 59, 136, 0.04)),
+    #ffffff;
+  color: var(--about-blue);
+  font-size: 0.78rem;
+  font-weight: 900;
+  line-height: 1.15;
+  text-decoration: none;
+  transition: background 160ms ease, border-color 160ms ease;
+}
+
+.about-cv-button:hover,
+.about-cv-button:focus-visible {
+  border-color: rgba(18, 59, 136, 0.36);
+  background:
+    linear-gradient(rgba(18, 59, 136, 0.09), rgba(18, 59, 136, 0.09)),
+    #ffffff;
+  color: var(--about-blue);
+  outline: none;
+}
+
+.about-cv-button svg {
+  width: 1rem;
+  height: 1rem;
+  flex: 0 0 auto;
+  color: currentColor;
+  fill: currentColor;
+}
+
 .about-dossier-right {
   display: grid;
   align-content: start;
