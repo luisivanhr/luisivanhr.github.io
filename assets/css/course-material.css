@@ -684,7 +684,7 @@
 .course-section--lab {
   background:
     linear-gradient(135deg, rgba(7, 20, 26, 0.78), rgba(35, 85, 92, 0.48)),
-    #5783ad;
+    linear-gradient(to right, var(--course-bg-start), var(--course-bg-end));
 }
 
 .course-section--lab .course-section-paper {

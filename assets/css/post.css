@@ -1,6 +1,6 @@
 :root {
   --post-nav: #081016;
-  --post-site-blue: #5783ad;
+  --post-site-bg: linear-gradient(to right, var(--site-page-bg-start, #162229), var(--site-page-bg-end, #116367));
   --post-paper: #fbfcfd;
   --post-ink: #10161a;
   --post-muted: #5f6e78;
@@ -40,7 +40,7 @@
 .post--lab {
   background:
     linear-gradient(135deg, rgba(7, 20, 26, 0.78), rgba(35, 85, 92, 0.48)),
-    var(--post-site-blue);
+    var(--post-site-bg);
 }
 
 .post--lecture {

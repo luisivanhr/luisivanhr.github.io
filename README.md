@@ -13,6 +13,26 @@
 
 Navigation items live in `_data/nav.yml`. The interactive menu and `/classic/` fallback read from the same file.
 
+## Hobbies Page Content
+
+The `/hobbies/` page is data-driven. To add or edit cards, update `_data/hobbies.yml`.
+
+- Add coffee tasting cards under `coffee:`.
+- Add recipe cards under `cooking:`.
+- Add book cards under `books:`.
+- Add game rows under `games:`. Steam games can use `appid`; non-Steam games can use `url` plus `image`.
+- Add fitness activity cards under `fitness:`.
+
+Coffee, Cooking & Bread, and Books use a lightweight vault pattern: the newest dated entry is featured first, and the remaining mini deck is sampled from older entries when the page loads. Keep dates in `YYYY-MM-DD` format so the newest card sorts correctly.
+
+Local hobby images should live in `assets/images/hobbies/` and be referenced from `_data/hobbies.yml`, for example:
+
+```yml
+image: "/assets/images/hobbies/my-dish.jpg"
+```
+
+Only edit `_layouts/hobbies.html`, `assets/js/hobbies.js`, or `assets/css/hobbies.css` when changing the widget structure, card fields, interactions, or visual design.
+
 ## Desk Feeds
 
 JSON feeds are generated at `/data/*.json` through `data/*.json` pages and `_layouts/feed.json.html`. The homepage fetches those feeds for hover previews and monitor content.

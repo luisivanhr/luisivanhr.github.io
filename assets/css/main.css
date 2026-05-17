@@ -1,11 +1,15 @@
 :root{
   --scene-ar: 1.777777778;   /* 16/9 as a single number */
   --bars-color: #000000;
+  --site-page-bg-start: #162229;
+  --site-page-bg-end: #116367;
+  --site-page-bg: linear-gradient(to right, var(--site-page-bg-start), var(--site-page-bg-end));
   --ink: #000000;
 }
 
 * { box-sizing: border-box; }
-body { margin: 0; color: var(--ink); background: #5783ad; font-size: 22px; font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, 'Helvetica Neue', Arial; }
+html { min-height: 100%; background: var(--site-page-bg); }
+body { margin: 0; color: var(--ink); background: var(--site-page-bg); font-size: 22px; font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, 'Helvetica Neue', Arial; }
 a { color: #1a388b; text-decoration: none; }
 a:hover { text-decoration: underline; }
 .skip { position: absolute; left: -9999px; top: -9999px; }
