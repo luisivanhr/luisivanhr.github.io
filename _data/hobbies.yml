@@ -14,6 +14,8 @@ games:
     appid: 367520
   - name: "Darkest Dungeon"
     appid: 262060
+  - name: "Guild Wars"
+    appid: 4103450
   - name: "Hades"
     appid: 1145360
   - name: "For the King"
