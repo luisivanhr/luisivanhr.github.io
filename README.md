@@ -247,7 +247,7 @@ Examples:
 /blog/?q=Wasserstein
 /blog/?q=Wasserstein&category=research
 /publications/?q=%22Exact%20Publication%20Title%22
-/presentations/?format=poster&year=2024
+/presentations/?format=poster&year=2023
 /models/?type=simulation&q=transport
 /courses/?q=copula
 /courses/course-intro/index/?q=Markov
