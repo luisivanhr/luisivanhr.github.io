@@ -226,6 +226,10 @@ def supported_section_page?(path)
   LANDING_PAGES.value?(path) && path != NEWS_INDEX_PATH
 end
 
+def supported_section_item?(path)
+  DATA_SOURCES.values.any? { |config| path == config[:path] }
+end
+
 def generated_news_path?(path)
   path.start_with?("#{NEWS_GENERATED_DIR}/")
 end
