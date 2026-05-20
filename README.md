@@ -43,6 +43,17 @@ Use one source of truth per section:
 
 Publications, Hobbies, and Achievements intentionally do not have collection folders or homepage hover feeds. Do not recreate `_publications`, `_hobbies`, or `_achievements` unless the section architecture changes.
 
+## Course Index Terms
+
+Course index terms are generated from inline markers in course and course-section content:
+
+```md
+[[probability measure]]
+[[convergence::weak convergence]]
+```
+
+Use `[[term]]` for a top-level index entry and `[[parent::subterm]]` for a book-style subentry. Do not maintain a separate complete `index_terms` list in `_courses/*.md`; the Courses directory, course home metadata, search matches, and generated A-Z index all read from the inline markers through `/courses/course-index-data.json`.
+
 ## Desk Feeds
 
 JSON feeds are generated at `/data/*.json` through `data/*.json` pages and `_layouts/feed.json.html`. The homepage fetches feeds only for sections that use hover previews or live monitor content, currently Blog, Models, Courses, and News. About uses hard-coded teaser data, while Publications, Presentations, Achievements, Hobbies, and CV navigate directly without hover feeds.

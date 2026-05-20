@@ -408,6 +408,54 @@
     });
   }
 
+  function courseIndexTermCount(entries) {
+    if (window.CourseIndex && window.CourseIndex.flattenEntries) {
+      return window.CourseIndex.flattenEntries(entries).length;
+    }
+
+    return (entries || []).reduce(function (total, entry) {
+      return total + 1 + ((entry.subentries && entry.subentries.length) || 0);
+    }, 0);
+  }
+
+  function formatIndexTermCount(count) {
+    return count ? count + " index " + (count === 1 ? "term" : "terms") : "index pending";
+  }
+
+  function initCourseHomeIndexCount() {
+    var root = document.querySelector("[data-course-home-page]");
+    var helper = window.CourseIndex;
+    if (!root || !helper || !helper.extractCourseIndexEntries) return;
+
+    var source = root.getAttribute("data-index-source");
+    var slug = root.getAttribute("data-course-slug");
+    var targets = Array.prototype.slice.call(root.querySelectorAll("[data-course-index-count]"));
+    if (!source || !slug || !targets.length) return;
+
+    fetch(source, { credentials: "same-origin" })
+      .then(function (response) {
+        if (!response.ok) throw new Error("Index source not found");
+        return response.json();
+      })
+      .then(function (data) {
+        var courses = data.courses || [];
+        var course = courses.find(function (item) {
+          return item.slug === slug;
+        });
+        var entries = helper.extractCourseIndexEntries(course);
+        var count = courseIndexTermCount(entries);
+        targets.forEach(function (target) {
+          target.textContent = formatIndexTermCount(count);
+        });
+      })
+      .catch(function (err) {
+        console.error("Course index count failed", err);
+        targets.forEach(function (target) {
+          target.textContent = "index pending";
+        });
+      });
+  }
+
   function initCourseIndexPage() {
     var root = document.querySelector("[data-course-index-page]");
     if (!root) return;
@@ -428,7 +476,10 @@
         var course = courses.find(function (item) {
           return item.slug === slug;
         });
-        var entries = extractCourseIndexEntries(course);
+        var helper = window.CourseIndex;
+        var entries = helper && helper.extractCourseIndexEntries
+          ? helper.extractCourseIndexEntries(course)
+          : extractCourseIndexEntries(course);
         renderCourseIndexEntries(root, entries, "");
 
         if (search) {
@@ -448,9 +499,13 @@
   }
 
   ready(function () {
-    document.querySelectorAll(".course-section-content, .course-home-content").forEach(replaceIndexMarkers);
+    var markerReplacer = window.CourseIndex && window.CourseIndex.replaceIndexMarkers
+      ? window.CourseIndex.replaceIndexMarkers
+      : replaceIndexMarkers;
+    document.querySelectorAll(".course-section-content, .course-home-content").forEach(markerReplacer);
 
     initCourseIndexPage();
+    initCourseHomeIndexCount();
 
     document.querySelectorAll(".exercise").forEach(function (exercise) {
       var button = exercise.querySelector(".answer-button");

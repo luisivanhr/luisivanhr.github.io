@@ -6,7 +6,10 @@ layout: default
 
 {% assign courses = site.courses | sort: "date" | reverse | sort: "updated" | reverse %}
 
-<main class="courses-page" data-courses-page>
+<main
+  class="courses-page"
+  data-courses-page
+  data-index-source="{{ '/courses/course-index-data.json' | relative_url }}">
   <section class="courses-shell" aria-labelledby="courses-title">
     <header class="courses-bar">
       <div>
@@ -43,6 +46,7 @@ layout: default
       <section class="course-tile-grid" aria-label="Course cards" data-course-list>
         {% for course in courses %}
           {% assign course_id = course.url | slugify %}
+          {% assign course_slug = course.url | remove_first: "/courses/" | split: "/" | first %}
           {% assign track = course.track | default: course.course_track | default: "Course" %}
           {% assign course_updated = course.updated | default: course.date %}
           {% assign course_created = course.date | default: course_updated %}
@@ -62,17 +66,12 @@ layout: default
           {% elsif course.sections_count %}
             {% assign section_count = course.sections_count %}
           {% endif %}
-          {% assign index_count = 0 %}
-          {% if course.index_terms %}
-            {% assign index_count = course.index_terms | size %}
-          {% elsif course.index_terms_count %}
-            {% assign index_count = course.index_terms_count %}
-          {% endif %}
           <button
             class="course-tile{% if forloop.first %} active{% endif %}"
             type="button"
             data-course-card
             data-course-id="{{ course_id }}"
+            data-course-slug="{{ course_slug | escape }}"
             data-course-title="{{ course.title | escape }}"
             data-course-track="{{ track | escape }}"
             data-course-updated="{{ course_updated | date: '%Y-%m-%d' }}"
@@ -83,7 +82,7 @@ layout: default
             <span class="course-tile-summary">{{ course_summary }}</span>
             <span class="course-meta" aria-label="{{ course.title }} metadata">
               <span>{{ section_count }} {% if section_count == 1 %}section{% else %}sections{% endif %}</span>
-              <span>{% if index_count and index_count != 0 %}{{ index_count }} terms{% else %}index pending{% endif %}</span>
+              <span data-course-index-count>index loading</span>
             </span>
           </button>
         {% endfor %}
@@ -92,6 +91,7 @@ layout: default
       <aside class="course-detail-drawer" aria-label="Selected course details">
         {% for course in courses %}
           {% assign course_id = course.url | slugify %}
+          {% assign course_slug = course.url | remove_first: "/courses/" | split: "/" | first %}
           {% assign track = course.track | default: course.course_track | default: "Course" %}
           {% assign course_updated = course.updated | default: course.date %}
           {% assign course_created = course.date | default: course_updated %}
@@ -111,25 +111,25 @@ layout: default
           {% elsif course.sections_count %}
             {% assign section_count = course.sections_count %}
           {% endif %}
-          {% assign index_count = 0 %}
-          {% if course.index_terms %}
-            {% assign index_count = course.index_terms | size %}
-          {% elsif course.index_terms_count %}
-            {% assign index_count = course.index_terms_count %}
-          {% endif %}
           {% assign index_url = course.index_url %}
           {% unless index_url %}
             {% assign index_url = course.url | append: "index/" %}
           {% endunless %}
 
-          <article class="course-detail"{% unless forloop.first %} hidden{% endunless %} data-course-detail data-course-id="{{ course_id }}">
+          <article
+            class="course-detail"
+            {% unless forloop.first %}hidden{% endunless %}
+            data-course-detail
+            data-course-id="{{ course_id }}"
+            data-course-slug="{{ course_slug | escape }}"
+            data-course-index-url="{{ index_url | relative_url }}">
             <header class="course-detail-header">
               <span class="course-type-label">Selected course</span>
               <h2><a class="course-detail-title-link" href="{{ course.url | relative_url }}">{{ course.title }}</a></h2>
               <div class="course-meta">
                 {% if course_updated %}<span>Updated {{ course_updated | date: "%b %Y" }}</span>{% endif %}
                 {% if course_created and course_updated != course_created %}<span>Created {{ course_created | date: "%b %Y" }}</span>{% endif %}
-                <span>{% if index_count and index_count != 0 %}Index: {{ index_count }} terms{% else %}Index pending{% endif %}</span>
+                <span data-course-index-count>Index loading</span>
               </div>
             </header>
 
@@ -167,7 +167,7 @@ layout: default
                   <div class="course-chapter-row">
                     <b>IX</b>
                     <a href="{{ index_url | relative_url }}">Course Index</a>
-                    <small>{% if index_count and index_count != 0 %}A-Z{% else %}pending{% endif %}</small>
+                    <small data-course-index-status>generated</small>
                   </div>
                 </div>
               </section>
@@ -196,17 +196,9 @@ layout: default
               </section>
 
               <section class="course-tab-panel" data-course-panel="index" hidden aria-label="{{ course.title }} index terms">
-                {% if course.index_terms and course.index_terms.size > 0 %}
-                  <div class="course-index-chip-list">
-                    {% for term in course.index_terms %}
-                      {% assign term_title = term.title | default: term %}
-                      {% assign term_url = term.url | default: index_url %}
-                      <a class="course-index-chip" href="{{ term_url | relative_url }}">{{ term_title }}</a>
-                    {% endfor %}
-                  </div>
-                {% else %}
-                  <p class="course-muted">Index terms can be added with <code>index_terms</code> in the course front matter.</p>
-                {% endif %}
+                <div class="course-index-chip-list" data-course-index-preview>
+                  <p class="course-muted">Index terms are generated from inline <code>[[...]]</code> markers.</p>
+                </div>
               </section>
             </div>
           </article>
@@ -234,6 +226,7 @@ layout: default
     <div class="course-search-sources" hidden>
       {% for course in courses %}
         {% assign course_id = course.url | slugify %}
+        {% assign course_slug = course.url | remove_first: "/courses/" | split: "/" | first %}
         {% assign track = course.track | default: course.course_track | default: "Course" %}
         {% assign course_updated = course.updated | default: course.date %}
         {% assign course_created = course.date | default: course_updated %}
@@ -250,6 +243,7 @@ layout: default
         <div
           data-search-source
           data-course-id="{{ course_id }}"
+          data-course-slug="{{ course_slug | escape }}"
           data-kind="Course match"
           data-title="{{ course.title | escape }}"
           data-meta="{{ track | escape }}"
@@ -270,6 +264,7 @@ layout: default
             <div
               data-search-source
               data-course-id="{{ course_id }}"
+              data-course-slug="{{ course_slug | escape }}"
               data-kind="Subtitle match"
               data-title="{{ section_title | escape }}"
               data-meta="{{ course.title | escape }}"
@@ -284,27 +279,6 @@ layout: default
           {% endfor %}
         {% endif %}
 
-        {% if course.index_terms and course.index_terms.size > 0 %}
-          {% for term in course.index_terms %}
-            {% assign term_title = term.title | default: term %}
-            {% assign term_url = term.url | default: course.url %}
-            <div
-              data-search-source
-              data-course-id="{{ course_id }}"
-              data-kind="Index match"
-              data-title="{{ term_title | escape }}"
-              data-meta="{{ course.title | escape }}"
-              data-course-title="{{ course.title | escape }}"
-              data-course-track="{{ track | escape }}"
-              data-course-updated="{{ course_updated | date: '%Y-%m-%d' }}"
-              data-course-created="{{ course_created | date: '%Y-%m-%d' }}"
-              data-summary="Index term"
-              data-url="{{ term_url | relative_url }}"
-              data-search-text="{{ course.title | append: ' ' | append: term_title | escape }}">
-            </div>
-          {% endfor %}
-        {% endif %}
-
         {% if course.updates and course.updates.size > 0 %}
           {% for update in course.updates %}
             {% assign update_title = update.title | default: update %}
@@ -313,6 +287,7 @@ layout: default
             <div
               data-search-source
               data-course-id="{{ course_id }}"
+              data-course-slug="{{ course_slug | escape }}"
               data-kind="Update match"
               data-title="{{ update_title | escape }}"
               data-meta="{{ course.title | escape }}"
@@ -336,4 +311,5 @@ layout: default
   </section>
 </main>
 
+<script src="{{ '/assets/js/course-index.js' | relative_url }}?v={{ asset_version }}" defer></script>
 <script src="{{ '/assets/js/courses.js' | relative_url }}?v={{ asset_version }}" defer></script>

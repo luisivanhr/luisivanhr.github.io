@@ -14,15 +14,21 @@ layout: default
 {% unless index_url %}
   {% assign index_url = page.url | append: "index/" %}
 {% endunless %}
+{% assign course_slug = page.url | remove_first: "/courses/" | split: "/" | first %}
 
-<article class="course-home-page" data-course-material>
+<article
+  class="course-home-page"
+  data-course-material
+  data-course-home-page
+  data-course-slug="{{ course_slug | escape }}"
+  data-index-source="{{ '/courses/course-index-data.json' | relative_url }}">
   <section class="course-home-shell" aria-labelledby="course-home-title">
     <header class="course-home-hero">
       <div>
         <div class="course-kicker">
           {% if page.track %}<span>{{ page.track }}</span>{% endif %}
           {% if page.sections %}<span>{{ page.sections | size }} sections</span>{% endif %}
-          {% if page.index_terms %}<span>{{ page.index_terms | size }} index terms</span>{% endif %}
+          <span data-course-index-count>generated index</span>
         </div>
         <h1 id="course-home-title">{{ course_title }}</h1>
         {% if course_description %}
@@ -153,4 +159,5 @@ layout: default
   </section>
 </article>
 
+<script src="{{ '/assets/js/course-index.js' | relative_url }}?v={{ asset_version }}" defer></script>
 <script src="{{ '/assets/js/course-material.js' | relative_url }}?v={{ asset_version }}" defer></script>

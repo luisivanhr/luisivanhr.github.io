@@ -11,6 +11,7 @@
     var page = document.querySelector("[data-courses-page]");
     if (!page) return;
 
+    var indexSource = page.getAttribute("data-index-source");
     var cards = Array.prototype.slice.call(page.querySelectorAll("[data-course-card]"));
     var details = Array.prototype.slice.call(page.querySelectorAll("[data-course-detail]"));
     var searchInput = page.querySelector("#course-search");
@@ -20,6 +21,7 @@
     var searchView = page.querySelector("[data-search-view]");
     var searchList = page.querySelector("[data-search-list]");
     var searchSummary = page.querySelector("[data-search-summary]");
+    var searchSourcesRoot = page.querySelector(".course-search-sources");
     var searchSources = Array.prototype.slice.call(page.querySelectorAll("[data-search-source]"));
     var selectedCourseId = cards[0] ? cards[0].getAttribute("data-course-id") : "";
 
@@ -136,6 +138,138 @@
       return link;
     }
 
+    function indexTermCountText(count, withPrefix) {
+      if (!count) return withPrefix ? "Index pending" : "index pending";
+      var text = count + " " + (count === 1 ? "term" : "terms");
+      return withPrefix ? "Index: " + text : text;
+    }
+
+    function courseElementsForSlug(slug) {
+      var card = cards.find(function (item) {
+        return item.getAttribute("data-course-slug") === slug;
+      });
+      if (!card) return {};
+
+      var courseId = card.getAttribute("data-course-id");
+      var detail = details.find(function (item) {
+        return item.getAttribute("data-course-id") === courseId;
+      });
+
+      return {
+        card: card,
+        courseId: courseId,
+        detail: detail
+      };
+    }
+
+    function createChip(term) {
+      var chip = document.createElement("a");
+      chip.className = "course-index-chip";
+      chip.href = term.url || "#";
+      chip.textContent = term.displayLabel || term.label || "Index term";
+      return chip;
+    }
+
+    function appendIndexSearchSource(course, courseId, card, term) {
+      if (!searchSourcesRoot || !courseId || !card) return;
+
+      var source = document.createElement("div");
+      source.setAttribute("data-search-source", "");
+      source.setAttribute("data-course-id", courseId);
+      source.setAttribute("data-course-slug", course.slug || "");
+      source.setAttribute("data-kind", "Index match");
+      source.setAttribute("data-title", term.displayLabel || term.label || "Index term");
+      source.setAttribute("data-meta", course.title || "");
+      source.setAttribute("data-course-title", card.getAttribute("data-course-title") || course.title || "");
+      source.setAttribute("data-course-track", card.getAttribute("data-course-track") || "");
+      source.setAttribute("data-course-updated", card.getAttribute("data-course-updated") || "");
+      source.setAttribute("data-course-created", card.getAttribute("data-course-created") || "");
+      source.setAttribute("data-summary", term.parent ? "Index subentry" : "Index term");
+      source.setAttribute("data-url", term.url || course.indexUrl || course.url || "#");
+      source.setAttribute(
+        "data-search-text",
+        [course.title, term.displayLabel, term.searchText].filter(Boolean).join(" ")
+      );
+
+      searchSourcesRoot.appendChild(source);
+      searchSources.push(source);
+    }
+
+    function updateIndexPreview(detail, course, terms) {
+      if (!detail) return;
+
+      var preview = detail.querySelector("[data-course-index-preview]");
+      if (!preview) return;
+
+      preview.textContent = "";
+      if (!terms.length) {
+        var empty = document.createElement("p");
+        empty.className = "course-muted";
+        empty.textContent = "No inline index markers have been added yet.";
+        preview.appendChild(empty);
+        return;
+      }
+
+      terms.slice(0, 12).forEach(function (term) {
+        preview.appendChild(createChip(term));
+      });
+
+      if (terms.length > 12 && course.indexUrl) {
+        var all = document.createElement("a");
+        all.className = "course-index-chip";
+        all.href = course.indexUrl;
+        all.textContent = "View all " + terms.length;
+        preview.appendChild(all);
+      }
+    }
+
+    function updateCourseIndexUi(course, entries) {
+      var elements = courseElementsForSlug(course.slug);
+      var helper = window.CourseIndex;
+      var terms = helper && helper.flattenEntries ? helper.flattenEntries(entries) : [];
+      var count = terms.length;
+
+      if (elements.card) {
+        var cardCount = elements.card.querySelector("[data-course-index-count]");
+        if (cardCount) cardCount.textContent = indexTermCountText(count, false);
+      }
+
+      if (elements.detail) {
+        var detailCount = elements.detail.querySelector("[data-course-index-count]");
+        var status = elements.detail.querySelector("[data-course-index-status]");
+        if (detailCount) detailCount.textContent = indexTermCountText(count, true);
+        if (status) status.textContent = count ? "A-Z" : "pending";
+        updateIndexPreview(elements.detail, course, terms);
+      }
+
+      terms.forEach(function (term) {
+        appendIndexSearchSource(course, elements.courseId, elements.card, term);
+      });
+    }
+
+    function loadCourseIndexes() {
+      var helper = window.CourseIndex;
+      if (!indexSource || !helper || !helper.extractCourseIndexEntries) return;
+
+      fetch(indexSource, { credentials: "same-origin" })
+        .then(function (response) {
+          if (!response.ok) throw new Error("Course index source not found");
+          return response.json();
+        })
+        .then(function (data) {
+          (data.courses || []).forEach(function (course) {
+            updateCourseIndexUi(course, helper.extractCourseIndexEntries(course));
+          });
+
+          if (searchInput && searchInput.value.trim()) {
+            applySearch();
+          }
+        })
+        .catch(function (err) {
+          console.error("Course directory index failed", err);
+        });
+    }
+
     function showDefaultView() {
       if (defaultView) defaultView.hidden = false;
       if (searchView) searchView.hidden = true;
@@ -222,5 +356,6 @@
     }
 
     sortCards(true);
+    loadCourseIndexes();
   });
 })();

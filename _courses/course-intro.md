@@ -64,17 +64,6 @@ sections:
         url: /courses/course-intro/reference-template/#criteria
       - title: "5.3 Index terms"
         url: /courses/course-intro/reference-template/#index-terms
-index_terms:
-  - title: Probability measure
-    url: /courses/course-intro/theory-template/#definitions
-  - title: Almost sure convergence
-    url: /courses/course-intro/theory-template/#main-result
-  - title: Weak convergence
-    url: /courses/course-intro/hybrid-template/#derivation
-  - title: Convergence in probability
-    url: /courses/course-intro/reference-template/#definitions
-  - title: Sample mean
-    url: /courses/course-intro/code-template/#setup
 updates:
   - title: Five placeholder templates added
     date: May 2026
