@@ -1,7 +1,10 @@
 intro: "Overview of my professional trajectory. Follow any of the links for more detailed information."
 
 actions:
-  - title: "Downloads"
+  - id: cv-downloads
+    date: "2025-08-19"
+    updated: "2025-08-19"
+    title: "Downloads"
     links:
       - label: "CV (English)"
         icon: "pdf"
@@ -19,7 +22,10 @@ actions:
         icon: "pdf"
         url: "https://drive.google.com/file/d/1jiXqHQLvqgykGW-pW0Ho_f9ce_1nEkuM/view?usp=sharing"
         external: true
-  - title: "Socials"
+  - id: cv-socials
+    date: "2025-08-19"
+    updated: "2025-08-19"
+    title: "Socials"
     links:
       - label: "LinkedIn"
         icon: "linkedin"
@@ -40,7 +46,10 @@ actions:
       - label: "Email"
         icon: "email"
         url: "mailto:luisivanhr@ciencias.unam.mx"
-  - title: "Intellectual Property"
+  - id: cv-intellectual-property
+    date: "2025-08-19"
+    updated: "2025-08-19"
+    title: "Intellectual Property"
     links:
       - label: "Publications"
         icon: "publications"
@@ -59,38 +68,65 @@ summary:
     - "16 research presentations at seminars, conferences, workshops, and poster sessions."
 
 education:
-  - period: "2024"
+  - id: cv-education-kyoto-doctor
+    date: "2025-08-19"
+    updated: "2025-08-19"
+    period: "2024"
     title: "Doctor in Mathematics - Kyoto University"
     description: "Fully funded by the MEXT scholarship. Established results in point processes, probability theory, Markov chains, and renewal Hawkes processes."
-  - period: "2021"
+  - id: cv-education-kyoto-master
+    date: "2025-08-19"
+    updated: "2025-08-19"
+    period: "2021"
     title: "Master of Science in Physics - Kyoto University"
     description: "Fully funded by the MEXT scholarship. Developed nonparametric estimation methods for Hawkes processes using RKHS methods and applied them to neural time-series data."
-  - period: "2016"
+  - id: cv-education-unam-bachelor
+    date: "2025-08-19"
+    updated: "2025-08-19"
+    period: "2016"
     title: "Bachelor in Physics - UNAM"
     description: "Emphasis in probability theory, topology, analysis, statistical mechanics, and dynamical systems."
-  - period: "2011"
+  - id: cv-education-itesm-ib
+    date: "2025-08-19"
+    updated: "2025-08-19"
+    period: "2011"
     title: "International Baccalaureate - ITESM CCM"
     description: "Graduated with a 36 point diploma, higher level Mathematics, and a perfect score of 7 in Physics."
 
 experience:
-  - period: "May 2024 - Apr 2026"
+  - id: cv-experience-kyoto-ml-researcher
+    date: "2025-08-19"
+    updated: "2025-08-19"
+    period: "May 2024 - Apr 2026"
     title: "Machine Learning Researcher - Kyoto University"
     description: "Worked on SGD dynamics in LLM learning, soccer match outcome prediction, and cause-emotion utterance analysis using causal inference. Responsibilities included mathematical formulation, experimental design, implementation, model evaluation, verification, and code review."
-  - period: "Jul 2022 - Dec 2023"
+  - id: cv-experience-kyoto-research-assistant
+    date: "2025-08-19"
+    updated: "2025-08-19"
+    period: "Jul 2022 - Dec 2023"
     title: "Research Assistant - Kyoto University"
     description: "Studied asymptotic normality for nonparametric estimators in multivariate discrete-time semi-Markov chains and organized the results into a peer-reviewed publication."
-  - period: "Feb 2017 - Dec 2018"
+  - id: cv-experience-unam-teaching-assistant
+    date: "2025-08-19"
+    updated: "2025-08-19"
+    period: "Feb 2017 - Dec 2018"
     title: "Teaching Assistant - UNAM"
     description: "Supported Differential and Integral Calculus instruction for physics, mathematics, and actuarial majors through exercise design, assignments, student support, and class operation."
 
 skills:
-  - category: "Programming Language"
+  - id: cv-skills-programming-language
+    date: "2025-08-19"
+    updated: "2025-08-19"
+    category: "Programming Language"
     items:
       - "Python: 3+ years"
       - "Julia: 7+ years"
       - "C: self-study"
       - "HTML/CSS: self-study"
-  - category: "Mathematics / Statistics"
+  - id: cv-skills-mathematics-statistics
+    date: "2025-08-19"
+    updated: "2025-08-19"
+    category: "Mathematics / Statistics"
     items:
       - "Point processes: 8+ years"
       - "Hawkes processes: 6+ years"
@@ -101,7 +137,10 @@ skills:
       - "Ito / Stratonovich calculus; Malliavin calculus: 6+ years"
       - "Topology, analysis, coupling methods: 8+ years"
       - "State-space methods, Bayesian inference, sampling: 6+ years"
-  - category: "Physics"
+  - id: cv-skills-physics
+    date: "2025-08-19"
+    updated: "2025-08-19"
+    category: "Physics"
     items:
       - "Statistical mechanics: 8+ years"
       - "Nonequilibrium systems: 8+ years"
@@ -109,7 +148,10 @@ skills:
       - "Signal processing: 8+ years"
       - "Thermodynamics: 8+ years"
       - "Electronic circuits (Arduino): 8+ years"
-  - category: "Machine learning / Data Analysis"
+  - id: cv-skills-machine-learning-data-analysis
+    date: "2025-08-19"
+    updated: "2025-08-19"
+    category: "Machine learning / Data Analysis"
     items:
       - "PyTorch: 3+ years"
       - "Pandas/Polars: 5+ years"
@@ -119,24 +161,42 @@ skills:
       - "HuggingFace"
       - "BERT"
       - "XGBoost"
-  - category: "DB"
+  - id: cv-skills-db
+    date: "2025-08-19"
+    updated: "2025-08-19"
+    category: "DB"
     items:
       - "DuckDB (SQL): self-study"
-  - category: "Tools"
+  - id: cv-skills-tools
+    date: "2025-08-19"
+    updated: "2025-08-19"
+    category: "Tools"
     items:
       - "GitHub: 7+ years"
       - "Jekyll: self-study"
       - "Miro: 2+ years"
 
 languages:
-  - language: "Spanish"
+  - id: cv-language-spanish
+    date: "2025-08-19"
+    updated: "2025-08-19"
+    language: "Spanish"
     level: "Native"
     note: "Mother tongue"
-  - language: "English"
+  - id: cv-language-english
+    date: "2025-08-19"
+    updated: "2025-08-19"
+    language: "English"
     level: "Native"
     note: "TOEFL iBT 111 - 2019"
-  - language: "Japanese"
+  - id: cv-language-japanese
+    date: "2025-08-19"
+    updated: "2025-08-19"
+    language: "Japanese"
     level: "Business fluent"
     note: "JLPT N2 - Dec 2024"
-  - language: "German"
+  - id: cv-language-german
+    date: "2025-08-19"
+    updated: "2025-08-19"
+    language: "German"
     level: "Basic"

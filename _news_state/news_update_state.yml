@@ -1,0 +1,829 @@
+---
+version: 1
+data_items:
+  presentations:
+    embedding-methods-football:
+      id: embedding-methods-football
+      hash: 30f42cd225b0c66beed5f523bb4a9f613d0b3c48e5b1fcd2813e82aa8717d073
+      title: Embedding Methods for Football Match Outcome Forecasting
+      date: '2025-03-24'
+      updated: '2025-03-24'
+      summary: RIKEN AIP データ科学班ミーティング (Tokyo, Nihonbashi)
+      image:
+      enabled: true
+      source_path: _data/presentations.yml
+      url: "/presentations/"
+      category: ''
+    renewal-hawkes-cluster-niigata:
+      id: renewal-hawkes-cluster-niigata
+      hash: d57181465510937907de6cff9562888918afd5c831077928109f953ccb95ae86
+      title: Cluster Construction and Limit Properties of Renewal Hawkes Processes
+      date: '2024-03-14'
+      updated: '2024-03-14'
+      summary: 新潟確率論ワークショップ (Niigata Probability Workshop)
+      image:
+      enabled: true
+      source_path: _data/presentations.yml
+      url: "/presentations/"
+      category: ''
+    renewal-hawkes-lln-clt-ims-japan:
+      id: renewal-hawkes-lln-clt-ims-japan
+      hash: a12921b7c9e4432323adb9cbda86e269e106dc5ee2efea9181c2d37aff7d8b41
+      title: Law of Large Numbers and Central Limit Theorem for Renewal Hawkes Processes
+      date: '2024-02-15'
+      updated: '2024-02-15'
+      summary: 無限分解可能過程に関連する諸問題 (IMS Japan)
+      image:
+      enabled: true
+      source_path: _data/presentations.yml
+      url: "/presentations/"
+      category: ''
+    renewal-hawkes-lln-clt-ritsumeikan:
+      id: renewal-hawkes-lln-clt-ritsumeikan
+      hash: 6837ac77925b131167af00d001fed3948a245d9fef50997deed1cfcc27eefade
+      title: Law of Large Numbers and Central Limit Theorem for Renewal Hawkes Processes
+      date: '2023-12-27'
+      updated: '2023-12-27'
+      summary: Probability Symposium at Ritsumeikan University
+      image:
+      enabled: true
+      source_path: _data/presentations.yml
+      url: "/presentations/"
+      category: ''
+    renewal-hawkes-rims-2023:
+      id: renewal-hawkes-rims-2023
+      hash: '09ec57b3b6bb3f0d84f005adac22f320cc8541e13bf3c806dcc0de895115e0d7'
+      title: Limit Theorems and Construction of Renewal Hawkes Processes
+      date: '2023-09-07'
+      updated: '2023-09-07'
+      summary: Stochastic Processes and Related Fields 2023 at RIMS
+      image:
+      enabled: true
+      source_path: _data/presentations.yml
+      url: "/presentations/"
+      category: ''
+    semi-markov-yss-2023:
+      id: semi-markov-yss-2023
+      hash: 27781b2ba9e081cd573c1104604274bd608766e5dc1243d046e9b95b6d9076fd
+      title: Asymptotic Normality in Multi-Dimension of Nonparametric Estimators for
+        Discrete-Time Semi-Markov Chains
+      date: '2023-08-30'
+      updated: '2023-08-30'
+      summary: ヤングサマーセミナー 2023 (Kyoto Sangyo University)
+      image:
+      enabled: true
+      source_path: _data/presentations.yml
+      url: "/presentations/"
+      category: ''
+    renewal-hawkes-rims-monthly-2023:
+      id: renewal-hawkes-rims-monthly-2023
+      hash: 7d3a32931b77f7e9485cddbfc6e08fe356e680a42c041d4b899966f54bbb4616
+      title: Construction and Limit Theorems for the Renewal Hawkes Process
+      date: '2023-07-21'
+      updated: '2023-07-21'
+      summary: RIMS Monthly Seminar (Kyoto University)
+      image:
+      enabled: true
+      source_path: _data/presentations.yml
+      url: "/presentations/"
+      category: ''
+    renewal-maximum-uq-2023:
+      id: renewal-maximum-uq-2023
+      hash: 0043675fceb3b349fd236c6a6cfd1282df161506488ad9b054f17b0b574f6bd1
+      title: Distribution of the Maximum and Decay Rates for Renewal Processes (with
+        Application to Hawkes Processes)
+      date: '2023-04-27'
+      updated: '2023-04-27'
+      summary: University of Queensland - Statistics, Modelling and Operations Research
+        Seminar
+      image:
+      enabled: true
+      source_path: _data/presentations.yml
+      url: "/presentations/"
+      category: ''
+    renewal-maximum-mexico-japan-2023:
+      id: renewal-maximum-mexico-japan-2023
+      hash: 7beac4979866596aca5e26f3cc58aba938d5062f4be25249ff21bb319a2da6c3
+      title: Distribution of the Maximum and Decay Rates for Renewal Processes (with
+        Application to Hawkes Processes)
+      date: '2023-02-07'
+      updated: '2023-02-07'
+      summary: Mexico-Japan Probability Seminar
+      image:
+      enabled: true
+      source_path: _data/presentations.yml
+      url: "/presentations/"
+      category: ''
+    renewal-hawkes-math-finance-2022:
+      id: renewal-hawkes-math-finance-2022
+      hash: ee7c4443df6a0345aab1347dd2413f2733a3b6039195951bf98c15e25c7d4412
+      title: Results on Limit Theorems for Renewal Hawkes Processes
+      date: '2022-10-20'
+      updated: '2022-10-20'
+      summary: Ritsumeikan University Mathematical Finance Seminar
+      image:
+      enabled: true
+      source_path: _data/presentations.yml
+      url: "/presentations/"
+      category: ''
+    renewal-hawkes-rds-rims-2022:
+      id: renewal-hawkes-rds-rims-2022
+      hash: 30b830c888bb42a2240578b540a21d903b3c6ac8691fdac0e3013ba10e3f00ae
+      title: Results on Limit Theorems for Renewal Hawkes Processes
+      date: '2022-09-26'
+      updated: '2022-09-26'
+      summary: RIMS Workshop on Random/Non-Autonomous Dynamical Systems
+      image:
+      enabled: true
+      source_path: _data/presentations.yml
+      url: "/presentations/"
+      category: ''
+    renewal-hawkes-sima-2022:
+      id: renewal-hawkes-sima-2022
+      hash: 1c76a48b94fc537df3bce8b8acdad2bf4e8ea86fd57f59f41bf56183e45d9041
+      title: Law of Large Numbers and Functional Central Limit Theorem for the Renewal
+        Hawkes Process
+      date: '2022-09-05'
+      updated: '2022-09-05'
+      summary: SIMA 2022 & First Minimeeting Mexico-Japan in Probability
+      image:
+      enabled: true
+      source_path: _data/presentations.yml
+      url: "/presentations/"
+      category: ''
+    multivariate-hawkes-yss-2022:
+      id: multivariate-hawkes-yss-2022
+      hash: c5a1a80940eac70696b74f591a4b634c04311f22fb4a5a7d26fdf2fc623efda5
+      title: Limit Theorems for Multivariate Hawkes Processes
+      date: '2022-08-29'
+      updated: '2022-08-29'
+      summary: ヤングサマーセミナー 2022
+      image:
+      enabled: true
+      source_path: _data/presentations.yml
+      url: "/presentations/"
+      category: ''
+    hawkes-martingale-early-spring-2022:
+      id: hawkes-martingale-early-spring-2022
+      hash: 6e838b684a537962e45341e3d275c52e5f387c0837f8b6fbaf65734f739e8759
+      title: A Martingale Construction of the Hawkes Point Process
+      date: '2022-03-07'
+      updated: '2022-03-07'
+      summary: 率論早春セミナー
+      image:
+      enabled: true
+      source_path: _data/presentations.yml
+      url: "/presentations/"
+      category: ''
+    hawkes-random-measures-rims-2021:
+      id: hawkes-random-measures-rims-2021
+      hash: 8be4b1ac4901784dba7680c94950bfa6acbfa0e9910f58244218ed9ce038d532
+      title: Random Measures and Construction of the Hawkes Process
+      date: '2021-12-10'
+      updated: '2021-12-10'
+      summary: RIMS Monthly Seminar (Kyoto University)
+      image:
+      enabled: true
+      source_path: _data/presentations.yml
+      url: "/presentations/"
+      category: ''
+    ultrasonic-fluids-2015:
+      id: ultrasonic-fluids-2015
+      hash: 2e94296d63e4fbfe80b0354d1d3f54274fa825c7e15810a1d3bc60c880df7c13
+      title: Ultrasonic Analysis of Fluids
+      date: '2015-10-12'
+      updated: '2015-10-12'
+      summary: 4th Contemporary Physics Laboratory Congress
+      image:
+      enabled: true
+      source_path: _data/presentations.yml
+      url: "/presentations/"
+      category: ''
+  publications:
+    renewal-convergence-rates:
+      id: renewal-convergence-rates
+      hash: 1c833c261a090f61c223f9cde79f50c17e86dbfb6ddd32266d5be2d4aa19d3aa
+      title: Results for Convergence Rates Associated with Renewal Processes
+      date: '2025-07-01'
+      updated: '2025-07-01'
+      summary: Placeholder summary 1
+      image: "/assets/images/publications/renewal-rates-cover.jpg"
+      enabled: true
+      source_path: _data/publications.yml
+      url: https://link.springer.com/chapter/10.1007/978-3-031-86422-3_11
+      category: ''
+    renewal-hawkes-cluster:
+      id: renewal-hawkes-cluster
+      hash: bf1d31a7a565fce31c470c60c7b19d40dc7b49cdafa00ced5d42eabf39b87067
+      title: A Cluster Representation of the Renewal Hawkes Process
+      date: '2025-06-01'
+      updated: '2025-06-01'
+      summary: Placeholder summary 2
+      image:
+      enabled: true
+      source_path: _data/publications.yml
+      url: https://alea.impa.br/articles/v22/22-53.pdf
+      category: ''
+    renewal-hawkes-lln-clt:
+      id: renewal-hawkes-lln-clt
+      hash: 103a03f5771d71e396b5e3eaf20471b7a23603afe401e08cd27c60c70baa3229
+      title: Law of Large Numbers and Central Limit Theorem for Renewal Hawkes Processes
+      date: '2025-05-01'
+      updated: '2025-05-01'
+      summary: Placeholder summary 3
+      image:
+      enabled: true
+      source_path: _data/publications.yml
+      url: https://drive.google.com/file/d/1tJ3Qz408ZkIajeoAgFB8bc3xQz-aSobd/view?usp=sharing
+      category: ''
+    semi-markov-asymptotic-normality:
+      id: semi-markov-asymptotic-normality
+      hash: a1c57cd98439a1cdacaa023144b647636c951b92cc8362d9d3c61d31de9600ca
+      title: Asymptotic Normality in Multi-Dimension of Nonparametric Estimators for
+        Discrete-Time Semi-Markov Chains
+      date: '2025-04-01'
+      updated: '2025-04-01'
+      summary: Placeholder summary 5
+      image:
+      enabled: true
+      source_path: _data/publications.yml
+      url: https://www.math.uni.wroc.pl/~pms/files_doi/g00210/g00210.pdf
+      category: ''
+    renewal-hawkes-rims:
+      id: renewal-hawkes-rims
+      hash: 49a39b62710d2306dbd6ee4425e6c9c6fa92bf427331de6b21626cf29ad40bde
+      title: Limit Theorems for Renewal Hawkes Processes
+      date: '2023-01-01'
+      updated: '2023-01-01'
+      summary: Placeholder summary 4
+      image:
+      enabled: true
+      source_path: _data/publications.yml
+      url: https://www.kurims.kyoto-u.ac.jp/~kyodo/kokyuroku/contents/pdf/2270-13.pdf
+      category: ''
+  hobbies:
+    game-elden-ring:
+      id: game-elden-ring
+      hash: 12eb66b8fcc2e004bcd4102b8919666219e8ad60b946e99fa2a086be6f957f0d
+      title: Elden Ring
+      date: '2025-08-19'
+      updated: '2025-08-19'
+      summary: ''
+      image:
+      enabled: true
+      source_path: _data/hobbies.yml
+      url: "/hobbies/"
+      category: games
+    game-dark-souls-iii:
+      id: game-dark-souls-iii
+      hash: 33d8d65ee5655d7a54b31772ed6426bd5133caa5d050a5527b48d686f18bc499
+      title: Dark Souls III
+      date: '2025-08-19'
+      updated: '2025-08-19'
+      summary: ''
+      image:
+      enabled: true
+      source_path: _data/hobbies.yml
+      url: "/hobbies/"
+      category: games
+    game-sekiro:
+      id: game-sekiro
+      hash: 0c448b73e9513bffaeb47b885dbba7d72eb976fba64ac7a84457e7c2e4f49113
+      title: Sekiro
+      date: '2025-08-19'
+      updated: '2025-08-19'
+      summary: ''
+      image:
+      enabled: true
+      source_path: _data/hobbies.yml
+      url: "/hobbies/"
+      category: games
+    game-armored-core-vi:
+      id: game-armored-core-vi
+      hash: c9ada44729a312699563b2cb5c3ec6ff3dfafb7401b8881c71334db96ff71398
+      title: Armored Core VI
+      date: '2025-08-19'
+      updated: '2025-08-19'
+      summary: ''
+      image:
+      enabled: true
+      source_path: _data/hobbies.yml
+      url: "/hobbies/"
+      category: games
+    game-hollow-knight:
+      id: game-hollow-knight
+      hash: 2ccffa089502956e07257cb2790875dc36182d3463cb07baa7a93148d668bcbd
+      title: Hollow Knight
+      date: '2025-08-19'
+      updated: '2025-08-19'
+      summary: ''
+      image:
+      enabled: true
+      source_path: _data/hobbies.yml
+      url: "/hobbies/"
+      category: games
+    game-darkest-dungeon:
+      id: game-darkest-dungeon
+      hash: 40d075a5f95cc8aa4c5314b2ab9bf7693840a160739c9b2b70491415052d871f
+      title: Darkest Dungeon
+      date: '2025-08-19'
+      updated: '2025-08-19'
+      summary: ''
+      image:
+      enabled: true
+      source_path: _data/hobbies.yml
+      url: "/hobbies/"
+      category: games
+    game-guild-wars:
+      id: game-guild-wars
+      hash: 745ae8f2d557a3d9d370f8c79360356b3eba95ed30e3c820f582484fcfc7c9eb
+      title: Guild Wars
+      date: '2025-08-19'
+      updated: '2025-08-19'
+      summary: ''
+      image:
+      enabled: true
+      source_path: _data/hobbies.yml
+      url: "/hobbies/"
+      category: games
+    game-hades:
+      id: game-hades
+      hash: b5a0b3775c2c281de3219b9e52cef1d6091ad5871bf9ce5703893ad0a04a4b55
+      title: Hades
+      date: '2025-08-19'
+      updated: '2025-08-19'
+      summary: ''
+      image:
+      enabled: true
+      source_path: _data/hobbies.yml
+      url: "/hobbies/"
+      category: games
+    game-for-the-king:
+      id: game-for-the-king
+      hash: 8b67db35587dccbbd5560c6c1e197bf689af3bf4df9c2af701af0bd98988650c
+      title: For the King
+      date: '2025-08-19'
+      updated: '2025-08-19'
+      summary: ''
+      image:
+      enabled: true
+      source_path: _data/hobbies.yml
+      url: "/hobbies/"
+      category: games
+    game-valheim:
+      id: game-valheim
+      hash: 0c181c4074838f4c46f3967a603bf4053b829cca14053eee85fc766f24e89b83
+      title: Valheim
+      date: '2025-08-19'
+      updated: '2025-08-19'
+      summary: ''
+      image:
+      enabled: true
+      source_path: _data/hobbies.yml
+      url: "/hobbies/"
+      category: games
+    game-bloodborne:
+      id: game-bloodborne
+      hash: '07058f03a80b4a9943bc743fb385274bfdb38343e3e6d0c1c27aad3c97b7aca8'
+      title: Bloodborne
+      date: '2025-08-19'
+      updated: '2025-08-19'
+      summary: ''
+      image: "/assets/images/hobbies/bloodborne.svg"
+      enabled: true
+      source_path: _data/hobbies.yml
+      url: https://www.playstation.com/en-us/games/bloodborne/
+      category: games
+    game-breath-of-the-wild:
+      id: game-breath-of-the-wild
+      hash: ab5d465a31db492f96d44ded6e1a6522b9c55cf39b12e9da86217fb6a52d063a
+      title: 'The Legend of Zelda: Breath of the Wild'
+      date: '2025-08-19'
+      updated: '2025-08-19'
+      summary: ''
+      image: "/assets/images/hobbies/breath-of-the-wild.svg"
+      enabled: true
+      source_path: _data/hobbies.yml
+      url: https://www.nintendo.com/
+      category: games
+    coffee-ethiopia-guji-natural:
+      id: coffee-ethiopia-guji-natural
+      hash: d3f7b20f7c5e7520e3b2430f1667cd79080ab683a03823d4b4ea0a11b4d7520f
+      title: Ethiopia Guji Natural
+      date: '2026-05-14'
+      updated: '2026-05-14'
+      summary: ''
+      image:
+      enabled: true
+      source_path: _data/hobbies.yml
+      url: "/hobbies/"
+      category: coffee
+    coffee-colombia-pink-bourbon:
+      id: coffee-colombia-pink-bourbon
+      hash: 38c292ccba1be0dfcff6c099a2fa3cba8d7011936320f40b26af79d49a00944c
+      title: Colombia Pink Bourbon
+      date: '2026-04-30'
+      updated: '2026-04-30'
+      summary: ''
+      image:
+      enabled: true
+      source_path: _data/hobbies.yml
+      url: "/hobbies/"
+      category: coffee
+    coffee-kenya-aa:
+      id: coffee-kenya-aa
+      hash: 5d349d21c29c37684242055665c7efdf5e5ec24a4860c258daf5baeb75bda05b
+      title: Kenya AA
+      date: '2026-03-18'
+      updated: '2026-03-18'
+      summary: ''
+      image:
+      enabled: true
+      source_path: _data/hobbies.yml
+      url: "/hobbies/"
+      category: coffee
+    coffee-mexico-chiapas:
+      id: coffee-mexico-chiapas
+      hash: 216715fdd400f1131defdc0d942252b05bb337a56a8dac5d873e0e6754b9e4cc
+      title: Mexico Chiapas
+      date: '2026-02-10'
+      updated: '2026-02-10'
+      summary: ''
+      image:
+      enabled: true
+      source_path: _data/hobbies.yml
+      url: "/hobbies/"
+      category: coffee
+    cooking-country-loaf:
+      id: cooking-country-loaf
+      hash: 4a5c8896a76fe4d83e67b0de0623f42cb6b0c05c45d48813d00c9aeff690aaa0
+      title: Country loaf
+      date: '2026-05-16'
+      updated: '2026-05-16'
+      summary: Sourdough, long fermentation, sesame crust.
+      image:
+      enabled: true
+      source_path: _data/hobbies.yml
+      url: "/hobbies/"
+      category: cooking
+    cooking-miso-soup:
+      id: cooking-miso-soup
+      hash: e5cb44c9fdd34da88ae610292dcccbbb2d83d8e04c05770c0702ca64d667fcf9
+      title: Miso soup
+      date: '2026-05-09'
+      updated: '2026-05-09'
+      summary: Fast weeknight soup with a clean, savory base.
+      image:
+      enabled: true
+      source_path: _data/hobbies.yml
+      url: "/hobbies/"
+      category: cooking
+    cooking-focaccia:
+      id: cooking-focaccia
+      hash: bc361527c08048dc283c669b2f87565b3eb484fe8196e12c74d2d82beab2ee35
+      title: Focaccia
+      date: '2026-04-28'
+      updated: '2026-04-28'
+      summary: Soft crumb, crisp edge, rosemary oil.
+      image:
+      enabled: true
+      source_path: _data/hobbies.yml
+      url: "/hobbies/"
+      category: cooking
+    book-left-hand-of-darkness:
+      id: book-left-hand-of-darkness
+      hash: 30f742139386a5603c9d98b00b67927288af1d93bfb434ab7f43ef3a6342923c
+      title: The Left Hand of Darkness
+      date: '2026-05-10'
+      updated: '2026-05-10'
+      summary: ''
+      image:
+      enabled: true
+      source_path: _data/hobbies.yml
+      url: "/hobbies/"
+      category: books
+    book-invisible-cities:
+      id: book-invisible-cities
+      hash: b7c790903113544d2b7402526ab7a7545bff24ec61c1298c8e4bedb7f605c4ab
+      title: Invisible Cities
+      date: '2026-04-21'
+      updated: '2026-04-21'
+      summary: ''
+      image:
+      enabled: true
+      source_path: _data/hobbies.yml
+      url: "/hobbies/"
+      category: books
+    book-ficciones:
+      id: book-ficciones
+      hash: 32a62a65076d2dfcbd096d1ca15a93f2a0846f941cfe4f4fd44dfc21067e2ac1
+      title: Ficciones
+      date: '2026-03-12'
+      updated: '2026-03-12'
+      summary: ''
+      image:
+      enabled: true
+      source_path: _data/hobbies.yml
+      url: "/hobbies/"
+      category: books
+    book-thinking-in-systems:
+      id: book-thinking-in-systems
+      hash: b30db1be43f595cd96f3bd3d3b97d535dd500f62efeeaa8d4770ae42bdb79ae6
+      title: Thinking in Systems
+      date: '2026-02-05'
+      updated: '2026-02-05'
+      summary: ''
+      image:
+      enabled: true
+      source_path: _data/hobbies.yml
+      url: "/hobbies/"
+      category: books
+    fitness-kamo-river-run:
+      id: fitness-kamo-river-run
+      hash: 4fb80138f82a07126b68031ccdb0512f9064454d3c54ed52f0e64da659ca5bb1
+      title: Kamo River run
+      date: '2025-08-19'
+      updated: '2025-08-19'
+      summary: Easy routes for recovery days and quiet thinking.
+      image:
+      enabled: true
+      source_path: _data/hobbies.yml
+      url: "/hobbies/"
+      category: fitness
+    fitness-weightlifting:
+      id: fitness-weightlifting
+      hash: b3c8fdd32b2fa0b789428d12ed48ee70afd7d2b13fa33ed10b1249245d67d734
+      title: Weightlifting
+      date: '2025-08-19'
+      updated: '2025-08-19'
+      summary: Simple strength blocks, descriptive notes, no full tracker.
+      image:
+      enabled: true
+      source_path: _data/hobbies.yml
+      url: "/hobbies/"
+      category: fitness
+    fitness-trail-walks:
+      id: fitness-trail-walks
+      hash: 9bda148de6ddc2a093ac4e6c5a73bf59c9a144571a2537a5f148539514e73bba
+      title: Trail walks
+      date: '2025-08-19'
+      updated: '2025-08-19'
+      summary: Longer outdoor walks when the schedule allows.
+      image:
+      enabled: true
+      source_path: _data/hobbies.yml
+      url: "/hobbies/"
+      category: fitness
+  cv:
+    cv-downloads:
+      id: cv-downloads
+      hash: a974c61f405d3e80b329da25ed3f68b84e6da179df2f776e6dee6c44f141b107
+      title: Downloads
+      date: '2025-08-19'
+      updated: '2025-08-19'
+      summary: ''
+      image:
+      enabled: true
+      source_path: _data/cv.yml
+      url: "/cv/"
+      category: actions
+    cv-socials:
+      id: cv-socials
+      hash: 1c5561358af252c3a86af5404239a00d57a3f780381129fb53ad57d05094ab0e
+      title: Socials
+      date: '2025-08-19'
+      updated: '2025-08-19'
+      summary: ''
+      image:
+      enabled: true
+      source_path: _data/cv.yml
+      url: "/cv/"
+      category: actions
+    cv-intellectual-property:
+      id: cv-intellectual-property
+      hash: 5270c284b6ae2e1fcbcf1bfc071100086826c6ce815d3cd188a656d6afd8bfe0
+      title: Intellectual Property
+      date: '2025-08-19'
+      updated: '2025-08-19'
+      summary: ''
+      image:
+      enabled: true
+      source_path: _data/cv.yml
+      url: "/cv/"
+      category: actions
+    cv-education-kyoto-doctor:
+      id: cv-education-kyoto-doctor
+      hash: 75c86267842cb4530f6e568626877232ed74bfabbb4a385d3ecd3ef6cde0374e
+      title: Doctor in Mathematics - Kyoto University
+      date: '2025-08-19'
+      updated: '2025-08-19'
+      summary: Fully funded by the MEXT scholarship. Established results in point
+        processes, probability theory, Markov chains, and renewal Hawkes processes.
+      image:
+      enabled: true
+      source_path: _data/cv.yml
+      url: "/cv/"
+      category: education
+    cv-education-kyoto-master:
+      id: cv-education-kyoto-master
+      hash: 70da87dc69d1de43551679fd5364b74a918ab33a13f580528ea0a312f057653f
+      title: Master of Science in Physics - Kyoto University
+      date: '2025-08-19'
+      updated: '2025-08-19'
+      summary: Fully funded by the MEXT scholarship. Developed nonparametric estimation
+        methods for Hawkes processes using RKHS methods and applied them to neural
+        time-series data.
+      image:
+      enabled: true
+      source_path: _data/cv.yml
+      url: "/cv/"
+      category: education
+    cv-education-unam-bachelor:
+      id: cv-education-unam-bachelor
+      hash: 2ecadf9674bb32197f612e23c4cdf24e2d025b51646094f0a112ffab4d3fed10
+      title: Bachelor in Physics - UNAM
+      date: '2025-08-19'
+      updated: '2025-08-19'
+      summary: Emphasis in probability theory, topology, analysis, statistical mechanics,
+        and dynamical systems.
+      image:
+      enabled: true
+      source_path: _data/cv.yml
+      url: "/cv/"
+      category: education
+    cv-education-itesm-ib:
+      id: cv-education-itesm-ib
+      hash: 4dc41a0ebeb2c25b813f92574be913df23b53643c1525509c8cf920a29477760
+      title: International Baccalaureate - ITESM CCM
+      date: '2025-08-19'
+      updated: '2025-08-19'
+      summary: Graduated with a 36 point diploma, higher level Mathematics, and a
+        perfect score of 7 in Physics.
+      image:
+      enabled: true
+      source_path: _data/cv.yml
+      url: "/cv/"
+      category: education
+    cv-experience-kyoto-ml-researcher:
+      id: cv-experience-kyoto-ml-researcher
+      hash: deda73df1d9bee89f4d7f31a5f6aaeb2b519cd82e53a6dd95a45b91b1ae18962
+      title: Machine Learning Researcher - Kyoto University
+      date: '2025-08-19'
+      updated: '2025-08-19'
+      summary: Worked on SGD dynamics in LLM learning, soccer match outcome prediction,
+        and cause-emotion utterance analysis using causal inference. Responsibilities
+        included mathematical formulation, experimental design, implementation, model
+        evaluation, verification, and code review.
+      image:
+      enabled: true
+      source_path: _data/cv.yml
+      url: "/cv/"
+      category: experience
+    cv-experience-kyoto-research-assistant:
+      id: cv-experience-kyoto-research-assistant
+      hash: ac04b3529394e6f1333e7c3d1bd65a21b1d71c5f7f08d8c883ab7f0c8ce468b4
+      title: Research Assistant - Kyoto University
+      date: '2025-08-19'
+      updated: '2025-08-19'
+      summary: Studied asymptotic normality for nonparametric estimators in multivariate
+        discrete-time semi-Markov chains and organized the results into a peer-reviewed
+        publication.
+      image:
+      enabled: true
+      source_path: _data/cv.yml
+      url: "/cv/"
+      category: experience
+    cv-experience-unam-teaching-assistant:
+      id: cv-experience-unam-teaching-assistant
+      hash: 54ea9032ec4cc9d7b52772d37c71e82994c9671f814733f9e33f3236030887de
+      title: Teaching Assistant - UNAM
+      date: '2025-08-19'
+      updated: '2025-08-19'
+      summary: Supported Differential and Integral Calculus instruction for physics,
+        mathematics, and actuarial majors through exercise design, assignments, student
+        support, and class operation.
+      image:
+      enabled: true
+      source_path: _data/cv.yml
+      url: "/cv/"
+      category: experience
+    cv-skills-programming-language:
+      id: cv-skills-programming-language
+      hash: 2cea3e6cb06b856bc4944ccb793559f83c16d2b2fc398c5fe6457a7cdc663a8a
+      title: Programming Language
+      date: '2025-08-19'
+      updated: '2025-08-19'
+      summary: ''
+      image:
+      enabled: true
+      source_path: _data/cv.yml
+      url: "/cv/"
+      category: skills
+    cv-skills-mathematics-statistics:
+      id: cv-skills-mathematics-statistics
+      hash: d8a786f900e0a258bc5d0b03c9ff31253af4722f3fd8471b2a311d47e57f83e4
+      title: Mathematics / Statistics
+      date: '2025-08-19'
+      updated: '2025-08-19'
+      summary: ''
+      image:
+      enabled: true
+      source_path: _data/cv.yml
+      url: "/cv/"
+      category: skills
+    cv-skills-physics:
+      id: cv-skills-physics
+      hash: 57b2f5d31cca616259ba6057f1a4d1b5bd2fea131d2036aebe5cc42851413fe8
+      title: Physics
+      date: '2025-08-19'
+      updated: '2025-08-19'
+      summary: ''
+      image:
+      enabled: true
+      source_path: _data/cv.yml
+      url: "/cv/"
+      category: skills
+    cv-skills-machine-learning-data-analysis:
+      id: cv-skills-machine-learning-data-analysis
+      hash: c59ced1692eaf8716cd3052261df5d6d794fee00240fc7c8ace15e2f3b804cae
+      title: Machine learning / Data Analysis
+      date: '2025-08-19'
+      updated: '2025-08-19'
+      summary: ''
+      image:
+      enabled: true
+      source_path: _data/cv.yml
+      url: "/cv/"
+      category: skills
+    cv-skills-db:
+      id: cv-skills-db
+      hash: 5ab03c03820f7cf77a2378b22a47edb499be6172cd96468d82b602820a82f333
+      title: DB
+      date: '2025-08-19'
+      updated: '2025-08-19'
+      summary: ''
+      image:
+      enabled: true
+      source_path: _data/cv.yml
+      url: "/cv/"
+      category: skills
+    cv-skills-tools:
+      id: cv-skills-tools
+      hash: e19add787eadaed37b498c3a818b46ec83275e7a35545352ac7065f1b326f6b6
+      title: Tools
+      date: '2025-08-19'
+      updated: '2025-08-19'
+      summary: ''
+      image:
+      enabled: true
+      source_path: _data/cv.yml
+      url: "/cv/"
+      category: skills
+    cv-language-spanish:
+      id: cv-language-spanish
+      hash: c5e0a4ee29d327f23a1f02b646813f03149f57f72621b9c4da982374045fb673
+      title: Spanish
+      date: '2025-08-19'
+      updated: '2025-08-19'
+      summary: ''
+      image:
+      enabled: true
+      source_path: _data/cv.yml
+      url: "/cv/"
+      category: languages
+    cv-language-english:
+      id: cv-language-english
+      hash: f87f36b1428b4516e6065c5d12c1875c83c97ccfc74b19aae3275374fac5d379
+      title: English
+      date: '2025-08-19'
+      updated: '2025-08-19'
+      summary: ''
+      image:
+      enabled: true
+      source_path: _data/cv.yml
+      url: "/cv/"
+      category: languages
+    cv-language-japanese:
+      id: cv-language-japanese
+      hash: 41e27270ac061bd23e5047394f432095bbc410f6e44787925fcdb94b1d8c42a7
+      title: Japanese
+      date: '2025-08-19'
+      updated: '2025-08-19'
+      summary: ''
+      image:
+      enabled: true
+      source_path: _data/cv.yml
+      url: "/cv/"
+      category: languages
+    cv-language-german:
+      id: cv-language-german
+      hash: 60e7e2fc22eabbdebccb73567b44c9400d18fd33bcc0b2acae918076fea3708b
+      title: German
+      date: '2025-08-19'
+      updated: '2025-08-19'
+      summary: ''
+      image:
+      enabled: true
+      source_path: _data/cv.yml
+      url: "/cv/"
+      category: languages

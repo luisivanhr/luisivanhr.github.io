@@ -1,4 +1,6 @@
 - id: renewal-convergence-rates
+  date: "2025-07-01"
+  updated: "2025-07-01"
   title: "Results for Convergence Rates Associated with Renewal Processes"
   authors: "Luis Iván Hernández Ruíz"
   year: "2025"
@@ -16,6 +18,8 @@
   summary_image_alt: "Book cover for Séminaire de Probabilités LII"
 
 - id: renewal-hawkes-cluster
+  date: "2025-06-01"
+  updated: "2025-06-01"
   title: "A Cluster Representation of the Renewal Hawkes Process"
   authors: "Luis Iván Hernández Ruíz, Kouji Yano"
   year: "2025"
@@ -30,6 +34,8 @@
   summary: "Placeholder summary 2"
 
 - id: renewal-hawkes-lln-clt
+  date: "2025-05-01"
+  updated: "2025-05-01"
   title: "Law of Large Numbers and Central Limit Theorem for Renewal Hawkes Processes"
   authors: "Luis Iván Hernández Ruíz"
   year: "2025"
@@ -44,6 +50,8 @@
   summary: "Placeholder summary 3"
 
 - id: semi-markov-asymptotic-normality
+  date: "2025-04-01"
+  updated: "2025-04-01"
   title: "Asymptotic Normality in Multi-Dimension of Nonparametric Estimators for Discrete-Time Semi-Markov Chains"
   authors: "Hiroki Ogata, Luis Iván Hernández Ruíz, Kouji Yano"
   year: "2025"
@@ -58,6 +66,8 @@
   summary: "Placeholder summary 5"
 
 - id: renewal-hawkes-rims
+  date: "2023-01-01"
+  updated: "2023-01-01"
   title: "Limit Theorems for Renewal Hawkes Processes"
   authors: "Luis Iván Hernández Ruíz"
   year: "2023"

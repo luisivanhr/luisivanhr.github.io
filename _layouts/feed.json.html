@@ -21,9 +21,15 @@
   {%- assign items = items | sort: sort_field | reverse -%}
   {%- if page.max_items -%}{%- assign items = items | slice: 0, page.max_items -%}{%- endif -%}
   {%- for it in items -%}
-    {%- assign item_url = it.url | relative_url -%}
+    {%- assign raw_item_url = it.source_url | default: page.item_url_fallback | default: it.url | default: "" -%}
+    {%- assign item_url = "" -%}
+    {%- if raw_item_url != "" -%}{%- assign item_url = raw_item_url | relative_url -%}{%- endif -%}
     {%- assign item_summary = it.summary | default: it.excerpt | default: "" | strip_html | strip_newlines -%}
-    {%- assign item_date = it.updated | default: it.date -%}
+    {%- if page.date_field == "date" -%}
+      {%- assign item_date = it.date -%}
+    {%- else -%}
+      {%- assign item_date = it.updated | default: it.date -%}
+    {%- endif -%}
     {%- assign item_image = "" -%}
     {%- unless it.hide_feed_image -%}
       {%- assign item_image = it.feed_image | default: it.image | default: "" -%}
@@ -34,7 +40,12 @@
       "url": {{ item_url | jsonify }},
       "date": {{ item_date | date_to_xmlschema | jsonify }},
       "summary": {{ item_summary | jsonify }},
-      "image": {{ item_image | jsonify }}
+      "image": {{ item_image | jsonify }},
+      "event_type": {{ it.event_type | default: "" | jsonify }},
+      "event_label": {{ it.event_label | default: "" | jsonify }},
+      "source_section": {{ it.source_section | default: "" | jsonify }},
+      "source_id": {{ it.source_id | default: "" | jsonify }},
+      "generated": {{ it.generated | default: false | jsonify }}
     }{%- if forloop.last == false -%},{%- endif -%}
   {%- endfor -%}
   ]

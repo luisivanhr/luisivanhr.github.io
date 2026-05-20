@@ -34,7 +34,7 @@
      id="defs1"><style
        type="text/css"
        id="style1"><![CDATA[
-      .hotspot { fill: rgba(0,0,0,0.001); cursor: pointer; }
+      .hotspot { fill: rgba(0,0,0,0.001); cursor: pointer; pointer-events: all; }
       .hotspot:hover { fill: rgba(102,224,255,0.08); }
       .glow { fill: none; stroke: #66e0ff; stroke-width: 2; opacity: 0; }
       .hotspot:hover + .glow { opacity: 1; }

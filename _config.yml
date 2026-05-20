@@ -12,6 +12,9 @@ plugins:
   - jekyll-feed
   - jekyll-seo-tag
 
+exclude:
+  - _news_state/news_update_state.yml
+
 collections:
   about:
     output: true
@@ -32,7 +35,7 @@ collections:
     output: true
     permalink: /achievements/:title/
   news:
-    output: true
+    output: false
     permalink: /news/:title/
   publications:
     output: true

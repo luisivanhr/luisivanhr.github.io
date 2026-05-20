@@ -91,10 +91,83 @@ function setupDPRListener(onDPRChange = resizeFxCanvas){
       return {"items":[{"title":"(placeholder)","url":"#","date": new Date().toISOString(),"summary":"No feed yet.","image":""}]};
     }
   }
+  function newsDateKey(item){
+    const raw = item && item.date ? item.date : '';
+    if (!raw) return '';
+    const parsed = new Date(raw);
+    if (Number.isNaN(parsed.valueOf())) return String(raw).slice(0, 10);
+    return parsed.toISOString().slice(0, 10);
+  }
+  function latestNewsGroup(items){
+    if (!Array.isArray(items) || items.length === 0) return [];
+    let latestKey = '';
+    let latestTime = -Infinity;
+    items.forEach(item => {
+      const key = newsDateKey(item);
+      const time = key ? new Date(`${key}T00:00:00Z`).getTime() : -Infinity;
+      if (time > latestTime) {
+        latestTime = time;
+        latestKey = key;
+      }
+    });
+    return items.filter(item => newsDateKey(item) === latestKey);
+  }
   function showTooltip(x, y, item, target){
     tooltip.dataset.target = target || '';
     const title = tooltip.querySelector('.title');
     const meta = tooltip.querySelector('.meta');
+    if (target === 'news' && Array.isArray(item)) {
+      const items = item.length ? item : [{title: 'News', summary: 'No feed yet.', date: new Date().toISOString(), image: ''}];
+      const img = tooltip.querySelector('.thumb');
+      const firstImage = items.find(entry => entry.image);
+      tooltip.classList.add('news-group');
+      tooltip.classList.toggle('has-thumb', Boolean(firstImage && firstImage.image));
+      title.classList.remove('about-name');
+      title.textContent = items.length === 1 ? (items[0].title || 'News') : 'Latest news';
+      meta.replaceChildren();
+      if (firstImage && firstImage.image) {
+        img.src = firstImage.image;
+        img.hidden = false;
+      } else {
+        img.removeAttribute('src');
+        img.hidden = true;
+      }
+
+      const list = document.createElement('div');
+      list.className = 'news-hover-list';
+      items.forEach(entry => {
+        const row = document.createElement('div');
+        row.className = 'news-hover-item';
+
+        const heading = document.createElement('strong');
+        heading.textContent = entry.title || '';
+        row.appendChild(heading);
+
+        const detail = document.createElement('span');
+        const source = entry.source_section ? String(entry.source_section).replace(/_/g, ' ') : '';
+        detail.textContent = [source, fmtDate(entry.date || '')].filter(Boolean).join(' - ');
+        if (detail.textContent) row.appendChild(detail);
+
+        if (entry.summary) {
+          const copy = document.createElement('em');
+          copy.textContent = entry.summary;
+          row.appendChild(copy);
+        }
+
+        list.appendChild(row);
+      });
+      meta.appendChild(list);
+      tooltip.hidden = false;
+      const margin = 16;
+      const width = tooltip.offsetWidth || 320;
+      const height = tooltip.offsetHeight || 160;
+      const maxLeft = Math.max(margin, window.innerWidth - width - margin);
+      const maxTop = Math.max(margin, window.innerHeight - height - margin);
+      tooltip.style.left = Math.min(Math.max(margin, x + margin), maxLeft) + 'px';
+      tooltip.style.top  = Math.min(Math.max(margin, y + margin), maxTop) + 'px';
+      return;
+    }
+    tooltip.classList.remove('news-group');
     title.textContent = item.title || '';
     meta.textContent = ((item.summary||'') + ' · ' + fmtDate(item.date||'')).trim();
     const img = tooltip.querySelector('.thumb');
@@ -150,9 +223,10 @@ function setupDPRListener(onDPRChange = resizeFxCanvas){
       const requestId = ++hoverRequestId;
       const data = await getFeed(feed);
       if (requestId !== hoverRequestId || activeHotspot !== h) return;
-      const item = data.items?.[0] || {};
+      const target = h.getAttribute('data-target') || '';
+      const item = target === 'news' ? latestNewsGroup(data.items || []) : (data.items?.[0] || {});
       const r = h.getBoundingClientRect();
-      showTooltip(r.right, r.top, item, h.getAttribute('data-target') || '');
+      showTooltip(r.right, r.top, item, target);
     });
     h.addEventListener('mouseleave', () => {
       if (activeHotspot === h) activeHotspot = null;

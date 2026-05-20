@@ -3,5 +3,7 @@ layout: feed.json
 title: "News feed"
 collection_name: news
 permalink: /data/news.json
-max_items: 8
+sort_field: date
+date_field: date
+item_url_fallback: /news/
 ---

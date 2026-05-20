@@ -2,35 +2,73 @@ music:
   spotify_playlist_id: "1xYDVZn3JiJXzMYAFzVgBv"
 
 games:
-  - name: "Elden Ring"
+  - id: game-elden-ring
+    date: "2025-08-19"
+    updated: "2025-08-19"
+    name: "Elden Ring"
     appid: 1245620
-  - name: "Dark Souls III"
+  - id: game-dark-souls-iii
+    date: "2025-08-19"
+    updated: "2025-08-19"
+    name: "Dark Souls III"
     appid: 374320
-  - name: "Sekiro"
+  - id: game-sekiro
+    date: "2025-08-19"
+    updated: "2025-08-19"
+    name: "Sekiro"
     appid: 814380
-  - name: "Armored Core VI"
+  - id: game-armored-core-vi
+    date: "2025-08-19"
+    updated: "2025-08-19"
+    name: "Armored Core VI"
     appid: 1888160
-  - name: "Hollow Knight"
+  - id: game-hollow-knight
+    date: "2025-08-19"
+    updated: "2025-08-19"
+    name: "Hollow Knight"
     appid: 367520
-  - name: "Darkest Dungeon"
+  - id: game-darkest-dungeon
+    date: "2025-08-19"
+    updated: "2025-08-19"
+    name: "Darkest Dungeon"
     appid: 262060
-  - name: "Guild Wars"
+  - id: game-guild-wars
+    date: "2025-08-19"
+    updated: "2025-08-19"
+    name: "Guild Wars"
     appid: 4103450
-  - name: "Hades"
+  - id: game-hades
+    date: "2025-08-19"
+    updated: "2025-08-19"
+    name: "Hades"
     appid: 1145360
-  - name: "For the King"
+  - id: game-for-the-king
+    date: "2025-08-19"
+    updated: "2025-08-19"
+    name: "For the King"
     appid: 527230
-  - name: "Valheim"
+  - id: game-valheim
+    date: "2025-08-19"
+    updated: "2025-08-19"
+    name: "Valheim"
     appid: 892970
-  - name: "Bloodborne"
+  - id: game-bloodborne
+    date: "2025-08-19"
+    updated: "2025-08-19"
+    name: "Bloodborne"
     url: "https://www.playstation.com/en-us/games/bloodborne/"
     image: "/assets/images/hobbies/bloodborne.svg"
-  - name: "The Legend of Zelda: Breath of the Wild"
+  - id: game-breath-of-the-wild
+    date: "2025-08-19"
+    updated: "2025-08-19"
+    name: "The Legend of Zelda: Breath of the Wild"
     url: "https://www.nintendo.com/"
     image: "/assets/images/hobbies/breath-of-the-wild.svg"
 
 coffee:
-  - title: "Ethiopia Guji Natural"
+  - id: coffee-ethiopia-guji-natural
+    updated: "2026-05-14"
+    title: "Ethiopia Guji Natural"
     date: "2026-05-14"
     roaster: "Kurasu Kyoto"
     origin: "Ethiopia"
@@ -39,7 +77,9 @@ coffee:
     taste: "Bright acidity, syrupy body, clean finish."
     notes: "Best cup after a slightly finer grind and cooler drawdown."
     rating: 4
-  - title: "Colombia Pink Bourbon"
+  - id: coffee-colombia-pink-bourbon
+    updated: "2026-04-30"
+    title: "Colombia Pink Bourbon"
     date: "2026-04-30"
     roaster: "Weekenders Coffee"
     origin: "Colombia"
@@ -48,7 +88,9 @@ coffee:
     taste: "Round sweetness, mild acidity, silky body."
     notes: "Very forgiving brew and a good late afternoon cup."
     rating: 4
-  - title: "Kenya AA"
+  - id: coffee-kenya-aa
+    updated: "2026-03-18"
+    title: "Kenya AA"
     date: "2026-03-18"
     roaster: "Light Up Coffee"
     origin: "Kenya"
@@ -57,7 +99,9 @@ coffee:
     taste: "Juicy acidity, medium body, crisp finish."
     notes: "Best with a shorter ratio and careful agitation."
     rating: 4
-  - title: "Mexico Chiapas"
+  - id: coffee-mexico-chiapas
+    updated: "2026-02-10"
+    title: "Mexico Chiapas"
     date: "2026-02-10"
     roaster: "Home shelf"
     origin: "Mexico"
@@ -68,7 +112,9 @@ coffee:
     rating: 3.5
 
 cooking:
-  - title: "Country loaf"
+  - id: cooking-country-loaf
+    updated: "2026-05-16"
+    title: "Country loaf"
     date: "2026-05-16"
     image: ""
     ingredients:
@@ -87,7 +133,9 @@ cooking:
         text: "Shape, chill overnight."
       - label: "Bake"
         text: "Dutch oven, 240C, finish uncovered."
-  - title: "Miso soup"
+  - id: cooking-miso-soup
+    updated: "2026-05-09"
+    title: "Miso soup"
     date: "2026-05-09"
     image: ""
     ingredients:
@@ -106,7 +154,9 @@ cooking:
         text: "Dissolve off boil."
       - label: "Finish"
         text: "Scallion at the end."
-  - title: "Focaccia"
+  - id: cooking-focaccia
+    updated: "2026-04-28"
+    title: "Focaccia"
     date: "2026-04-28"
     image: ""
     ingredients:
@@ -127,25 +177,33 @@ cooking:
         text: "Hot oven, deep dimples."
 
 books:
-  - title: "The Left Hand of Darkness"
+  - id: book-left-hand-of-darkness
+    updated: "2026-05-10"
+    title: "The Left Hand of Darkness"
     date: "2026-05-10"
     cover: ""
     about: "Political and social imagination under deep ambiguity."
     impression: "Quiet, cold, precise, and humane."
     for_who: "Patient science fiction readers who like ideas under pressure."
-  - title: "Invisible Cities"
+  - id: book-invisible-cities
+    updated: "2026-04-21"
+    title: "Invisible Cities"
     date: "2026-04-21"
     cover: ""
     about: "Cities as memory, desire, language, and structure."
     impression: "Tiny chapters that keep echoing after they end."
     for_who: "Readers who enjoy fragments, architecture, and poetic systems."
-  - title: "Ficciones"
+  - id: book-ficciones
+    updated: "2026-03-12"
+    title: "Ficciones"
     date: "2026-03-12"
     cover: ""
     about: "Labyrinths, libraries, mirrors, and precise intellectual puzzles."
     impression: "Dense, playful, and sharper than its page count suggests."
     for_who: "Readers who like compact stories with mathematical pressure."
-  - title: "Thinking in Systems"
+  - id: book-thinking-in-systems
+    updated: "2026-02-05"
+    title: "Thinking in Systems"
     date: "2026-02-05"
     cover: ""
     about: "Feedback loops, stocks, flows, delays, and leverage points."
@@ -153,17 +211,26 @@ books:
     for_who: "Anyone who likes reusable explanations for messy behavior."
 
 fitness:
-  - title: "Kamo River run"
+  - id: fitness-kamo-river-run
+    date: "2025-08-19"
+    updated: "2025-08-19"
+    title: "Kamo River run"
     summary: "Easy routes for recovery days and quiet thinking."
     tags:
       - "Running"
       - "Outdoors"
-  - title: "Weightlifting"
+  - id: fitness-weightlifting
+    date: "2025-08-19"
+    updated: "2025-08-19"
+    title: "Weightlifting"
     summary: "Simple strength blocks, descriptive notes, no full tracker."
     tags:
       - "Weights"
       - "Training"
-  - title: "Trail walks"
+  - id: fitness-trail-walks
+    date: "2025-08-19"
+    updated: "2025-08-19"
+    title: "Trail walks"
     summary: "Longer outdoor walks when the schedule allows."
     tags:
       - "Hiking"

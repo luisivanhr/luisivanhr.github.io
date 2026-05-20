@@ -1,0 +1,90 @@
+---
+layout: default
+---
+{% if jekyll.environment == 'development' %}
+  {% assign asset_version = site.time | date: '%s' %}
+{% else %}
+  {% assign asset_version = site.github.build_revision | default: site.time | url_encode %}
+{% endif %}
+{% assign news_items = site.news | sort: "date" | reverse %}
+{% assign news_groups = news_items | group_by_exp: "item", "item.date | date: '%Y-%m-%d'" %}
+{% assign entries_per_page = page.entries_per_page | default: 12 %}
+<link rel="stylesheet" href="{{ '/assets/css/news.css' | relative_url }}?v={{ asset_version }}">
+<script defer src="{{ '/assets/js/news.js' | relative_url }}?v={{ asset_version }}"></script>
+
+<main class="news-page" data-news-page>
+  <section class="news-main" aria-labelledby="news-title">
+    {% if news_items and news_items.size > 0 %}
+      <div class="news-logbook">
+        <header class="news-log-head">
+          <div class="news-log-title">
+            <span class="news-kicker">Laboratory update log</span>
+            <h1 id="news-title">{{ page.title | default: "News" }}</h1>
+            <p>{{ page.summary | default: "Recent additions and updates from across the site." }}</p>
+          </div>
+          <span class="news-page-chip" data-news-page-status>Showing all entries</span>
+        </header>
+
+        <div class="news-log" data-news-log data-entries-per-page="{{ entries_per_page }}">
+          {% for group in news_groups %}
+            {% assign group_date = group.name | date: "%Y-%m-%d" %}
+            {% assign group_month = group.name | date: "%b %d" %}
+            {% assign group_year = group.name | date: "%Y" %}
+            <section class="news-date-group" data-news-group data-entry-count="{{ group.items.size }}" aria-label="{{ group.name | date: '%B %-d, %Y' }} updates">
+              <div class="news-date-rail">
+                <time datetime="{{ group_date }}">{{ group_month }}<br>{{ group_year }}</time>
+                <span class="news-date-count">{{ group.items.size }} {% if group.items.size == 1 %}entry{% else %}entries{% endif %}</span>
+              </div>
+              <div class="news-date-entries">
+                {% for item in group.items %}
+                  {% assign item_summary = item.summary | default: item.excerpt | default: item.content | default: "" | strip_html | strip_newlines %}
+                  {% assign item_link = item.source_url | default: item.url | default: "" %}
+                  {% if item_link contains "/news/" %}
+                    {% assign item_link = "" %}
+                  {% endif %}
+                  {% assign source_label = item.source_section | default: "News" | replace: "_", " " | capitalize %}
+                  <article class="news-entry{% if item.generated %} is-generated{% endif %}">
+                    <div class="news-entry-meta">
+                      <span>{{ source_label }}</span>
+                    </div>
+                    <h2>{{ item.title }}</h2>
+                    {% if item_summary != "" %}
+                      <p>{{ item_summary }}</p>
+                    {% endif %}
+                    {% if item_link and item_link != "" %}
+                      <a class="news-entry-link" href="{{ item_link | relative_url }}">
+                        <span>Take a look</span>
+                        <svg class="news-entry-link-icon" viewBox="0 0 18 16" aria-hidden="true" focusable="false">
+                          <path d="M3 8h11M10 4l4 4-4 4" />
+                        </svg>
+                      </a>
+                    {% endif %}
+                  </article>
+                {% endfor %}
+              </div>
+            </section>
+          {% endfor %}
+        </div>
+
+        <footer class="news-pager" data-news-pager hidden>
+          <span class="news-page-marker" data-news-entry-status>Showing all entries</span>
+          <nav class="news-pager-controls" aria-label="News pages">
+            <button class="news-pager-button" type="button" data-news-newer>Newer entries</button>
+            <button class="news-pager-button" type="button" data-news-older>Older entries</button>
+          </nav>
+        </footer>
+      </div>
+    {% else %}
+      <div class="news-logbook">
+        <header class="news-log-head">
+          <div class="news-log-title">
+            <span class="news-kicker">Laboratory update log</span>
+            <h1 id="news-title">{{ page.title | default: "News" }}</h1>
+            <p>{{ page.summary | default: "Recent additions and updates from across the site." }}</p>
+          </div>
+        </header>
+        <p class="news-empty">{{ page.empty_message | default: "No news yet." }}</p>
+      </div>
+    {% endif %}
+  </section>
+</main>
