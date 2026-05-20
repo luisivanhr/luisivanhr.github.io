@@ -136,22 +136,18 @@
   border: 1px solid rgba(18, 59, 136, 0.22);
   border-radius: 6px;
   padding: 0.35rem 0.55rem;
-  background:
-    linear-gradient(rgba(18, 59, 136, 0.04), rgba(18, 59, 136, 0.04)),
-    #ffffff;
+  background: #f6f8fb;
   color: var(--cv-blue);
   font-size: 0.78rem;
   font-weight: 800;
   line-height: 1.1;
   text-decoration: none;
-  box-shadow: 0 5px 14px rgba(4, 14, 20, 0.08);
+  box-shadow: none;
 }
 
 .cv-link-button:hover,
 .cv-link-button:focus-visible {
-  background:
-    linear-gradient(rgba(18, 59, 136, 0.09), rgba(18, 59, 136, 0.09)),
-    #ffffff;
+  background: #eaedf6;
   color: var(--cv-blue);
   outline: none;
 }

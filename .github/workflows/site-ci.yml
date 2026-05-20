@@ -1,0 +1,21 @@
+name: Site CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  check-site:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.3"
+          bundler-cache: true
+
+      - name: Run portable site checks
+        run: ruby scripts/check_site.rb

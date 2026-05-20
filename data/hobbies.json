@@ -1,7 +1,0 @@
----
-layout: feed.json
-title: "Hobbies feed"
-collection_name: hobbies
-permalink: /data/hobbies.json
-max_items: 8
----

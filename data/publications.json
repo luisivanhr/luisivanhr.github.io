@@ -1,7 +1,0 @@
----
-layout: feed.json
-title: "Publications feed"
-collection_name: publications
-permalink: /data/publications.json
-max_items: 8
----

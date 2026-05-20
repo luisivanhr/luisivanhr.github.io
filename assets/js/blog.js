@@ -148,7 +148,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function renderControls(total) {
-    pagination.innerHTML = '';
+    pagination.replaceChildren();
     pagination.setAttribute('role', 'navigation');
     pagination.setAttribute('aria-label', 'Blog pagination');
 

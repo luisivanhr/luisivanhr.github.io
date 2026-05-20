@@ -6,6 +6,7 @@ layout: default
 {% else %}
   {% assign asset_version = site.github.build_revision | default: site.time | url_encode %}
 {% endif %}
+{% assign achievements = site.data.achievements %}
 <link rel="stylesheet" href="{{ '/assets/css/achievements.css' | relative_url }}?v={{ asset_version }}">
 
 <main class="achievements-page" data-achievements-page>
@@ -22,64 +23,44 @@ layout: default
 
       <div class="achievements-panel-body" id="achievements-academic-panel-body">
         <div class="achievements-academic-grid">
+          {% for group in achievements.academic %}
           <article class="achievements-tile">
             <div class="achievements-icon-box" aria-hidden="true">
+              {% case group.icon %}
+              {% when 'funding' %}
               <svg viewBox="0 0 64 64">
                 <path d="M13 22h36v23H13z" fill="none" stroke="currentColor" stroke-width="4" stroke-linejoin="round"/>
                 <path d="M18 17h36v23" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/>
                 <circle cx="31" cy="33.5" r="6" fill="none" stroke="currentColor" stroke-width="3"/>
                 <path d="M18 29h5M39 38h5" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
               </svg>
-            </div>
-            <span class="achievements-category">Grants and scholarships</span>
-            <div class="achievements-scroll-widget" aria-label="Scrollable grants and scholarships list">
-              <ul class="achievements-list">
-                <li><strong>MEXT Scholarship</strong><span>Scholarship support for research at Kyoto University.</span></li>
-                <li><strong>Graduate research funding</strong><span>Placeholder for funded academic research support.</span></li>
-                <li><strong>Travel support</strong><span>Placeholder for seminar, workshop, or conference travel grants.</span></li>
-                <li><strong>Research assistantship</strong><span>Placeholder for supported project work and academic appointments.</span></li>
-                <li><strong>Visiting program support</strong><span>Placeholder for external institute or collaboration funding.</span></li>
-              </ul>
-            </div>
-          </article>
-
-          <article class="achievements-tile">
-            <div class="achievements-icon-box" aria-hidden="true">
+              {% when 'award' %}
               <svg viewBox="0 0 512 512">
                 <path d="M422.002 58.284V29.349H92.734v28.935H0v18.346s0 43.236 0 86.473c.027 14.526 4.328 29.349 11.986 43.588h.004c11.528 21.33 30.854 41.646 57.305 57.151l.399.234-.395-.234c25.807 15.102 58.482 25.475 97.094 27.444l34.738 42.166v.009c7.268 8.818 11.106 19.515 11.111 30.509v26.76l-79.669 26.625v65.295h249.596v-64.296l-79.674-26.625v-26.76c.004-10.994 3.843-21.691 11.111-30.509l34.926-42.383c50.423-3.164 90.478-20.719 118.223-44.207h-.004c14.409-12.189 25.569-25.933 33.254-40.18h.004c7.664-14.239 11.965-29.062 11.992-43.579V58.284h-89.999ZM65.961 222.386c-11.551-9.771-20.14-20.53-25.74-30.922-5.618-10.383-8.166-20.36-8.144-28.36V90.374h65.26v59.175c-.004 32.881 11.595 64.782 32.787 90.491l13.712 16.648c-33.448-5.601-59.408-18.706-77.875-34.302Zm225.01 92.415c-11.492 13.933-17.807 31.281-17.807 49.169v47.884l79.674 26.626v14.841H161.899V438.48l79.674-26.626V363.97c.009-17.888-6.314-35.236-17.808-49.16l-74.558-90.501c-17.632-21.403-27.142-47.695-27.142-74.76V58.671h270.612v90.878c-.005 27.066-9.515 53.358-27.146 74.76l-74.56 90.492Zm188.947-151.697c.023 8.001-2.521 17.978-8.143 28.36-8.392 15.586-23.529 31.974-45.282 44.684-15.168 8.88-33.546 16.008-55.142 19.99l13.263-16.099c21.201-25.709 32.796-57.61 32.787-90.491V90.374h62.518v72.73Z" fill="currentColor"/>
               </svg>
-            </div>
-            <span class="achievements-category">Awards</span>
-            <div class="achievements-scroll-widget" aria-label="Scrollable awards list">
-              <ul class="achievements-list">
-                <li><strong>Research distinction</strong><span>Placeholder for academic awards, honors, and recognitions.</span></li>
-                <li><strong>Conference recognition</strong><span>Placeholder for talk, poster, or workshop recognition.</span></li>
-                <li><strong>Competition result</strong><span>Placeholder for contest or prize outcomes.</span></li>
-                <li><strong>Departmental honor</strong><span>Placeholder for institutional achievement.</span></li>
-                <li><strong>Publication milestone</strong><span>Placeholder for publication-linked recognition.</span></li>
-              </ul>
-            </div>
-          </article>
-
-          <article class="achievements-tile">
-            <div class="achievements-icon-box" aria-hidden="true">
+              {% when 'certificate' %}
               <svg viewBox="0 0 64 64">
                 <path d="M18 12h28v40H18z" fill="none" stroke="currentColor" stroke-width="4"/>
                 <path d="M24 24h16M24 32h16M24 40h10" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
                 <path d="M42 45l4 7 4-7" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
+              {% else %}
+              <svg viewBox="0 0 64 64">
+                <circle cx="32" cy="32" r="22" fill="none" stroke="currentColor" stroke-width="4"/>
+                <path d="M22 34l7 7 15-18" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              {% endcase %}
             </div>
-            <span class="achievements-category">Certifications</span>
-            <div class="achievements-scroll-widget" aria-label="Scrollable certifications list">
+            <span class="achievements-category">{{ group.title | escape }}</span>
+            <div class="achievements-scroll-widget" aria-label="Scrollable {{ group.title | escape | downcase }} list">
               <ul class="achievements-list">
-                <li><strong>JLPT N2</strong><span>Japanese-Language Proficiency Test, December 2024.</span></li>
-                <li><strong>TOEFL iBT 111</strong><span>English certification entry from 2019.</span></li>
-                <li><strong>Professional certificate</strong><span>Placeholder for future credentials.</span></li>
-                <li><strong>Technical certification</strong><span>Placeholder for software, data, or research tooling certificates.</span></li>
-                <li><strong>Language milestone</strong><span>Placeholder for additional language achievements.</span></li>
+                {% for item in group.items %}
+                <li><strong>{{ item.title | escape }}</strong><span>{{ item.summary | escape }}</span></li>
+                {% endfor %}
               </ul>
             </div>
           </article>
+          {% endfor %}
         </div>
       </div>
     </section>
@@ -91,9 +72,12 @@ layout: default
       </button>
 
       <div class="achievements-panel-body" id="achievements-nonacademic-panel-body">
+        {% for group in achievements.non_academic %}
         <article class="achievements-tile achievements-nonacademic-tile">
           <div class="achievements-nonacademic-grid">
             <div class="achievements-icon-box" aria-hidden="true">
+              {% case group.icon %}
+              {% when 'strength' %}
               <svg viewBox="0 0 58 58">
                 <path d="M9 25H1a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h8v-8Z" fill="currentColor" opacity="0.34"/>
                 <path d="M49 25h8a1 1 0 0 1 1 1v6a1 1 0 0 1-1 1h-8v-8Z" fill="currentColor" opacity="0.34"/>
@@ -120,22 +104,26 @@ layout: default
                   <rect x="54.1" y="27" width="1.7" height="4" rx="0.8"/>
                 </g>
               </svg>
+              {% else %}
+              <svg viewBox="0 0 64 64">
+                <circle cx="32" cy="32" r="22" fill="none" stroke="currentColor" stroke-width="4"/>
+                <path d="M22 34l7 7 15-18" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              {% endcase %}
             </div>
             <div>
-              <span class="achievements-category">Gym PRs and personal goals</span>
-              <div class="achievements-scroll-widget" aria-label="Scrollable non-academic achievements list">
+              <span class="achievements-category">{{ group.title | escape }}</span>
+              <div class="achievements-scroll-widget" aria-label="Scrollable {{ group.title | escape | downcase }} list">
                 <ul class="achievements-list">
-                  <li><strong>Deadlift 170kg</strong><span>At 69kg bodyweight.</span></li>
-                  <li><strong>Squat 120kg</strong><span>At 70kg bodyweight.</span></li>
-                  <li><strong>Bench Press 97.5kg</strong><span>At 70kg bodyweight.</span></li>
-                  <li><strong>Overhead Press 50kg</strong><span>At 69kg bodyweight.</span></li>
-                  <li><strong>Future personal record</strong><span>Placeholder for additional non-academic milestones.</span></li>
-                  <li><strong>Endurance milestone</strong><span>Placeholder for running, hiking, or other personal goals.</span></li>
+                  {% for item in group.items %}
+                  <li><strong>{{ item.title | escape }}</strong><span>{{ item.summary | escape }}</span></li>
+                  {% endfor %}
                 </ul>
               </div>
             </div>
           </div>
         </article>
+        {% endfor %}
       </div>
     </section>
   </section>

@@ -51,6 +51,7 @@ LANDING_URLS = {
 }.freeze
 
 DATA_SOURCES = {
+  "achievements" => { path: "_data/achievements.yml", landing: "achievements/index.md", url: "/achievements/" },
   "presentations" => { path: "_data/presentations.yml", landing: "presentations/index.md", url: "/presentations/" },
   "publications" => { path: "_data/publications.yml", landing: "publications/index.md", url: "/publications/" },
   "hobbies" => { path: "_data/hobbies.yml", landing: "hobbies/index.md", url: "/hobbies/" },
@@ -62,10 +63,10 @@ SCOPE_ROOTS = {
   courses: ["_courses", "_course_sections"],
   posts: ["_posts"],
   presentations: ["presentations", DATA_SOURCES["presentations"][:path]],
-  about: ["about", "_about"],
+  about: ["about"],
   publications: ["publications", DATA_SOURCES["publications"][:path]],
-  achievements: ["achievements", "_achievements"],
-  hobbies: ["hobbies", "_hobbies", DATA_SOURCES["hobbies"][:path]],
+  achievements: ["achievements", DATA_SOURCES["achievements"][:path]],
+  hobbies: ["hobbies", DATA_SOURCES["hobbies"][:path]],
   cv: ["cv", DATA_SOURCES["cv"][:path]],
   news: ["_news", "news"]
 }.freeze
@@ -221,11 +222,6 @@ def supported_post?(path)
   path.start_with?("_posts/") && path.end_with?(".md")
 end
 
-def supported_section_item?(path)
-  (path.start_with?("_about/") || path.start_with?("_achievements/") || path.start_with?("_hobbies/")) &&
-    path.end_with?(".md")
-end
-
 def supported_section_page?(path)
   LANDING_PAGES.value?(path) && path != NEWS_INDEX_PATH
 end
@@ -250,9 +246,9 @@ def source_kind_for(path)
   return "models" if supported_model?(path)
   return "courses" if supported_course_parent?(path) || supported_course_section?(path)
   return "blog" if supported_post?(path)
-  return "about" if path.start_with?("_about/") || path == LANDING_PAGES["about"]
-  return "achievements" if path.start_with?("_achievements/") || path == LANDING_PAGES["achievements"]
-  return "hobbies" if path.start_with?("_hobbies/") || path == LANDING_PAGES["hobbies"]
+  return "about" if path == LANDING_PAGES["about"]
+  return "achievements" if path == DATA_SOURCES["achievements"][:path] || path == LANDING_PAGES["achievements"]
+  return "hobbies" if path == DATA_SOURCES["hobbies"][:path] || path == LANDING_PAGES["hobbies"]
   return "presentations" if path == DATA_SOURCES["presentations"][:path] || path == LANDING_PAGES["presentations"]
   return "publications" if path == DATA_SOURCES["publications"][:path] || path == LANDING_PAGES["publications"]
   return "cv" if path == DATA_SOURCES["cv"][:path] || path == LANDING_PAGES["cv"]
@@ -286,12 +282,6 @@ def jekyll_url_for(path)
     else
       "/blog/"
     end
-  elsif path.start_with?("_about/")
-    "/about/"
-  elsif path.start_with?("_achievements/")
-    "/achievements/#{path_slug(path)}/"
-  elsif path.start_with?("_hobbies/")
-    "/hobbies/#{path_slug(path)}/"
   else
     LANDING_URLS[source_kind_for(path)] || "/"
   end
@@ -299,7 +289,7 @@ end
 
 def event_type_for(path, status)
   action = status == "D" ? "deleted" : (status == "A" ? "added" : "updated")
-  if supported_course_section?(path) || supported_section_item?(path)
+  if supported_course_section?(path)
     "section_#{action}"
   elsif supported_section_page?(path)
     "page_updated"
@@ -386,7 +376,7 @@ def content_event_for(entry, date)
   path = entry[:path]
   return nil if generated_news_path?(path) || manual_news_path?(path) || path == NEWS_INDEX_PATH
   return nil unless supported_model?(path) || supported_course_parent?(path) || supported_course_section?(path) ||
-                    supported_post?(path) || supported_section_item?(path) || supported_section_page?(path)
+                    supported_post?(path) || supported_section_page?(path)
 
   section = source_kind_for(path)
   return nil unless section
@@ -652,11 +642,8 @@ def selected_all_paths(options)
   end
   paths.concat(Dir.glob("_posts/**/*.md")) if options[:posts]
   paths.concat(Dir.glob("presentations/**/*.md")) if options[:presentations]
-  paths.concat(Dir.glob("_about/**/*.md")) if options[:about]
   paths << LANDING_PAGES["about"] if options[:about]
-  paths.concat(Dir.glob("_achievements/**/*.md")) if options[:achievements]
   paths << LANDING_PAGES["achievements"] if options[:achievements]
-  paths.concat(Dir.glob("_hobbies/**/*.md")) if options[:hobbies]
   paths << LANDING_PAGES["hobbies"] if options[:hobbies]
   paths << LANDING_PAGES["publications"] if options[:publications]
   paths << LANDING_PAGES["presentations"] if options[:presentations]

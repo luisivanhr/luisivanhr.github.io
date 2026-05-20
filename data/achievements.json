@@ -1,7 +1,0 @@
----
-layout: feed.json
-title: "Achievements feed"
-collection_name: achievements
-permalink: /data/achievements.json
-max_items: 8
----

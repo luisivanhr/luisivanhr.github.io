@@ -195,9 +195,7 @@
   border: 1px solid rgba(18, 59, 136, 0.22);
   border-radius: 6px;
   padding: 0.35rem 0.55rem;
-  background:
-    linear-gradient(rgba(18, 59, 136, 0.04), rgba(18, 59, 136, 0.04)),
-    #ffffff;
+  background: #f6f8fb;
   color: var(--about-blue);
   font-size: 0.78rem;
   font-weight: 900;
@@ -209,9 +207,7 @@
 .about-cv-button:hover,
 .about-cv-button:focus-visible {
   border-color: rgba(18, 59, 136, 0.36);
-  background:
-    linear-gradient(rgba(18, 59, 136, 0.09), rgba(18, 59, 136, 0.09)),
-    #ffffff;
+  background: #eaedf6;
   color: var(--about-blue);
   outline: none;
 }
@@ -311,9 +307,6 @@
 .about-panel-body {
   display: grid;
   align-content: start;
-  max-height: min(18rem, 44vh);
-  overflow-y: auto;
-  overscroll-behavior: contain;
   padding: 1rem;
   scrollbar-color: rgba(120, 205, 213, 0.58) rgba(18, 59, 136, 0.08);
   scrollbar-width: thin;

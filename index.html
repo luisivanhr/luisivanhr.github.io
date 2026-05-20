@@ -1,9 +1,10 @@
 ---
 title: Home
 layout: default
+desk: true
 ---
 
-<div id="desk-wrap">
+<div id="desk-wrap" style="--desk-bg-image: url('{{ '/assets/images/desk/background.png' | relative_url }}');">
   <div class="stage">
     <div class="desk-bg" role="img" aria-label="Interactive desk scene">
 
@@ -16,7 +17,11 @@ layout: default
 
 
 
-<div id="tooltip" hidden>
+<div id="tooltip"
+     data-about-title="About me"
+     data-about-summary="Luis Iv&aacute;n Hern&aacute;ndez Ru&iacute;z | Kyoto University | Mathematics PhD"
+     data-about-image="{{ '/assets/thumbs/hover-feeds/about_thumb.gif' | relative_url }}"
+     hidden>
   <img class="thumb" alt="">
   <div class="info">
     <div class="title"></div>

@@ -1,15 +1,15 @@
-- title: Home
-  url: /
 - title: About
   url: /about/
+- title: CV
+  url: /cv/
 - title: News
   url: /news/
 - title: Blog
   url: /blog/
-- title: Models
-  url: /models/
 - title: Courses
   url: /courses/
+- title: Models
+  url: /models/
 - title: Publications
   url: /publications/
 - title: Presentations
@@ -18,5 +18,3 @@
   url: /achievements/
 - title: Hobbies
   url: /hobbies/
-- title: CV
-  url: /cv/

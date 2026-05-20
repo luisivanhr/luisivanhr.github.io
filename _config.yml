@@ -16,9 +16,6 @@ exclude:
   - _news_state/news_update_state.yml
 
 collections:
-  about:
-    output: true
-    permalink: /about/:title/
   models:
     output: true
     permalink: /models/:title/
@@ -28,18 +25,9 @@ collections:
   course_sections:
     output: true
     permalink: /courses/:path/
-  hobbies:
-    output: true
-    permalink: /hobbies/:title/
-  achievements:
-    output: true
-    permalink: /achievements/:title/
   news:
     output: false
     permalink: /news/:title/
-  publications:
-    output: true
-    permalink: /publications/:title/
 
 defaults:
   - scope: {path: ""}

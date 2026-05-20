@@ -1,16 +1,18 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-baseurl="{{ site.baseurl | default: '' }}">
   <head>
     {% assign asset_version = site.github.build_revision | default: site.time | url_encode %}
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{{ page.title }} | {{ site.title }}</title>
     {%- seo -%}
     <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}?v={{ asset_version }}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css">
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js"></script>
-    <script defer src="{{ '/assets/js/main.js' | relative_url }}?v={{ asset_version }}"></script>
+    <script defer src="{{ '/assets/js/site.js' | relative_url }}?v={{ asset_version }}"></script>
+    {% if page.desk %}
+    <script defer src="{{ '/assets/js/desk.js' | relative_url }}?v={{ asset_version }}"></script>
+    {% endif %}
     <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "46cee38d896e4f968d458e9b1d5039cb"}'></script>
   </head>
   <body>
@@ -28,7 +30,7 @@
 
       <nav id="nav-list" hidden>
         <ul>
-          <li><a class="brand">Luis Iv&aacute;n Hern&aacute;ndez Ru&iacute;z</a></li>
+          <li><a class="brand" aria-disabled="true">Luis Iv&aacute;n Hern&aacute;ndez Ru&iacute;z</a></li>
           {% assign here = page.url | relative_url %}
           {% for item in site.data.nav %}
           {% assign item_url = item.url | relative_url %}
@@ -49,20 +51,5 @@
     </header>
 
     {{ content }}
-
-    <script>
-      document.addEventListener("DOMContentLoaded", function() {
-        const board = document.getElementById("board-math");
-        if (board && typeof renderMathInElement === "function") {
-          renderMathInElement(board, {
-            delimiters: [
-              {left: "$$", right: "$$", display: true},
-              {left: "$", right: "$", display: false}
-            ],
-            throwOnError: false
-          });
-        }
-      });
-    </script>
   </body>
 </html>

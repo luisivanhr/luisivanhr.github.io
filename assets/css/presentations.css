@@ -167,11 +167,17 @@
 }
 
 .presentation-date-card {
+  --presentation-date-card-width: clamp(3.35rem, 7vw, 4.6rem);
+  --presentation-date-card-month-size: clamp(0.58rem, 1.9vw, 0.7rem);
+  --presentation-date-card-day-size: clamp(1.12rem, 5.2vw, 1.45rem);
+  --presentation-date-card-year-size: clamp(0.56rem, 1.8vw, 0.68rem);
+
   display: grid;
   place-items: center;
   align-self: start;
-  width: 4.6rem;
-  min-width: 4.6rem;
+  justify-self: start;
+  width: var(--presentation-date-card-width);
+  min-width: var(--presentation-date-card-width);
   border: 1px solid rgba(18, 59, 136, 0.18);
   border-radius: 8px;
   overflow: hidden;
@@ -186,7 +192,7 @@
   padding: 0.28rem 0.35rem;
   background: #123b88;
   color: #ffffff;
-  font-size: 0.7rem;
+  font-size: var(--presentation-date-card-month-size);
   font-weight: 900;
   letter-spacing: 0.08em;
   line-height: 1;
@@ -195,14 +201,14 @@
 
 .presentation-date-card strong {
   padding: 0.55rem 0.2rem 0.12rem;
-  font-size: 1.45rem;
+  font-size: var(--presentation-date-card-day-size);
   line-height: 1;
 }
 
 .presentation-date-card small {
   padding: 0 0.2rem 0.55rem;
   color: #5f6e78;
-  font-size: 0.68rem;
+  font-size: var(--presentation-date-card-year-size);
   font-weight: 800;
 }
 
@@ -274,6 +280,17 @@
   white-space: nowrap;
 }
 
+.presentation-resource {
+  justify-content: center;
+  gap: 0.4rem;
+  min-height: 2rem;
+  border-radius: 6px;
+  padding: 0.35rem 0.55rem;
+  font-size: 0.78rem;
+  font-weight: 800;
+  line-height: 1.1;
+}
+
 .presentation-topic {
   border: 1px solid rgba(45, 110, 79, 0.16);
   background: rgba(45, 110, 79, 0.12);
@@ -303,20 +320,20 @@
 }
 
 .presentation-resource {
-  border: 1px solid rgba(18, 59, 136, 0.18);
-  background: #ffffff;
+  border: 1px solid rgba(18, 59, 136, 0.22);
+  background: #f6f8fb;
   color: #123b88;
 }
 
 .presentation-resource:hover,
 .presentation-resource:focus-visible {
-  background: rgba(18, 59, 136, 0.08);
+  background: #eaedf6;
   outline: none;
 }
 
 .presentation-resource svg {
-  width: 0.95rem;
-  height: 0.95rem;
+  width: 1rem;
+  height: 1rem;
   flex: 0 0 auto;
 }
 
@@ -720,8 +737,7 @@
   }
 
   .presentation-date-card {
-    width: 4.4rem;
-    min-width: 4.4rem;
+    --presentation-date-card-width: clamp(3.25rem, 14vw, 3.85rem);
   }
 }
 

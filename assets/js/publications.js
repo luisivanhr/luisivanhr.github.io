@@ -71,7 +71,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function renderControls(total) {
     if (!pagination) return;
-    pagination.innerHTML = '';
+    pagination.replaceChildren();
     if (total <= 1) return;
 
     pagination.setAttribute('role', 'navigation');

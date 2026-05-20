@@ -18,6 +18,42 @@ document.addEventListener("DOMContentLoaded", () => {
       .replace(/"/g, "&quot;");
   }
 
+  function appendChildren(parent, children) {
+    children.flat().filter(child => child !== null && child !== undefined).forEach(child => {
+      parent.appendChild(typeof child === "string" ? document.createTextNode(child) : child);
+    });
+    return parent;
+  }
+
+  function node(tag, attrs = {}, children = []) {
+    const element = document.createElement(tag);
+    Object.entries(attrs).forEach(([name, value]) => {
+      if (value === null || value === undefined || value === false) return;
+      if (name === "class") {
+        element.className = value;
+      } else if (name === "text") {
+        element.textContent = value;
+      } else if (name === "dataset") {
+        Object.entries(value).forEach(([key, dataValue]) => {
+          element.dataset[key] = String(dataValue);
+        });
+      } else {
+        element.setAttribute(name, String(value));
+      }
+    });
+    return appendChildren(element, children);
+  }
+
+  function svgNode(tag, attrs = {}, children = []) {
+    const element = document.createElementNS("http://www.w3.org/2000/svg", tag);
+    Object.entries(attrs).forEach(([name, value]) => {
+      if (value !== null && value !== undefined && value !== false) {
+        element.setAttribute(name === "class" ? "class" : name, String(value));
+      }
+    });
+    return appendChildren(element, children);
+  }
+
   function fallbackSvg(label) {
     const safeLabel = escapeHtml(label || "Local asset");
     const svg = '<svg xmlns="http://www.w3.org/2000/svg" width="368" height="138" viewBox="0 0 368 138">' +
@@ -53,7 +89,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function ratingText(value) {
     const score = Math.max(0, Math.min(5, Math.round(Number(value || 0))));
-    return "★".repeat(score) + "☆".repeat(5 - score);
+    return "\u2605".repeat(score) + "\u2606".repeat(5 - score);
   }
 
   function sortedEntries(entries) {
@@ -72,65 +108,102 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function coffeeIcons() {
-    return '<div class="coffee-symbols" aria-hidden="true">' +
-      '<svg class="coffee-icon" viewBox="0 0 24 24" fill="none">' +
-      '<path d="M8 7c0-1.5 1.4-1.7 1.4-3" stroke="currentColor" stroke-linecap="round"/>' +
-      '<path d="M12 7c0-1.5 1.4-1.7 1.4-3" stroke="currentColor" stroke-linecap="round"/>' +
-      '<path d="M16 7c0-1.5 1.4-1.7 1.4-3" stroke="currentColor" stroke-linecap="round"/>' +
-      '<path d="M5 10h12v4a5 5 0 0 1-5 5h-2a5 5 0 0 1-5-5v-4z" stroke="currentColor" stroke-linejoin="round"/>' +
-      '<path d="M17 11h1.5a2.5 2.5 0 0 1 0 5H17" stroke="currentColor" stroke-linecap="round"/>' +
-      '<path d="M4 21h16" stroke="currentColor" stroke-linecap="round"/>' +
-      '</svg>' +
-      '<svg class="coffee-icon" viewBox="0 0 24 24">' +
-      '<path d="M16.7 3.4c3.4 2.1 3.9 7.7 1.3 12.3s-7.6 7-11 4.9S3.2 12.9 5.8 8.3s7.5-7 10.9-4.9z" fill="currentColor" opacity="0.9"/>' +
-      '<path d="M8.1 19.4c2.5-3.4 0.7-7.4 7-12.8" fill="none" stroke="#122430" stroke-width="1.4" stroke-linecap="round"/>' +
-      '</svg>' +
-      '</div>';
+    const steam = svgNode("svg", { class: "coffee-icon", viewBox: "0 0 24 24", fill: "none" }, [
+      svgNode("path", { d: "M8 7c0-1.5 1.4-1.7 1.4-3", stroke: "currentColor", "stroke-linecap": "round" }),
+      svgNode("path", { d: "M12 7c0-1.5 1.4-1.7 1.4-3", stroke: "currentColor", "stroke-linecap": "round" }),
+      svgNode("path", { d: "M16 7c0-1.5 1.4-1.7 1.4-3", stroke: "currentColor", "stroke-linecap": "round" }),
+      svgNode("path", { d: "M5 10h12v4a5 5 0 0 1-5 5h-2a5 5 0 0 1-5-5v-4z", stroke: "currentColor", "stroke-linejoin": "round" }),
+      svgNode("path", { d: "M17 11h1.5a2.5 2.5 0 0 1 0 5H17", stroke: "currentColor", "stroke-linecap": "round" }),
+      svgNode("path", { d: "M4 21h16", stroke: "currentColor", "stroke-linecap": "round" })
+    ]);
+
+    const bean = svgNode("svg", { class: "coffee-icon", viewBox: "0 0 24 24" }, [
+      svgNode("path", { d: "M16.7 3.4c3.4 2.1 3.9 7.7 1.3 12.3s-7.6 7-11 4.9S3.2 12.9 5.8 8.3s7.5-7 10.9-4.9z", fill: "currentColor", opacity: "0.9" }),
+      svgNode("path", { d: "M8.1 19.4c2.5-3.4 0.7-7.4 7-12.8", fill: "none", stroke: "#122430", "stroke-width": "1.4", "stroke-linecap": "round" })
+    ]);
+
+    return node("div", { class: "coffee-symbols", "aria-hidden": "true" }, [steam, bean]);
   }
 
   function imageBlock(entry, className, fallbackLabel) {
-    const title = escapeHtml(fallbackLabel || entry.title);
-    if (entry.image || entry.cover) {
-      const source = escapeHtml(entry.image || entry.cover);
-      return '<div class="' + className + '"><img class="photo-img" src="' + source + '" data-fallback="' + title + '" alt="' + title + '" loading="lazy"></div>';
+    const title = String(fallbackLabel || entry.title || "Local asset");
+    const wrapper = node("div", { class: className });
+    const source = entry.image || entry.cover;
+    if (source) {
+      wrapper.appendChild(node("img", {
+        class: "photo-img",
+        src: source,
+        "data-fallback": title,
+        alt: title,
+        loading: "lazy"
+      }));
+    } else {
+      wrapper.textContent = title;
     }
-    return '<div class="' + className + '">' + title + '</div>';
+    return wrapper;
+  }
+
+  function labeledSection(label, value, valueClass) {
+    const section = node("div", { class: "coffee-section" }, [
+      node("span", { class: "label", text: label })
+    ]);
+    section.appendChild(node("div", { class: valueClass || "", text: value || "" }));
+    return section;
   }
 
   function renderCoffee(entry) {
-    return '<article class="coffee-note">' +
-      '<header class="coffee-head"><div><h3>' + escapeHtml(entry.title) + '</h3>' +
-      '<div class="coffee-meta">' + escapeHtml([entry.roaster, entry.method, formatDate(entry.date)].filter(Boolean).join(" - ")) + '</div></div>' +
-      coffeeIcons() + '</header>' +
-      '<div class="coffee-section"><span class="label">Aroma</span>' + escapeHtml(entry.aroma) + '</div>' +
-      '<div class="coffee-section"><span class="label">Taste</span>' + escapeHtml(entry.taste) + '</div>' +
-      '<div class="coffee-section"><span class="label">Notes</span>' + escapeHtml(entry.notes) + '</div>' +
-      '<div class="coffee-section"><span class="label">Rating</span><div class="rating">' + ratingText(entry.rating) + '</div></div>' +
-      '</article>';
+    const article = node("article", { class: "coffee-note" });
+    const titleGroup = node("div", {}, [
+      node("h3", { text: entry.title || "" }),
+      node("div", { class: "coffee-meta", text: [entry.roaster, entry.method, formatDate(entry.date)].filter(Boolean).join(" - ") })
+    ]);
+    article.appendChild(node("header", { class: "coffee-head" }, [titleGroup, coffeeIcons()]));
+    article.appendChild(labeledSection("Aroma", entry.aroma));
+    article.appendChild(labeledSection("Taste", entry.taste));
+    article.appendChild(labeledSection("Notes", entry.notes));
+    article.appendChild(labeledSection("Rating", ratingText(entry.rating), "rating"));
+    return article;
   }
 
   function renderCooking(entry) {
     const ingredients = Array.isArray(entry.ingredients) ? entry.ingredients : [];
     const method = Array.isArray(entry.method) ? entry.method : [];
-    return '<article class="recipe-card">' +
-      imageBlock(entry, "recipe-photo", entry.title) +
-      '<div><span class="label">Recent recipe</span>' +
-      '<p class="widget-copy">' + escapeHtml([entry.summary, entry.notes].filter(Boolean).join(" ")) + '</p>' +
-      '<ul class="chip-list" aria-label="Ingredients">' + ingredients.map(item => '<li>' + escapeHtml(item) + '</li>').join("") + '</ul></div>' +
-      '</article>' +
-      '<section class="recipe-method" aria-label="Concise cooking method"><span class="label">Method</span>' +
-      '<ol class="method-list">' + method.map(step => '<li><strong>' + escapeHtml(step.label) + '</strong>' + escapeHtml(step.text) + '</li>').join("") + '</ol></section>';
+    const fragment = document.createDocumentFragment();
+
+    const article = node("article", { class: "recipe-card" }, [
+      imageBlock(entry, "recipe-photo", entry.title),
+      node("div", {}, [
+        node("span", { class: "label", text: "Recent recipe" }),
+        node("p", { class: "widget-copy", text: [entry.summary, entry.notes].filter(Boolean).join(" ") }),
+        node("ul", { class: "chip-list", "aria-label": "Ingredients" }, ingredients.map(item => node("li", { text: item })))
+      ])
+    ]);
+
+    const methodList = node("ol", { class: "method-list" }, method.map(step => {
+      const item = node("li", {}, [node("strong", { text: step.label || "" })]);
+      item.appendChild(document.createTextNode(step.text || ""));
+      return item;
+    }));
+
+    fragment.appendChild(article);
+    fragment.appendChild(node("section", { class: "recipe-method", "aria-label": "Concise cooking method" }, [
+      node("span", { class: "label", text: "Method" }),
+      methodList
+    ]));
+    return fragment;
   }
 
   function renderBooks(entry) {
-    return '<article class="book-feature">' +
-      '<div><span class="label">Current shelf</span>' +
-      '<p class="widget-copy">A compact cover-and-impression card works better here than a long review.</p>' +
-      '<div class="coffee-section"><span class="label">About</span>' + escapeHtml(entry.about) + '</div>' +
-      '<div class="coffee-section"><span class="label">Impression</span>' + escapeHtml(entry.impression) + '</div>' +
-      '<div class="coffee-section"><span class="label">For who?</span>' + escapeHtml(entry.for_who) + '</div></div>' +
-      imageBlock(entry, "book-cover", entry.title) +
-      '</article>';
+    return node("article", { class: "book-feature" }, [
+      node("div", {}, [
+        node("span", { class: "label", text: "Current shelf" }),
+        node("p", { class: "widget-copy", text: "A compact cover-and-impression card works better here than a long review." }),
+        labeledSection("About", entry.about),
+        labeledSection("Impression", entry.impression),
+        labeledSection("For who?", entry.for_who)
+      ]),
+      imageBlock(entry, "book-cover", entry.title)
+    ]);
   }
 
   const renderers = {
@@ -140,15 +213,21 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   function renderMiniDeck(type, deck, selectedIndex, container) {
-    container.innerHTML = deck.map((entry, index) => {
+    const buttons = deck.map((entry, index) => {
       const selected = index === selectedIndex;
       const date = formatDate(entry.date);
-      return '<button class="mini-card' + (selected ? ' is-selected' : '') + '" type="button" data-deck-index="' + index + '" aria-pressed="' + (selected ? "true" : "false") + '">' +
-        '<div class="deck-thumb ' + type + '">' + escapeHtml(entry.title) + '</div>' +
-        '<span>' + escapeHtml(entry.title) + '</span>' +
-        '<small>' + escapeHtml(date || "Entry") + '</small>' +
-        '</button>';
-    }).join("");
+      return node("button", {
+        class: "mini-card" + (selected ? " is-selected" : ""),
+        type: "button",
+        "aria-pressed": selected ? "true" : "false",
+        dataset: { deckIndex: index }
+      }, [
+        node("div", { class: "deck-thumb " + type, text: entry.title || "" }),
+        node("span", { text: entry.title || "" }),
+        node("small", { text: date || "Entry" })
+      ]);
+    });
+    container.replaceChildren(...buttons);
   }
 
   function setupDeck(type, entries, widget) {
@@ -167,7 +246,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let selectedIndex = 0;
 
     function render() {
-      feature.innerHTML = renderer(deck[selectedIndex]);
+      feature.replaceChildren(renderer(deck[selectedIndex]));
       renderMiniDeck(type, deck, selectedIndex, miniDeck);
       setupImageFallbacks(feature);
     }

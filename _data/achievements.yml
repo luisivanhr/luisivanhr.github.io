@@ -1,0 +1,120 @@
+academic:
+  - title: "Grants and scholarships"
+    icon: "funding"
+    items:
+      - id: achievement-mext-scholarship
+        date: "2025-08-19"
+        updated: "2025-08-19"
+        title: "MEXT Scholarship"
+        summary: "Scholarship support for research at Kyoto University."
+      - id: achievement-graduate-research-funding
+        date: "2025-08-19"
+        updated: "2025-08-19"
+        title: "Graduate research funding"
+        summary: "Placeholder for funded academic research support."
+      - id: achievement-travel-support
+        date: "2025-08-19"
+        updated: "2025-08-19"
+        title: "Travel support"
+        summary: "Placeholder for seminar, workshop, or conference travel grants."
+      - id: achievement-research-assistantship
+        date: "2025-08-19"
+        updated: "2025-08-19"
+        title: "Research assistantship"
+        summary: "Placeholder for supported project work and academic appointments."
+      - id: achievement-visiting-program-support
+        date: "2025-08-19"
+        updated: "2025-08-19"
+        title: "Visiting program support"
+        summary: "Placeholder for external institute or collaboration funding."
+  - title: "Awards"
+    icon: "award"
+    items:
+      - id: achievement-research-distinction
+        date: "2025-08-19"
+        updated: "2025-08-19"
+        title: "Research distinction"
+        summary: "Placeholder for academic awards, honors, and recognitions."
+      - id: achievement-conference-recognition
+        date: "2025-08-19"
+        updated: "2025-08-19"
+        title: "Conference recognition"
+        summary: "Placeholder for talk, poster, or workshop recognition."
+      - id: achievement-competition-result
+        date: "2025-08-19"
+        updated: "2025-08-19"
+        title: "Competition result"
+        summary: "Placeholder for contest or prize outcomes."
+      - id: achievement-departmental-honor
+        date: "2025-08-19"
+        updated: "2025-08-19"
+        title: "Departmental honor"
+        summary: "Placeholder for institutional achievement."
+      - id: achievement-publication-milestone
+        date: "2025-08-19"
+        updated: "2025-08-19"
+        title: "Publication milestone"
+        summary: "Placeholder for publication-linked recognition."
+  - title: "Certifications"
+    icon: "certificate"
+    items:
+      - id: achievement-jlpt-n2
+        date: "2024-12-01"
+        updated: "2024-12-01"
+        title: "JLPT N2"
+        summary: "Japanese-Language Proficiency Test, December 2024."
+      - id: achievement-toefl-ibt-111
+        date: "2019-01-01"
+        updated: "2019-01-01"
+        title: "TOEFL iBT 111"
+        summary: "English certification entry from 2019."
+      - id: achievement-professional-certificate
+        date: "2025-08-19"
+        updated: "2025-08-19"
+        title: "Professional certificate"
+        summary: "Placeholder for future credentials."
+      - id: achievement-technical-certification
+        date: "2025-08-19"
+        updated: "2025-08-19"
+        title: "Technical certification"
+        summary: "Placeholder for software, data, or research tooling certificates."
+      - id: achievement-language-milestone
+        date: "2025-08-19"
+        updated: "2025-08-19"
+        title: "Language milestone"
+        summary: "Placeholder for additional language achievements."
+
+non_academic:
+  - title: "Gym PRs and personal goals"
+    icon: "strength"
+    items:
+      - id: achievement-deadlift-170kg
+        date: "2025-08-19"
+        updated: "2025-08-19"
+        title: "Deadlift 170kg"
+        summary: "At 69kg bodyweight."
+      - id: achievement-squat-120kg
+        date: "2025-08-19"
+        updated: "2025-08-19"
+        title: "Squat 120kg"
+        summary: "At 70kg bodyweight."
+      - id: achievement-bench-press-97-5kg
+        date: "2025-08-19"
+        updated: "2025-08-19"
+        title: "Bench Press 97.5kg"
+        summary: "At 70kg bodyweight."
+      - id: achievement-overhead-press-50kg
+        date: "2025-08-19"
+        updated: "2025-08-19"
+        title: "Overhead Press 50kg"
+        summary: "At 69kg bodyweight."
+      - id: achievement-future-personal-record
+        date: "2025-08-19"
+        updated: "2025-08-19"
+        title: "Future personal record"
+        summary: "Placeholder for additional non-academic milestones."
+      - id: achievement-endurance-milestone
+        date: "2025-08-19"
+        updated: "2025-08-19"
+        title: "Endurance milestone"
+        summary: "Placeholder for running, hiking, or other personal goals."

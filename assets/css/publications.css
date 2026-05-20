@@ -333,7 +333,7 @@
   border: 1px solid rgba(18, 59, 136, 0.22);
   border-radius: 6px;
   padding: 0.35rem 0.55rem;
-  background: rgba(18, 59, 136, 0.04);
+  background: #f6f8fb;
   color: var(--publications-blue);
   font-size: 0.82rem;
   font-weight: 900;
@@ -344,7 +344,7 @@
 
 .publications-page .publication-action:hover,
 .publications-page .publication-action:focus-visible {
-  background: rgba(18, 59, 136, 0.09);
+  background: #eaedf6;
   outline: none;
 }
 

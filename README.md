@@ -7,7 +7,7 @@
 3. Replace `assets/images/desk/background.png` with your 16:9 desk background.
 4. Edit hotspot positions in `_includes/desk-hotspots.svg`.
 5. Tweak scene positioning in `assets/css/main.css`.
-6. Add real content in `_posts`, `_about`, `_models`, `_courses`, `_hobbies`, `_achievements`, `_news`, and `_publications`.
+6. Add real content in the appropriate source of truth: `_posts`, `_models`, `_courses`, `_course_sections`, `_news`, or the relevant `_data/*.yml` file.
 
 ## Navigation
 
@@ -33,9 +33,19 @@ image: "/assets/images/hobbies/my-dish.jpg"
 
 Only edit `_layouts/hobbies.html`, `assets/js/hobbies.js`, or `assets/css/hobbies.css` when changing the widget structure, card fields, interactions, or visual design.
 
+## Content Source Of Truth
+
+Use one source of truth per section:
+
+- Collection-driven: Blog (`_posts`), Models (`_models`), Courses (`_courses`), Course sections (`_course_sections`), and News (`_news`).
+- Data-driven: Publications (`_data/publications.yml`), Presentations (`_data/presentations.yml`), Hobbies (`_data/hobbies.yml`), CV (`_data/cv.yml`), and Achievements (`_data/achievements.yml`).
+- Hard-coded stable teaser: About. The homepage About preview and About page are edited directly in their owning markup/layout files.
+
+Publications, Hobbies, and Achievements intentionally do not have collection folders or homepage hover feeds. Do not recreate `_publications`, `_hobbies`, or `_achievements` unless the section architecture changes.
+
 ## Desk Feeds
 
-JSON feeds are generated at `/data/*.json` through `data/*.json` pages and `_layouts/feed.json.html`. The homepage fetches those feeds for hover previews and monitor content.
+JSON feeds are generated at `/data/*.json` through `data/*.json` pages and `_layouts/feed.json.html`. The homepage fetches feeds only for sections that use hover previews or live monitor content, currently Blog, Models, Courses, and News. About uses hard-coded teaser data, while Publications, Presentations, Achievements, Hobbies, and CV navigate directly without hover feeds.
 
 ## Updates and News
 
@@ -49,6 +59,7 @@ ruby scripts/update_updated.rb --courses
 ruby scripts/update_updated.rb --posts
 ruby scripts/update_updated.rb --presentations
 ruby scripts/update_updated.rb --publications
+ruby scripts/update_updated.rb --achievements
 ruby scripts/update_updated.rb --hobbies
 ruby scripts/update_updated.rb --cv
 ```
@@ -68,9 +79,10 @@ Supported sources:
 - Blog posts: `_posts/*.md`
 - Presentations: `_data/presentations.yml` and `presentations/index.md`
 - Publications: `_data/publications.yml` and `publications/index.md`
+- Achievements: `_data/achievements.yml` and `achievements/index.md`
 - Hobbies: `_data/hobbies.yml` and `hobbies/index.md`
 - CV: `_data/cv.yml` and `cv/index.md`
-- Section-level markdown collections such as `_about/`, `_achievements/`, and `_hobbies/`
+- About: `about/index.md` and `_layouts/about.html`
 
 Generated News cards are written to `_news/generated/`. Manual News cards can be written directly in `_news/` or `_news/manual/`. News collection documents do not render their own detail pages; `/news/` is the aggregator page. If a News card needs more detail, set `source_url` to the page that owns the detail.
 

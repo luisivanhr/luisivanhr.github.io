@@ -215,7 +215,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function renderControls(total) {
     if (!pagination) return;
-    pagination.innerHTML = '';
+    pagination.replaceChildren();
     pagination.setAttribute('role', 'navigation');
     pagination.setAttribute('aria-label', 'Presentation pagination');
 

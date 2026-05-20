@@ -34,7 +34,7 @@ a:hover { text-decoration: underline; }
 /* fill the stage */
 .desk-bg {
   position: absolute; inset:0; overflow:hidden;
-  background: url('/assets/images/desk/background.png')
+  background: var(--desk-bg-image, none)
               center / cover no-repeat; /* or contain, depending on your export */
 }
 .desk-bg svg, .desk-bg canvas, .board-math{
@@ -257,8 +257,15 @@ a:hover { text-decoration: underline; }
   border-radius: 0.45em;
   color: #cfe1ff; text-decoration: none;
 }
-#nav-list a:hover, #nav-list a:focus {
-  background: rgba(255,255,255,0.08);
+#nav-list .brand {
+  cursor: default;
+  pointer-events: none;
+}
+#nav-list a:not(.brand):hover,
+#nav-list a:not(.brand):focus {
+  background: rgba(27,129,160,0.78);
+  color: #ffffff;
+  text-decoration: none;
   outline: none;
 }
 #nav-list a.active {

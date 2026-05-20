@@ -1,3 +1,17 @@
+function siteBaseUrl() {
+  return (document.documentElement.dataset.baseurl || "").replace(/\/$/, "");
+}
+
+function siteUrl(path) {
+  if (!path) return siteBaseUrl() || "/";
+  if (/^(?:[a-z][a-z0-9+.-]*:)?\/\//i.test(path) || /^[a-z][a-z0-9+.-]*:/i.test(path)) {
+    return path;
+  }
+  const base = siteBaseUrl();
+  const normalized = path.startsWith("/") ? path : `/${path}`;
+  return `${base}${normalized}` || "/";
+}
+
 // === Board text scaler (JS fallback) ===
 const BASE_FONT_PX = 22;  // font at 1600×900 design size
 function getStageScale(){
@@ -77,6 +91,14 @@ function setupDPRListener(onDPRChange = resizeFxCanvas){
 (function(){
   const tooltip = document.getElementById('tooltip');
   function fmtDate(iso){ try { return new Date(iso).toLocaleDateString(); } catch(e){ return ''; } }
+  function staticPreviewFor(target) {
+    if (target !== 'about' || !tooltip) return null;
+    return {
+      title: tooltip.dataset.aboutTitle || 'About me',
+      summary: tooltip.dataset.aboutSummary || '',
+      image: tooltip.dataset.aboutImage || ''
+    };
+  }
   const previewCache = Object.create(null);
   async function getFeed(url){
     if(!url) return {"items":[{"title":"(placeholder)","url":"#","date": new Date().toISOString(),"summary":"No feed yet.","image":""}]};
@@ -169,7 +191,7 @@ function setupDPRListener(onDPRChange = resizeFxCanvas){
     }
     tooltip.classList.remove('news-group');
     title.textContent = item.title || '';
-    meta.textContent = ((item.summary||'') + ' · ' + fmtDate(item.date||'')).trim();
+    meta.textContent = [item.summary || '', fmtDate(item.date || '')].filter(Boolean).join(' - ');
     const img = tooltip.querySelector('.thumb');
     tooltip.classList.toggle('has-thumb', Boolean(item.image));
     if(item.image){ img.src = item.image; img.hidden = false; } else { img.hidden = true; }
@@ -218,13 +240,14 @@ function setupDPRListener(onDPRChange = resizeFxCanvas){
   hotspots.forEach(h => {
     const feed = h.getAttribute('data-feed');
     h.addEventListener('mouseenter', async () => {
-      if (!feed) return;
+      const target = h.getAttribute('data-target') || '';
+      const staticItem = feed ? null : staticPreviewFor(target);
+      if (!feed && !staticItem) return;
       activeHotspot = h;
       const requestId = ++hoverRequestId;
-      const data = await getFeed(feed);
+      const data = feed ? await getFeed(feed) : null;
       if (requestId !== hoverRequestId || activeHotspot !== h) return;
-      const target = h.getAttribute('data-target') || '';
-      const item = target === 'news' ? latestNewsGroup(data.items || []) : (data.items?.[0] || {});
+      const item = staticItem || (target === 'news' ? latestNewsGroup(data.items || []) : (data.items?.[0] || {}));
       const r = h.getBoundingClientRect();
       showTooltip(r.right, r.top, item, target);
     });
@@ -240,7 +263,7 @@ function setupDPRListener(onDPRChange = resizeFxCanvas){
         cv: '/cv/', about: '/about/', presentations: '/presentations/'
       };
       const href = mapping[h.getAttribute('data-target') || ''] || '/';
-      location.href = href;
+      location.href = siteUrl(href);
     });
   });
 
@@ -259,12 +282,17 @@ function setupDPRListener(onDPRChange = resizeFxCanvas){
     const div = document.createElement('div');
     div.className = 'slide';
     const imgUrl = item.image || item.cover || '';
-    div.innerHTML = `
-      <div class="img" style="${imgUrl ? `background-image:url('${imgUrl}')` : ''}"></div>
-      <div class="caption">
-        <strong>${item.title || 'Untitled model'}</strong>
-      </div>
-    `;
+    const image = document.createElement('div');
+    image.className = 'img';
+    if (imgUrl) image.style.backgroundImage = `url("${imgUrl}")`;
+
+    const caption = document.createElement('div');
+    caption.className = 'caption';
+    const title = document.createElement('strong');
+    title.textContent = item.title || 'Untitled model';
+    caption.appendChild(title);
+
+    div.append(image, caption);
     return div;
   }
 
@@ -307,7 +335,15 @@ function setupDPRListener(onDPRChange = resizeFxCanvas){
       items = withImg.length ? withImg : all;
 
       if (!items.length) {
-        el.innerHTML = '<div class="slide show"><div class="caption"><strong>No models yet</strong></div></div>';
+        const empty = document.createElement('div');
+        empty.className = 'slide show';
+        const caption = document.createElement('div');
+        caption.className = 'caption';
+        const title = document.createElement('strong');
+        title.textContent = 'No models yet';
+        caption.appendChild(title);
+        empty.appendChild(caption);
+        el.replaceChildren(empty);
         return;
       }
 
@@ -338,44 +374,6 @@ function setupDPRListener(onDPRChange = resizeFxCanvas){
 })();
 
 })();
- 
-(function(){
-  const btn = document.getElementById('nav-toggle');
-  const list = document.getElementById('nav-list');
-  if (!btn || !list) return;
-
-  // Restore state
-  const saved = localStorage.getItem('navOpen') === '1';
-  if (saved) {
-    list.hidden = false;
-    btn.setAttribute('aria-expanded', 'true');
-  }
-
-  const toggle = () => {
-    const open = btn.getAttribute('aria-expanded') === 'true';
-    const next = !open;
-    btn.setAttribute('aria-expanded', String(next));
-    list.hidden = !next;
-    try { localStorage.setItem('navOpen', next ? '1' : '0'); } catch(_) {}
-  };
-
-  btn.addEventListener('click', toggle);
-  btn.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); }
-  });
-
-  // Optional: auto-open after a short delay the first time
-  if (!saved) {
-    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    setTimeout(() => {
-      // subtle wiggle to hint clickability
-      if (!reduce) {
-        btn.animate([{transform:'translateY(0)'},{transform:'translateY(2px)'},{transform:'translateY(0)'}], {duration:500,iterations:1});
-      }
-    }, 1200);
-  }
-})();
-
 // ===== Board Math: load JSON and render with KaTeX or MathJax if present =====
 function hydrateBoardMath(){
   const board = document.querySelector('.board-math');
@@ -383,7 +381,7 @@ function hydrateBoardMath(){
 
   async function renderLatex(latexList){
     // Clear the board
-    board.innerHTML = '';
+    board.replaceChildren();
     // Use KaTeX if available
     if (window.katex && typeof window.katex.render === 'function'){
       latexList.forEach(src => {
@@ -400,13 +398,22 @@ function hydrateBoardMath(){
     }
     // Else use MathJax v3 if available
     if (window.MathJax && typeof window.MathJax.typesetPromise === 'function'){
-      const html = latexList.map(s => `$$${String(s)}$$`).join('\n');
-      board.innerHTML = html;
+      latexList.forEach(src => {
+        const block = document.createElement('div');
+        block.className = 'board-eq';
+        block.textContent = `$$${String(src)}$$`;
+        board.appendChild(block);
+      });
       try { await window.MathJax.typesetPromise([board]); } catch(_){}
       return;
     }
     // Fallback: plain TeX text
-    board.innerHTML = latexList.map(s => `<pre style="margin:0">${String(s)}</pre>`).join('\n');
+    latexList.forEach(src => {
+      const block = document.createElement('pre');
+      block.style.margin = '0';
+      block.textContent = String(src);
+      board.appendChild(block);
+    });
   }
 
   const src = board.getAttribute('data-src');
