@@ -24,6 +24,8 @@
     var listRegion = page.querySelector("#models-list");
     var activeFilter = "all";
     var selectedId = rows[0] ? rows[0].getAttribute("data-model-id") : "";
+    var urlFilters = window.SiteUrlFilters;
+    var searchState = urlFilters.parseSearchValue(searchInput ? searchInput.value : "");
 
     function normalize(value) {
       return (value || "").toString().toLowerCase();
@@ -62,18 +64,25 @@
       countNode.textContent = "Showing " + count + " " + (count === 1 ? "model" : "models");
     }
 
+    function updateFilterStates() {
+      filterButtons.forEach(function (button) {
+        var isActive = (button.getAttribute("data-model-filter") || "all") === activeFilter;
+        button.classList.toggle("active", isActive);
+        button.setAttribute("aria-pressed", isActive ? "true" : "false");
+      });
+    }
+
     function applyFilters() {
-      var terms = normalize(searchInput ? searchInput.value : "").split(/\s+/).filter(Boolean);
       var count = 0;
       var selectedStillVisible = false;
 
       rows.forEach(function (row) {
-        var text = normalize(row.getAttribute("data-search-text"));
         var type = row.getAttribute("data-model-type") || "";
         var typeMatch = activeFilter === "all" || type === activeFilter;
-        var searchMatch = terms.every(function (term) {
-          return text.indexOf(term) !== -1;
-        });
+        var searchTarget = searchState.exact
+          ? row.getAttribute("data-model-title")
+          : row.getAttribute("data-search-text");
+        var searchMatch = urlFilters.matchesText(searchTarget || "", searchState);
         var show = typeMatch && searchMatch;
 
         row.hidden = !show;
@@ -125,6 +134,22 @@
       }
     }
 
+    function applyInitialUrlFilters() {
+      var initialSearch = urlFilters.getSearchParam("q");
+      if (initialSearch.query && searchInput) {
+        searchInput.value = initialSearch.query;
+        searchState = initialSearch;
+      }
+
+      var type = urlFilters.getParam("type");
+      if (type && urlFilters.hasDataValue(filterButtons, "data-model-filter", type)) {
+        activeFilter = type;
+      }
+
+      urlFilters.selectOption(sortSelect, urlFilters.getParam("sort"));
+      updateFilterStates();
+    }
+
     rows.forEach(function (row) {
       row.addEventListener("click", function (event) {
         if (event.target.closest("[data-no-row-select]")) return;
@@ -141,11 +166,7 @@
     filterButtons.forEach(function (button) {
       button.addEventListener("click", function () {
         activeFilter = button.getAttribute("data-model-filter") || "all";
-        filterButtons.forEach(function (other) {
-          var isActive = other === button;
-          other.classList.toggle("active", isActive);
-          other.setAttribute("aria-pressed", isActive ? "true" : "false");
-        });
+        updateFilterStates();
         applyFilters();
       });
     });
@@ -158,7 +179,10 @@
     });
 
     if (searchInput) {
-      searchInput.addEventListener("input", applyFilters);
+      searchInput.addEventListener("input", function () {
+        searchState = urlFilters.parseSearchValue(searchInput.value);
+        applyFilters();
+      });
     }
 
     if (sortSelect) {
@@ -167,6 +191,7 @@
       });
     }
 
+    applyInitialUrlFilters();
     sortRows(true);
   });
 })();

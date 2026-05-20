@@ -15,6 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const pagination = document.getElementById('presentation-pagination-controls');
   const emptyNode = document.querySelector('[data-presentations-empty]');
   const perPage = 6;
+  const urlFilters = window.SiteUrlFilters;
 
   let page = 1;
   let currentFilter = 'all';
@@ -22,6 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
   let selectedMonth = '';
   let yearFilterActive = false;
   let filteredPresentations = allPresentations.slice();
+  let searchState = urlFilters.parseSearchValue(searchInput ? searchInput.value : '');
   const presentationCountsByMonth = new Map();
 
   function parseDateParts(dateString) {
@@ -118,6 +120,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function resetFilters() {
     if (searchInput) searchInput.value = '';
+    searchState = urlFilters.parseSearchValue('');
     currentFilter = 'all';
     selectedYear = yearSelect?.dataset.initialYear || latestPresentationYear();
     selectedMonth = '';
@@ -129,10 +132,11 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function applyFilters() {
-    const terms = (searchInput ? searchInput.value.toLowerCase() : '').split(/\s+/).filter(Boolean);
     filteredPresentations = allPresentations.filter(presentation => {
-      const searchText = (presentation.dataset.searchText || presentation.textContent || '').toLowerCase();
-      const searchMatch = terms.every(term => searchText.includes(term));
+      const searchTarget = searchState.exact
+        ? presentation.dataset.title
+        : presentation.dataset.searchText || presentation.textContent;
+      const searchMatch = urlFilters.matchesText(searchTarget || '', searchState);
       const filters = (presentation.dataset.filters || '').split(' ');
       const filterMatch = currentFilter === 'all' || filters.includes(currentFilter);
       const yearMatch = !yearFilterActive || rangeOverlapsYear(presentation.dataset.date, presentation.dataset.endDate, selectedYear);
@@ -213,6 +217,33 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  function applyInitialUrlFilters() {
+    const initialSearch = urlFilters.getSearchParam('q');
+    if (initialSearch.query && searchInput) {
+      searchInput.value = initialSearch.query;
+      searchState = initialSearch;
+    }
+
+    const format = urlFilters.getParam('format');
+    if (format && urlFilters.hasDataValue(filterButtons, 'data-presentation-filter', format)) {
+      currentFilter = format;
+    }
+
+    const year = urlFilters.getParam('year');
+    if (yearSelect && urlFilters.selectOption(yearSelect, year)) {
+      selectedYear = yearSelect.value;
+      yearFilterActive = true;
+    }
+
+    const month = urlFilters.getParam('month');
+    if (month && presentationCountsByMonth.has(month)) {
+      selectedMonth = month;
+      selectedYear = month.slice(0, 4);
+      yearFilterActive = true;
+      if (yearSelect) urlFilters.selectOption(yearSelect, selectedYear);
+    }
+  }
+
   function renderControls(total) {
     if (!pagination) return;
     pagination.replaceChildren();
@@ -258,7 +289,12 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  if (searchInput) searchInput.addEventListener('input', applyFilters);
+  if (searchInput) {
+    searchInput.addEventListener('input', () => {
+      searchState = urlFilters.parseSearchValue(searchInput.value);
+      applyFilters();
+    });
+  }
   if (yearSelect) {
     yearSelect.addEventListener('change', () => {
       selectedYear = yearSelect.value || yearSelect.dataset.initialYear || latestPresentationYear();
@@ -272,6 +308,7 @@ document.addEventListener('DOMContentLoaded', () => {
     clearMonthButton.addEventListener('click', resetFilters);
   }
 
+  applyInitialUrlFilters();
   updateFilterStates();
   renderMonthMap();
   applyFilters();

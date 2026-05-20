@@ -54,6 +54,24 @@ Course index terms are generated from inline markers in course and course-sectio
 
 Use `[[term]]` for a top-level index entry and `[[parent::subterm]]` for a book-style subentry. Do not maintain a separate complete `index_terms` list in `_courses/*.md`; the Courses directory, course home metadata, search matches, and generated A-Z index all read from the inline markers through `/courses/course-index-data.json`.
 
+## Shareable Filter URLs
+
+Landing pages with client-side search or filters can initialize from URL query parameters. These parameters are read only on page load; the URL does not auto-update while typing or changing filters in this first version.
+
+Supported examples:
+
+```text
+/blog/?q=Wasserstein
+/blog/?q=Wasserstein&category=research
+/publications/?q=%22Exact%20Publication%20Title%22
+/presentations/?format=poster&year=2024
+/models/?type=simulation&q=transport
+/courses/?q=copula
+/courses/course-intro/index/?q=Markov
+```
+
+Use `q` for search text. Wrap the full `q` value in quotes when a compatible page should match an exact title or index term, for example `/publications/?q=%22Exact%20Publication%20Title%22`. Invalid filter values are ignored and the page falls back to its normal default state.
+
 ## Desk Feeds
 
 JSON feeds are generated at `/data/*.json` through `data/*.json` pages and `_layouts/feed.json.html`. The homepage fetches feeds only for sections that use hover previews or live monitor content, currently Blog, Models, Courses, and News. About uses hard-coded teaser data, while Publications, Presentations, Achievements, Hobbies, and CV navigate directly without hover feeds.

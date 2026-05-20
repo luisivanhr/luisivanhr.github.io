@@ -79,6 +79,7 @@ layout: default
             data-publication-card
             data-category="{{ publication.category | escape }}"
             data-year="{{ publication.year | escape }}"
+            data-title="{{ publication.title | escape }}"
             data-search-text="{{ search_text | strip | normalize_whitespace | escape }}">
             <h2>{{ publication.title }}</h2>
             <div class="publication-type-row">

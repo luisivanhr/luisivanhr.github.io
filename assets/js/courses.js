@@ -24,6 +24,8 @@
     var searchSourcesRoot = page.querySelector(".course-search-sources");
     var searchSources = Array.prototype.slice.call(page.querySelectorAll("[data-search-source]"));
     var selectedCourseId = cards[0] ? cards[0].getAttribute("data-course-id") : "";
+    var urlFilters = window.SiteUrlFilters;
+    var searchState = urlFilters.parseSearchValue(searchInput ? searchInput.value : "");
 
     function selectCourse(courseId) {
       selectedCourseId = courseId;
@@ -283,9 +285,11 @@
       if (!searchInput || !searchList) return;
 
       var rawTerm = searchInput.value.trim();
-      var terms = normalize(rawTerm).split(/\s+/).filter(Boolean);
+      searchState = searchState && searchState.query === rawTerm
+        ? searchState
+        : urlFilters.parseSearchValue(rawTerm);
 
-      if (!terms.length) {
+      if (!searchState.query) {
         showDefaultView();
         return;
       }
@@ -295,10 +299,10 @@
 
       var results = searchSources
         .filter(function (source) {
-          var text = normalize(source.getAttribute("data-search-text"));
-          return terms.every(function (term) {
-            return text.indexOf(term) !== -1;
-          });
+          var searchTarget = searchState.exact
+            ? source.getAttribute("data-title")
+            : source.getAttribute("data-search-text");
+          return urlFilters.matchesText(searchTarget || "", searchState);
         })
         .sort(compareSearchSources)
         .slice(0, 14);
@@ -343,7 +347,10 @@
     });
 
     if (searchInput) {
-      searchInput.addEventListener("input", applySearch);
+      searchInput.addEventListener("input", function () {
+        searchState = urlFilters.parseSearchValue(searchInput.value);
+        applySearch();
+      });
     }
 
     if (sortSelect) {
@@ -355,7 +362,17 @@
       });
     }
 
+    var initialSearch = urlFilters.getSearchParam("q");
+    if (initialSearch.query && searchInput) {
+      searchInput.value = initialSearch.query;
+      searchState = initialSearch;
+    }
+    urlFilters.selectOption(sortSelect, urlFilters.getParam("sort"));
+
     sortCards(true);
+    if (searchInput && searchInput.value.trim()) {
+      applySearch();
+    }
     loadCourseIndexes();
   });
 })();

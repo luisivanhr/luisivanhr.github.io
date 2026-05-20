@@ -259,9 +259,37 @@
     return hit.pageTitle + ": " + hit.context;
   }
 
-  function entryMatchesQuery(entry, query) {
-    if (!query) return entry;
-    var q = query.toLowerCase();
+  function matchesExactLabel(value, searchState) {
+    if (window.SiteUrlFilters) {
+      return window.SiteUrlFilters.matchesText(value || "", searchState);
+    }
+    return cleanText(value).toLowerCase() === cleanText(searchState.query).toLowerCase();
+  }
+
+  function entryMatchesExactQuery(entry, searchState) {
+    if (matchesExactLabel(entry.label, searchState)) return entry;
+
+    var subentries = entry.subentries.filter(function (subentry) {
+      return matchesExactLabel(subentry.label, searchState) ||
+        matchesExactLabel(entry.label + ": " + subentry.label, searchState);
+    });
+
+    if (!subentries.length) return null;
+    return {
+      label: entry.label,
+      searchText: entry.searchText,
+      hits: [],
+      subentries: subentries
+    };
+  }
+
+  function entryMatchesQuery(entry, query, searchState) {
+    var state = searchState || (window.SiteUrlFilters ? window.SiteUrlFilters.parseSearchValue(query) : null);
+    var activeQuery = state && state.query ? state.query : query;
+    if (!activeQuery) return entry;
+    if (state && state.exact) return entryMatchesExactQuery(entry, state);
+
+    var q = activeQuery.toLowerCase();
     if ((entry.searchText || "").toLowerCase().indexOf(q) !== -1) return entry;
 
     var hits = entry.hits.filter(function (hit) {
@@ -301,13 +329,13 @@
     return list;
   }
 
-  function renderCourseIndexEntries(root, entries, query) {
+  function renderCourseIndexEntries(root, entries, query, searchState) {
     var results = root.querySelector("[data-index-results]");
     var letters = root.querySelector("[data-index-letters]");
     if (!results || !letters) return;
 
     var filtered = entries.map(function (entry) {
-      return entryMatchesQuery(entry, query);
+      return entryMatchesQuery(entry, query, searchState);
     }).filter(Boolean);
     var availableLetters = filtered.map(function (entry) {
       return (entry.label.charAt(0) || "#").toUpperCase();
@@ -480,11 +508,17 @@
         var entries = helper && helper.extractCourseIndexEntries
           ? helper.extractCourseIndexEntries(course)
           : extractCourseIndexEntries(course);
-        renderCourseIndexEntries(root, entries, "");
+        var urlFilters = window.SiteUrlFilters;
+        var initialSearch = urlFilters ? urlFilters.getSearchParam("q") : { query: "", exact: false };
+        if (search && initialSearch.query) {
+          search.value = initialSearch.query;
+        }
+        renderCourseIndexEntries(root, entries, initialSearch.query || "", initialSearch);
 
         if (search) {
           search.addEventListener("input", function () {
-            renderCourseIndexEntries(root, entries, cleanText(search.value));
+            var searchState = urlFilters ? urlFilters.parseSearchValue(search.value) : { query: cleanText(search.value), exact: false };
+            renderCourseIndexEntries(root, entries, searchState.query, searchState);
           });
         }
       })

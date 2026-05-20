@@ -31,7 +31,7 @@ layout: default
         {% assign cat_slug = c | slugify %}
         {% assign post_cats = post_cats | append: cat_slug | append: ' ' %}
       {% endfor %}
-    <article class="post-card" data-categories="{{ post_cats | strip }}" data-date="{{ p.date | date: '%Y-%m-%d' }}" data-month="{{ p.date | date: '%Y-%m' }}">
+    <article class="post-card" data-categories="{{ post_cats | strip }}" data-date="{{ p.date | date: '%Y-%m-%d' }}" data-month="{{ p.date | date: '%Y-%m' }}" data-title="{{ p.title | escape }}">
       <a href="{{ p.url | relative_url }}">
         <img src="{{ p.image | default: '/assets/thumbs/blog/default-post.png' | relative_url }}" alt="{{ p.title }} thumbnail" class="post-thumb">
         <div class="post-card-content">

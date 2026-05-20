@@ -279,9 +279,39 @@
     return hit.pageTitle + ": " + hit.context;
   }
 
-  function entryMatchesQuery(entry, query) {
-    if (!query) return entry;
-    var q = query.toLowerCase();
+  function matchesExactLabel(value, searchState) {
+    if (window.SiteUrlFilters) {
+      return window.SiteUrlFilters.matchesText(value || "", searchState);
+    }
+    return cleanText(value).toLowerCase() === cleanText(searchState.query).toLowerCase();
+  }
+
+  function entryMatchesExactQuery(entry, searchState) {
+    if (matchesExactLabel(entry.label, searchState)) return entry;
+
+    var subentries = entry.subentries.map(function (subentry) {
+      return matchesExactLabel(subentry.label, searchState) ||
+        matchesExactLabel(entry.label + ": " + subentry.label, searchState)
+        ? subentry
+        : null;
+    }).filter(Boolean);
+
+    if (!subentries.length) return null;
+    return {
+      label: entry.label,
+      searchText: entry.searchText,
+      hits: [],
+      subentries: subentries
+    };
+  }
+
+  function entryMatchesQuery(entry, query, searchState) {
+    var state = searchState || (window.SiteUrlFilters ? window.SiteUrlFilters.parseSearchValue(query) : null);
+    var activeQuery = state && state.query ? state.query : query;
+    if (!activeQuery) return entry;
+    if (state && state.exact) return entryMatchesExactQuery(entry, state);
+
+    var q = activeQuery.toLowerCase();
     if ((entry.searchText || "").toLowerCase().indexOf(q) !== -1) return entry;
 
     var hits = entry.hits.filter(function (hit) {

@@ -10,7 +10,7 @@ layout: default
       {% assign cat_posts = site.categories[page.category] %}
       {% if cat_posts %}
         {% for p in cat_posts %}
-        <article class="post-card">
+        <article class="post-card" data-title="{{ p.title | escape }}">
           <a href="{{ p.url | relative_url }}">
             <img src="{{ p.image | default: '/assets/thumbs/blog/default-post.png' | relative_url }}" alt="{{ p.title }} thumbnail" class="post-thumb">
             <div class="post-card-content">

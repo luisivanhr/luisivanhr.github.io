@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const monthMapTitle = document.getElementById('blog-month-map-title');
   const pagination = document.getElementById('pagination-controls');
   const perPage = 6;
+  const urlFilters = window.SiteUrlFilters;
 
   let page = 1;
   let currentCategory = 'all';
@@ -18,6 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
   let selectedMonth = '';
   let yearFilterActive = false;
   let filteredPosts = allPosts.slice();
+  let searchState = urlFilters.parseSearchValue(searchInput ? searchInput.value : '');
   const postCountsByMonth = new Map();
 
   allPosts.forEach(post => {
@@ -29,6 +31,16 @@ document.addEventListener('DOMContentLoaded', () => {
   function latestPostYear() {
     const firstPostDate = allPosts.find(post => post.dataset.date)?.dataset.date;
     return firstPostDate ? firstPostDate.slice(0, 4) : '';
+  }
+
+  function postTitle(post) {
+    return post.dataset.title || post.querySelector('h2')?.textContent || '';
+  }
+
+  function postMatchesSearch(post) {
+    if (!searchState.query) return true;
+    const target = searchState.exact ? postTitle(post) : post.textContent;
+    return urlFilters.matchesText(target || '', searchState);
   }
 
   function updateCategoryStates() {
@@ -52,6 +64,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function resetFilters() {
     if (searchInput) searchInput.value = '';
+    searchState = urlFilters.parseSearchValue('');
     currentCategory = 'all';
     selectedYear = yearSelect?.dataset.initialYear || latestPostYear();
     selectedMonth = '';
@@ -63,13 +76,11 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function applyFilters() {
-    const terms = (searchInput ? searchInput.value.toLowerCase() : '').split(/\s+/).filter(Boolean);
     filteredPosts = allPosts.filter(post => {
-      const text = (post.textContent || '').toLowerCase();
-      const textMatch = terms.every(term => text.includes(term));
+      const textMatch = postMatchesSearch(post);
       const cats = (post.dataset.categories || '').split(' ');
       const catMatch = currentCategory === 'all' || cats.includes(currentCategory);
-      const yearMatch = !yearFilterActive || post.dataset.date.slice(0, 4) === selectedYear;
+      const yearMatch = !yearFilterActive || (post.dataset.date || '').slice(0, 4) === selectedYear;
       const monthMatch = !selectedMonth || post.dataset.month === selectedMonth;
       return textMatch && catMatch && yearMatch && monthMatch;
     });
@@ -147,6 +158,33 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  function applyInitialUrlFilters() {
+    const initialSearch = urlFilters.getSearchParam('q');
+    if (initialSearch.query && searchInput) {
+      searchInput.value = initialSearch.query;
+      searchState = initialSearch;
+    }
+
+    const category = urlFilters.getParam('category');
+    if (category && urlFilters.hasDataValue(categoryButtons, 'data-category', category)) {
+      currentCategory = category;
+    }
+
+    const year = urlFilters.getParam('year');
+    if (yearSelect && urlFilters.selectOption(yearSelect, year)) {
+      selectedYear = yearSelect.value;
+      yearFilterActive = true;
+    }
+
+    const month = urlFilters.getParam('month');
+    if (month && postCountsByMonth.has(month)) {
+      selectedMonth = month;
+      selectedYear = month.slice(0, 4);
+      yearFilterActive = true;
+      if (yearSelect) urlFilters.selectOption(yearSelect, selectedYear);
+    }
+  }
+
   function renderControls(total) {
     pagination.replaceChildren();
     pagination.setAttribute('role', 'navigation');
@@ -191,7 +229,12 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  if (searchInput) searchInput.addEventListener('input', applyFilters);
+  if (searchInput) {
+    searchInput.addEventListener('input', () => {
+      searchState = urlFilters.parseSearchValue(searchInput.value);
+      applyFilters();
+    });
+  }
   if (yearSelect) {
     yearSelect.addEventListener('change', () => {
       selectedYear = yearSelect.value || yearSelect.dataset.initialYear || latestPostYear();
@@ -205,6 +248,7 @@ document.addEventListener('DOMContentLoaded', () => {
     clearMonthButton.addEventListener('click', resetFilters);
   }
 
+  applyInitialUrlFilters();
   updateCategoryStates();
   renderMonthMap();
   applyFilters();

@@ -14,8 +14,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const allPublications = Array.from(publicationsContainer.querySelectorAll('[data-publication-card]'));
   const perPage = 8;
+  const urlFilters = window.SiteUrlFilters;
   let page = 1;
   let filteredPublications = allPublications.slice();
+  let searchState = urlFilters.parseSearchValue(searchInput ? searchInput.value : '');
 
   function updateResetYearState() {
     const hasYear = Boolean(yearSelect?.value);
@@ -29,13 +31,14 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function applyFilters() {
-    const terms = (searchInput ? searchInput.value.toLowerCase() : '').split(/\s+/).filter(Boolean);
     const selectedCategory = categorySelect?.value || 'all';
     const selectedYear = yearSelect?.value || '';
 
     filteredPublications = allPublications.filter(publication => {
-      const searchText = (publication.dataset.searchText || publication.textContent || '').toLowerCase();
-      const searchMatch = terms.every(term => searchText.includes(term));
+      const searchTarget = searchState.exact
+        ? publication.dataset.title
+        : publication.dataset.searchText || publication.textContent;
+      const searchMatch = urlFilters.matchesText(searchTarget || '', searchState);
       const categoryMatch = selectedCategory === 'all' || publication.dataset.category === selectedCategory;
       const yearMatch = !selectedYear || publication.dataset.year === selectedYear;
       return searchMatch && categoryMatch && yearMatch;
@@ -112,6 +115,17 @@ document.addEventListener('DOMContentLoaded', () => {
     applyFilters();
   }
 
+  function applyInitialUrlFilters() {
+    const initialSearch = urlFilters.getSearchParam('q');
+    if (initialSearch.query && searchInput) {
+      searchInput.value = initialSearch.query;
+      searchState = initialSearch;
+    }
+
+    urlFilters.selectOption(categorySelect, urlFilters.getParam('category'));
+    urlFilters.selectOption(yearSelect, urlFilters.getParam('year'));
+  }
+
   pageRoot.addEventListener('click', event => {
     const toggle = event.target.closest('.publication-summary-toggle');
     if (!toggle) return;
@@ -138,11 +152,16 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  if (searchInput) searchInput.addEventListener('input', applyFilters);
+  if (searchInput) {
+    searchInput.addEventListener('input', () => {
+      searchState = urlFilters.parseSearchValue(searchInput.value);
+      applyFilters();
+    });
+  }
   if (categorySelect) categorySelect.addEventListener('change', applyFilters);
   if (yearSelect) yearSelect.addEventListener('change', applyFilters);
   if (resetYearButton) resetYearButton.addEventListener('click', resetYear);
 
-  updateResetYearState();
-  render();
+  applyInitialUrlFilters();
+  applyFilters();
 });

@@ -39,6 +39,7 @@ layout: default
           data-date="{{ talk.date_start }}"
           data-end-date="{{ talk.date_end | default: talk.date_start }}"
           data-month="{{ talk.date_start | date: '%Y-%m' }}"
+          data-title="{{ talk.title | escape }}"
           data-search-text="{{ search_text | strip | normalize_whitespace | escape }}">
           <time class="presentation-date-card" datetime="{{ talk.date_start }}">
             <span>{{ talk.date_card_month }}</span>
