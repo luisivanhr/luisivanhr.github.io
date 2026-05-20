@@ -423,7 +423,7 @@ function setupDPRListener(onDPRChange = resizeFxCanvas){
 
       // rotation cadence (respect reduced motion by slowing down)
       const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      const period = reduce ? 10000 : 6000; // ms between slides
+      const period = reduce ? 8000 : 4000; // ms between slides
 
       // clear any existing timer
       if (timer) clearInterval(timer);
