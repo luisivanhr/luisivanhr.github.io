@@ -8,7 +8,7 @@ layout: default
 {% endif %}
 {% assign news_items = site.news | sort: "date" | reverse %}
 {% assign news_groups = news_items | group_by_exp: "item", "item.date | date: '%Y-%m-%d'" %}
-{% assign entries_per_page = page.entries_per_page | default: 12 %}
+{% assign entries_per_page = page.entries_per_page | default: 10 %}
 <link rel="stylesheet" href="{{ '/assets/css/news.css' | relative_url }}?v={{ asset_version }}">
 <script defer src="{{ '/assets/js/news.js' | relative_url }}?v={{ asset_version }}"></script>
 
@@ -18,7 +18,7 @@ layout: default
       <div class="news-logbook">
         <header class="news-log-head">
           <div class="news-log-title">
-            <span class="news-kicker">Laboratory update log</span>
+            <span class="news-kicker">Update log</span>
             <h1 id="news-title">{{ page.title | default: "News" }}</h1>
             <p>{{ page.summary | default: "Recent additions and updates from across the site." }}</p>
           </div>
@@ -78,7 +78,7 @@ layout: default
       <div class="news-logbook">
         <header class="news-log-head">
           <div class="news-log-title">
-            <span class="news-kicker">Laboratory update log</span>
+            <span class="news-kicker">Update log</span>
             <h1 id="news-title">{{ page.title | default: "News" }}</h1>
             <p>{{ page.summary | default: "Recent additions and updates from across the site." }}</p>
           </div>
