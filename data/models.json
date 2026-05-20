@@ -3,6 +3,5 @@ layout: feed.json
 title: "Models feed"
 collection_name: models
 permalink: /data/models.json
-max_items: 8
 sort_field: updated
 ---

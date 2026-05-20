@@ -273,6 +273,9 @@ function setupDPRListener(onDPRChange = resizeFxCanvas){
   if (!el) return;
 
   const src = el.getAttribute('data-src');
+  const SAMPLE_SIZE = 8;
+  const RECENT_COUNT = 3;
+  const SAMPLE_CACHE_KEY = 'desk.models.monitor.sample.v1';
   let items = [];
   let idx = 0;
   let timer = null;
@@ -294,6 +297,74 @@ function setupDPRListener(onDPRChange = resizeFxCanvas){
 
     div.append(image, caption);
     return div;
+  }
+
+  function modelKey(item){
+    return item.url || item.source_id || item.title || '';
+  }
+
+  function hasVisual(item){
+    return Boolean(item.image || item.cover);
+  }
+
+  function feedSignature(list){
+    return list.map(item => [
+      modelKey(item),
+      item.date || '',
+      item.image || item.cover || ''
+    ].join('|')).join('||');
+  }
+
+  function readCachedSample(signature, byKey){
+    try {
+      const raw = sessionStorage.getItem(SAMPLE_CACHE_KEY);
+      if (!raw) return null;
+      const cached = JSON.parse(raw);
+      if (!cached || cached.signature !== signature || !Array.isArray(cached.keys)) return null;
+      const sample = cached.keys.map(key => byKey.get(key)).filter(Boolean);
+      return sample.length === cached.keys.length ? sample : null;
+    } catch (_) {
+      return null;
+    }
+  }
+
+  function writeCachedSample(signature, sample){
+    try {
+      sessionStorage.setItem(SAMPLE_CACHE_KEY, JSON.stringify({
+        signature,
+        keys: sample.map(modelKey).filter(Boolean)
+      }));
+    } catch (_) {}
+  }
+
+  function randomSample(pool, count){
+    const copy = pool.slice();
+    const take = Math.min(count, copy.length);
+    for (let i = 0; i < take; i += 1) {
+      const j = i + Math.floor(Math.random() * (copy.length - i));
+      const tmp = copy[i];
+      copy[i] = copy[j];
+      copy[j] = tmp;
+    }
+    return copy.slice(0, take);
+  }
+
+  function selectMonitorItems(all){
+    const visual = all.filter(hasVisual);
+    const candidates = visual.length ? visual : all;
+    if (candidates.length <= SAMPLE_SIZE) return candidates;
+
+    const byKey = new Map(candidates.map(item => [modelKey(item), item]));
+    const signature = feedSignature(candidates);
+    const cached = readCachedSample(signature, byKey);
+    if (cached) return cached;
+
+    const recentCount = Math.min(RECENT_COUNT, candidates.length);
+    const recent = candidates.slice(0, recentCount);
+    const sampled = randomSample(candidates.slice(recentCount), SAMPLE_SIZE - recent.length);
+    const selected = recent.concat(sampled);
+    writeCachedSample(signature, selected);
+    return selected;
   }
 
   // Swap slides with fade
@@ -329,10 +400,8 @@ function setupDPRListener(onDPRChange = resizeFxCanvas){
         ? await getFeed(src)
         : await (await fetch(src, {cache:'no-store'})).json();
 
-      // prefer items that have images; fallback to all
       const all = Array.isArray(data.items) ? data.items : [];
-      const withImg = all.filter(x => x.image || x.cover);
-      items = withImg.length ? withImg : all;
+      items = selectMonitorItems(all);
 
       if (!items.length) {
         const empty = document.createElement('div');

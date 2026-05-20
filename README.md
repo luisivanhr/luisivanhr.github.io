@@ -58,6 +58,8 @@ Use `[[term]]` for a top-level index entry and `[[parent::subterm]]` for a book-
 
 JSON feeds are generated at `/data/*.json` through `data/*.json` pages and `_layouts/feed.json.html`. The homepage fetches feeds only for sections that use hover previews or live monitor content, currently Blog, Models, Courses, and News. About uses hard-coded teaser data, while Publications, Presentations, Achievements, Hobbies, and CV navigate directly without hover feeds.
 
+The Models feed powers the rotating desk monitor. It emits the full model list sorted by `updated`; the homepage monitor then keeps a cached session sample of up to eight models: the three most recent image-bearing models plus five randomly sampled older image-bearing models. If no models have images, the same rule falls back to all models.
+
 ## Updates and News
 
 The site uses `date:` for original publication or creation date and `updated:` for the latest meaningful edit date. The script `scripts/update_updated.rb` updates front matter and maintains generated News cards for recent site changes.
