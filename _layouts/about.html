@@ -6,9 +6,13 @@ layout: default
 {% else %}
   {% assign asset_version = site.github.build_revision | default: site.time | url_encode %}
 {% endif %}
+{% assign photobook_entries = site.data.about_photos | default: empty %}
+{% assign cv_socials = site.data.cv.actions | where: "id", "cv-socials" | first %}
+{% assign about_contact_icons = "linkedin,email" | split: "," %}
 <link rel="stylesheet" href="{{ '/assets/css/about.css' | relative_url }}?v={{ asset_version }}">
 
 <main class="about-page" data-about-page>
+  {% include profile-icons.html %}
   <section class="about-main" aria-labelledby="about-title">
     <header class="about-head">
       <h1 id="about-title">About me</h1>
@@ -26,19 +30,30 @@ layout: default
         </figure>
         <div>
           <span class="about-label">Luis Ivan Hernandez Ruiz</span>
-          <p>Mathematics PhD, Kyoto University. Research in probability, stochastic processes, and learning systems.</p>
+          <p>Mathematics PhD, Physics M.Sc. <br>Mexican <br>Kyoto University | UNAM</p>
         </div>
         <div class="about-identity-row">
           <strong>Current affiliation:</strong>
           <p>Kyoto University</p>
         </div>
         <div class="about-identity-row">
-          <strong>Contact info:</strong>
-          <p>Email, GitHub, ORCID, and LinkedIn</p>
+          <strong>Contact:</strong>
+          <div class="about-contact-actions profile-action-list">
+            {% for contact_icon in about_contact_icons %}
+              {% for link in cv_socials.links %}
+                {% if link.icon == contact_icon %}
+                  <a class="profile-link-button" href="{{ link.url }}"{% if link.external %} target="_blank" rel="noopener noreferrer"{% endif %}>
+                    <svg aria-hidden="true" focusable="false"><use href="#cv-icon-{{ link.icon }}"></use></svg>
+                    <span>{{ link.label }}</span>
+                  </a>
+                {% endif %}
+              {% endfor %}
+            {% endfor %}
+          </div>
         </div>
         <div class="about-identity-row about-cv-row">
           <strong>CV details:</strong>
-          <a class="about-cv-button" href="{{ '/cv/' | relative_url }}">
+          <a class="about-cv-button profile-link-button" href="{{ '/cv/' | relative_url }}">
             <svg viewBox="0 0 297 297" aria-hidden="true" focusable="false">
               <path d="M291.419 57.627 150.78 15.006c-1.49-.452-3.068-.451-4.56 0L5.581 57.627C.403 59.197 0 63.781 0 65.149c0 1.367.403 5.952 5.581 7.521l68.331 20.708 71.893-29.716c3.613-1.486 7.744.232 9.233 3.843 1.489 3.611-.232 7.744-3.843 9.233l-56.003 23.09 51.028 15.464h-.001c1.494.452 3.071.452 4.561 0L291.42 72.67c5.177-1.569 5.58-6.154 5.58-7.521 0-1.368-.402-5.953-5.581-7.522z"/>
               <path d="M70.372 107.083 42.379 98.6v53.955c0 2.403 1.22 4.642 3.24 5.943 8.371 5.397 16.635 9.971 24.753 13.826v-65.241z"/>
@@ -59,7 +74,17 @@ layout: default
             <h2>Short bio</h2>
           </button>
           <div class="about-panel-body" id="about-short-bio-panel" role="region" aria-labelledby="about-short-bio-toggle">
-            <p>My work combines rigorous probability theory with computational experimentation, especially around Hawkes processes, Markov models, time-series structure, and learning dynamics.</p>
+            <p>
+            I am a Physicist and Mathematician. My research philosophy emphasizes that meaningful research must be grounded in solid theoretical foundations.
+            </p><br>
+
+            <p>
+            For me, one of the most enjoyable aspects of research is translating the behavior of natural phenomena into mathematical language in order to construct models. I strongly believe that a solid understanding of theory helps us better recognize both the strengths and limitations of our models.
+            </p><br>
+
+            <p>
+            At the same time, models are only approximations of reality. While Mathematics can be derived through a sequence of logical steps — what I would describe as the “purest form of sincerity”: if A, then B — applied research also demands sincerity in other forms: ensuring the quality of our data, verifying that the assumptions of our models are satisfied, and reporting not only our findings, but also the degree of confidence we place in them after rigorous validation.
+            </p>
           </div>
         </section>
 
@@ -69,55 +94,54 @@ layout: default
             <h2>Research interests</h2>
           </button>
           <div class="about-panel-body" id="about-research-panel" role="region" aria-labelledby="about-research-toggle">
-            <p>My research interests are interdisciplinary and span Physics, Mathematics, Probability Theory and Statistics, Machine Learning, and Applied Modeling in diverse fields like Finance and Sports Analysis. I am especially interested in stochastic processes, point processes, Markovian structure, time-series modeling, and the mathematical behavior of learning systems.</p>
+            <p>
+            My research interests are interdisciplinary. My interwoven studies of Physics and Mathematics led to a deep interest in Statistics, Statistical Mechanics, Dynamical Systems, Stochastic Processes, and Probability Theory.
+            </p><br>
+
+            <p>
+            More recently, I have also been exploring Machine Learning topics such as Training Dynamics and Optimization. While I remain open to continuously expanding my interests, I am currently focused on developing deeper understanding and integrating that knowledge into applied modeling problems in areas such as Finance, Time Series Analysis, Physical Systems, and Sports Analysis.
+</p>
           </div>
         </section>
 
         <section class="about-photo-panel" data-about-panel>
-          <button id="about-photo-notes-toggle" class="about-panel-head" type="button" aria-expanded="true" aria-controls="about-photo-notes-panel" data-about-toggle>
+          <button id="about-photobook-toggle" class="about-panel-head" type="button" aria-expanded="true" aria-controls="about-photobook-panel" data-about-toggle>
             <svg class="about-chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5l8 7-8 7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            <h2>Photo notes</h2>
+            <h2>Photobook</h2>
+            <span class="about-panel-meta">{{ photobook_entries | size }} entries</span>
           </button>
-          <div class="about-panel-body" id="about-photo-notes-panel" role="region" aria-labelledby="about-photo-notes-toggle">
-            <div class="about-scroll-widget" aria-label="Scrollable photo notes">
-              <ul class="about-photo-list">
-                <li>
-                  <button class="about-photo-card" type="button" data-preview-title="Seminar visit" data-preview-caption="Placeholder for photos from seminars, talks, and academic visits." data-preview-tone="blue">
-                    <span class="about-photo-title">Seminar visit <small>Academic travel</small></span>
-                    <span class="about-photo-thumb">Seminar</span>
-                  </button>
-                </li>
-                <li>
-                  <button class="about-photo-card" type="button" data-preview-title="Research meeting" data-preview-caption="Placeholder for photos when meeting collaborators or researchers." data-preview-tone="green">
-                    <span class="about-photo-title">Research meeting <small>Collaborators</small></span>
-                    <span class="about-photo-thumb is-green">Meeting</span>
-                  </button>
-                </li>
-                <li>
-                  <button class="about-photo-card" type="button" data-preview-title="Conference hallway" data-preview-caption="Placeholder for conference photos and informal academic moments." data-preview-tone="red">
-                    <span class="about-photo-title">Conference hallway <small>Conferences</small></span>
-                    <span class="about-photo-thumb is-red">Conference</span>
-                  </button>
-                </li>
-                <li>
-                  <button class="about-photo-card" type="button" data-preview-title="Desk notes" data-preview-caption="Placeholder for research notes, boards, notebooks, or draft work." data-preview-tone="warm">
-                    <span class="about-photo-title">Desk notes <small>Work in progress</small></span>
-                    <span class="about-photo-thumb is-warm">Desk</span>
-                  </button>
-                </li>
-                <li>
-                  <button class="about-photo-card" type="button" data-preview-title="Workshop board" data-preview-caption="Placeholder for workshop boards, equations, and discussion snapshots." data-preview-tone="blue">
-                    <span class="about-photo-title">Workshop board <small>Blackboard moments</small></span>
-                    <span class="about-photo-thumb">Workshop</span>
-                  </button>
-                </li>
-                <li>
-                  <button class="about-photo-card" type="button" data-preview-title="Campus walk" data-preview-caption="Placeholder for photos around universities, institutes, and academic travel." data-preview-tone="green">
-                    <span class="about-photo-title">Campus walk <small>Places</small></span>
-                    <span class="about-photo-thumb is-green">Campus</span>
-                  </button>
-                </li>
-              </ul>
+          <div class="about-panel-body" id="about-photobook-panel" role="region" aria-labelledby="about-photobook-toggle">
+            <div class="about-scroll-widget" aria-label="Scrollable photobook entries">
+              {% if photobook_entries.size > 0 %}
+                <ul class="about-photo-list">
+                  {% for photo in photobook_entries %}
+                    {% assign photo_tone = photo.tone | default: "blue" %}
+                    {% assign photo_label = photo.label | default: photo.date %}
+                    {% assign photo_image = photo.image | default: "" %}
+                    {% assign photo_alt = photo.image_alt | default: photo.title %}
+                    <li>
+                      <button class="about-photo-card" type="button"
+                        data-preview-title="{{ photo.title | escape }}"
+                        data-preview-caption="{{ photo.caption | escape }}"
+                        data-preview-tone="{{ photo_tone | escape }}"
+                        data-preview-image="{% if photo_image != "" %}{{ photo_image | relative_url }}{% endif %}"
+                        data-preview-image-alt="{{ photo_alt | escape }}">
+                        <span class="about-photo-title">{{ photo.title }}{% if photo_label %}<small>{{ photo_label }}</small>{% endif %}</span>
+                        {% if photo_image != "" %}
+                          <span class="about-photo-thumb has-image">
+                            <img src="{{ photo_image | relative_url }}" alt="{{ photo_alt | escape }}" loading="lazy">
+                            <span class="about-photo-thumb-label">{{ photo_label | default: photo.title }}</span>
+                          </span>
+                        {% else %}
+                          <span class="about-photo-thumb is-{{ photo_tone | slugify }}">{{ photo_label | default: photo.title }}</span>
+                        {% endif %}
+                      </button>
+                    </li>
+                  {% endfor %}
+                </ul>
+              {% else %}
+                <p class="about-photobook-empty">No photobook entries yet.</p>
+              {% endif %}
             </div>
           </div>
         </section>
@@ -127,10 +151,10 @@ layout: default
 
   <div class="about-modal-backdrop" id="about-photo-modal" hidden>
     <div class="about-photo-modal" role="dialog" aria-modal="true" aria-labelledby="about-photo-modal-title">
-      <div class="about-photo-modal-visual" id="about-photo-modal-visual">Photo preview</div>
+      <div class="about-photo-modal-visual" id="about-photo-modal-visual" role="img" aria-label="Photobook preview">Photobook preview</div>
       <div class="about-photo-modal-body">
-        <h2 id="about-photo-modal-title">Photo preview</h2>
-        <p id="about-photo-modal-caption">Placeholder caption.</p>
+        <h2 id="about-photo-modal-title">Photobook preview</h2>
+        <p id="about-photo-modal-caption">Preview caption.</p>
       </div>
     </div>
   </div>

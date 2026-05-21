@@ -67,7 +67,7 @@ layout: default
               {% unless link.url contains "://" or link.url contains "mailto:" %}
                 {% assign link_href = link.url | relative_url %}
               {% endunless %}
-              <a class="cv-link-button" href="{{ link_href }}"{% if link.external %} target="_blank" rel="noopener noreferrer"{% endif %}>
+              <a class="cv-link-button profile-link-button" href="{{ link_href }}"{% if link.external %} target="_blank" rel="noopener noreferrer"{% endif %}>
                 <svg aria-hidden="true" focusable="false"><use href="#cv-icon-{{ link.icon }}"></use></svg>
                 <span>{{ link.label }}</span>
               </a>

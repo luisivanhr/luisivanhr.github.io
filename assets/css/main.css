@@ -14,7 +14,53 @@ a { color: #1a388b; text-decoration: none; }
 a:hover { text-decoration: underline; }
 .skip { position: absolute; left: -9999px; top: -9999px; }
 .skip:focus { left: 16px; top: 16px; background:#000; padding:8px 12px; border-radius:6px; }
- 
+
+.profile-icons {
+  display: none;
+}
+
+.profile-action-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.profile-link-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  min-height: 2rem;
+  border: 1px solid rgba(18, 59, 136, 0.22);
+  border-radius: 6px;
+  padding: 0.35rem 0.55rem;
+  background: #f6f8fb;
+  color: var(--profile-link-color, #123b88);
+  font-size: 0.78rem;
+  font-weight: 800;
+  line-height: 1.1;
+  text-decoration: none;
+  box-shadow: none;
+  transition: background 160ms ease, border-color 160ms ease, color 160ms ease;
+}
+
+.profile-link-button:hover,
+.profile-link-button:focus-visible {
+  border-color: rgba(18, 59, 136, 0.36);
+  background: #eaedf6;
+  color: var(--profile-link-color, #123b88);
+  outline: none;
+  text-decoration: none;
+}
+
+.profile-link-button svg {
+  width: 1rem;
+  height: 1rem;
+  flex: 0 0 auto;
+  color: currentColor;
+  fill: currentColor;
+}
 
 /* Letterbox container */
 #desk-wrap{

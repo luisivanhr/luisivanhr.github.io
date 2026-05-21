@@ -56,8 +56,8 @@ Use `date:` for original creation or publication date. Use `updated:` for the la
 | Type | Sections | Edit here |
 | --- | --- | --- |
 | Collection-driven | Blog, Models, Courses, Course sections, News | `_posts/`, `_models/`, `_courses/`, `_course_sections/`, `_news/` |
-| Data-driven | Publications, Presentations, Achievements, Hobbies, CV | `_data/publications.yml`, `_data/presentations.yml`, `_data/achievements.yml`, `_data/hobbies.yml`, `_data/cv.yml` |
-| Hard-coded stable teaser | About | `about/index.md`, `_layouts/about.html`, and homepage-owned markup |
+| Data-driven | Publications, Presentations, Achievements, Hobbies, CV, About Photobook | `_data/publications.yml`, `_data/presentations.yml`, `_data/achievements.yml`, `_data/hobbies.yml`, `_data/cv.yml`, `_data/about_photos.yml` |
+| Hard-coded stable teaser | About copy and portrait | `about/index.md`, `_layouts/about.html`, and homepage-owned markup |
 | Generated output | Built site and generated feeds | `_site/`, `_news/generated/`, generated `/data/*.json` output |
 
 Do not recreate old collection folders for Publications, Hobbies, or Achievements. They are intentionally data-driven and do not have homepage hover feeds.
@@ -66,7 +66,7 @@ Do not recreate old collection folders for Publications, Hobbies, or Achievement
 
 | Section | Add or update content | Delete content | Update command |
 | --- | --- | --- | --- |
-| About | Edit the About page/layout directly. Use this for name, photo, bio, and research-interest copy. | Remove the text, image, or block from the owning markup. | `ruby scripts/update_updated.rb --about` only if you want About metadata/news refreshed. |
+| About | Edit the About page/layout directly for name, portrait, bio, and research-interest copy. Edit `_data/about_photos.yml` for the Photobook. | Remove hard-coded copy from the layout, or remove Photobook entries from `_data/about_photos.yml`. | `ruby scripts/update_updated.rb --about` |
 | Blog | Add a dated Markdown file in `_posts/`. Use `categories`, `tags`, `summary`, optional `image`, `materials`, `notebook`, and `citation` front matter as needed. | Delete the post file and remove any now-empty category page under `blog/category/`. | `ruby scripts/update_updated.rb --posts` |
 | News | Add manual News cards in `_news/` or `_news/manual/`. Generated cards are created by the update script. | Delete manual News files manually. Do not hand-edit generated News unless repairing output. | `ruby scripts/update_updated.rb --news` for News page metadata. Other scopes generate section news. |
 | Courses | Add a course parent file in `_courses/`. Use front matter for title, summary, track, status, image, section list, and updates. | Delete the course file, its matching `_course_sections/<course>/` folder, and stale links from course data/navigation. | `ruby scripts/update_updated.rb --courses` |
@@ -82,6 +82,34 @@ Do not recreate old collection folders for Publications, Hobbies, or Achievement
 
 Only edit layout, CSS, or JavaScript files when changing structure, behavior, or visual design. Normal content changes should stay in collections or `_data/*.yml`.
 
+## Markdown Content Templates
+
+Blog posts and course sections have style variants. Pick the closest variant first, then copy an existing file or a local example from `.codex/examples/`.
+
+Blog post styles use `post_style` in `_posts/*.md`:
+
+| `post_style` | Use for |
+| --- | --- |
+| `paper` | polished research result, theorem, or technical essay |
+| `notebook` | exploratory notebook-backed explanation or work-in-progress derivation |
+| `lab` | reproducible experiment, benchmark, model run, or diagnostic report |
+| `lecture` | lecture note, mini-course chapter, derivation, or exercise post |
+| `review` | paper review, literature survey, journal-club note, or annotated bibliography |
+
+Course section styles use `course_section_style` in `_course_sections/<course>/*.md`:
+
+| `course_section_style` | Use for |
+| --- | --- |
+| `theory` | definitions, theorem statements, proof blocks, and proof exercises |
+| `reference` | glossary-like definitions, criteria, examples, and index-heavy material |
+| `workshop` | problem sets, exercises, answer drawers, and guided practice |
+| `lab` | code-heavy computational material, diagnostics, outputs, and reproducibility notes |
+| `hybrid` | mixed derivation plus implementation notes, figures, and checks |
+
+When adding a course section, also add it to the parent course file's `sections` list. Keep meaningful `h2` and `h3` headings in posts and sections because they feed sidebar navigation and course index behavior.
+
+Local examples live in `.codex/examples/research-post-templates/` and `.codex/examples/course-section-templates/`. They are intentionally outside Jekyll publishing and are ignored by Git.
+
 ## Asset Locations And Naming
 
 Use lowercase kebab-case names, for example `renewal-hawkes-poster.jpg` or `copula-intro-notebook.html`. Prefer root-relative paths in content and data files, such as `/assets/thumbs/models/model-name.png`.
@@ -89,6 +117,7 @@ Use lowercase kebab-case names, for example `renewal-hawkes-poster.jpg` or `copu
 | Asset type | Recommended location |
 | --- | --- |
 | Site default images | `assets/images/` |
+| About Photobook images | `assets/images/about/` |
 | Desk background | `assets/images/desk/` |
 | Hobby images | `assets/images/hobbies/` |
 | Publication images | `assets/images/publications/` |
@@ -103,6 +132,21 @@ If an asset is only used by one content item, name it after that item. If an ass
 ## Data File Examples
 
 Use these as shape references, not strict schemas. Keep indentation consistent and keep `id` values stable.
+
+About Photobook entry:
+
+```yaml
+- id: kyoto-seminar-visit
+  title: "Kyoto seminar visit"
+  label: "Academic travel"
+  date: "2026-05-21"
+  caption: "Short caption shown in the Photobook modal."
+  tone: "blue"
+  image: "/assets/images/about/kyoto-seminar-visit.jpg"
+  image_alt: "Luis at a seminar visit in Kyoto"
+```
+
+Use `tone` as the placeholder color when `image` is empty. Current tones are `blue`, `green`, `red`, and `warm`. Keep newer entries near the top if you want the Photobook to read newest-first.
 
 Publication:
 
@@ -183,6 +227,7 @@ Common scopes:
 ruby scripts/update_updated.rb --models
 ruby scripts/update_updated.rb --courses
 ruby scripts/update_updated.rb --posts
+ruby scripts/update_updated.rb --about
 ruby scripts/update_updated.rb --publications
 ruby scripts/update_updated.rb --presentations
 ruby scripts/update_updated.rb --achievements

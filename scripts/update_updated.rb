@@ -12,6 +12,7 @@ TODAY = Date.today.iso8601
 STATE_PATH = "_news_state/news_update_state.yml"
 NEWS_INDEX_PATH = "news/index.md"
 NEWS_GENERATED_DIR = "_news/generated"
+ABOUT_PHOTOS_PATH = "_data/about_photos.yml"
 
 SECTION_LABELS = {
   "about" => "About",
@@ -63,7 +64,7 @@ SCOPE_ROOTS = {
   courses: ["_courses", "_course_sections"],
   posts: ["_posts"],
   presentations: ["presentations", DATA_SOURCES["presentations"][:path]],
-  about: ["about"],
+  about: ["about", ABOUT_PHOTOS_PATH],
   publications: ["publications", DATA_SOURCES["publications"][:path]],
   achievements: ["achievements", DATA_SOURCES["achievements"][:path]],
   hobbies: ["hobbies", DATA_SOURCES["hobbies"][:path]],
@@ -250,7 +251,7 @@ def source_kind_for(path)
   return "models" if supported_model?(path)
   return "courses" if supported_course_parent?(path) || supported_course_section?(path)
   return "blog" if supported_post?(path)
-  return "about" if path == LANDING_PAGES["about"]
+  return "about" if path == LANDING_PAGES["about"] || path == ABOUT_PHOTOS_PATH
   return "achievements" if path == DATA_SOURCES["achievements"][:path] || path == LANDING_PAGES["achievements"]
   return "hobbies" if path == DATA_SOURCES["hobbies"][:path] || path == LANDING_PAGES["hobbies"]
   return "presentations" if path == DATA_SOURCES["presentations"][:path] || path == LANDING_PAGES["presentations"]
@@ -646,7 +647,10 @@ def selected_all_paths(options)
   end
   paths.concat(Dir.glob("_posts/**/*.md")) if options[:posts]
   paths.concat(Dir.glob("presentations/**/*.md")) if options[:presentations]
-  paths << LANDING_PAGES["about"] if options[:about]
+  if options[:about]
+    paths << LANDING_PAGES["about"]
+    paths << ABOUT_PHOTOS_PATH
+  end
   paths << LANDING_PAGES["achievements"] if options[:achievements]
   paths << LANDING_PAGES["hobbies"] if options[:hobbies]
   paths << LANDING_PAGES["publications"] if options[:publications]

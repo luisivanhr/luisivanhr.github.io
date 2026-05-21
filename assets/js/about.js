@@ -98,13 +98,22 @@
 
   page.querySelectorAll(".about-photo-card").forEach((button) => {
     button.addEventListener("click", () => {
-      const title = button.getAttribute("data-preview-title") || "Photo preview";
+      const title = button.getAttribute("data-preview-title") || "Photobook preview";
       const caption = button.getAttribute("data-preview-caption") || "";
       const tone = button.getAttribute("data-preview-tone") || "blue";
+      const image = button.getAttribute("data-preview-image") || "";
+      const imageAlt = button.getAttribute("data-preview-image-alt") || title;
       modalTitle.textContent = title;
       modalCaption.textContent = caption;
       modalVisual.textContent = title;
-      modalVisual.style.background = toneBackground(tone);
+      modalVisual.setAttribute("aria-label", imageAlt);
+      modalVisual.classList.toggle("has-image", Boolean(image));
+      if (image) {
+        modalVisual.style.backgroundImage = `linear-gradient(180deg, rgba(4, 14, 20, 0) 35%, rgba(4, 14, 20, 0.72) 100%), url("${image}")`;
+        modalVisual.style.backgroundColor = "#05090c";
+      } else {
+        modalVisual.style.background = toneBackground(tone);
+      }
       modal.hidden = false;
     });
   });

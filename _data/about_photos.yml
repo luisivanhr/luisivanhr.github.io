@@ -1,0 +1,53 @@
+- id: vasconcelos-library
+  title: "Biblioteca Vasconcelos"
+  label: "Places"
+  date: ""
+  caption: "A visit to Biblioteca Vasconcelos. Mexico, 2025."
+  tone: "green"
+  image: "/assets/images/about/vasconcelos.jpg"
+  image_alt: "Luis Ivan holding a book inside Biblioteca Vasconcelos."
+
+- id: sima-2022
+  title: "SIMA 2022"
+  label: "Academic workshop"
+  date: "2022"
+  caption: "SIMA 2022 and the First Minimeeting Mexico-Japan in Probability at CIMAT. Guanajuato, Mexico, 2022."
+  tone: "red"
+  image: "/assets/images/about/sima-2022.jpg"
+  image_alt: "Group photo outside CIMAT during SIMA 2022."
+
+- id: conference-hallway
+  title: "Conference hallway"
+  label: "Conferences"
+  date: "2026-05-21"
+  caption: "Placeholder for conference photos and informal academic moments."
+  tone: "red"
+  image: ""
+  image_alt: ""
+
+- id: desk-notes
+  title: "Desk notes"
+  label: "Work in progress"
+  date: "2026-05-21"
+  caption: "Placeholder for research notes, boards, notebooks, or draft work."
+  tone: "warm"
+  image: ""
+  image_alt: ""
+
+- id: workshop-board
+  title: "Workshop board"
+  label: "Blackboard moments"
+  date: "2026-05-21"
+  caption: "Placeholder for workshop boards, equations, and discussion snapshots."
+  tone: "blue"
+  image: ""
+  image_alt: ""
+
+- id: campus-walk
+  title: "Campus walk"
+  label: "Places"
+  date: "2026-05-21"
+  caption: "Placeholder for photos around universities, institutes, and academic travel."
+  tone: "green"
+  image: ""
+  image_alt: ""
