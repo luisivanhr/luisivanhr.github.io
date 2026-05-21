@@ -62,7 +62,7 @@ actions:
         url: "/achievements/"
 
 summary:
-  text: "Mathematician and physicist with over 6 years of research experience in machine learning, stochastic modeling, and complex dynamical systems. My work combines probability theory, point processes, Markov chains, stochastic differential equations, and scientific computing, with applications in deep learning optimization, time-series modeling, causal analysis, finance, neuroscience, and sports forecasting."
+  text: "Mathematician and physicist with over 7 years of research experience in both theoretical and applied projects involving stochastic modeling, complex dynamical systems, and machine learning. My work combines probability theory, point processes, Markov processes, stochastic differential equations, and scientific computing, with applications in deep learning optimization, time-series modeling, causal analysis, finance, neuroscience, and sports forecasting."
   highlights:
     - "5 peer-reviewed research papers, including 3 single-author papers."
     - "16 research presentations at seminars, conferences, workshops, and poster sessions."
