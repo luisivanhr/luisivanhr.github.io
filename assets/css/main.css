@@ -163,6 +163,13 @@ a:hover { text-decoration: underline; }
   white-space: normal;
 }
 
+@media (min-width: 900px) {
+  .screen.models .slide .caption {
+    padding-left: 12px;
+    font-size: clamp(15px, 1.24vw, 18px);
+  }
+}
+
 @media (max-width: 560px) {
   .screen.models .slide .caption {
     padding: 3px 4px;
