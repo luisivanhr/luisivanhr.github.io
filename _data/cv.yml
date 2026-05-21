@@ -62,10 +62,10 @@ actions:
         url: "/achievements/"
 
 summary:
-  text: "Mathematician and physicist with over 7 years of research experience in both theoretical and applied projects involving stochastic modeling, complex dynamical systems, and machine learning. My work combines probability theory, point processes, Markov processes, stochastic differential equations, and scientific computing, with applications in deep learning optimization, time-series modeling, causal analysis, finance, neuroscience, and sports forecasting."
+  text: "Mathematician and physicist with 7+ years of research experience in stochastic modeling, complex dynamical systems, and machine learning across both theoretical and applied projects. Expertise includes probability theory, point processes, Markov processes, stochastic differential equations, and scientific computing, with applications in deep learning optimization, time-series analysis, causal inference, finance, neuroscience, and sports forecasting. Experienced in independently conducting projects from theoretical formulation and data collection to implementation and rigorous validation."
   highlights:
     - "5 peer-reviewed research papers, including 3 single-author papers."
-    - "16 research presentations at seminars, conferences, workshops, and poster sessions."
+    - "16 international research presentations at seminars, conferences, workshops, and poster sessions."
 
 education:
   - id: cv-education-kyoto-doctor
@@ -73,7 +73,7 @@ education:
     updated: "2025-08-19"
     period: "2024"
     title: "Doctor in Mathematics - Kyoto University"
-    description: "Fully funded by the MEXT scholarship. Established results in point processes, probability theory, Markov chains, and renewal Hawkes processes."
+    description: "Fully funded by the MEXT scholarship. Established novel results in point processes, probability theory, Markov chains, and Hawkes processes.\n Discovered several limit properties for renewal Hawkes processes."
   - id: cv-education-kyoto-master
     date: "2025-08-19"
     updated: "2025-08-19"
@@ -111,42 +111,46 @@ experience:
     updated: "2025-08-19"
     period: "Feb 2017 - Dec 2018"
     title: "Teaching Assistant - UNAM"
-    description: "Supported Differential and Integral Calculus instruction for physics, mathematics, and actuarial majors through exercise design, assignments, student support, and class operation."
+    description: "Was responsible for teaching Differential and Integral Calculus to physics, mathematics, and actuarial major students through lectures, exercise design, assignments, and evaluation."
 
 skills:
   - id: cv-skills-programming-language
     date: "2025-08-19"
     updated: "2025-08-19"
-    category: "Programming Language"
+    category: "Programming Languages"
     items:
       - "Python: 3+ years"
       - "Julia: 7+ years"
-      - "C: self-study"
-      - "HTML/CSS: self-study"
+      - "C: personal projects"
+      - "HTML/CSS: personal projects"
   - id: cv-skills-mathematics-statistics
     date: "2025-08-19"
     updated: "2025-08-19"
     category: "Mathematics / Statistics"
     items:
-      - "Point processes: 8+ years"
-      - "Hawkes processes: 6+ years"
-      - "Markov processes: 6+ years"
-      - "Time-series analysis / prediction: 8+ years"
-      - "RKHS: 6+ years"
-      - "PDE / SDE: 6+ years"
-      - "Ito / Stratonovich calculus; Malliavin calculus: 6+ years"
-      - "Topology, analysis, coupling methods: 8+ years"
-      - "State-space methods, Bayesian inference, sampling: 6+ years"
+      - "Measure and probability theory"
+      - "Point processes"
+      - "Hawkes processes"
+      - "Markov processes"
+      - "Time-series analysis and forecasting"
+      - "RKHS methods"
+      - "PDE and SDE"
+      - "Sampling"
+      - "Ito, Stratonovich, and Malliavin calculus"
+      - "Topology, Functional Analysis"
+      - "Coupling methods"
+      - "Bayesian inference"
+      - "State-space methods" 
   - id: cv-skills-physics
     date: "2025-08-19"
     updated: "2025-08-19"
     category: "Physics"
     items:
-      - "Statistical mechanics: 8+ years"
-      - "Nonequilibrium systems: 8+ years"
-      - "Dynamical systems: 8+ years"
-      - "Signal processing: 8+ years"
-      - "Thermodynamics: 8+ years"
+      - "Statistical mechanics"
+      - "Nonequilibrium systems"
+      - "Dynamical systems"
+      - "Signal processing"
+      - "Thermodynamics"
       - "Electronic circuits (Arduino): 8+ years"
   - id: cv-skills-machine-learning-data-analysis
     date: "2025-08-19"
@@ -158,22 +162,22 @@ skills:
       - "NumPy/SciPy: 3+ years"
       - "CUDA: 3+ years"
       - "Scikit-learn: 5+ years"
-      - "HuggingFace"
-      - "BERT"
-      - "XGBoost"
+      - "HuggingFace: 3+ years"
+      - "BERT: 3+ years"
+      - "XGBoost: 3+ years"
   - id: cv-skills-db
     date: "2025-08-19"
     updated: "2025-08-19"
     category: "DB"
     items:
-      - "DuckDB (SQL): self-study"
+      - "DuckDB (SQL): personal projects"
   - id: cv-skills-tools
     date: "2025-08-19"
     updated: "2025-08-19"
     category: "Tools"
     items:
       - "GitHub: 7+ years"
-      - "Jekyll: self-study"
+      - "Jekyll: personal projects"
       - "Miro: 2+ years"
 
 languages:
@@ -193,7 +197,7 @@ languages:
     date: "2025-08-19"
     updated: "2025-08-19"
     language: "Japanese"
-    level: "Business fluent"
+    level: "Business proficiency"
     note: "JLPT N2 - Dec 2024"
   - id: cv-language-german
     date: "2025-08-19"
