@@ -629,6 +629,47 @@
   padding: 18px 20px;
 }
 
+.code-window .complete-program {
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.code-window .complete-program > summary {
+  padding: 12px 18px;
+  color: #d8ecef;
+  cursor: pointer;
+  font: 600 14px/1.5 system-ui, sans-serif;
+}
+
+.code-window .complete-program > summary:hover {
+  background: #182d37;
+}
+
+.code-window .complete-program > summary:focus-visible {
+  outline: 2px solid #94dbe3;
+  outline-offset: -3px;
+}
+
+.code-window .program-notes {
+  padding: 0 18px;
+  color: #d8ecef;
+  font: 14px/1.6 system-ui, sans-serif;
+}
+
+.code-window .program-notes a {
+  color: #94dbe3;
+}
+
+.code-window .program-notes code {
+  color: inherit;
+  background: transparent;
+  white-space: normal;
+}
+
+.code-window .complete-program pre {
+  max-height: 400px;
+  overflow: auto;
+}
+
 .callout {
   padding: 18px 20px;
   border-left: 4px solid var(--course-gold);

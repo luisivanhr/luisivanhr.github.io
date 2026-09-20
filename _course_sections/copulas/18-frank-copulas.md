@@ -30,6 +30,7 @@ updated: 2026-01-01
 <h2 id="simulation-example">A reproducible simulation</h2>
 <p>Let us simulate negative association, independence, and positive association with \(\theta=-5,0,5\). Using the same independent uniform inputs in each panel makes the effect of the parameter easier to see. The negative case concentrates pairs toward opposite corners; the positive case concentrates them toward the diagonal.</p>
 <p>The code follows the explicit inverse above. NumPy's <code>expm1(x)</code> evaluates \(e^x-1\), and <code>log1p(x)</code> evaluates \(\log(1+x)\), with better accuracy near zero than direct subtraction or addition. The separate zero-parameter branch returns independent uniforms. This short implementation is intended for the moderate parameter values displayed here.</p>
+<p class="code-setup">The Python block below is complete. Copy it into a <code>.py</code> file and run it with Python 3 after installing NumPy with <code>python -m pip install numpy</code>.</p>
 <details class="simulation-code"><summary>Show Python simulation code</summary><div class="code-window"><header>Frank sampler (NumPy)</header><pre><code>import numpy as np
 
 def sample_frank(theta, n, seed=20260922):

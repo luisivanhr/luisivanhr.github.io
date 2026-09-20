@@ -37,10 +37,40 @@ c(u,v)=\frac{\partial^2 C(u,v)}{\partial u\,\partial v}.
 <p>We write \(P[A\mid U=u]\) for the probability of \(A\) under the conditional law at \(U=u\). The indicator \(\mathbf1\{A\}\) equals one when \(A\) holds and zero otherwise. For a fixed interior \(u\), a conditional distribution is</p><p>\[P[V\le v\mid U=u]=(1-q)v+q\mathbf1\{v\ge u\}.\]</p><p>Its jump of size \(q\) at \(v=u\) describes the diagonal component. This course illustration applies Nelsen's absolutely continuous/singular decomposition and convex-sum construction.</p>
 <h2 id="simulation">Conditional simulation</h2>
 <p>To generate \((U,V)\) with copula \(C\), draw independent uniforms \(u,t\). Regard \(C_u(v)=\partial C(u,v)/\partial u\) as a conditional distribution function, and choose \(v=C_u^{-1}(t)\), using the generalized inverse of this conditional distribution. Then \(X=F^{-1}(u)\), \(Y=G^{-1}(v)\) have joint distribution \(C(F(x),G(y))\).</p>
-<div class="code-window"><header>conditional_copula.py</header><pre><code>u, t = independent_uniforms()
+<div class="code-window"><header>Conditional sampling (pseudocode)</header><pre><code>u, t = independent_uniforms()
 v = conditional_inverse(u, t)
 x = marginal_inverse_F(u)
-y = marginal_inverse_G(v)</code></pre></div>
+y = marginal_inverse_G(v)</code></pre>
+<details class="complete-program"><summary>Complete program</summary><div class="program-notes"><p>This program uses the product copula and unit-rate exponential marginal distributions. It defines every function in the preview and compares a simulated joint probability with its exact value. The marginal transformation is developed in <a href="/courses/copulas/10-simulation/#transform">Lesson 10</a>.</p><p>Python 3; standard library only. Copy the full block below into <code>conditional_independence.py</code> and run <code>python conditional_independence.py</code>.</p></div><pre><code>import math
+import random
+
+rng = random.Random(2026)
+
+def independent_uniforms():
+    return rng.random(), rng.random()
+
+def conditional_inverse(u, t):
+    # Product copula: C(u, v) = u*v, so C_u(v) = v.
+    return t
+
+def marginal_inverse_F(u):
+    # Unit-rate exponential marginal distribution.
+    return -math.log1p(-u)
+
+def marginal_inverse_G(v):
+    return -math.log1p(-v)
+
+n = 20_000
+joint_count = 0
+for _ in range(n):
+    u, t = independent_uniforms()
+    v = conditional_inverse(u, t)
+    x = marginal_inverse_F(u)
+    y = marginal_inverse_G(v)
+    joint_count += (x &gt; 1 and y &gt; 1)
+
+print("Simulated P(X &gt; 1, Y &gt; 1):", joint_count / n)
+print("Exact probability:", math.exp(-2))</code></pre></details></div>
 <p>For the product copula, \(C_u(v)=v\), so \(v=t\) and the two uniforms are independent. For a non-product copula, the conditional inverse changes with \(u\); that change is exactly what reproduces the desired dependence. Nelsen's worked example applies the same procedure explicitly.</p>
 <div class="problem-grid">
 <article class="exercise"><header class="exercise-head"><div><strong>Exercise 4.2</strong><span>Product density</span></div><button class="answer-button" type="button">Show answer</button></header><div class="exercise-body"><p>Find the density of \(\Pi(u,v)=uv\).</p></div><div class="answer-panel"><div class="answer-inner"><p>\(\partial\Pi/\partial u=v\), and then \(\partial^2\Pi/\partial v\partial u=1\). Thus the density is constant on \(I^2\).</p></div></div></article>

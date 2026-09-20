@@ -27,6 +27,7 @@ updated: 2026-01-01
 <p>For a new pair conditionally independent of the observations given \(\theta\), the posterior predictive probability from Lesson 23 is \(51/196\) for a new event \(U_*\le1/2,V_*\le1/2\). These are original course calculations using the Lesson 23 data. The book supplies the copula and Bayesian methods. <a class="course-citation" href="#ref-3" aria-label="Reference 3">[3]</a></p>
 
 <h2 id="sampler">Random-walk Metropolis</h2><p>At state \(\theta\), propose \(\theta'=\theta+\varepsilon\), where \(\varepsilon\sim N(0,0.5^2)\). The proposal is symmetric. If \(\theta'\notin[-1,1]\), reject it and retain \(\theta\); do not redraw and do not clip. For an in-range proposal, accept with probability \(\min\{1,\pi(\theta'\mid D)/\pi(\theta\mid D)\}\). Since the prior support is already enforced, the normalizing constant cancels in this ratio. The symmetric proposal and acceptance rule are described in Sections 4.2–4.3. <a class="course-citation" href="#ref-4" aria-label="Reference 4">[4]</a></p>
+<p class="code-setup">The Python block below is complete. Copy it into a <code>.py</code> file and run it with Python 3 after installing NumPy with <code>python -m pip install numpy</code>.</p>
 <details class="simulation-code"><summary>Show Python sampler and numerical checks</summary><div class="code-window"><header>mcmc_fgm.py</header><pre><code>import numpy as np
 
 rng = np.random.default_rng(2026)

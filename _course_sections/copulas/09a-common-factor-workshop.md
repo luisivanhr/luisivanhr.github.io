@@ -64,6 +64,7 @@ E[K]=\sum_{j=1}^dE[D_j]=dp=20(0.1)=2.
 
 <h2 id="sampler">Compact sampler</h2>
 <p>The following code implements the construction. The final integral uses the binomial survival function, <code>binom.sf(4, d, q)</code>, to calculate the conditional probability of at least five defaults. One draw of \(M\) is shared across all twenty borrowers; the idiosyncratic normals are drawn separately.</p>
+<p class="code-setup">The Python block below is complete. Copy it into a <code>.py</code> file and run it with Python 3 after installing NumPy and SciPy with <code>python -m pip install numpy scipy</code>.</p>
 <details class="simulation-code"><summary>Show Python simulation code</summary><div class="code-window"><header>common_factor_defaults.py</header><pre><code>import numpy as np
 from scipy.stats import norm, binom
 from scipy.integrate import quad

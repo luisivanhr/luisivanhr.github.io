@@ -22,12 +22,45 @@ date: 2026-01-01
 <section class="intro-strip" id="conditional"><h2>conditional sampling</h2><p>We use \(X\sim L\) to mean that \(X\) has distribution \(L\). Here \(U[0,1]\) denotes the uniform distribution on \([0,1]\), and \(\partial_2C(u,v)\) denotes the partial derivative of \(C\) with respect to its second argument. For a bivariate copula, the right-continuous version of this derivative is a conditional distribution function of \(U_1\) given \(U_2=v\) for almost every \(v\). Since a simulated \(U_2\) avoids any exceptional null set with probability one, this gives a general algorithm. <a class="course-citation" href="#ref-1" aria-label="Reference 1">[1]</a></p></section>
 <div class="math-block theorem"><span class="block-label">Theorem 10.1 <span>Conditional algorithm</span></span><p>Draw \(U_2\sim U[0,1]\), draw \(V\sim U[0,1]\) independently, set \(F_{1|2}(u)=\partial_2C(u,U_2)\) using that valid conditional version, and return \((F_{1|2}^{[-1]}(V),U_2)\). Here \(F_{1|2}\) is the conditional distribution of the first coordinate given the sampled second coordinate, and \(F_{1|2}^{[-1]}(t)=\inf\{u\in[0,1]:F_{1|2}(u)\ge t\}\) is its generalized inverse. The result has copula \(C\). <a class="course-citation" href="#ref-2" aria-label="Reference 2">[2]</a></p></div>
 <div class="math-block proof"><span class="block-label">Proof</span><p>Conditionally on \(U_2=v\), generalized inverse sampling gives \(U_1\) distribution \(F_{1|2}\). Integrating this conditional law against the uniform law of \(v\) gives \(P(U_1\le u,U_2\le v)=C(u,v)\).</p></div>
-<div class="code-window"><header>conditional_copula.py</header><pre><code>u2 = uniform()
+<div class="code-window"><header>Conditional sampling (pseudocode)</header><pre><code>u2 = uniform()
 v_independent = uniform()
 u1 = generalized_inverse(lambda u: dC_du2(u, u2), v_independent)
-return u1, u2</code></pre></div>
+return u1, u2</code></pre>
+<details class="complete-program"><summary>Complete program</summary><div class="program-notes"><p>This program implements the conditional algorithm for Clayton with parameter 2. The next section derives its conditional distribution explicitly. Bisection locates the inverse by repeatedly halving an interval in [0, 1]; it approximates the exact inverse in Theorem 10.1. The program checks the inverse calculation and a rectangle probability.</p><p>Python 3 and NumPy. Install NumPy with <code>python -m pip install numpy</code>. Copy the full block below into <code>conditional_clayton.py</code> and run <code>python conditional_clayton.py</code>.</p></div><pre><code>import numpy as np
+
+rng = np.random.default_rng(2026)
+theta = 2.0
+n = 20_000
+
+def dC_du2(u, u2):
+    # Clayton conditional CDF of U1 given U2 = u2.
+    a = u**(-theta) + u2**(-theta) - 1
+    return u2**(-theta-1) * a**(-1-1/theta)
+
+def generalized_inverse(cdf, probabilities):
+    # Numerical inverse on [0, 1], to about 2**(-60).
+    lo = np.zeros_like(probabilities)
+    hi = np.ones_like(probabilities)
+    for _ in range(60):
+        mid = (lo + hi) / 2
+        below = cdf(mid) &lt; probabilities
+        lo = np.where(below, mid, lo)
+        hi = np.where(below, hi, mid)
+    return (lo + hi) / 2
+
+u2, v_independent = rng.random((2, n))
+u2 = np.maximum(u2, np.finfo(float).eps)
+u1 = generalized_inverse(lambda u: dC_du2(u, u2),
+                         v_independent)
+residual = np.max(np.abs(dC_du2(u1, u2) - v_independent))
+print("Largest conditional-CDF residual:", residual)
+print("Marginal means (each should be near 0.5):",
+      u1.mean(), u2.mean())
+print("Simulated C(0.5, 0.5):", np.mean((u1 &lt;= .5) &amp; (u2 &lt;= .5)))
+print("Exact C(0.5, 0.5):", (2 * .5**(-theta) - 1)**(-1/theta))</code></pre></details></div>
 <h2 id="clayton-sampling">An explicit Clayton sampler</h2>
 <p>For \(\theta&gt;0\), write \(A=u^{-\theta}+v^{-\theta}-1\). Differentiation gives \(\partial_1 C_\theta(u,v)=u^{-\theta-1}A^{-1-1/\theta}\). To draw the second coordinate given \(U=u\), set this expression equal to a fresh uniform \(z\) and solve:</p><p>\[A=z^{-\theta/(1+\theta)}u^{-\theta},\qquad v=\left[1+u^{-\theta}\{z^{-\theta/(1+\theta)}-1\}\right]^{-1/\theta}.\]</p><p>Both uniforms lie in \((0,1)\). This is the conditional algorithm with the coordinates exchanged. The displayed scatter sample was generated from this formula, then checked by inserting each sampled pair back into the conditional distribution.</p>
+<p class="code-setup">The Python block below is complete. Copy it into a <code>.py</code> file and run it with Python 3 after installing NumPy with <code>python -m pip install numpy</code>.</p>
 <div class="code-window"><header>Clayton sampler (NumPy)</header><pre><code>import numpy as np
 rng = np.random.default_rng(20260920)
 u, z = rng.random((2, 20_000))

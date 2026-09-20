@@ -48,11 +48,49 @@ updated: 2026-01-01
 
 <p>For a confidence level \(0&lt;\alpha&lt;1\), define the Value at Risk by the quantile convention \(\mathrm{VaR}_{\alpha}(L)=\inf\{\ell:\Pr(L\leq\ell)\geq\alpha\}\). Here \(\ell\) is a possible loss threshold, and \(\mathrm{VaR}_\alpha(L)\) is the smallest threshold whose cumulative probability reaches \(\alpha\). At \(\alpha=0.95\), the independent and opposing-uniform scenarios have value one; the shared-uniform scenario has value two. The mean alone misses this distinction. Mai and Scherer, Section 7.1, use a strict inequality version of the quantile definition to handle optimization at discontinuities. When losses are discrete, equality at a probability jump can change a reported boundary quantile, so a risk report must state its convention. The \(0.95\) values here avoid that boundary ambiguity.</p>
 
-<div class="code-window"><header>Simulation recipe</header><pre><code>for each repetition:
+<div class="code-window"><header>Simulation recipe (pseudocode)</header><pre><code>for each repetition:
     (u, v) = draw_from_chosen_copula()
     loss = int(u &lt;= 0.1) + int(v &lt;= 0.1)
     record(loss)
-estimate each loss probability by its recorded frequency</code></pre></div>
+estimate each loss probability by its recorded frequency</code></pre>
+<details class="complete-program"><summary>Complete program</summary><div class="program-notes"><p>The complete program runs all three dependence scenarios above. It prints the simulated and exact loss probabilities, the simulated mean, and the empirical 0.95 quantile using the stated convention.</p><p>Python 3; standard library only. Copy the full block below into <code>two_loan_loss.py</code> and run <code>python two_loan_loss.py</code>.</p></div><pre><code>import random
+from collections import Counter
+
+rng = random.Random(2026)
+p = 0.1
+n = 100_000
+alpha = 0.95
+
+def draw_from_chosen_copula(scenario):
+    u = rng.random()
+    if scenario == "independent":
+        return u, rng.random()
+    if scenario == "shared":
+        return u, u
+    if scenario == "opposing":
+        return u, 1 - u
+    raise ValueError("Unknown scenario")
+
+for scenario, r in [("independent", p*p),
+                    ("shared", p), ("opposing", 0.0)]:
+    counts = Counter()
+    for _ in range(n):
+        u, v = draw_from_chosen_copula(scenario)
+        loss = int(u &lt;= p) + int(v &lt;= p)
+        counts[loss] += 1
+    frequencies = [counts[k] / n for k in range(3)]
+    exact = [1 - 2*p + r, 2*p - 2*r, r]
+    cumulative = 0.0
+    for loss, frequency in enumerate(frequencies):
+        cumulative += frequency
+        if cumulative &gt;= alpha:
+            value_at_risk = loss
+            break
+    print(scenario)
+    print("  Simulated P(L=0), P(L=1), P(L=2):", frequencies)
+    print("  Exact probabilities:", exact)
+    print("  Simulated mean:", sum(k*frequencies[k] for k in range(3)))
+    print("  Simulated VaR at 0.95:", value_at_risk)</code></pre></details></div>
 
 <p>This recipe checks an implementation: empirical frequencies should approach the probabilities above when the corresponding copula is used. In a realistic portfolio, default probabilities and loss amounts vary across loans, and the copula may be estimated. Simulation still follows the same sequence: draw dependent uniforms, transform through the marginal distributions, compute the portfolio outcome, then summarize it. Section 5.1 of Mai and Scherer develops copula simulation, and Section 7.1 discusses simulated aggregate-loss quantiles.</p>
 

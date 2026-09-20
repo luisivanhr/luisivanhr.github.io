@@ -29,6 +29,7 @@ updated: 2026-01-01
 <h2 id="simulation-example">A reproducible simulation</h2>
 <p>Let us apply this inversion to the same independent uniform draws at three parameter values. At \(\theta=1\), we recover independence. At \(\theta=2\) and \(4\), the pairs concentrate increasingly near the diagonal, particularly in the upper-right corner. Both marginal distributions remain uniform.</p>
 <p>The code implements the conditional distribution just derived. Each bisection step keeps the half-interval containing the solution. Sixty steps make the interval shorter than \(2^{-60}\), before allowing for floating-point rounding. The calculation uses interior coordinates to evaluate the logarithms and is intended for the moderate parameter values shown here.</p>
+<p class="code-setup">The Python block below is complete. Copy it into a <code>.py</code> file and run it with Python 3 after installing NumPy with <code>python -m pip install numpy</code>.</p>
 <details class="simulation-code"><summary>Show Python simulation code</summary><div class="code-window"><header>Gumbel sampler (NumPy)</header><pre><code>import numpy as np
 
 def sample_gumbel(theta, n, seed=20260922):
