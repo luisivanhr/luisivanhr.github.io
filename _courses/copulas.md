@@ -103,14 +103,13 @@ updates:
 
 <h2 id="purpose">What this course develops</h2>
 <p>Knowing the distribution of each variable leaves a further question: how do the variables behave together? A [[copula]] describes their joint law on a common percentile scale. We begin with rectangle probabilities and build the theory needed to construct models, quantify dependence, and simulate observations.</p>
-<p>The main route follows Roger B. Nelsen's <em>An Introduction to Copulas</em>, second edition. Selected modules use the three companion books listed in the <a href="/courses/copulas/14-reference/#bibliography">bibliography</a>. Each lesson gives the source locations for its results. Definitions and derivations are included in the course, so the books can serve as further reading.</p>
+<p>The structure of this course follows Roger B. Nelsen's <em>An Introduction to Copulas</em>, second edition. We also include material from the three companion books listed in the <a href="/courses/copulas/14-reference/#bibliography">bibliography</a>. Each lesson gives locations in the references for its results. Definitions and derivations are included in the course, so the books can serve as further reading.</p>
 
 <h2 id="route">How to study</h2>
 <p>Read Lessons 1–8 in sequence to build the core theory, and try the exercises before opening their answers. The later lessons let us study particular families, simulate from them, and see how estimation changes the conclusions we draw. You can follow the semester route below or select a module using its prerequisites. The reference guide and the index help you return to a formula when you need it.</p>
 <p>You will use elementary probability, derivatives, and integrals. We introduce joint distribution functions before using them and state the additional assumptions needed for density calculations. Complete proofs are given for the central calculations developed here. More general results are identified as cited theorems when their full proofs fall outside the course.</p>
-<p>The figures are original computations of the displayed models. Short code examples support the simulation material; most lessons focus on theory, intuition, and worked calculations.</p>
+<p>The figures are original computations of the displayed models. Short code examples are given to support the simulation material; most lessons focus on theory, intuition, and worked calculations.</p>
 
-<p>Three optional pages extend the main route. After Lesson 9, <a href="/courses/copulas/09a-common-factor-workshop/">Workshop 9A</a> uses a common factor to calculate joint-default counts. After Lesson 23, <a href="/courses/copulas/24-mcmc-theory/">Lesson 24</a> introduces MCMC and <a href="/courses/copulas/25-mcmc-workshop/">Workshop 25</a> checks a sampler against an exact copula posterior. The schedule below follows the main route; add these pages when you want further practice.</p>
 
 <h2 id="semester-route">A semester route</h2>
 <p>The course has 23 lessons, three optional extensions, and a reference guide. The schedule below spreads them over 14 weeks, leaving time to work through the calculations. Two short lessons in a week can be read together; the exercises determine how much time you spend with each topic.</p>
