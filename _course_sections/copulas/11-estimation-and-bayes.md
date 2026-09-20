@@ -33,7 +33,7 @@ updated: 2026-01-01
 
 <section class="intro-strip" id="data">
   <h2>11.1 What the data determine</h2>
-  <p>A copula separates the distributions of individual variables from their dependence. Estimation must preserve that separation. We observe pairs \((x_i,y_i)\), while a copula density \(c_\theta\) takes inputs on the unit square. If the continuous marginal distributions \(F_X,F_Y\) are known, the inputs are \(u_i=F_X(x_i)\) and \(v_i=F_Y(y_i)\). If the marginal distributions are estimated, their uncertainty and possible misspecification affect the dependence estimate. Mai and Scherer discuss this distinction in Chapter 6, especially Sections 6.2 and 6.3; Shemyakin and Kniazev return to it in Section 7.3.</p>
+  <p>A copula separates the distributions of individual variables from their dependence. Estimation must preserve that separation. We observe pairs \((x_i,y_i)\), while a copula density \(c_\theta\) takes inputs on the unit square. If the continuous marginal distributions \(F_X,F_Y\) are known, the inputs are \(u_i=F_X(x_i)\) and \(v_i=F_Y(y_i)\). If the marginal distributions are estimated, their uncertainty and possible misspecification affect the dependence estimate. Mai and Scherer discuss this distinction in Chapter 6, especially Sections 6.2 and 6.3; Shemyakin and Kniazev return to it in Section 7.3. <a class="course-citation" href="#ref-1" aria-label="Reference 1">[1]</a> <a class="course-citation" href="#ref-2" aria-label="Reference 2">[2]</a></p>
 </section>
 
 <div class="math-block definition">
@@ -64,7 +64,7 @@ updated: 2026-01-01
 <div class="math-block definition">
   <span class="block-label">Definition 11.3 <span>[[Posterior density]]</span></span>
   <p>\[\pi(\theta\mid D)=\frac{L(\theta;D)\pi(\theta)}{\int_\Theta L(t;D)\pi(t)\,dt},\]</p>
-  <p>when the denominator is positive and finite. The denominator makes the posterior integrate to one. This is the continuous form of Bayes' rule developed in Shemyakin and Kniazev, Section 2.4.3, and applied to copula parameters in Section 7.3.5.</p>
+  <p>when the denominator is positive and finite. The denominator makes the posterior integrate to one. This is the continuous form of Bayes' rule developed in Shemyakin and Kniazev, Section 2.4.3, and applied to copula parameters in Section 7.3.5. <a class="course-citation" href="#ref-2" aria-label="Reference 2">[2]</a></p>
 </div>
 
 <p>Here is an author-created, deliberately small calculation. Consider the Farlie–Gumbel–Morgenstern family \(C_\theta(u,v)=uv[1+\theta(1-u)(1-v)]\), \(-1\leq\theta\leq1\), covered as a basic pair family in Shemyakin and Kniazev, Section 6.3.3. Its density is \(c_\theta(u,v)=1+\theta(1-2u)(1-2v)\). Suppose the marginal distributions are known and one transformed observation is \((u,v)=(1/4,1/4)\). Put a uniform prior on \([-1,1]\), with density \(1/2\). Since \((1-2u)(1-2v)=1/4\), the likelihood is \(L(\theta)=1+\theta/4\).</p>
@@ -87,5 +87,10 @@ updated: 2026-01-01
 <article class="exercise"><header class="exercise-head"><div><strong>Exercise 11.1</strong><span>Rank calibration</span></div><button class="answer-button" type="button">Show answer</button></header><div class="exercise-body"><p>A sample has empirical Kendall coefficient \(\widehat\tau=0.6\). Estimate the Gumbel parameter. What happens if \(\widehat\tau=-0.1\)?</p></div><div class="answer-panel"><div class="answer-inner"><p>For \(0.6\), \(\widehat\theta=1/(1-0.6)=2.5\). The Gumbel family considered here has \(\theta\geq1\) and therefore \(\tau\geq0\). The negative coefficient has no exact solution in this family; inspect another family or discuss boundary fitting.</p></div></div></article>
 <article class="exercise"><header class="exercise-head"><div><strong>Exercise 11.2</strong><span>Posterior probability</span></div><button class="answer-button" type="button">Show answer</button></header><div class="exercise-body"><p>For Proposition 11.4, find the posterior probability that \(\theta>0\).</p></div><div class="answer-panel"><div class="answer-inner"><p>Integrate the normalized posterior: \(\Pr(\theta>0\mid D)=\tfrac12\int_0^1(1+\theta/4)\,d\theta=\tfrac12(1+1/8)=9/16\). The data raise the probability above its prior value \(1/2\).</p></div></div></article>
 <article class="exercise"><header class="exercise-head"><div><strong>Exercise 11.3</strong><span>A discordant observation</span></div><button class="answer-button" type="button">Show answer</button></header><div class="exercise-body"><p>Keep the same prior and known marginal distributions, but observe \((u,v)=(1/4,3/4)\). Find the normalized posterior and its mean.</p></div><div class="answer-panel"><div class="answer-inner"><p>Now \((1-2u)(1-2v)=-1/4\), so \(L(\theta)=1-\theta/4\). Its prior average is one, giving \(\pi(\theta\mid D)=\tfrac12(1-\theta/4)\) on \([-1,1]\). The mean is \(-\tfrac18\int_{-1}^{1}\theta^2d\theta=-1/12\).</p></div></div></article>
-
-<p><strong>Source trail.</strong> Mai and Scherer, <em>Financial Engineering with Copulas Explained</em> (2014), Chapter 6, Sections 6.1–6.3, pp. 85–94. Shemyakin and Kniazev, <em>Introduction to Bayesian Estimation and Copula Models of Dependence</em> (2017), Sections 2.4.3, 6.3.3, and 7.3.4–7.3.5, pp. 46–47, 203–204, 249–252. The FGM observation and its arithmetic are original illustrations of these sourced methods.</p>
+<div id="source-note"></div>
+<h2 id="references">References</h2>
+<ol class="course-references">
+<li id="ref-1">Jan-Frederik Mai and Matthias Scherer, <em>Financial Engineering with Copulas Explained</em> (2014), Chapter 6, Sections 6.1–6.3, estimation from ranks and likelihoods, printed pp. 85–94.</li>
+<li id="ref-2">Arkady Shemyakin and Alexander Kniazev, <em>Introduction to Bayesian Estimation and Copula Models of Dependence</em> (2017), Sections 2.4.3, 6.3.3, and 7.3.4–7.3.5, Bayes' rule, the FGM family, and copula estimation, printed pp. 46–47, 203–204, 249–252.</li>
+</ol>
+<p>The FGM observation and its arithmetic are original illustrations of these sourced methods.</p>

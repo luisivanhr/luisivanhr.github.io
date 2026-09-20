@@ -36,20 +36,21 @@ date: 2026-01-01
 <h2 id="formula-guide">Formula guide</h2>
 <div class="math-block"><span class="block-label">Joining and separating marginal distributions</span>
 <p>\[H(x,y)=C(F(x),G(y)).\]</p>
-<p>Every joint law has such a representation. Continuous marginal distributions make the copula unique. With discrete marginal distributions, the values on the attained marginal ranges are uniquely determined. The full copula may have several extensions.</p>
-<p>When the required densities exist, \(h(x,y)=c(F(x),G(y))f(x)g(y)\). A copula with mass on a curve requires separate treatment of that singular mass.</p></div>
+<p>Every joint law has such a representation. Continuous marginal distributions make the copula unique. With discrete marginal distributions, the values on the attained marginal ranges are uniquely determined. The full copula may have several extensions. <a class="course-citation" href="#ref-1" aria-label="Reference 1">[1]</a></p>
+<p>When the required densities exist, \(h(x,y)=c(F(x),G(y))f(x)g(y)\). A copula with mass on a curve requires separate treatment of that singular mass. <a class="course-citation" href="#ref-2" aria-label="Reference 2">[2]</a></p></div>
 
 <div class="math-block"><span class="block-label">Rectangle and survival probabilities</span>
+<p>Rectangle probabilities follow from the copula volume. <a class="course-citation" href="#ref-3" aria-label="Reference 3">[3]</a></p>
 <p>\[P[a&lt;U\le b,\ d&lt;V\le e]=C(b,e)-C(a,e)-C(b,d)+C(a,d).\]</p>
 <p>\[P[U&gt;u,V&gt;v]=1-u-v+C(u,v),\qquad \widehat C(u,v)=u+v-1+C(1-u,1-v).\]</p>
-<p>The arguments of a survival copula are marginal survival probabilities. The formula for the joint upper-right event at the original thresholds uses \(C(u,v)\).</p></div>
+<p>The arguments of a survival copula are marginal survival probabilities. The formula for the joint upper-right event at the original thresholds uses \(C(u,v)\). <a class="course-citation" href="#ref-4" aria-label="Reference 4">[4]</a></p></div>
 
 <div class="math-block"><span class="block-label">Concordance and tails</span>
-<p>For continuous marginal distributions,</p>
+<p>For continuous marginal distributions, the concordance formulas are <a class="course-citation" href="#ref-5" aria-label="Reference 5">[5]</a></p>
 <p>\[\tau=4\int_{[0,1]^2}C\,dC-1,\qquad \rho_S=12\int_0^1\!\int_0^1C(u,v)\,du\,dv-3.\]</p>
 <p>The measure \(dC\) is the joint probability law of \((U,V)\). It can be replaced by \(c(u,v)\,du\,dv\) when that law is absolutely continuous.</p>
 <p>\[\lambda_L=\lim_{t\downarrow0}\frac{C(t,t)}{t},\qquad \lambda_U=\lim_{t\uparrow1}\frac{1-2t+C(t,t)}{1-t}.\]</p>
-<p>These limits describe increasingly extreme thresholds. A finite-threshold conditional probability may differ substantially from its limit.</p></div>
+<p>These limits describe increasingly extreme thresholds. A finite-threshold conditional probability may differ substantially from its limit. <a class="course-citation" href="#ref-6" aria-label="Reference 6">[6]</a></p></div>
 
 <h2 id="reading-routes">Choose a route</h2>
 <p>Start with Lessons 1–8 and try each exercise before opening its answer. Lesson 10 turns the formulas into simulated pairs. Then choose the question you want to study: Lessons 14–19 develop individual families; Lesson 20 studies maxima; Lesson 21 compares dependence patterns; and Lessons 11, 13, 22, and 23 move from observations to estimation and prediction. Lesson 12 applies these ideas to joint defaults. The <a href="/courses/copulas/#semester-route">semester route</a> puts these modules into a weekly sequence.</p>
@@ -69,7 +70,7 @@ date: 2026-01-01
 </tbody></table>
 
 <h2 id="bibliography">Books used in this course</h2>
-<p>Source notes at the end of each lesson identify the particular results used. Page numbers refer to printed page labels; where a PDF page is also given, it is the one-based position in the supplied file. The PDF offsets vary within Nelsen's file, so printed and PDF page numbers should be read separately.</p>
+<p>Numbered references at the end of each lesson identify the particular results used. Page numbers refer to printed page labels; where a PDF page is also given, it is the one-based position in the supplied file. The PDF offsets vary within Nelsen's file, so printed and PDF page numbers should be read separately.</p>
 <ol>
 <li id="nelsen"><strong>Roger B. Nelsen (2006).</strong> <em>An Introduction to Copulas</em>, second edition. Springer Series in Statistics. Springer. ISBN 978-0-387-28659-4. The main reference for definitions, Sklar's theorem, constructions, Archimedean copulas, concordance, tails, and empirical copulas. The title page of the supplied second edition places it in Springer Series in Statistics.</li>
 <li id="simulation-book"><strong>Jan-Frederik Mai and Matthias Scherer (2017).</strong> <em>Simulating Copulas: Stochastic Models, Sampling Algorithms, and Applications</em>, second edition. Series in Quantitative Finance, volume 6. World Scientific. ISBN 978-981-3149-24-3. Used for simulation methods and their mathematical justification.</li>
@@ -78,5 +79,13 @@ date: 2026-01-01
 </ol>
 <p>The course's figures are generated from the stated formulas. The small numerical datasets, posterior calculation, and two-loan illustration are worked course examples of the cited methods. They are separate from the empirical datasets discussed in the books.</p>
 
-<h2 id="formula-sources">Sources for this guide</h2>
-<p>Roger B. Nelsen, <em>An Introduction to Copulas</em> (2006): Definition 2.1.1, printed p. 8 (PDF p. 19), for rectangle volume; Sklar's Theorem 2.3.3, printed p. 18 (PDF p. 29), for joining marginal distributions; §2.6, equations (2.6.1)–(2.6.2), printed p. 32 (PDF p. 43), for the survival copula; Theorem 5.1.3, printed p. 161 (PDF p. 170), and §5.1.2, printed pp. 167–170, for concordance; Theorem 5.4.2, printed pp. 214–215 (PDF pp. 223–224), for diagonal tail limits. For density factorization, see Mai and Scherer, <em>Financial Engineering with Copulas Explained</em> (2014), §6.2, printed pp. 88–90. Detailed derivations and source locations appear in the linked lessons.</p>
+<div id="formula-sources"></div>
+<h2 id="references">References for this guide</h2>
+<ol class="course-references">
+<li id="ref-1">Roger B. Nelsen, <em>An Introduction to Copulas</em>, second edition, Springer, 2006. <strong>Sklar's Theorem 2.3.3</strong>, printed p. 18 (PDF p. 29).</li>
+<li id="ref-2">Jan-Frederik Mai and Matthias Scherer, <em>Financial Engineering with Copulas Explained</em>, Palgrave Macmillan, 2014. Section 6.2, <strong>density factorization</strong>, printed pp. 88–90.</li>
+<li id="ref-3">Roger B. Nelsen, <em>An Introduction to Copulas</em>, second edition, Springer, 2006. Definition 2.1.1, <strong>rectangle volume</strong>, printed p. 8 (PDF p. 19).</li>
+<li id="ref-4">Roger B. Nelsen, <em>An Introduction to Copulas</em>, second edition, Springer, 2006. Section 2.6, equations (2.6.1)–(2.6.2), <strong>survival copula</strong>, printed p. 32 (PDF p. 43).</li>
+<li id="ref-5">Roger B. Nelsen, <em>An Introduction to Copulas</em>, second edition, Springer, 2006. Theorem 5.1.3, printed p. 161 (PDF p. 170), and Section 5.1.2, printed pp. 167–170, <strong>concordance formulas</strong>.</li>
+<li id="ref-6">Roger B. Nelsen, <em>An Introduction to Copulas</em>, second edition, Springer, 2006. Theorem 5.4.2, <strong>diagonal tail limits</strong>, printed pp. 214–215 (PDF pp. 223–224).</li>
+</ol>

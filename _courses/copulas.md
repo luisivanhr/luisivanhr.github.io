@@ -6,8 +6,8 @@ date: 2026-01-01
 updated: 2026-01-01
 summary: A course on dependence, from joint distributions and Sklar's theorem to simulation, Bayesian estimation, and financial applications.
 excerpt: Learn copulas through definitions, worked derivations, original figures, and exercises with answers.
-image: /assets/images/copulas/archimedean-contours.svg
-image_alt: Contours of independence, Clayton, and Gumbel copulas
+image: /assets/images/copulas/gumbel-cover.svg
+image_alt: Contours of the Gumbel copula with parameter two
 track: Probability and statistics
 status: Complete course
 audience: Undergraduates with elementary probability and calculus
@@ -103,7 +103,7 @@ updates:
 
 <h2 id="semester-route">A semester route</h2>
 <p>The course has 23 lessons and a reference guide. The schedule below spreads them over 14 weeks, leaving time to work through the calculations. Two short lessons in a week can be read together; the exercises determine how much time you spend with each topic.</p>
-<table><thead><tr><th>Weeks</th><th>Lessons</th><th>What to work on</th></tr></thead><tbody>
+<div class="course-table-scroll" role="region" aria-label="Semester reading schedule" tabindex="0"><table class="course-table course-table--schedule"><thead><tr><th scope="col">Weeks</th><th scope="col">Lessons</th><th scope="col">What to work on</th></tr></thead><tbody>
 <tr><td>1–2</td><td>1–3</td><td>Joint distributions, copula bounds, and Sklar's theorem</td></tr>
 <tr><td>3–4</td><td>4–6</td><td>Conditional laws, constructions, and Archimedean generators</td></tr>
 <tr><td>5–6</td><td>7–10</td><td>Concordance, tails, higher dimensions, and simulation</td></tr>
@@ -113,5 +113,5 @@ updates:
 <tr><td>12</td><td>11, 13, 22</td><td>Estimation, empirical ranks, and calibration</td></tr>
 <tr><td>13</td><td>21, 23</td><td>Dependence order and Bayesian prediction</td></tr>
 <tr><td>14</td><td>12 and review</td><td>Apply the models to joint defaults and revisit the assumptions</td></tr>
-</tbody></table>
+</tbody></table></div>
 <p>For a shorter route, finish Lessons 1–8 and 10, then choose one family from Lessons 14–19. For a project, reproduce a simulation figure, check its marginal distributions, and compare an empirical rectangle probability with the formula. Lessons 13 and 22 show how to report what the calculation establishes and what still depends on the selected family.</p>

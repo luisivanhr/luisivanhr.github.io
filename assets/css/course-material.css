@@ -282,6 +282,83 @@
   max-width: 100%;
 }
 
+.course-table-scroll {
+  margin: 24px 0;
+  overflow-x: auto;
+}
+
+.course-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-variant-numeric: tabular-nums;
+  font-size: 0.95em;
+}
+
+.course-table th,
+.course-table td {
+  padding: 14px 20px;
+  text-align: left;
+  vertical-align: top;
+  border-bottom: 1px solid var(--course-rule);
+}
+
+.course-table th {
+  background: rgba(23, 118, 125, 0.06);
+  font-weight: 650;
+}
+
+.course-table :is(th, td) + :is(th, td) {
+  border-left: 1px solid rgba(23, 118, 125, 0.13);
+}
+
+.course-table--schedule th:nth-child(1) { width: 12%; }
+.course-table--schedule th:nth-child(2) { width: 19%; }
+.course-table--ranks { table-layout: fixed; }
+.course-table--ranks :is(th, td) { text-align: center; }
+.course-table--ranks :is(th, td):first-child { text-align: left; }
+
+.course-citation {
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.course-references {
+  list-style: none;
+  counter-reset: course-reference;
+  padding-left: 0;
+}
+
+.course-references > li {
+  position: relative;
+  counter-increment: course-reference;
+  padding: 14px 16px 14px 48px;
+  border-bottom: 1px solid var(--course-rule);
+  scroll-margin-top: 70px;
+  overflow-wrap: anywhere;
+}
+
+.course-references > li::before {
+  content: "[" counter(course-reference) "]";
+  position: absolute;
+  left: 8px;
+  font-weight: 650;
+  color: var(--course-teal, #17767d);
+}
+
+.course-references > li:target { background: rgba(23, 118, 125, 0.09); }
+
+@media (prefers-reduced-motion: no-preference) {
+  html:has(.course-citation) { scroll-behavior: smooth; }
+}
+
+@media (max-width: 700px) {
+  .course-table th, .course-table td { padding: 12px; }
+  .course-table--schedule { min-width: 530px; }
+  .course-table--ranks { min-width: 550px; }
+}
+
 .intro-strip,
 .math-block,
 .exercise,
@@ -880,6 +957,13 @@
   width: 100%;
   height: 100%;
   object-fit: contain;
+}
+
+.course-home-page[data-course-slug="copulas"] .course-home-image {
+  align-self: center;
+  aspect-ratio: 1;
+  min-height: 0;
+  background: #fbfcfd;
 }
 
 .course-home-content {

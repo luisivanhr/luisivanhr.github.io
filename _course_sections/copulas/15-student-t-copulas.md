@@ -24,7 +24,7 @@ updated: 2026-01-01
 
 <h2 id="mixture">The scale-mixture construction</h2>
 <p>Let \(Y\) be a centered normal vector with correlation matrix \(R\). Let \(W\) be independent of \(Y\), with inverse-gamma distribution \(\operatorname{InvGamma}(\nu/2,\nu/2)\). Equivalently, \(1/W\) has a gamma distribution with shape and rate \(\nu/2\). Define</p>
-<p>\[X=\sqrt{W}\,Y.\]</p>
+<p>\[X=\sqrt{W}\,Y.\] <a class="course-citation" href="#ref-1" aria-label="Reference 1">[1]</a></p>
 <p>Take \(\nu>0\). Each component of \(X\) has a Student-t distribution with \(\nu\) degrees of freedom and unit scale. Its variance is \(\nu/(\nu-2)\) when \(\nu>2\). Applying the distribution function \(t_\nu\) to each coordinate gives the t-copula \(C_{\nu,R}\). In two dimensions, \(R\) has parameter \(\rho\), with \(-1&lt;\rho&lt;1\) for the density calculations below.</p>
 <p>The common \(W\) matters. Conditional on \(W\), the components are correlated normal variables. Unconditionally, a large value of \(W\) enlarges both coordinates at once, making joint extremes more likely. For \(\nu>2\), \(\operatorname{Corr}(X)=R\); for \(\nu\le2\), the ordinary correlation is undefined. As \(\nu\) tends to infinity, \(W\) concentrates near one and the t-copula approaches the Gaussian copula.</p>
 
@@ -35,7 +35,7 @@ updated: 2026-01-01
 
 <h2 id="tails">Tail dependence</h2>
 <p>The bivariate t-copula is radially symmetric, so its lower and upper tail coefficients are equal. Mai and Scherer give</p>
-<p>\[\lambda_L=\lambda_U=2\,t_{\nu+1}\left(-\sqrt{\frac{(\nu+1)(1-\rho)}{1+\rho}}\right).\]</p>
+<p>\[\lambda_L=\lambda_U=2\,t_{\nu+1}\left(-\sqrt{\frac{(\nu+1)(1-\rho)}{1+\rho}}\right).\] <a class="course-citation" href="#ref-2" aria-label="Reference 2">[2]</a></p>
 <p>For \(-1&lt;\rho&lt;1\) and finite \(\nu\), this is positive. Increasing \(\nu\) makes the scale less variable and reduces the coefficient toward the Gaussian value zero.</p>
 
 <h2 id="sampling">Sampling</h2>
@@ -49,4 +49,7 @@ updated: 2026-01-01
 <article class="exercise"><header class="exercise-head"><div><strong>Exercise 15.3</strong><span>Tail coefficient.</span></div><button class="answer-button" type="button">Show answer</button></header><div class="exercise-body"><p>Evaluate the t-copula tail coefficient at \(\rho=0\), \(\nu=1\). Hint: integrate the density \((x^2+2)^{-3/2}\) of the Student-t distribution with two degrees of freedom.</p></div><div class="answer-panel"><div class="answer-inner"><p>The argument is \(-\sqrt{(1+1)(1-0)/(1+0)}=-\sqrt2\). Integrating the stated density gives \(t_2(x)=1/2+x/(2\sqrt{x^2+2})\). Therefore \(\lambda_L=\lambda_U=2t_2(-\sqrt2)=1-1/\sqrt2\), approximately \(0.2929\).</p></div></div></article>
 <article class="exercise"><header class="exercise-head"><div><strong>Exercise 15.4</strong><span>Sampling order.</span></div><button class="answer-button" type="button">Show answer</button></header><div class="exercise-body"><p>List the simulation steps for one t-copula pair.</p></div><div class="answer-panel"><div class="answer-inner"><p>Draw correlated normals \(Y_1,Y_2\), draw one independent \(W\), set \(X_i=\sqrt W Y_i\), and return \((t_\nu(X_1),t_\nu(X_2))\).</p></div></div></article>
 
-<p class="source-note">Source: Jan-Frederik Mai and Matthias Scherer, <em>Financial Engineering with Copulas Explained</em> (2014), §4.1.2 and equation (4.4), printed pp. 55–57, PDF pp. 72–74; the tail coefficient is stated on printed p. 57, PDF p. 74. The inverse-gamma density and scale-mixture setup appear on printed p. 55, PDF p. 72.</p>
+<h2 id="references">References</h2><ol class="course-references">
+<li id="ref-1">Jan-Frederik Mai and Matthias Scherer, <em>Financial Engineering with Copulas Explained</em> (2014), §4.1.2 and equation (4.4), printed pp. 55–57 (PDF pp. 72–74): Student-t copula construction and density; inverse-gamma scale mixture on printed p. 55 (PDF p. 72).</li>
+<li id="ref-2">Jan-Frederik Mai and Matthias Scherer, <em>Financial Engineering with Copulas Explained</em> (2014), §4.1.2, printed p. 57 (PDF p. 74): bivariate Student-t copula tail-dependence coefficient.</li>
+</ol>

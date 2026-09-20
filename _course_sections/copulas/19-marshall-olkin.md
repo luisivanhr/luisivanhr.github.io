@@ -24,7 +24,7 @@ updated: 2026-01-01
 
 <h2 id="model">Three independent shocks</h2>
 <p>Let \(Z_1,Z_2,Z_{12}\) be independent exponential shock times with rates \(\lambda_1,\lambda_2,\lambda_{12}>0\). The first shock kills component 1 only, the second kills component 2 only, and the third kills both. Define lifetimes</p>
-<p>\[X=\min(Z_1,Z_{12}),\qquad Y=\min(Z_2,Z_{12}).\]</p>
+<p>\[X=\min(Z_1,Z_{12}),\qquad Y=\min(Z_2,Z_{12}).\] <a class="course-citation" href="#ref-1" aria-label="Reference 1">[1]</a></p>
 <p>For \(x,y\ge0\), the joint survival function is the probability that \(Z_1>x\), \(Z_2>y\), and \(Z_{12}>\max(x,y)\). Independence gives</p>
 <p>\[\overline H(x,y)=P(X>x,Y>y)=\exp\{-\lambda_1x-\lambda_2y-\lambda_{12}\max(x,y)\}.\]</p>
 <p>The marginal survival functions are \(\overline F(x)=\exp\{-(\lambda_1+\lambda_{12})x\}\) and \(\overline G(y)=\exp\{-(\lambda_2+\lambda_{12})y\}\). Thus each lifetime is exponential, while the common shock remains visible in the joint survival.</p>
@@ -33,7 +33,7 @@ updated: 2026-01-01
 <p>Put \(u=\overline F(x)\), \(v=\overline G(y)\), and define \(a=\lambda_{12}/(\lambda_1+\lambda_{12})\), \(b=\lambda_{12}/(\lambda_2+\lambda_{12})\). Then \(e^{-\lambda_{12}x}=u^a\) and \(e^{-\lambda_{12}y}=v^b\). Using \(\max(x,y)=x+y-\min(x,y)\), we obtain</p>
 <p>\[\overline H(x,y)=u\,v\,\min(u^{-a},v^{-b}).\]</p>
 <p>Equivalently, the survival copula is</p>
-<p>\[\widehat C_{a,b}(u,v)=\min(u^{1-a}v,\;uv^{1-b}).\]</p>
+<p>\[\widehat C_{a,b}(u,v)=\min(u^{1-a}v,\;uv^{1-b}).\] <a class="course-citation" href="#ref-2" aria-label="Reference 2">[2]</a></p>
 <p>The common shock places positive probability on the curve \(u^a=v^b\). This is the singular component. Away from that curve, the copula also has an absolutely continuous component. The two components coexist because the idiosyncratic shocks spread mass over regions while the common shock makes \(X\) and \(Y\) fail together.</p>
 
 <h2 id="sampling">Exact shock sampler</h2>
@@ -49,4 +49,7 @@ updated: 2026-01-01
 <article class="exercise"><header class="exercise-head"><div><strong>Exercise 19.3</strong><span>Singular event.</span></div><button class="answer-button" type="button">Show answer</button></header><div class="exercise-body"><p>What event produces simultaneous failure?</p></div><div class="answer-panel"><div class="answer-inner"><p>The event is \(Z_{12}&lt;Z_1\) and \(Z_{12}&lt;Z_2\). Then \(X=Y=Z_{12}\), which maps to the curve \(u^a=v^b\) after the survival transformation.</p></div></div></article>
 <article class="exercise"><header class="exercise-head"><div><strong>Exercise 19.4</strong><span>Equal rates.</span></div><button class="answer-button" type="button">Show answer</button></header><div class="exercise-body"><p>For \(\lambda_1=\lambda_2=\lambda_{12}=1\), find \(a,b\) and the marginal rates.</p></div><div class="answer-panel"><div class="answer-inner"><p>\(a=b=1/2\). Both marginal lifetimes are exponential with rate \(1+1=2\).</p></div></div></article>
 
-<p class="source-note">Source: Roger B. Nelsen, <em>An Introduction to Copulas</em> (2006), §3.1.1, printed pp. 52–54, PDF pp. 62–64, equations (3.1.1)–(3.1.3), and the discussion of the singular component; Jan-Frederik Mai and Matthias Scherer, <em>Financial Engineering with Copulas Explained</em> (2014), §4.3.1, printed pp. 66–69, PDF pp. 83–86.</p>
+<h2 id="references">References</h2><ol class="course-references">
+<li id="ref-1">Roger B. Nelsen, <em>An Introduction to Copulas</em> (2006), §3.1.1, equations (3.1.1)–(3.1.3) and discussion of the singular component, printed pp. 52–54 (PDF pp. 62–64): Marshall-Olkin shock construction.</li>
+<li id="ref-2">Jan-Frederik Mai and Matthias Scherer, <em>Financial Engineering with Copulas Explained</em> (2014), §4.3.1, printed pp. 66–69 (PDF pp. 83–86): survival-copula shock model.</li>
+</ol>
