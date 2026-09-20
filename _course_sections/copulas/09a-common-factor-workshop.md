@@ -35,7 +35,7 @@ Z_j=\sqrt{\rho}\,M+\sqrt{1-\rho}\,\varepsilon_j,\qquad U_j=\Phi(Z_j).
 <p>\[
 D_j=\mathbf 1\{U_j\le p\}.
 \]</p>
-<p>Since \(\Phi\) is increasing, this event is equivalent to \(Z_j\le\Phi^{-1}(p)\). The model therefore preserves \(P(D_j=1)=p\) for every \(j\). The shared factor introduces dependence between borrowers.</p>
+<p>Since \(\Phi\) is increasing, this event is equivalent to \(Z_j\le\Phi^{-1}(p)\). The indicator \(D_j\) equals one if borrower \(j\) defaults and zero otherwise. The model therefore preserves \(P(D_j=1)=p\) for every \(j\). The shared factor introduces dependence between borrowers.</p>
 
 <h2 id="conditional">Condition on the market factor</h2>
 <p>For \(0\le\rho&lt;1\), given \(M=m\), only \(\varepsilon_j\) remains random in \(Z_j\). Dividing the inequality \(\sqrt{\rho}\,m+\sqrt{1-\rho}\,\varepsilon_j\le\Phi^{-1}(p)\) by the positive coefficient \(\sqrt{1-\rho}\) gives <a class="course-citation" href="#ref-2" aria-label="Reference 2">[2]</a></p>
@@ -53,7 +53,7 @@ P(K=k)=\int_{-\infty}^{\infty}\binom{20}{k}q(m)^k(1-q(m))^{20-k}\phi(m)\,dm.
 <p>We can evaluate this one-dimensional integral numerically and compare it with simulated counts. Conditioning on one factor has avoided a twenty-dimensional integration.</p>
 
 <h2 id="limits">Two checks on the parameter</h2>
-<p>At \(\rho=0\), \(Z_j=\varepsilon_j\), so \(q(m)=p\) for every \(m\). Integrating the conditional binomial law then gives the ordinary binomial distribution with parameters \(d\) and \(p\). At \(\rho=1\), the idiosyncratic term disappears and all \(Z_j=M\). Every default indicator is then identical, so \(K\) is \(0\) or \(d\). The conditional formula divides by \(\sqrt{1-\rho}\), so the endpoint \(\rho=1\) must be handled by this separate argument. For every \(\rho\in[0,1]\), linearity of expectation gives</p>
+<p>We write \(K\sim\operatorname{Binomial}(d,p)\) to say that \(K\) has the binomial distribution with \(d\) trials and success probability \(p\); here \(\sim\) means “has distribution.” At \(\rho=0\), \(Z_j=\varepsilon_j\), so \(q(m)=p\) for every \(m\). Integrating the conditional binomial law then gives the ordinary binomial distribution with parameters \(d\) and \(p\). At \(\rho=1\), the idiosyncratic term disappears and all \(Z_j=M\). Every default indicator is then identical, so \(K\) is \(0\) or \(d\). The conditional formula divides by \(\sqrt{1-\rho}\), so the endpoint \(\rho=1\) must be handled by this separate argument. For every \(\rho\in[0,1]\), linearity of expectation gives</p>
 <p>\[
 E[K]=\sum_{j=1}^dE[D_j]=dp=20(0.1)=2.
 \]</p>

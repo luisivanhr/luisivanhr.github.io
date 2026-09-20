@@ -20,15 +20,15 @@ date: 2026-01-01
 <section class="intro-strip"><h2 id="overview">The two pieces of a joint law</h2><p>A pair of random variables carries two kinds of information. Each variable has its own distribution, and the pair has a rule describing how the two variables occur together. Copulas describe the second piece after the first has been placed on a common scale.</p></section>
 
 <h2 id="distribution-functions">Distribution functions and marginal distributions</h2>
-<p>For a real-valued random variable \(X\), write \(F(x)=P[X\le x]\). The function \(F\) is right-continuous and nondecreasing, tends to \(0\) at the left end of the real line, and tends to \(1\) at the right end. For a pair \((X,Y)\), the joint distribution function is</p>
+<p>For a real-valued random variable \(X\), write \(F(x)=P[X\le x]\), where \(P[A]\) denotes the probability of an event \(A\). The function \(F\) is right-continuous and nondecreasing, tends to \(0\) at the left end of the real line, and tends to \(1\) at the right end. For a pair \((X,Y)\), the joint distribution function is</p>
 <p>\[
 H(x,y)=P[X\le x,\;Y\le y].
 \]</p>
-<p>The one-dimensional distribution functions are called the marginal distributions. They are recovered from \(H\) by taking the other coordinate to infinity:</p>
+<p>The comma in \(P[X\le x,\;Y\le y]\) means that both inequalities hold. The one-dimensional distribution functions are called the marginal distributions. They are recovered from \(H\) by taking the other coordinate to infinity:</p>
 <p>\[
 F(x)=H(x,\infty),\qquad G(y)=H(\infty,y).
 \]</p>
-<p>If \(x_1\le x_2\) and \(y_1\le y_2\), inclusion and exclusion gives</p>
+<p>An argument equal to \(\infty\) denotes a limit; for example, \(H(x,\infty)=\lim_{y\to\infty}H(x,y)\). If \(x_1\le x_2\) and \(y_1\le y_2\), inclusion and exclusion gives</p>
 <p>\[
 P[x_1&lt;X\le x_2,\ y_1&lt;Y\le y_2]=H(x_2,y_2)-H(x_1,y_2)-H(x_2,y_1)+H(x_1,y_1).
 \]</p>
@@ -39,7 +39,7 @@ P[x_1&lt;X\le x_2,\ y_1&lt;Y\le y_2]=H(x_2,y_2)-H(x_1,y_2)-H(x_2,y_1)+H(x_1,y_1)
 <h2 id="uniform-scale">The uniform scale</h2>
 <p>The interval \(I=[0,1]\) is useful because every distribution function takes values there. A percentile answers the question: what fraction of the distribution lies below this value? For a continuous distribution, the [[probability integral transform]] \(U=F(X)\) is uniform on this interval. <a class="course-citation" href="#ref-2" aria-label="Reference 2">[2]</a></p>
 <div class="math-block proof"><span class="block-label">Why the transform is uniform</span><p>Fix \(0&lt;u&lt;1\). By continuity and the limits of \(F\), the level set \(\{x:F(x)=u\}\) is a nonempty bounded closed interval, possibly a single point. Let \(b\) be its right endpoint. Monotonicity gives \(F(x)\le u\) exactly when \(x\le b\). Thus</p><p>\[P[F(X)\le u]=P[X\le b]=F(b)=u.\]</p><p>If the level set is an interval, it carries zero probability: the continuous distribution function has no increase across it. This handles flat parts of \(F\). The endpoint probabilities follow by taking limits as \(u\) decreases to zero or increases to one.</p></div>
-<p>To go in the other direction, define the [[generalized inverse]] by \(F^{-1}(u)=\inf\{x:F(x)\ge u\}\), for \(0&lt;u&lt;1\). Right-continuity of \(F\) gives \(F^{-1}(u)\le x\) if and only if \(u\le F(x)\). Hence a uniform \(U\) satisfies</p><p>\[P[F^{-1}(U)\le x]=P[U\le F(x)]=F(x).\]</p><p>This inverse sampling identity also holds for discrete distributions. The forward transform \(F(X)\) requires continuity to be uniform, as Exercise 1.4 shows.</p>
+<p>To go in the other direction, define the [[generalized inverse]] by \(F^{-1}(u)=\inf\{x:F(x)\ge u\}\), for \(0&lt;u&lt;1\). Here \(\inf\) means the infimum, or greatest lower bound, of the set in braces: we take the leftmost threshold at which \(F\) reaches or exceeds \(u\). Right-continuity of \(F\) gives \(F^{-1}(u)\le x\) if and only if \(u\le F(x)\). Hence a uniform \(U\) satisfies</p><p>\[P[F^{-1}(U)\le x]=P[U\le F(x)]=F(x).\]</p><p>This inverse sampling identity also holds for discrete distributions. The forward transform \(F(X)\) requires continuity to be uniform, as Exercise 1.4 shows.</p>
 <p>Why use this transformation? It removes the units of the marginal distributions. We can represent a temperature, a waiting time, and a loss by percentile values and study how those values occur together.</p>
 <div class="math-block proposition"><span class="block-label">Proposition 1.2 <span>Marginal Distributions are boundary sections</span></span><p>If \(H\) is a joint distribution function with marginal distributions \(F,G\), then \(H(x,\infty)=F(x)\), \(H(\infty,y)=G(y)\), and \(H(\infty,\infty)=1\). <a class="course-citation" href="#ref-1" aria-label="Reference 1">[1]</a></p></div>
 <div class="math-block proof"><span class="block-label">Proof</span><p>The events \(\{X\le x,Y\le y\}\) increase to \(\{X\le x\}\) as \(y\to\infty\). Continuity from below of probability gives the first identity. The second is identical, and the last follows because the whole sample space is reached when both bounds tend to infinity.</p></div>

@@ -31,6 +31,7 @@ C(u,v)=H(F^{-1}(u),G^{-1}(v)).
 <p>Let \((U,V)\) have copula \(C\). The transformed coordinates \((1-U,1-V)\) are again uniform. Their copula, called the [[survival copula]], is <a class="course-citation" href="#ref-2" aria-label="Reference 2">[2]</a></p><p>\[\widehat C(u,v)=u+v-1+C(1-u,1-v).\]</p><div class="math-block proof"><span class="block-label">Derivation</span><p>The event \(\{1-U\le u,1-V\le v\}\) asks for \(U\ge1-u\) and \(V\ge1-v\). Inclusion-exclusion gives \(1-(1-u)-(1-v)+C(1-u,1-v)\). Uniform marginal distributions have no point masses, so strict versus non-strict threshold inequalities do not change these probabilities.</p></div>
 <p>For continuous lifetimes with distribution functions \(F,G\), put \(S_X(x)=1-F(x)\), \(S_Y(y)=1-G(y)\). The same calculation gives \(P[X&gt;x,Y&gt;y]=\widehat C(S_X(x),S_Y(y))\). This form will be useful when discussing default times in Lesson 12.</p>
 <h2 id="mixtures">Convex sums</h2>
+<p>The notation \(\int f(q)\,dL(q)\) means an average of \(f(q)\) when the parameter \(q\) has probability distribution \(L\). For finitely many possible values \(q_i\) with probabilities \(p_i\), it is the weighted sum \(\sum_i p_i f(q_i)\).</p>
 <div class="math-block theorem"><span class="block-label">Theorem 5.1 <span>Mixture construction</span></span><p>If \(C_q\) is a family of copulas, \(q\mapsto C_q(u,v)\) is measurable for every \((u,v)\), and \(L\) is a probability distribution on the parameter, then</p><p>\[
 \widetilde C(u,v)=\int C_q(u,v)\,dL(q)
 \]</p><p>is a copula.</p></div>

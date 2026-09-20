@@ -31,6 +31,17 @@ date: 2026-01-01
 <tr><td>\(\lambda_L,\lambda_U\)</td><td>Lower and upper tail-dependence coefficients, when the limits exist</td><td><a href="/courses/copulas/08-tail-dependence/">8</a></td></tr>
 <tr><td>\(\pi(\theta),\pi(\theta\mid D)\)</td><td>Prior and posterior densities for a parameter</td><td><a href="/courses/copulas/11-estimation-and-bayes/">11</a></td></tr>
 <tr><td>\(C_n,t,r\)</td><td>Empirical copula grid and sample Kendall and Spearman statistics</td><td><a href="/courses/copulas/13-empirical-workshop/">13</a></td></tr>
+<tr><td>\(I^d,[0,1]^d\)</td><td>Cartesian products used for d-dimensional copula domains</td><td><a href="/courses/copulas/09-multivariate-copulas/">9</a></td></tr>
+<tr><td>\(C_j,\partial_j C\)</td><td>Partial derivative with respect to coordinate \(j\), where it exists</td><td><a href="/courses/copulas/04-densities-and-conditioning/">4</a>, <a href="/courses/copulas/10-simulation/">10</a></td></tr>
+<tr><td>\(\prod_i,\Theta,\widehat\theta\)</td><td>Product over observations, allowed parameter values, and an estimated parameter</td><td><a href="/courses/copulas/11-estimation-and-bayes/">11</a></td></tr>
+<tr><td>\(\operatorname{VaR}_\alpha,\alpha,\ell\)</td><td>Value at Risk at confidence level \(\alpha\), with loss threshold \(\ell\)</td><td><a href="/courses/copulas/12-financial-applications/">12</a></td></tr>
+<tr><td>\(\operatorname{Ran}F\)</td><td>Values attained by \(F\), including endpoint values at infinity under the course convention</td><td><a href="/courses/copulas/03-sklars-theorem/#statement">3</a></td></tr>
+<tr><td>\(A\times B\)</td><td>Pairs with first coordinate in \(A\) and second coordinate in \(B\)</td><td><a href="/courses/copulas/02-copulas-and-bounds/#definition">2</a></td></tr>
+<tr><td>\(\mathbf1\{A\}\)</td><td>One when the event or condition \(A\) holds; zero otherwise</td><td><a href="/courses/copulas/04-densities-and-conditioning/#mixed-example">4</a></td></tr>
+<tr><td>\(\int f\,dL,\ \int\!\int f\,dC\)</td><td>Expectations under the distributions \(L\) and \(C\), respectively</td><td><a href="/courses/copulas/05-constructions/#mixtures">5</a>, <a href="/courses/copulas/07-concordance/">7</a></td></tr>
+<tr><td>\(f\sim g,\ o(s)\)</td><td>Ratio \(f/g\) tends to one; a remainder whose ratio to \(s\) tends to zero</td><td><a href="/courses/copulas/08-tail-dependence/#calculations">8</a></td></tr>
+<tr><td>\(X\sim L\)</td><td>The random variable \(X\) has distribution \(L\)</td><td><a href="/courses/copulas/10-simulation/#conditional">10</a></td></tr>
+<tr><td>\(\Phi,\Phi_R,\Phi^{-1}\)</td><td>Standard normal distribution function, joint standard normal distribution function with correlation matrix \(R\), and normal quantile function</td><td><a href="/courses/copulas/09-multivariate-copulas/#construct">9</a></td></tr>
 </tbody></table>
 
 <h2 id="formula-guide">Formula guide</h2>

@@ -49,9 +49,9 @@ date: 2026-01-01
 <figure class="figure-box"><img src="/assets/images/copulas/empirical-grid.svg" alt="Four rank points on a four by four grid, with the lower-left half-square highlighted and only one point inside it."><figcaption>The shaded rectangle counts one of the four observations. Its empirical probability is 1/4. Points on the upper and right boundaries are included.</figcaption></figure>
 
 <h2 id="sample-concordance">Two sample summaries</h2>
-<p>For [[Kendall's tau::sample statistic]], compare every unordered pair of observations. A pair is concordant when both coordinates increase together and discordant when one increases while the other decreases. There are \(\binom42=6\) pairs here. Only B and C are discordant. Consequently,</p>
+<p>For Kendall's [[Kendall's tau::sample statistic]] \(t\), compare every unordered pair of observations. A pair is concordant when both coordinates increase together and discordant when one increases while the other decreases. There are \(\binom42=6\) pairs here. Only B and C are discordant. Consequently,</p>
 <div class="math-block"><p>\[t=\frac{5-1}{6}=\frac23.\]</p></div>
-<p>For [[Spearman's rho::sample statistic]], compute the ordinary correlation of the two rank lists. Both lists have mean \(5/2\), and each has sum of squared deviations equal to 5. Their cross-product sum is</p>
+<p>For Spearman's [[Spearman's rho::sample statistic]] \(r\), compute the ordinary correlation of the two rank lists. Both lists have mean \(5/2\), and each has sum of squared deviations equal to 5. Their cross-product sum is</p>
 <div class="math-block"><p>\[
 (-3/2)(-3/2)+(-1/2)(1/2)+(1/2)(-1/2)+(3/2)(3/2)=4.
 \]</p><p>Therefore \(r=4/5\). The two statistics use different summaries of the ordering, so their numerical values can differ for the same sample. Nelsen relates both statistics to the empirical copula. <a class="course-citation" href="#ref-3" aria-label="Reference 3">[3]</a></p></div>

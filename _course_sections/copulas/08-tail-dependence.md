@@ -20,8 +20,10 @@ next_section:
 date: 2026-01-01
 ---
 <section class="intro-strip" id="overview"><h2>Joint extremes</h2><p>How often do two coordinates enter the same extreme region? Correlation can be moderate while simultaneous extremes are rare or common. [[tail dependence]] coefficients isolate that question on the copula scale. <a class="course-citation" href="#ref-1" aria-label="Reference 1">[1]</a></p></section>
+<p>Let \((U_1,U_2)\) have copula \(C\). The notation \(u\downarrow0\) means approaching zero from above, and \(u\uparrow1\) means approaching one from below.</p>
 <div class="math-block definition"><span class="block-label">Definition 8.1 <span>Tail coefficients</span></span><p>\[\lambda_L=\lim_{u\downarrow0}\frac{C(u,u)}u,\qquad \lambda_U=\lim_{u\uparrow1}\frac{C(u,u)-2u+1}{1-u}.\]</p><p>When they exist, these equal \(P(U_1\le u\mid U_2\le u)\) in the lower limit and \(P(U_1>u\mid U_2>u)\) in the upper limit. <a class="course-citation" href="#ref-2" aria-label="Reference 2">[2]</a></p></div>
 <h2 id="calculations">Calculations</h2>
+<p>We write \(f(u)\sim g(u)\) when \(f(u)/g(u)\to1\) in the limit under discussion. A remainder \(r(s)=o(s)\) satisfies \(r(s)/s\to0\) as \(s\downarrow0\).</p>
 <div class="math-block theorem"><span class="block-label">Theorem 8.2 <span>Clayton tails</span></span><p>For Clayton parameter \(\theta>0\), \(\lambda_L=2^{-1/\theta}\) and \(\lambda_U=0\). <a class="course-citation" href="#ref-3" aria-label="Reference 3">[3]</a></p></div>
 <div class="math-block proof"><span class="block-label">Proof</span><p>On the diagonal, \(C(u,u)=(2u^{-\theta}-1)^{-1/\theta}\). As \(u\downarrow0\), \(2u^{-\theta}-1\sim2u^{-\theta}\), so \(C(u,u)/u\to2^{-1/\theta}\). For the upper coefficient write \(u=1-s\). Since \(u^{-\theta}=1+\theta s+o(s)\), the diagonal becomes \((1+2\theta s+o(s))^{-1/\theta}=1-2s+o(s)\). Therefore \(C(u,u)-2u+1=o(s)\), and division by \(1-u=s\) gives \(\lambda_U=0\).</p></div>
 <div class="math-block theorem"><span class="block-label">Theorem 8.3 <span>Gumbel tails</span></span><p>For Gumbel parameter \(\theta\ge1\), \(\lambda_L=0\) and \(\lambda_U=2-2^{1/\theta}\).</p></div>
