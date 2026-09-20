@@ -589,12 +589,13 @@
   border-top-width: 1px;
 }
 
-/* Long derivations remain readable on narrow screens. */
+/* Keep long derivations scrollable and leave room for raised glyphs. */
 .course-section-content .katex-display,
 .course-home-content .katex-display {
   max-width: 100%;
   overflow-x: auto;
   overflow-y: hidden;
+  padding-top: 0.25em;
   padding-bottom: 4px;
 }
 
