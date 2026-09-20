@@ -1,6 +1,7 @@
 {
   "equations": [
     "\\text{Course on copulas is available}",
-    "H(x,y)=C\\!\\left(F(x),G(y)\\right)"
+    "H(x,y)=C\\!\\left(F(x),G(y)\\right)",
+    "C_2(u,v)=e^{-\\sqrt{(\\log u)^2+(\\log v)^2}}"
   ]
 }
