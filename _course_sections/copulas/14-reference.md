@@ -14,6 +14,9 @@ exercises: See the lesson answer drawers and the empirical workshop
 previous_section:
   title: "Workshop: Estimating Dependence with MCMC"
   url: /courses/copulas/25-mcmc-workshop/
+next_section:
+  title: "Appendix: Background for the Proofs"
+  url: /courses/copulas/appendix-background/
 date: 2026-01-01
 ---
 

@@ -56,6 +56,7 @@ print(np.mean((u &gt; 0.9) &amp; (v &gt; 0.9)))</code></pre></div></details>
 <tr><td>4</td><td>0.08224</td><td>0.07855</td><td>0.00194</td></tr>
 </tbody></table>
 <p>At \(\theta=2\), the code prints \(0.05865\), compared with the exact value \(0.06157\). The difference is about 1.7 Monte Carlo standard errors. The increase across parameters agrees with the greater upper-tail association derived above. These are joint probabilities at a fixed threshold; the limiting coefficient \(\lambda_U\) describes a different calculation.</p>
+<p>The general identity relating Kendall's coefficient to an Archimedean generator is proved in <a href="/courses/copulas/16-clayton-copulas/#proof-16-archimedean-kendall">Lesson 16</a>.</p>
 <h2 id="exercises">Exercises</h2>
 <article class="exercise"><header class="exercise-head"><div><strong>Exercise 17.1</strong><span>Parameter from tau</span></div><button class="answer-button" type="button">Show answer</button></header><div class="exercise-body"><p>Find \(\theta\) when \(\tau=0.75\).</p></div><div class="answer-panel"><div class="answer-inner"><p>\(1-1/\theta=.75\), so \(\theta=4\).</p></div></div></article>
 <article class="exercise"><header class="exercise-head"><div><strong>Exercise 17.2</strong><span>Upper tail</span></div><button class="answer-button" type="button">Show answer</button></header><div class="exercise-body"><p>Compute \(\lambda_U\) for \(\theta=2\).</p></div><div class="answer-panel"><div class="answer-inner"><p>\(\lambda_U=2-\sqrt2\), approximately \(0.5858\).</p></div></div></article>

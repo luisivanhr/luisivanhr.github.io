@@ -38,6 +38,53 @@ updated: 2026-01-01
 <p>\[\lambda_L=\lambda_U=2\,t_{\nu+1}\left(-\sqrt{\frac{(\nu+1)(1-\rho)}{1+\rho}}\right).\] <a class="course-citation" href="#ref-2" aria-label="Reference 2">[2]</a></p>
 <p>For \(-1&lt;\rho&lt;1\) and finite \(\nu\), this is positive. Increasing \(\nu\) makes the scale less variable and reduces the coefficient toward the Gaussian value zero.</p>
 
+
+<details class="supplementary-proof" id="proof-15-tails"><summary>Proof</summary><div class="proof-content">
+<p><strong>The conditional density and the diagonal limit.</strong> Let \((X,Y)\) have the bivariate Student-t law with \(\nu>0\) and \(-1&lt;\rho&lt;1\). Write \(f_\nu\) for its univariate density. The joint and marginal densities in the source give <a class="course-citation" href="#ref-1" aria-label="Reference 1">[1]</a>
+\[
+f_{\nu,\rho}(x,y)=
+\frac{\Gamma((\nu+2)/2)}{\Gamma(\nu/2)\nu\pi\sqrt{1-\rho^2}}
+\left(1+\frac{x^2+y^2-2\rho xy}{\nu(1-\rho^2)}\right)^{-(\nu+2)/2},
+\qquad
+f_\nu(x)=\frac{\Gamma((\nu+1)/2)}{\Gamma(\nu/2)\sqrt{\nu\pi}}
+(1+x^2/\nu)^{-(\nu+1)/2}.
+\]
+Complete the square using \(x^2+y^2-2\rho xy=(1-\rho^2)x^2+(y-\rho x)^2\). Then
+\[
+1+\frac{x^2+y^2-2\rho xy}{\nu(1-\rho^2)}
+=\left(1+\frac{x^2}{\nu}\right)
+\left(1+\frac{(y-\rho x)^2}{(\nu+x^2)(1-\rho^2)}\right).
+\]
+Dividing the joint density by \(f_\nu(x)\) and collecting the constants yields
+\[
+f_{Y\mid X=x}(y)=\frac1{s(x)}f_{\nu+1}\!\left(\frac{y-\rho x}{s(x)}\right),
+\qquad
+s(x)=\sqrt{\frac{(\nu+x^2)(1-\rho^2)}{\nu+1}}.
+\]
+Thus the conditional distribution is a Student-t law with \(\nu+1\) degrees of freedom, location \(\rho x\), and scale \(s(x)\).</p>
+<p>For \(q\in(0,1)\), put \(x=t_\nu^{-1}(q)\). The conditional-derivative identity from Lesson 4 gives
+\[
+\partial_1C_{\nu,\rho}(q,q)=P(Y\le x\mid X=x)
+=t_{\nu+1}\!\left(\frac{x(1-\rho)}{s(x)}\right).
+\]
+The density is exchangeable in \(x,y\), so the two copula partial derivatives agree on the diagonal. Both the numerator and denominator of the upper-tail ratio tend to zero. Differentiating with respect to \(q\) and applying l'Hôpital's rule gives
+\[
+\lambda_U=\lim_{q\uparrow1}\frac{1-2q+C_{\nu,\rho}(q,q)}{1-q}
+=2\lim_{q\uparrow1}\{1-\partial_1C_{\nu,\rho}(q,q)\}.
+\]
+As \(q\uparrow1\), \(x\to\infty\), and
+\[
+\frac{x(1-\rho)}{s(x)}
+\longrightarrow \sqrt{\frac{(\nu+1)(1-\rho)}{1+\rho}}.
+\]
+Continuity and symmetry of the univariate Student-t distribution give
+\[
+\lambda_U=2\,t_{\nu+1}\!\left(-\sqrt{\frac{(\nu+1)(1-\rho)}{1+\rho}}\right).
+\]
+The factor two comes from differentiating both arguments of the diagonal copula.</p>
+<p>Finally, the joint density is unchanged under \((x,y)\mapsto(-x,-y)\). Since \(t_\nu(-x)=1-t_\nu(x)\), the uniform pair and its reflection \((1-U,1-V)\) have the same law. Their upper and lower tail ratios are therefore equal, proving the formula for \(\lambda_L\). This derivation uses the source densities to obtain the tail coefficient stated on printed p. 57. <a class="course-citation" href="#ref-2" aria-label="Reference 2">[2]</a></p>
+</div></details>
+
 <h2 id="sampling">Sampling</h2>
 <p>Draw \(Y_1,Y_2\) as correlated standard normal variables using the Gaussian Cholesky factor. Independently draw \(W\) from the inverse-gamma law, set \(X_i=\sqrt{W}Y_i\), and return \(U_i=t_\nu(X_i)\). The common \(W\) must be drawn once per pair. Drawing separate scales would change the model and remove the intended common-shock mechanism.</p>
 

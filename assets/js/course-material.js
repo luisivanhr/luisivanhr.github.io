@@ -725,5 +725,24 @@
         });
       });
     }
+
+    function revealLinkedProof() {
+      var id;
+      try {
+        id = decodeURIComponent(window.location.hash.slice(1));
+      } catch (err) {
+        return;
+      }
+      var target = id && document.getElementById(id);
+      var proof = target && target.closest("details.supplementary-proof");
+      if (!proof) return;
+      proof.open = true;
+      window.requestAnimationFrame(function () {
+        target.scrollIntoView({ block: "start" });
+      });
+    }
+
+    revealLinkedProof();
+    window.addEventListener("hashchange", revealLinkedProof);
   });
 })();

@@ -28,6 +28,22 @@ updated: 2026-01-01
 <div class="math-block proof"><span class="block-label">Why this works</span><p>Every divisor is positive. These coordinatewise affine maps are strictly increasing, so they preserve the copula. The transformed shape matrix is \(D^{-1}\Sigma D^{-1}=P\), where \(D\) is diagonal with entries \(D_{jj}=\sqrt{\Sigma_{jj}}\), and \(D^{-1}\) is its matrix inverse. This normalization is stated in Remark 4.3. <a class="course-citation" href="#ref-1" aria-label="Reference 1">[1]</a> The word <em>shape</em> matters: \(\Sigma\) need not itself be a covariance matrix when the radial second moment does not exist.</p></div>
 <p>Different radial laws can produce different copulas with the same standardized shape \(P\). Gaussian and Student-t copulas are the two examples in the next lessons. In the bivariate nondegenerate case, with no probability concentrated at either coordinate's center, their population Kendall coefficient has the shared form \(\tau=(2/\pi)\arcsin(P_{12})\), where \(\arcsin\) is the inverse sine in radians, even though their tail behavior can differ. This is Lemma 4.6(3). <a class="course-citation" href="#ref-1" aria-label="Reference 1">[1]</a> A matching Kendall coefficient therefore need not identify the radial law or the probability of joint extremes.</p>
 
+
+<details class="supplementary-proof" id="proof-14-kendall"><summary>Proof</summary><div class="proof-content">
+<p><strong>Kendall's coefficient from the angular representation.</strong> We give the calculation for a nondegenerate bivariate elliptical law with continuous marginal distributions. Shifts and positive coordinate rescalings preserve comparisons, so take standardized shape \(P=\begin{pmatrix}1&\rho\\\rho&1\end{pmatrix}\), with \(-1&lt;\rho&lt;1\), and write \(X=QBS\), where \(BB^{\mathsf T}=P\), \(S\) is uniform on the unit circle, and \(Q\ge0\) is independent of \(S\). This is the representation stated above. <a class="course-citation" href="#ref-1" aria-label="Reference 1">[1]</a></p>
+<p>Take an independent copy \(X'=Q'BS'\). The difference \(T=QS-Q'S'\) is rotationally invariant: applying the same rotation to \(S,S'\) leaves their joint law unchanged. Hence its direction is uniform on the circle. Continuity of a coordinate distribution gives \(P(X_1=X'_1)=0\), which also rules out \(T=0\). We can therefore write \(T=R(\cos A,\sin A)^{\mathsf T}\), where \(R>0\) and the angle \(A\) is uniform on \([0,2\pi)\). Only the uniform angular law is needed below.</p>
+<p>We may use \(B=\begin{pmatrix}1&0\\\rho&\sqrt{1-\rho^2}\end{pmatrix}\), since any other square root gives the same law after rotating the spherical vector. Put \(\alpha=\arccos\rho\), so \(0&lt;\alpha&lt;\pi\). The two coordinate differences become
+\[
+X_1-X'_1=R\cos A,\qquad X_2-X'_2=R\{\rho\cos A+\sqrt{1-\rho^2}\sin A\}=R\cos(A-\alpha).
+\]
+The positive half-circles for \(\cos A\) and \(\cos(A-\alpha)\) overlap over length \(\pi-\alpha\); the negative half-circles have the same overlap length. Thus the signs agree on total angular length \(2(\pi-\alpha)\). The finitely many zero-cosine angles have probability zero.</p>
+<p>Consequently \(P(\text{concordant})=1-\alpha/\pi\) and \(P(\text{discordant})=\alpha/\pi\). Subtracting gives
+\[
+\tau=1-\frac{2\arccos\rho}{\pi}=\frac{2}{\pi}\arcsin\rho.
+\]
+The positive radius \(R\) of the <em>difference</em> drops out of this sign calculation. This proves the stated coefficient from the spherical representation and explains its independence from the radial law. The result is Lemma 4.6(3); this angular calculation supplies the course derivation. <a class="course-citation" href="#ref-1" aria-label="Reference 1">[1]</a></p>
+</div></details>
+
 <h2 id="construction">Construction</h2>
 <p>Let \(Z=(Z_1,\ldots,Z_d)\) be a centered normal vector with unit marginal variances and correlation matrix \(R\). Positive semidefiniteness of \(R\) is the compatibility condition that makes this joint normal law possible. Each \(Z_j\) has standard normal distribution, with distribution function \(\Phi\). Write \(\Phi_R\) for the joint distribution function of \(Z\). Set \(U_j=\Phi(Z_j)\). Each \(U_j\) is uniform on \([0,1]\), and the joint distribution of \(U\) is the Gaussian copula</p>
 <p>\[C_R(u_1,\ldots,u_d)=\Phi_R\bigl(\Phi^{-1}(u_1),\ldots,\Phi^{-1}(u_d)\bigr).\] <a class="course-citation" href="#ref-2" aria-label="Reference 2">[2]</a> <a class="course-citation" href="#ref-3" aria-label="Reference 3">[3]</a></p>

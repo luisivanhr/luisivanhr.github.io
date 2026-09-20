@@ -11,7 +11,7 @@ image_alt: Contours of the Gumbel copula with parameter two
 track: Probability and statistics
 status: Complete course
 audience: Undergraduates with elementary probability and calculus
-latest_update: Twenty-three lessons, three optional extensions, and a reference guide
+latest_update: Twenty-three lessons, three optional extensions, a reference guide, and a background appendix
 index_url: /courses/copulas/index/
 sections:
   - title: "1. Probability and Marginal Distributions"
@@ -95,6 +95,9 @@ sections:
   - title: "26. Notation, Formula Guide, and References"
     url: /courses/copulas/14-reference/
     meta: Reference
+  - title: "Appendix. Background for the Proofs"
+    url: /courses/copulas/appendix-background/
+    meta: Optional background
 updates:
   - title: Foundations, extensions, figures, and worked exercises
     date: January 2026
@@ -107,7 +110,7 @@ updates:
 
 <h2 id="route">How to study</h2>
 <p>Read Lessons 1–8 in sequence to build the core theory, and try the exercises before opening their answers. The later lessons let us study particular families, simulate from them, and see how estimation changes the conclusions we draw. You can follow the semester route below or select a module using its prerequisites. The reference guide and the index help you return to a formula when you need it.</p>
-<p>You will use elementary probability, derivatives, and integrals. We introduce joint distribution functions before using them and state the additional assumptions needed for density calculations. Complete proofs are given for the central calculations developed here. More general results are identified as cited theorems when their full proofs fall outside the course.</p>
+<p>You will use elementary probability, derivatives, and integrals. We introduce joint distribution functions before using them and state the additional assumptions needed for density calculations. Core proofs appear in the main text. Additional proofs can be expanded for a deeper dive into the subject. A short <a href="/courses/copulas/appendix-background/">appendix</a> states the background results used in those proofs and gives their references.</p>
 <p>The figures are original computations of the displayed models. Short code examples are given to support the simulation material; most lessons focus on theory, intuition, and worked calculations.</p>
 
 

@@ -432,6 +432,48 @@
   background: #fffaf0;
 }
 
+.supplementary-proof {
+  margin: 18px 0 28px;
+  border: 1px solid #ccd7dd;
+  border-left: 3px solid var(--course-gold);
+  background: #fffaf0;
+}
+
+.supplementary-proof > summary {
+  padding: 11px 18px;
+  cursor: pointer;
+  color: #765012;
+  font-family: system-ui, sans-serif;
+  font-size: 0.9rem;
+  font-weight: 650;
+}
+
+.supplementary-proof > summary:hover {
+  background: #f7efdE;
+}
+
+.supplementary-proof > summary:focus-visible {
+  outline: 2px solid var(--course-teal);
+  outline-offset: 3px;
+}
+
+.supplementary-proof[open] > summary {
+  border-bottom: 1px solid #e4dccb;
+}
+
+.supplementary-proof > .proof-content {
+  padding: 18px 20px;
+  min-width: 0;
+}
+
+.proof-content > :first-child {
+  margin-top: 0;
+}
+
+.proof-content > :last-child {
+  margin-bottom: 0;
+}
+
 .math-block .block-label {
   display: flex;
   flex-wrap: wrap;
