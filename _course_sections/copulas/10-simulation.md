@@ -12,8 +12,8 @@ reading_time: 15 minutes
 exercises: 3 exercises
 permalink: /courses/copulas/10-simulation/
 previous_section:
-  title: "Multivariate Copulas"
-  url: /courses/copulas/09-multivariate-copulas/
+  title: "Workshop: A Common Factor and Joint Defaults"
+  url: /courses/copulas/09a-common-factor-workshop/
 next_section:
   title: "Estimation and Bayesian Updating"
   url: /courses/copulas/11-estimation-and-bayes/

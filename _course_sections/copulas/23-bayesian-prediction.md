@@ -14,8 +14,8 @@ previous_section:
   title: "Workshop: Calibrating Dependence from Ranks"
   url: /courses/copulas/22-calibration-workshop/
 next_section:
-  title: "Notation, Formula Guide, and References"
-  url: /courses/copulas/14-reference/
+  title: "MCMC for Bayesian Copula Estimation"
+  url: /courses/copulas/24-mcmc-theory/
 date: 2026-01-01
 updated: 2026-01-01
 ---
@@ -44,6 +44,7 @@ updated: 2026-01-01
 
 <p>The event here is a statement about a new pair at the same observation horizon and under the same marginal distributions. If a future observation uses a different horizon or different marginal distributions, its event probability needs those new distributions as inputs. The copula parameter alone does not determine a probability in the original units. For example, with known continuous marginal distributions \(F_X,F_Y\), the predictive probability of \(X_*\le x,Y_*\le y\) is \(\int C_\theta(F_X(x),F_Y(y))\pi(\theta\mid D)d\theta\). This is exactly the same averaging rule applied after converting the thresholds to percentile coordinates. It also shows where uncertainty about the marginal distributions would have to enter a richer Bayesian model.</p>
 
+<p>The optional <a href="/courses/copulas/24-mcmc-theory/">MCMC lesson</a> explains how to approximate posterior averages. Its <a href="/courses/copulas/25-mcmc-workshop/">workshop</a> uses our exact answers to check a sampler. You can also proceed directly to the <a href="/courses/copulas/14-reference/">reference guide</a>.</p>
 <h2 id="exercises">Exercises</h2>
 <article class="exercise"><header class="exercise-head"><div><strong>Exercise 23.1</strong><span>Posterior sign probability</span></div><button class="answer-button" type="button">Show answer</button></header><div class="exercise-body"><p>Under Proposition 23.1, calculate \(P(\theta>0\mid D)\).</p></div><div class="answer-panel"><div class="answer-inner"><p>Integrate the posterior from zero to one: \((24/49)\int_0^1(1+\theta/2+\theta^2/16)d\theta=(24/49)(1+1/4+1/48)=(24/49)(61/48)=61/98\). This exceeds the prior value \(1/2\).</p></div></div></article>
 <article class="exercise"><header class="exercise-head"><div><strong>Exercise 23.2</strong><span>Predict a different rectangle</span></div><button class="answer-button" type="button">Show answer</button></header><div class="exercise-body"><p>Find the posterior predictive probability of \(U_*\le1/4,V_*\le1/4\).</p></div><div class="answer-panel"><div class="answer-inner"><p>At fixed \(\theta\), \(C_\theta(1/4,1/4)=\tfrac1{16}[1+\theta(3/4)^2]=\tfrac1{16}(1+9\theta/16)\). Integrating and using \(E[\theta\mid D]=8/49\) gives \(\tfrac1{16}[1+(9/16)(8/49)]=\tfrac1{16}(1+9/98)=107/1568\).</p></div></div></article>

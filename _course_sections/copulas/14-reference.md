@@ -5,15 +5,15 @@ updated: 2026-01-01
 course_title: Copulas
 course_url: /courses/copulas/
 course_section_style: reference
-section_number: 24
+section_number: 26
 section_kind: Reference
 summary: A compact guide to notation, assumptions, and the four books used in the course.
 prerequisites: Use alongside the course
 reading_time: 8 minutes
 exercises: See the lesson answer drawers and the empirical workshop
 previous_section:
-  title: "Bayesian Prediction from a Copula Posterior"
-  url: /courses/copulas/23-bayesian-prediction/
+  title: "Workshop: Estimating Dependence with MCMC"
+  url: /courses/copulas/25-mcmc-workshop/
 date: 2026-01-01
 ---
 
@@ -55,6 +55,8 @@ date: 2026-01-01
 <h2 id="reading-routes">Choose a route</h2>
 <p>Start with Lessons 1–8 and try each exercise before opening its answer. Lesson 10 turns the formulas into simulated pairs. Then choose the question you want to study: Lessons 14–19 develop individual families; Lesson 20 studies maxima; Lesson 21 compares dependence patterns; and Lessons 11, 13, 22, and 23 move from observations to estimation and prediction. Lesson 12 applies these ideas to joint defaults. The <a href="/courses/copulas/#semester-route">semester route</a> puts these modules into a weekly sequence.</p>
 <p>Prerequisites are elementary probability, single-variable calculus, and enough multivariable calculus to follow a mixed derivative or a double integral. The density-based arguments identify where this calculus is used. The first lessons introduce the joint distribution notation needed throughout.</p>
+
+<p>For optional practice, <a href="/courses/copulas/09a-common-factor-workshop/">Workshop 9A</a> develops a common-factor default-count model. <a href="/courses/copulas/24-mcmc-theory/">Lesson 24</a> and <a href="/courses/copulas/25-mcmc-workshop/">Workshop 25</a> introduce and check MCMC for a copula posterior.</p>
 
 <h2 id="family-guide">Finding a family or method</h2>
 <p>We can match a rank coefficient and still obtain different predictions for joint extremes. Use this guide to return to the construction and its assumptions before choosing a formula.</p>

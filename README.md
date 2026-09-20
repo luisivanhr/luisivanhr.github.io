@@ -295,7 +295,7 @@ Examples:
 /presentations/?format=poster&year=2023
 /models/?type=simulation&q=transport
 /courses/?q=copula
-/courses/course-intro/index/?q=Markov
+/courses/copulas/index/?q=Markov
 ```
 
 Use normal `q` values for broad search. Wrap the full `q` value in quotes for exact title or exact term matching where supported. Invalid filter values are ignored.

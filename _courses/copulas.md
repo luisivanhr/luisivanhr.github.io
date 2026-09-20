@@ -11,7 +11,7 @@ image_alt: Contours of the Gumbel copula with parameter two
 track: Probability and statistics
 status: Complete course
 audience: Undergraduates with elementary probability and calculus
-latest_update: Twenty-three lessons, a reference guide, and worked exercises
+latest_update: Twenty-three lessons, three optional extensions, and a reference guide
 index_url: /courses/copulas/index/
 sections:
   - title: "1. Probability and Marginal Distributions"
@@ -41,6 +41,9 @@ sections:
   - title: "9. Multivariate Copulas"
     url: /courses/copulas/09-multivariate-copulas/
     meta: Higher dimensional dependence
+  - title: "9A. Workshop: A Common Factor and Joint Defaults"
+    url: /courses/copulas/09a-common-factor-workshop/
+    meta: Optional workshop
   - title: "10. Simulating Copulas"
     url: /courses/copulas/10-simulation/
     meta: Simulation and diagnostics
@@ -83,7 +86,13 @@ sections:
   - title: "23. Bayesian Prediction from a Copula Posterior"
     url: /courses/copulas/23-bayesian-prediction/
     meta: Posterior prediction
-  - title: "24. Notation, Formula Guide, and References"
+  - title: "24. MCMC for Bayesian Copula Estimation"
+    url: /courses/copulas/24-mcmc-theory/
+    meta: Optional theory
+  - title: "25. Workshop: Estimating Dependence with MCMC"
+    url: /courses/copulas/25-mcmc-workshop/
+    meta: Optional workshop
+  - title: "26. Notation, Formula Guide, and References"
     url: /courses/copulas/14-reference/
     meta: Reference
 updates:
@@ -101,8 +110,10 @@ updates:
 <p>You will use elementary probability, derivatives, and integrals. We introduce joint distribution functions before using them and state the additional assumptions needed for density calculations. Complete proofs are given for the central calculations developed here. More general results are identified as cited theorems when their full proofs fall outside the course.</p>
 <p>The figures are original computations of the displayed models. Short code examples support the simulation material; most lessons focus on theory, intuition, and worked calculations.</p>
 
+<p>Three optional pages extend the main route. After Lesson 9, <a href="/courses/copulas/09a-common-factor-workshop/">Workshop 9A</a> uses a common factor to calculate joint-default counts. After Lesson 23, <a href="/courses/copulas/24-mcmc-theory/">Lesson 24</a> introduces MCMC and <a href="/courses/copulas/25-mcmc-workshop/">Workshop 25</a> checks a sampler against an exact copula posterior. The schedule below follows the main route; add these pages when you want further practice.</p>
+
 <h2 id="semester-route">A semester route</h2>
-<p>The course has 23 lessons and a reference guide. The schedule below spreads them over 14 weeks, leaving time to work through the calculations. Two short lessons in a week can be read together; the exercises determine how much time you spend with each topic.</p>
+<p>The course has 23 lessons, three optional extensions, and a reference guide. The schedule below spreads them over 14 weeks, leaving time to work through the calculations. Two short lessons in a week can be read together; the exercises determine how much time you spend with each topic.</p>
 <div class="course-table-scroll" role="region" aria-label="Semester reading schedule" tabindex="0"><table class="course-table course-table--schedule"><thead><tr><th scope="col">Weeks</th><th scope="col">Lessons</th><th scope="col">What to work on</th></tr></thead><tbody>
 <tr><td>1–2</td><td>1–3</td><td>Joint distributions, copula bounds, and Sklar's theorem</td></tr>
 <tr><td>3–4</td><td>4–6</td><td>Conditional laws, constructions, and Archimedean generators</td></tr>
