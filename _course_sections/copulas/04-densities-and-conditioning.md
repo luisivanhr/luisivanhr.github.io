@@ -1,0 +1,48 @@
+---
+title: Densities and Conditioning
+permalink: /courses/copulas/04-densities-and-conditioning/
+updated: 2026-01-01
+course_title: Copulas
+course_url: /courses/copulas/
+course_section_style: hybrid
+section_number: 4
+section_kind: Theory and simulation
+summary: Absolutely continuous and singular copulas, conditional distributions, and conditional simulation.
+prerequisites: Sklar's theorem and partial derivatives
+reading_time: 18 minutes
+exercises: 3 exercises
+previous_section:
+  title: "Sklar's Theorem"
+  url: /courses/copulas/03-sklars-theorem/
+next_section:
+  title: "Constructions"
+  url: /courses/copulas/05-constructions/
+date: 2026-01-01
+---
+
+<section class="intro-strip"><h2 id="overview">Mass on the square</h2><p>A copula may distribute its probability over area, along curves, or through both components. Derivatives describe the area component. Conditional sections provide a direct simulation method.</p></section>
+<h2 id="components">Absolutely continuous and singular parts</h2>
+<p>A copula induces a probability measure on \(I^2\), with uniform measure on every horizontal and vertical strip. The [[absolutely continuous copula::density]] describes the part of the probability that is spread over area. Its density is the almost-everywhere mixed derivative</p>
+<p>\[
+c(u,v)=\frac{\partial^2 C(u,v)}{\partial u\,\partial v}.
+\]</p>
+<p>Its accumulated mass is \(A_C(u,v)=\int_0^u\int_0^v c(s,t)\,dt\,ds\). The remainder \(S_C=C-A_C\) is the [[singular component]]. A copula is absolutely continuous when \(C=A_C\), and singular when its mixed derivative is zero almost everywhere. The product copula \(\Pi(u,v)=uv\) has density \(1\). The copula \(M(u,v)=\min(u,v)\) puts its mass on the diagonal \(v=u\), so it is singular.</p>
+<div class="math-block proposition"><span class="block-label">Proposition 4.1 <span>Conditional section</span></span><p>For almost every fixed \(u\), the conditional distribution of \(V\) given \(U=u\) is \(C_u(v)=\partial C(u,v)/\partial u\).</p></div>
+<p>Why is this derivative useful? A right-continuous version is a distribution function in \(v\), for almost every conditioning value \(u\). Values at jumps are chosen by right-continuity; on an exceptional set of conditioning values of probability zero, any valid conditional law can be assigned. This statement also covers copulas with singular mass, where a two-dimensional density alone would miss part of the law.</p>
+<div class="math-block proof"><span class="block-label">Why a partial derivative appears</span><p>For \(0\le a&lt;b\le1\),</p><p>\[P[a&lt;U\le b,V\le v]=C(b,v)-C(a,v)=\int_a^b\partial_1C(s,v)\,ds.\]</p><p>The last equality uses the absolute continuity of a Lipschitz section. Since \(U\) has uniform density one, this is the integral of a conditional probability over the possible first coordinates. It identifies \(\partial_1C\) as a conditional distribution, with the version qualification above.</p></div>
+<h2 id="mixed-example">A mixture with two kinds of mass</h2>
+<p>Consider \(C_q(u,v)=(1-q)uv+q\min(u,v)\), \(0\le q\le1\). This is a convex mixture of two copulas, as in Exercise 2.6. With probability \(q\), draw one uniform and use it for both coordinates; otherwise draw independent uniforms. Away from the diagonal, the mixed derivative is \(1-q\), so its integral over the square is \(1-q\). The remaining probability \(q\) is on the diagonal. Integrating the density alone therefore recovers only part of the distribution when \(q&gt;0\).</p>
+<p>For a fixed interior \(u\), a conditional distribution is</p><p>\[P[V\le v\mid U=u]=(1-q)v+q\mathbf1\{v\ge u\}.\]</p><p>Its jump of size \(q\) at \(v=u\) describes the diagonal component. This course illustration applies Nelsen's absolutely continuous/singular decomposition and convex-sum construction.</p>
+<h2 id="simulation">Conditional simulation</h2>
+<p>To generate \((U,V)\) with copula \(C\), draw independent uniforms \(u,t\). Regard \(C_u(v)=\partial C(u,v)/\partial u\) as a conditional distribution function, and choose \(v=C_u^{-1}(t)\), using the generalized inverse of this conditional distribution. Then \(X=F^{-1}(u)\), \(Y=G^{-1}(v)\) have joint distribution \(C(F(x),G(y))\).</p>
+<div class="code-window"><header>conditional_copula.py</header><pre><code>u, t = independent_uniforms()
+v = conditional_inverse(u, t)
+x = marginal_inverse_F(u)
+y = marginal_inverse_G(v)</code></pre></div>
+<p>For the product copula, \(C_u(v)=v\), so \(v=t\) and the two uniforms are independent. For a non-product copula, the conditional inverse changes with \(u\); that change is exactly what reproduces the desired dependence. Nelsen's worked example applies the same procedure explicitly.</p>
+<div class="problem-grid">
+<article class="exercise"><header class="exercise-head"><div><strong>Exercise 4.2</strong><span>Product density</span></div><button class="answer-button" type="button">Show answer</button></header><div class="exercise-body"><p>Find the density of \(\Pi(u,v)=uv\).</p></div><div class="answer-panel"><div class="answer-inner"><p>\(\partial\Pi/\partial u=v\), and then \(\partial^2\Pi/\partial v\partial u=1\). Thus the density is constant on \(I^2\).</p></div></div></article>
+<article class="exercise"><header class="exercise-head"><div><strong>Exercise 4.3</strong><span>Singular support</span></div><button class="answer-button" type="button">Show answer</button></header><div class="exercise-body"><p>Where is the mass of \(M(u,v)=\min(u,v)\) supported?</p></div><div class="answer-panel"><div class="answer-inner"><p>On the main diagonal \(\{(u,v):v=u\}\). Rectangles strictly above or below that diagonal have zero \(M\)-measure, and the mixed derivative is zero away from the diagonal.</p></div></div></article>
+<article class="exercise"><header class="exercise-head"><div><strong>Exercise 4.4</strong><span>Conditional algorithm</span></div><button class="answer-button" type="button">Show answer</button></header><div class="exercise-body"><p>For the mixture \(C_q\) with \(q=1/3\), how much probability does its density account for, and what is \(P[V\le1/2\mid U=1/2]\)?</p></div><div class="answer-panel"><div class="answer-inner"><p>The density is \(2/3\), so it accounts for mass \(2/3\). The conditional probability is \((2/3)(1/2)+(1/3)=2/3\). The extra term comes from the atom at the conditioning coordinate.</p></div></div></article>
+</div>
+<p class="source-note">Source: Roger B. Nelsen, <em>An Introduction to Copulas</em> (2006), §2.4, equation (2.4.1) and Example 2.11, printed p. 27 (PDF p. 38), for the absolutely continuous/singular decomposition and diagonal support of (M); §2.9, equation (2.9.1) and its sampling steps, printed p. 41 (PDF p. 52), for conditional simulation; §3.2.4, equation (3.2.4), printed p. 72 (PDF p. 82), for convex mixtures. The (q=1/3) mixture and its conditional calculation are course illustrations.</p>

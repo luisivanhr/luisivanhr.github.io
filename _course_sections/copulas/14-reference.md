@@ -1,0 +1,82 @@
+---
+title: Notation, Formula Guide, and References
+permalink: /courses/copulas/14-reference/
+updated: 2026-01-01
+course_title: Copulas
+course_url: /courses/copulas/
+course_section_style: reference
+section_number: 24
+section_kind: Reference
+summary: A compact guide to notation, assumptions, and the four books used in the course.
+prerequisites: Use alongside the course
+reading_time: 8 minutes
+exercises: See the lesson answer drawers and the empirical workshop
+previous_section:
+  title: "Bayesian Prediction from a Copula Posterior"
+  url: /courses/copulas/23-bayesian-prediction/
+date: 2026-01-01
+---
+
+<h2 id="notation">Notation</h2>
+<p>We use \(P\) or \(\Pr\) for probability and \(E\) for expectation. Unless a lesson states otherwise, copulas are bivariate and their coordinates lie in \(I=[0,1]\). This page collects formulas already developed in the lessons.</p>
+<table><thead><tr><th>Symbol</th><th>Meaning</th><th>Lesson</th></tr></thead><tbody>
+<tr><td>\(F,G,H\)</td><td>Two marginal distribution functions and their joint distribution function</td><td><a href="/courses/copulas/01-probability-and-margins/">1</a></td></tr>
+<tr><td>\(F^{-1}(u)\)</td><td>Generalized inverse \(\inf\{x:F(x)\ge u\}\), for \(0&lt;u&lt;1\)</td><td><a href="/courses/copulas/03-sklars-theorem/">3</a></td></tr>
+<tr><td>\(C(u,v)\)</td><td>Joint distribution function with uniform marginal distributions</td><td><a href="/courses/copulas/02-copulas-and-bounds/">2</a></td></tr>
+<tr><td>\(\Pi,M,W\)</td><td>Product copula and bivariate upper and lower Fréchet bounds</td><td><a href="/courses/copulas/02-copulas-and-bounds/">2</a></td></tr>
+<tr><td>\(c(u,v)\)</td><td>Density of an absolutely continuous copula</td><td><a href="/courses/copulas/04-densities-and-conditioning/">4</a></td></tr>
+<tr><td>\(\widehat C\)</td><td>Survival copula</td><td><a href="/courses/copulas/05-constructions/">5</a></td></tr>
+<tr><td>\(\varphi,\psi\)</td><td>Decreasing additive Archimedean generator and its inverse; check each domain</td><td><a href="/courses/copulas/06-archimedean-copulas/">6</a>, <a href="/courses/copulas/09-multivariate-copulas/">9</a></td></tr>
+<tr><td>\(\tau,\rho_S\)</td><td>Population Kendall and Spearman coefficients</td><td><a href="/courses/copulas/07-concordance/">7</a></td></tr>
+<tr><td>\(\lambda_L,\lambda_U\)</td><td>Lower and upper tail-dependence coefficients, when the limits exist</td><td><a href="/courses/copulas/08-tail-dependence/">8</a></td></tr>
+<tr><td>\(\pi(\theta),\pi(\theta\mid D)\)</td><td>Prior and posterior densities for a parameter</td><td><a href="/courses/copulas/11-estimation-and-bayes/">11</a></td></tr>
+<tr><td>\(C_n,t,r\)</td><td>Empirical copula grid and sample Kendall and Spearman statistics</td><td><a href="/courses/copulas/13-empirical-workshop/">13</a></td></tr>
+</tbody></table>
+
+<h2 id="formula-guide">Formula guide</h2>
+<div class="math-block"><span class="block-label">Joining and separating marginal distributions</span>
+<p>\[H(x,y)=C(F(x),G(y)).\]</p>
+<p>Every joint law has such a representation. Continuous marginal distributions make the copula unique. With discrete marginal distributions, the values on the attained marginal ranges are uniquely determined. The full copula may have several extensions.</p>
+<p>When the required densities exist, \(h(x,y)=c(F(x),G(y))f(x)g(y)\). A copula with mass on a curve requires separate treatment of that singular mass.</p></div>
+
+<div class="math-block"><span class="block-label">Rectangle and survival probabilities</span>
+<p>\[P[a&lt;U\le b,\ d&lt;V\le e]=C(b,e)-C(a,e)-C(b,d)+C(a,d).\]</p>
+<p>\[P[U&gt;u,V&gt;v]=1-u-v+C(u,v),\qquad \widehat C(u,v)=u+v-1+C(1-u,1-v).\]</p>
+<p>The arguments of a survival copula are marginal survival probabilities. The formula for the joint upper-right event at the original thresholds uses \(C(u,v)\).</p></div>
+
+<div class="math-block"><span class="block-label">Concordance and tails</span>
+<p>For continuous marginal distributions,</p>
+<p>\[\tau=4\int_{[0,1]^2}C\,dC-1,\qquad \rho_S=12\int_0^1\!\int_0^1C(u,v)\,du\,dv-3.\]</p>
+<p>The measure \(dC\) is the joint probability law of \((U,V)\). It can be replaced by \(c(u,v)\,du\,dv\) when that law is absolutely continuous.</p>
+<p>\[\lambda_L=\lim_{t\downarrow0}\frac{C(t,t)}{t},\qquad \lambda_U=\lim_{t\uparrow1}\frac{1-2t+C(t,t)}{1-t}.\]</p>
+<p>These limits describe increasingly extreme thresholds. A finite-threshold conditional probability may differ substantially from its limit.</p></div>
+
+<h2 id="reading-routes">Choose a route</h2>
+<p>Start with Lessons 1–8 and try each exercise before opening its answer. Lesson 10 turns the formulas into simulated pairs. Then choose the question you want to study: Lessons 14–19 develop individual families; Lesson 20 studies maxima; Lesson 21 compares dependence patterns; and Lessons 11, 13, 22, and 23 move from observations to estimation and prediction. Lesson 12 applies these ideas to joint defaults. The <a href="/courses/copulas/#semester-route">semester route</a> puts these modules into a weekly sequence.</p>
+<p>Prerequisites are elementary probability, single-variable calculus, and enough multivariable calculus to follow a mixed derivative or a double integral. The density-based arguments identify where this calculus is used. The first lessons introduce the joint distribution notation needed throughout.</p>
+
+<h2 id="family-guide">Finding a family or method</h2>
+<p>We can match a rank coefficient and still obtain different predictions for joint extremes. Use this guide to return to the construction and its assumptions before choosing a formula.</p>
+<table><thead><tr><th>Topic</th><th>What the lesson develops</th></tr></thead><tbody>
+<tr><td><a href="/courses/copulas/14-gaussian-copulas/">Gaussian</a> and <a href="/courses/copulas/15-student-t-copulas/">Student t</a></td><td>Elliptical constructions, matrix conditions, shared scales, and simulation</td></tr>
+<tr><td><a href="/courses/copulas/16-clayton-copulas/">Clayton</a></td><td>Lower-tail dependence, Kendall calibration, and gamma frailty</td></tr>
+<tr><td><a href="/courses/copulas/17-gumbel-copulas/">Gumbel</a></td><td>Upper-tail dependence, conditional inversion, and max stability</td></tr>
+<tr><td><a href="/courses/copulas/18-frank-copulas/">Frank</a></td><td>Positive and negative parameters and conditional inversion</td></tr>
+<tr><td><a href="/courses/copulas/19-marshall-olkin/">Marshall–Olkin</a></td><td>Independent shocks, a survival copula, and singular probability mass</td></tr>
+<tr><td><a href="/courses/copulas/20-extreme-value-copulas/">Extreme-value copulas</a></td><td>Block maxima and the Pickands dependence function</td></tr>
+<tr><td><a href="/courses/copulas/22-calibration-workshop/">Calibration</a></td><td>How a shared Kendall coefficient leaves the family undetermined</td></tr>
+<tr><td><a href="/courses/copulas/23-bayesian-prediction/">Bayesian prediction</a></td><td>Averaging event probabilities over a normalized posterior</td></tr>
+</tbody></table>
+
+<h2 id="bibliography">Books used in this course</h2>
+<p>Source notes at the end of each lesson identify the particular results used. Page numbers refer to printed page labels; where a PDF page is also given, it is the one-based position in the supplied file. The PDF offsets vary within Nelsen's file, so printed and PDF page numbers should be read separately.</p>
+<ol>
+<li id="nelsen"><strong>Roger B. Nelsen (2006).</strong> <em>An Introduction to Copulas</em>, second edition. Springer Series in Statistics. Springer. ISBN 978-0-387-28659-4. The main reference for definitions, Sklar's theorem, constructions, Archimedean copulas, concordance, tails, and empirical copulas. The title page of the supplied second edition places it in Springer Series in Statistics.</li>
+<li id="simulation-book"><strong>Jan-Frederik Mai and Matthias Scherer (2017).</strong> <em>Simulating Copulas: Stochastic Models, Sampling Algorithms, and Applications</em>, second edition. Series in Quantitative Finance, volume 6. World Scientific. ISBN 978-981-3149-24-3. Used for simulation methods and their mathematical justification.</li>
+<li id="bayes-book"><strong>Arkady Shemyakin and Alexander Kniazev (2017).</strong> <em>Introduction to Bayesian Estimation and Copula Models of Dependence</em>. John Wiley &amp; Sons. Used for parameter estimation, Bayes' rule, and Bayesian copula modeling.</li>
+<li id="finance-book"><strong>Jan-Frederik Mai and Matthias Scherer (2014).</strong> <em>Financial Engineering with Copulas Explained</em>. Financial Engineering Explained. Palgrave Macmillan. ISBN 978-1-137-34630-8. Used for estimation methods, dependence uncertainty, simulation, and default modeling.</li>
+</ol>
+<p>The course's figures are generated from the stated formulas. The small numerical datasets, posterior calculation, and two-loan illustration are worked course examples of the cited methods. They are separate from the empirical datasets discussed in the books.</p>
+
+<h2 id="formula-sources">Sources for this guide</h2>
+<p>Roger B. Nelsen, <em>An Introduction to Copulas</em> (2006): Definition 2.1.1, printed p. 8 (PDF p. 19), for rectangle volume; Sklar's Theorem 2.3.3, printed p. 18 (PDF p. 29), for joining marginal distributions; §2.6, equations (2.6.1)–(2.6.2), printed p. 32 (PDF p. 43), for the survival copula; Theorem 5.1.3, printed p. 161 (PDF p. 170), and §5.1.2, printed pp. 167–170, for concordance; Theorem 5.4.2, printed pp. 214–215 (PDF pp. 223–224), for diagonal tail limits. For density factorization, see Mai and Scherer, <em>Financial Engineering with Copulas Explained</em> (2014), §6.2, printed pp. 88–90. Detailed derivations and source locations appear in the linked lessons.</p>
