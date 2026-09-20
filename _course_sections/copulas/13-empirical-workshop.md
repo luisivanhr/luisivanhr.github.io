@@ -55,7 +55,7 @@ date: 2026-01-01
 <div class="math-block"><p>\[
 (-3/2)(-3/2)+(-1/2)(1/2)+(1/2)(-1/2)+(3/2)(3/2)=4.
 \]</p><p>Therefore \(r=4/5\). The two statistics use different summaries of the ordering, so their numerical values can differ for the same sample. Nelsen relates both statistics to the empirical copula. <a class="course-citation" href="#ref-3" aria-label="Reference 3">[3]</a></p></div>
-<p>The empirical copula records more detail than either scalar. It gives the sample mass in every grid rectangle. A larger sample uses the same construction, while a short program evaluates the sums efficiently.</p>
+<p>The empirical copula records more detail than either scalar. It gives the sample mass in every grid rectangle. We can use the same construction for larger samples and evaluate the sums efficiently with a short program.</p>
 
 <h2 id="exercises">Exercises</h2>
 <article class="exercise" id="exercise-13-1"><header class="exercise-head"><div><strong>Exercise 13.1</strong><span>A rectangle away from the origin</span></div><button class="answer-button" type="button">Show answer</button></header>

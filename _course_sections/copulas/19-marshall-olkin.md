@@ -27,14 +27,14 @@ updated: 2026-01-01
 <p>\[X=\min(Z_1,Z_{12}),\qquad Y=\min(Z_2,Z_{12}).\] <a class="course-citation" href="#ref-1" aria-label="Reference 1">[1]</a></p>
 <p>For \(x,y\ge0\), the joint survival function is the probability that \(Z_1>x\), \(Z_2>y\), and \(Z_{12}>\max(x,y)\). Independence gives</p>
 <p>\[\overline H(x,y)=P(X>x,Y>y)=\exp\{-\lambda_1x-\lambda_2y-\lambda_{12}\max(x,y)\}.\]</p>
-<p>The marginal survival functions are \(\overline F(x)=\exp\{-(\lambda_1+\lambda_{12})x\}\) and \(\overline G(y)=\exp\{-(\lambda_2+\lambda_{12})y\}\). Thus each lifetime is exponential, while the common shock remains visible in the joint survival.</p>
+<p>The marginal survival functions are \(\overline F(x)=\exp\{-(\lambda_1+\lambda_{12})x\}\) and \(\overline G(y)=\exp\{-(\lambda_2+\lambda_{12})y\}\). Thus each lifetime is exponential. The joint survival function also retains the effect of the common shock.</p>
 
 <h2 id="copula">The survival copula</h2>
 <p>Put \(u=\overline F(x)\), \(v=\overline G(y)\), and define \(a=\lambda_{12}/(\lambda_1+\lambda_{12})\), \(b=\lambda_{12}/(\lambda_2+\lambda_{12})\). Then \(e^{-\lambda_{12}x}=u^a\) and \(e^{-\lambda_{12}y}=v^b\). Using \(\max(x,y)=x+y-\min(x,y)\), we obtain</p>
 <p>\[\overline H(x,y)=u\,v\,\min(u^{-a},v^{-b}).\]</p>
 <p>Equivalently, the survival copula is</p>
 <p>\[\widehat C_{a,b}(u,v)=\min(u^{1-a}v,\;uv^{1-b}).\] <a class="course-citation" href="#ref-2" aria-label="Reference 2">[2]</a></p>
-<p>The common shock places positive probability on the curve \(u^a=v^b\). This is the singular component. Away from that curve, the copula also has an absolutely continuous component. The two components coexist because the idiosyncratic shocks spread mass over regions while the common shock makes \(X\) and \(Y\) fail together.</p>
+<p>The common shock places positive probability on the curve \(u^a=v^b\). This is the singular component. Away from that curve, the copula also has an absolutely continuous component. The two components coexist because the idiosyncratic shocks spread mass over regions and the common shock makes \(X\) and \(Y\) fail together.</p>
 
 <h2 id="sampling">Exact shock sampler</h2>
 <p>We can also calculate the size of the singular component. Condition on the common shock arriving at time \(s\). Both individual shocks must occur later, so</p>

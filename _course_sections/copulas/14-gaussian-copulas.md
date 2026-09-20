@@ -31,7 +31,7 @@ updated: 2026-01-01
 <h2 id="construction">Construction</h2>
 <p>Let \(Z=(Z_1,\ldots,Z_d)\) be a centered normal vector with correlation matrix \(R\). Positive semidefiniteness of \(R\) is the compatibility condition that makes this joint normal law possible. Each \(Z_j\) has standard normal distribution, with distribution function \(\Phi\). Set \(U_j=\Phi(Z_j)\). Each \(U_j\) is uniform on \([0,1]\), and the joint distribution of \(U\) is the Gaussian copula</p>
 <p>\[C_R(u_1,\ldots,u_d)=\Phi_R\bigl(\Phi^{-1}(u_1),\ldots,\Phi^{-1}(u_d)\bigr).\] <a class="course-citation" href="#ref-2" aria-label="Reference 2">[2]</a> <a class="course-citation" href="#ref-3" aria-label="Reference 3">[3]</a></p>
-<p>If \(X_j=\mu_j+\sigma_j Z_j\), with \(\sigma_j>0\), then \(F_j(X_j)=\Phi(Z_j)\). Hence the same \(C_R\) is obtained from arbitrary normal marginal distributions. The correlation matrix controls the copula coordinates, while the marginal distributions are supplied later through Sklar's theorem.</p>
+<p>If \(X_j=\mu_j+\sigma_j Z_j\), with \(\sigma_j>0\), then \(F_j(X_j)=\Phi(Z_j)\). Hence the same \(C_R\) is obtained from arbitrary normal marginal distributions. The correlation matrix controls the copula coordinates. We then specify the marginal distributions through Sklar's theorem.</p>
 
 <h2 id="bivariate-density">The bivariate density</h2>
 <p>For \(d=2\), write \(R=\begin{pmatrix}1&\rho\\\rho&1\end{pmatrix}\), with \(-1&lt;\rho&lt;1\). Put \(z_1=\Phi^{-1}(u)\) and \(z_2=\Phi^{-1}(v)\). Dividing the bivariate normal density by the two standard normal marginal densities gives</p>

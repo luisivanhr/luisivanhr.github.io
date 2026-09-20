@@ -20,7 +20,7 @@ next_section:
 date: 2026-01-01
 ---
 
-<section class="intro-strip"><h2 id="overview">A distribution on the unit square</h2><p>A copula is a joint distribution function on the unit square whose two marginal distributions are uniform. Its rectangle volumes encode dependence while its boundary values preserve the uniform marginal distributions.</p></section>
+<section class="intro-strip"><h2 id="overview">A distribution on the unit square</h2><p>A copula is a joint distribution function on the unit square whose two marginal distributions are uniform. Its rectangle volumes encode dependence. Its boundary values preserve the uniform marginal distributions.</p></section>
 <h2 id="definition">Definition</h2>
 <div class="math-block definition"><span class="block-label">Definition 2.1 <span>Copula</span></span><p>A two-dimensional [[copula]] is a function \(C:I^2\to I\) satisfying \(C(u,0)=C(0,v)=0\), \(C(u,1)=u\), \(C(1,v)=v\), and \(C(u_2,v_2)-C(u_1,v_2)-C(u_2,v_1)+C(u_1,v_1)\ge0\) whenever \(u_1\le u_2\), \(v_1\le v_2\). <a class="course-citation" href="#ref-1" aria-label="Reference 1">[1]</a></p></div>
 <p>What does the [[rectangle volume]] inequality contribute? It says that \(C\) assigns nonnegative mass to every rectangle. The boundary equations are the uniform marginal distributions. The functions \(M(u,v)=\min(u,v)\), \(W(u,v)=\max(u+v-1,0)\), and \(\Pi(u,v)=uv\) give three reference arrangements of that mass.</p>
