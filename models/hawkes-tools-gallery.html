@@ -7,184 +7,15 @@ permalink: /models/hawkes-tools-gallery/
 <main class="hawkes-gallery">
 <nav class="gallery-nav" aria-label="Notebook navigation"><a href="{{ '/models/hawkes-tools/' | relative_url }}">Back to Hawkes Tools</a><a class="gallery-download" href="{{ '/assets/notebooks/hawkes-tools/gallery.ipynb' | relative_url }}" download>Download notebook (.ipynb)</a></nav>
 <div class="gallery-run-note">Expand a code or numerical-output panel to inspect it. The notebook generated all plots shown below.</div>
-<section class="gallery-markdown"><h1 id="Hawkes-Tools-example-notebook">Hawkes Tools example notebook<a class="anchor-link" href="#Hawkes-Tools-example-notebook">&#182;</a></h1><p>Simulation, estimation, and diagnostic examples from the <a href="https://github.com/luisivanhr/hawkes-tools/tree/004a1220fdf5be9c11bd55ac8bb534f0d433faf7">Hawkes Tools repository</a>, using its gallery notebook at commit <code>004a122</code>. The experiment numbering follows the source gallery.</p>
-<p>This website edition preserves the experiment code and parameters and applies a common style to the figures. It can run with an installed package or from a repository checkout. Examples that require datasets use the package's dataset loader. Some experiments take longer to run.</p>
-<h2 id="Setup">Setup<a class="anchor-link" href="#Setup">&#182;</a></h2><p>Use Python 3.11 or later. The installation command requires Git. Install the pinned package and notebook dependencies in your environment:</p>
-<div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot;hawkes-tools @ git+https://github.com/luisivanhr/hawkes-tools.git@004a1220fdf5be9c11bd55ac8bb534f0d433faf7&quot;</span><span class="w"> </span>jupyter<span class="w"> </span>matplotlib-inline
+<section class="gallery-markdown"><h1 id="Hawkes-Tools-example-notebook">Hawkes Tools example notebook<a class="anchor-link" href="#Hawkes-Tools-example-notebook">&#182;</a></h1><p>This notebook presents 26 examples of event simulation, Hawkes estimation, regression, and numerical optimization with <code>hawkes_tools</code>. Each example states the calculation and explains how to read its figures. Simulated examples provide known parameters for comparison; dataset examples use the package's supplied Bund, Adult, and Abalone data.</p>
+<p>The calculations use <a href="https://github.com/luisivanhr/hawkes-tools/tree/004a1220fdf5be9c11bd55ac8bb534f0d433faf7">Hawkes Tools at commit <code>004a122</code></a>. Consult the <a href="https://github.com/luisivanhr/hawkes-tools/blob/004a1220fdf5be9c11bd55ac8bb534f0d433faf7/PARITY.md">API support matrix</a> for estimator-specific assumptions and implementation limits.</p>
+<h2 id="Setup">Setup<a class="anchor-link" href="#Setup">&#182;</a></h2><p>Use Python 3.11 or later and Git. In the Python environment that will run the notebook, install the pinned package and notebook dependencies:</p>
+<div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot;git+https://github.com/luisivanhr/hawkes-tools.git@004a1220fdf5be9c11bd55ac8bb534f0d433faf7&quot;</span><span class="w"> </span>jupyter<span class="w"> </span>matplotlib-inline
 </pre></div>
-<p>Run the cells in order. To use a repository checkout, install its dependencies before running the notebook.</p>
+<p>Run the setup cells first, then execute the examples in order. The setup imports the numerical tools, prepares shared datasets, and defines helpers for displaying figures and recording results. Numba compiles numerical routines on first use, so initial timings include compilation work. Some simulations and regression examples require more time and memory; their requirements depend on the execution environment.</p>
+<p>The <code>results</code> list collects the summaries printed by each example. Re-running an example appends another entry; re-run the setup to start a fresh list.</p>
 </section>
-<section class="gallery-markdown"><h2 id="Gallery">Gallery<a class="anchor-link" href="#Gallery">&#182;</a></h2><table>
-<thead>
-<tr>
-  <th>#</th>
-  <th>Example</th>
-  <th>API area</th>
-  <th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-  <td>1</td>
-  <td>Fit Hawkes on finance data</td>
-  <td>Conditional-law estimation and Bund data</td>
-  <td>Loads the vendored Bund dataset and estimates signed conditional-law kernel norms on ragged multistream events.</td>
-</tr>
-<tr>
-  <td>2</td>
-  <td>Cox regression data simulation</td>
-  <td>Survival simulation</td>
-  <td>Simulates proportional-hazards survival data and visualizes observed failures versus censoring.</td>
-</tr>
-<tr>
-  <td>3</td>
-  <td>Binary classification with logistic regression</td>
-  <td>Logistic learner and Adult data</td>
-  <td>Fits logistic regression on vendored Adult data and plots the test ROC curve.</td>
-</tr>
-<tr>
-  <td>4</td>
-  <td>Inhomogeneous Poisson process simulation</td>
-  <td>Time functions and point-process plotting</td>
-  <td>Builds a sinusoidal <code>TimeFunction</code>, simulates an inhomogeneous Poisson process, and plots the event history.</td>
-</tr>
-<tr>
-  <td>5</td>
-  <td>Fit sparse and low rank adjacency matrix with Hawkes ADM4</td>
-  <td>Hawkes ADM4</td>
-  <td>Simulates block-structured exponential Hawkes events and estimates a sparse/low-rank adjacency matrix.</td>
-</tr>
-<tr>
-  <td>6</td>
-  <td>Comparison of solvers for Poisson regression</td>
-  <td>Poisson GLM, simulators, solver history</td>
-  <td>Compares GD, AGD, SVRG, and BFGS objectives on a synthetic Poisson regression problem.</td>
-</tr>
-<tr>
-  <td>7</td>
-  <td>Fit Hawkes with asynchronous causality</td>
-  <td>Sum-Gaussian Hawkes kernels</td>
-  <td>Recovers delayed cross-excitation patterns with a sum-of-Gaussians Hawkes learner.</td>
-</tr>
-<tr>
-  <td>8</td>
-  <td>Fit Hawkes power law kernels</td>
-  <td>Conditional-law estimation and power-law kernels</td>
-  <td>Simulates heavy-tailed power-law Hawkes kernels and inspects conditional-law recovery on a log scale.</td>
-</tr>
-<tr>
-  <td>9</td>
-  <td>Fit Hawkes random kernels</td>
-  <td>EM and time-function kernels</td>
-  <td>Uses EM to estimate non-parametric kernels from a Hawkes process with exponential, power-law, and time-function components.</td>
-</tr>
-<tr>
-  <td>10</td>
-  <td>Examples of proximal operators</td>
-  <td>Public prox operators</td>
-  <td>Shows the effect of common prox operators on the same random vector.</td>
-</tr>
-<tr>
-  <td>11</td>
-  <td>Precision vs speed tradeoff</td>
-  <td>Logistic learner and Adult data</td>
-  <td>Compares float32 and float64 logistic optimization paths on the Adult design matrix.</td>
-</tr>
-<tr>
-  <td>12</td>
-  <td>Linear models data simulation</td>
-  <td>Linear, logistic, and Poisson simulators</td>
-  <td>Generates matching two-dimensional linear, logistic, and Poisson regression datasets.</td>
-</tr>
-<tr>
-  <td>13</td>
-  <td>Hawkes simulation with exotic kernels</td>
-  <td>Time-function kernels and QQ plots</td>
-  <td>Simulates custom signed time-function kernels and checks event residuals with QQ diagnostics.</td>
-</tr>
-<tr>
-  <td>14</td>
-  <td>Fit Hawkes kernel norms using cumulants</td>
-  <td>Cumulant matching</td>
-  <td>Estimates Hawkes kernel norms from cumulants on a synthetic exponential Hawkes process.</td>
-</tr>
-<tr>
-  <td>15</td>
-  <td>Automatic step choice</td>
-  <td>Sparse logistic GLM, elastic-net prox, and SVRG</td>
-  <td>Exercises sparse logistic optimization with elastic-net regularization and recorded solver history.</td>
-</tr>
-<tr>
-  <td>16</td>
-  <td>Robust linear model example</td>
-  <td>Robust learner and support metrics</td>
-  <td>Fits robust linear regression with sparse sample intercepts and reports outlier-support metrics.</td>
-</tr>
-<tr>
-  <td>17</td>
-  <td>Asynchronous stochastic solver</td>
-  <td>Sparse logistic GLM plus SVRG/SAGA</td>
-  <td>Compares stochastic variance-reduced solver traces through the n-threads-compatible learner surface.</td>
-</tr>
-<tr>
-  <td>18</td>
-  <td>Logistic regression comparison</td>
-  <td>Logistic learner and Adult data</td>
-  <td>Compares BFGS and GD logistic fits on vendored Adult data with ROC and timing views.</td>
-</tr>
-<tr>
-  <td>19</td>
-  <td>Simulate Hawkes process with non constant baseline</td>
-  <td>Time functions and exponential kernels</td>
-  <td>Simulates an exponential Hawkes process driven by a cyclic time-varying baseline.</td>
-</tr>
-<tr>
-  <td>20</td>
-  <td>Fit exotic Hawkes kernels</td>
-  <td>Basis kernels and time-function kernels</td>
-  <td>Fits basis kernels against synthetic smooth time-function Hawkes kernels.</td>
-</tr>
-<tr>
-  <td>21</td>
-  <td>Hawkes process with non constant baseline</td>
-  <td>Sum-exponential kernels</td>
-  <td>Fits a periodic-baseline sum-exponential Hawkes model and plots baselines with kernels.</td>
-</tr>
-<tr>
-  <td>22</td>
-  <td>Linear regression in two dimensions</td>
-  <td>Linear learner and Abalone data</td>
-  <td>Fits a two-feature linear regression model on vendored Abalone data and renders several 3D views.</td>
-</tr>
-<tr>
-  <td>23</td>
-  <td>Plot estimated intensity and assess goodness of fit</td>
-  <td>Sum-exponential learners and QQ plots</td>
-  <td>Overlays fitted and simulated intensities, then checks compensator residuals with QQ diagnostics.</td>
-</tr>
-<tr>
-  <td>24</td>
-  <td>Generalized linear models solver convergence</td>
-  <td>GLM models and solver/prox history</td>
-  <td>Tracks solver convergence behavior for standalone GLM model/prox combinations.</td>
-</tr>
-<tr>
-  <td>25</td>
-  <td>ConvSCCS cross validation on simulated longitudinal features</td>
-  <td>SCCS simulator and ConvSCCS learner</td>
-  <td>Simulates longitudinal exposure effects and plots fitted relative-incidence curves with confidence bands.</td>
-</tr>
-<tr>
-  <td>26</td>
-  <td>RKHS Hawkes estimator with alpha/Erlang kernel</td>
-  <td>RKHS non-parametric Hawkes estimation</td>
-  <td>Simulates an alpha-type kernel, overlays true and RKHS-estimated kernels, and plots the first recovered basis functions.</td>
-</tr>
-</tbody>
-</table>
-</section>
-<section class="gallery-markdown"><h2 id="Port-Map-Status">Port Map Status<a class="anchor-link" href="#Port-Map-Status">&#182;</a></h2><p>Survival, robust-model, and metric modules now have pure-Python implementations used by the gallery examples below. SVRG and SAGA use stochastic variance-reduced update math with sparse mini-batches; true asynchronous atomic worker backends are outside this package's pure-Python scope.</p>
-</section>
+<nav class="gallery-contents" aria-label="Notebook examples"><h2>Examples</h2><ol><li><a href="#example-1">Financial event-stream interactions</a></li><li><a href="#example-2">Cox survival-data simulation</a></li><li><a href="#example-3">Logistic classification on Adult data</a></li><li><a href="#example-4">Inhomogeneous Poisson simulation</a></li><li><a href="#example-5">Sparse and low-rank Hawkes estimation</a></li><li><a href="#example-6">Poisson regression solver comparison</a></li><li><a href="#example-7">Flexible Hawkes kernels with Gaussian components</a></li><li><a href="#example-8">Power-law Hawkes kernel estimation</a></li><li><a href="#example-9">Non-parametric Hawkes estimation with EM</a></li><li><a href="#example-10">Proximal operators</a></li><li><a href="#example-11">Logistic optimization with float32 and float64 inputs</a></li><li><a href="#example-12">Linear, logistic, and Poisson responses</a></li><li><a href="#example-13">Hawkes simulation with custom signed kernels</a></li><li><a href="#example-14">Hawkes kernel integrals from cumulants</a></li><li><a href="#example-15">Step-size choices for SVRG</a></li><li><a href="#example-16">Robust regression with sample-specific shifts</a></li><li><a href="#example-17">SVRG and SAGA on sparse features</a></li><li><a href="#example-18">BFGS and GD logistic fits</a></li><li><a href="#example-19">Hawkes simulation with a periodic baseline</a></li><li><a href="#example-20">Shared basis kernels for Hawkes estimation</a></li><li><a href="#example-21">Estimating periodic Hawkes baselines</a></li><li><a href="#example-22">A two-feature regression plane</a></li><li><a href="#example-23">Estimated intensity and simulator residuals</a></li><li><a href="#example-24">Solver convergence across regression models</a></li><li><a href="#example-25">Longitudinal exposure effects with fixed regularization</a></li><li><a href="#example-26">RKHS estimation of an alpha-shaped Hawkes kernel</a></li></ol></nav>
 <section class="gallery-cell"><details class="gallery-code"><summary>Show Python code</summary><pre><code>from pathlib import Path
 from time import perf_counter
 from itertools import product
@@ -337,9 +168,74 @@ def show_fig(fig):
         plt.close(fig)
 </code></pre></details>
 </section>
-<section class="gallery-markdown"><h2 id="1.-Fit-Hawkes-On-Finance-Data">1. Fit Hawkes On Finance Data<a class="anchor-link" href="#1.-Fit-Hawkes-On-Finance-Data">&#182;</a></h2><p>The original page uses <code>fetch_hawkes_bund_data</code>. This standalone notebook loads the vendored Bund dataset through <code>hawkes_tools.datasets</code> and uses the source-reviewed conditional-law lag/support settings. The data is ragged rather than rectangular: 20 daily realizations, each with 4 timestamp streams (<code>P_u</code>, <code>P_d</code>, <code>T_a</code>, <code>T_b</code>) and a different number of events per stream. Positive signed kernel norms are plotted in blue.</p>
+<section class="gallery-markdown"><h2 id="Shared-data-and-helper-functions">Shared data and helper functions<a class="anchor-link" href="#Shared-data-and-helper-functions">&#182;</a></h2></section>
+<section class="gallery-cell"><details class="gallery-code"><summary>Show Python code</summary><pre><code>from time import perf_counter
+from scipy.stats import rankdata
+
+rng = np.random.default_rng(20260704)
+
+
+def dense_dataset(path):
+    X, y = fetch_dataset(path, data_home=DATA_HOME)
+    if hasattr(X, &quot;toarray&quot;):
+        X = X.toarray()
+    return np.asarray(X, dtype=float), np.asarray(y, dtype=float)
+
+
+def standardize_train_test(X_train, X_test):
+    mean = X_train.mean(axis=0)
+    scale = X_train.std(axis=0)
+    scale[scale == 0] = 1.0
+    return (X_train - mean) / scale, (X_test - mean) / scale
+
+
+def binary01(y):
+    return (np.asarray(y) &gt; 0).astype(float)
+
+
+def roc_points(y, scores):
+    y = np.asarray(y, dtype=bool)
+    order = np.argsort(-scores)
+    y_sorted = y[order]
+    positives = max(int(y.sum()), 1)
+    negatives = max(int((~y).sum()), 1)
+    tpr = np.r_[0.0, np.cumsum(y_sorted) / positives]
+    fpr = np.r_[0.0, np.cumsum(~y_sorted) / negatives]
+    return fpr, tpr
+
+
+def auc_rank(y, scores):
+    y = np.asarray(y, dtype=bool)
+    ranks = rankdata(scores)
+    n_pos = float(y.sum())
+    n_neg = float((~y).sum())
+    return float((ranks[y].sum() - n_pos * (n_pos + 1.0) / 2.0) / (n_pos * n_neg))
+
+
+def fit_logistic_gd(X, y, step=0.2, n_iter=80, dtype=np.float64, l2=1e-4):
+    X_work = np.asarray(X, dtype=dtype)
+    model = ModelLogReg(fit_intercept=False, l2_strength=l2).fit(X_work, y)
+    solver = GD(max_iter=n_iter, step=step, verbose=False, record_every=2, print_every=2)
+    beta = solver.set_model(model).set_prox(ProxZero()).solve(np.zeros(model.n_coeffs))
+    history = [(record[&quot;n_iter&quot;], record[&quot;obj&quot;]) for record in solver.history]
+    return beta, model.loss(beta), history, solver.time_elapsed
+
+
+# Shared vendored datasets.
+adult_X_train_raw, adult_y_train_raw = dense_dataset(&quot;binary/adult/adult.trn.bz2&quot;)
+adult_X_test_raw, adult_y_test_raw = dense_dataset(&quot;binary/adult/adult.tst.bz2&quot;)
+adult_X_train, adult_X_test = standardize_train_test(adult_X_train_raw, adult_X_test_raw)
+adult_y_train = binary01(adult_y_train_raw)
+adult_y_test = binary01(adult_y_test_raw)
+abalone_X, abalone_y = dense_dataset(&quot;regression/abalone/abalone.trn.bz2&quot;)
+abalone_X = (abalone_X - abalone_X.mean(axis=0)) / np.maximum(abalone_X.std(axis=0), 1e-12)
+
+
+</code></pre></details>
 </section>
-<section class="gallery-cell"><details class="gallery-code"><summary>Show Python code</summary><pre><code>timestamps_list = fetch_hawkes_bund_data(data_home=DATA_HOME)
+<section class="gallery-markdown" id="example-1" data-example="1"><h2 id="1.-Financial-event-stream-interactions">1. Financial event-stream interactions<a class="anchor-link" href="#1.-Financial-event-stream-interactions">&#182;</a></h2><p>We fit a conditional-law Hawkes estimator to the Bund dataset, which contains 20 daily realizations with four timestamp streams per day. The heatmap shows signed integrals of the estimated kernels; blue denotes positive values in the chosen color scale. These quantities summarize estimated interactions over the selected support and depend on the lag and quadrature settings. They describe model-based dependence and do not establish causation.</p>
+</section>
+<section class="gallery-cell" data-example="1"><details class="gallery-code"><summary>Show Python code</summary><pre><code>timestamps_list = fetch_hawkes_bund_data(data_home=DATA_HOME)
 node_names = [&quot;P_u&quot;, &quot;P_d&quot;, &quot;T_a&quot;, &quot;T_b&quot;]
 realization_count = len(timestamps_list)
 node_count = len(timestamps_list[0])
@@ -377,11 +273,55 @@ show_fig(fig)
 </code></pre></details>
 <details class="gallery-output"><summary>Show numerical output</summary><pre>{&#x27;example&#x27;: &#x27;finance_conditional_law&#x27;, &#x27;data_source&#x27;: &#x27;vendored bundled dataset hawkes/bund/bund.npz&#x27;, &#x27;realizations&#x27;: 20, &#x27;nodes&#x27;: 4, &#x27;ragged_shape&#x27;: &#x27;[20][4][variable events]&#x27;, &#x27;events&#x27;: 859467, &#x27;events_per_node&#x27;: {&#x27;P_u&#x27;: 119302, &#x27;P_d&#x27;: 119346, &#x27;T_a&#x27;: 288059, &#x27;T_b&#x27;: 332760}, &#x27;norms_shape&#x27;: (4, 4)}
 </pre></details>
-<figure><img loading="lazy" src="{{ '/assets/notebooks/hawkes-tools/figure-01.png' | relative_url }}" alt="1. Fit Hawkes On Finance Data; plot 1; see the preceding experiment heading and Python code for parameters."></figure>
+<figure><img loading="lazy" src="{{ '/assets/notebooks/hawkes-tools/figure-01.png' | relative_url }}" alt="1. Financial event-stream interactions; plot 1; see the preceding experiment heading and Python code for parameters."></figure>
 </section>
-<section class="gallery-markdown"><h2 id="4.-Inhomogeneous-Poisson-Process-Simulation">4. Inhomogeneous Poisson Process Simulation<a class="anchor-link" href="#4.-Inhomogeneous-Poisson-Process-Simulation">&#182;</a></h2><p>Direct standalone reproduction of the TimeFunction-driven inhomogeneous Poisson example.</p>
+<section class="gallery-markdown" id="example-2" data-example="2"><h2 id="2.-Cox-survival-data-simulation">2. Cox survival-data simulation<a class="anchor-link" href="#2.-Cox-survival-data-simulation">&#182;</a></h2><p>We simulate survival data from a Cox model with two explanatory variables. Each point represents a subject through the values of these two variables; circles denote observed failures and crosses denote censoring. The circles are colored by their recorded failure times. This example displays simulated observations without fitting a survival model.</p>
 </section>
-<section class="gallery-cell"><details class="gallery-code"><summary>Show Python code</summary><pre><code>run_time = 30
+<section class="gallery-cell" data-example="2"><details class="gallery-code"><summary>Show Python code</summary><pre><code>
+n_samples = 150
+weights = np.array([0.3, 1.2])
+simu_coxreg = SimuCoxReg(weights, n_samples=n_samples, seed=123, verbose=False)
+X_cox, T_cox, C_cox = simu_coxreg.simulate()
+fig, ax = plt.subplots(figsize=(6, 4))
+scatter_fail = ax.scatter(*X_cox[C_cox == 1].T, c=T_cox[C_cox == 1], cmap=&quot;RdBu&quot;, marker=&quot;o&quot;, label=&quot;failure&quot;)
+ax.scatter(*X_cox[C_cox == 0].T, c=T_cox[C_cox == 0], cmap=&quot;RdBu&quot;, marker=&quot;x&quot;, label=&quot;censoring&quot;)
+fig.colorbar(scatter_fail, ax=ax)
+ax.legend(loc=&quot;upper left&quot;)
+ax.set_title(&quot;Cox regression&quot;)
+show_fig(fig)
+record(&quot;cox_regression_simulation&quot;, observed_rate=float(np.mean(C_cox == 1)), samples=n_samples)
+
+</code></pre></details>
+<figure><img loading="lazy" src="{{ '/assets/notebooks/hawkes-tools/figure-02.png' | relative_url }}" alt="2. Cox survival-data simulation; plot 2; see the preceding experiment heading and Python code for parameters."></figure>
+<details class="gallery-output"><summary>Show numerical output</summary><pre>{&#x27;example&#x27;: &#x27;cox_regression_simulation&#x27;, &#x27;observed_rate&#x27;: 0.84, &#x27;samples&#x27;: 150}
+</pre></details>
+</section>
+<section class="gallery-markdown" id="example-3" data-example="3"><h2 id="3.-Logistic-classification-on-Adult-data">3. Logistic classification on Adult data<a class="anchor-link" href="#3.-Logistic-classification-on-Adult-data">&#182;</a></h2><p>We standardize the Adult features using training-set means and scales, fit an L2-penalized logistic model, and evaluate it on the supplied test set. The receiver operating characteristic (ROC) curve displays the true-positive rate against the false-positive rate as the classification threshold changes. The reported area under the curve (AUC) summarizes score ranking; accuracy also depends on the classifier's decision threshold.</p>
+</section>
+<section class="gallery-cell" data-example="3"><details class="gallery-code"><summary>Show Python code</summary><pre><code># 3. Binary classification with logistic regression: vendored Adult train/test data.
+clf_adult = LogisticRegression(penalty=&quot;l2&quot;, C=1e4, solver=&quot;gd&quot;, step=0.15, max_iter=120, verbose=False).fit(
+    adult_X_train, adult_y_train
+)
+adult_scores = clf_adult.predict_proba(adult_X_test)[:, 1]
+adult_fpr, adult_tpr = roc_points(adult_y_test, adult_scores)
+adult_auc = auc_rank(adult_y_test, adult_scores)
+adult_accuracy = clf_adult.score(adult_X_test, adult_y_test)
+fig, ax = plt.subplots(figsize=(6, 5))
+ax.plot(adult_fpr, adult_tpr, lw=2)
+ax.set_title(f&quot;ROC curve on adult dataset (area = {adult_auc:.2f})&quot;)
+ax.set_ylabel(&quot;True Positive Rate&quot;)
+ax.set_xlabel(&quot;False Positive Rate&quot;)
+show_fig(fig)
+record(&quot;binary_logistic_classification&quot;, dataset=&quot;binary/adult&quot;, loss=clf_adult.model.loss(clf_adult.coeffs), auc=adult_auc, accuracy=adult_accuracy)
+
+</code></pre></details>
+<figure><img loading="lazy" src="{{ '/assets/notebooks/hawkes-tools/figure-03.png' | relative_url }}" alt="3. Logistic classification on Adult data; plot 3; see the preceding experiment heading and Python code for parameters."></figure>
+<details class="gallery-output"><summary>Show numerical output</summary><pre>{&#x27;example&#x27;: &#x27;binary_logistic_classification&#x27;, &#x27;dataset&#x27;: &#x27;binary/adult&#x27;, &#x27;loss&#x27;: 0.33565651974423044, &#x27;auc&#x27;: 0.9003888133008231, &#x27;accuracy&#x27;: 0.8480437319574965}
+</pre></details>
+</section>
+<section class="gallery-markdown" id="example-4" data-example="4"><h2 id="4.-Inhomogeneous-Poisson-simulation">4. Inhomogeneous Poisson simulation<a class="anchor-link" href="#4.-Inhomogeneous-Poisson-simulation">&#182;</a></h2><p>We define a nonnegative, time-varying intensity from a damped sinusoidal function and simulate an inhomogeneous Poisson process. Compare the event marks with the intensity curve to see how arrivals concentrate in periods of higher rate. The intensity is specified in advance and does not respond to the simulated events.</p>
+</section>
+<section class="gallery-cell" data-example="4"><details class="gallery-code"><summary>Show Python code</summary><pre><code>run_time = 30
 T = np.arange((run_time * 0.9) * 5, dtype=float) / 5
 Y = np.maximum(15 * np.sin(T) / (np.sqrt(T + 1) + 0.1 * T), 0.001)
 time_function = TimeFunction((T, Y), dt=0.01)
@@ -392,13 +332,13 @@ fig = plot_point_process(process, show=False)
 record(&quot;inhomogeneous_poisson&quot;, jumps=process.n_total_jumps)
 show_fig(fig)
 </code></pre></details>
-<details class="gallery-output"><summary>Show numerical output</summary><pre>{&#x27;example&#x27;: &#x27;inhomogeneous_poisson&#x27;, &#x27;jumps&#x27;: 30}
+<details class="gallery-output"><summary>Show numerical output</summary><pre>{&#x27;example&#x27;: &#x27;inhomogeneous_poisson&#x27;, &#x27;jumps&#x27;: 23}
 </pre></details>
-<figure><img loading="lazy" src="{{ '/assets/notebooks/hawkes-tools/figure-02.png' | relative_url }}" alt="4. Inhomogeneous Poisson Process Simulation; plot 2; see the preceding experiment heading and Python code for parameters."></figure>
+<figure><img loading="lazy" src="{{ '/assets/notebooks/hawkes-tools/figure-04.png' | relative_url }}" alt="4. Inhomogeneous Poisson simulation; plot 4; see the preceding experiment heading and Python code for parameters."></figure>
 </section>
-<section class="gallery-markdown"><h2 id="5.-Hawkes-ADM4-Sparse/Low-Rank-Fit">5. Hawkes ADM4 Sparse/Low-Rank Fit<a class="anchor-link" href="#5.-Hawkes-ADM4-Sparse/Low-Rank-Fit">&#182;</a></h2><p>Original-scale simulation-to-learner reproduction of the ADM4 example.</p>
+<section class="gallery-markdown" id="example-5" data-example="5"><h2 id="5.-Sparse-and-low-rank-Hawkes-estimation">5. Sparse and low-rank Hawkes estimation<a class="anchor-link" href="#5.-Sparse-and-low-rank-Hawkes-estimation">&#182;</a></h2><p>We simulate six interacting event streams with a block-structured exponential-kernel matrix over five observation windows of different lengths. <code>HawkesADM4</code> fits background rates and an interaction matrix using sparsity and low-rank regularization. The heatmap displays the fitted kernel integrals; the generating matrix in the code provides a reference for assessing the estimated block structure.</p>
 </section>
-<section class="gallery-cell"><details class="gallery-code"><summary>Show Python code</summary><pre><code>end_time = 10000
+<section class="gallery-cell" data-example="5"><details class="gallery-code"><summary>Show Python code</summary><pre><code>end_time = 10000
 n_realizations = 5
 decay = 3.0
 baseline = np.ones(6) * 0.03
@@ -423,11 +363,39 @@ show_fig(fig)
 </code></pre></details>
 <details class="gallery-output"><summary>Show numerical output</summary><pre>{&#x27;example&#x27;: &#x27;adm4&#x27;, &#x27;baseline&#x27;: [0.029456, 0.030518, 0.031557, 0.029651, 0.031178, 0.02953], &#x27;adjacency_shape&#x27;: (6, 6), &#x27;realizations&#x27;: 5}
 </pre></details>
-<figure><img loading="lazy" src="{{ '/assets/notebooks/hawkes-tools/figure-03.png' | relative_url }}" alt="5. Hawkes ADM4 Sparse/Low-Rank Fit; plot 3; see the preceding experiment heading and Python code for parameters."></figure>
+<figure><img loading="lazy" src="{{ '/assets/notebooks/hawkes-tools/figure-05.png' | relative_url }}" alt="5. Sparse and low-rank Hawkes estimation; plot 5; see the preceding experiment heading and Python code for parameters."></figure>
 </section>
-<section class="gallery-markdown"><h2 id="7.-Hawkes-With-Asynchronous-Causality">7. Hawkes With Asynchronous Causality<a class="anchor-link" href="#7.-Hawkes-With-Asynchronous-Causality">&#182;</a></h2><p>Original-scale reproduction of the <code>HawkesSumGaussians</code> example with exponential, power-law, zero, and time-function kernels.</p>
+<section class="gallery-markdown" id="example-6" data-example="6"><h2 id="6.-Poisson-regression-solver-comparison">6. Poisson regression solver comparison<a class="anchor-link" href="#6.-Poisson-regression-solver-comparison">&#182;</a></h2><p>We generate a Poisson regression dataset and fit the same penalized objective with GD, AGD, SVRG, and BFGS. The bars show each solver's final objective under the displayed iteration and step settings. The solvers use different amounts of computational work, so these objective values do not give a general speed ranking.</p>
 </section>
-<section class="gallery-cell"><details class="gallery-code"><summary>Show Python code</summary><pre><code>end_time = 1000
+<section class="gallery-cell" data-example="6"><details class="gallery-code"><summary>Show Python code</summary><pre><code>
+n_samples = 50000
+n_features = 100
+weight0 = rng.normal(size=n_features)
+weight0[rng.choice(n_features, size=1, replace=False)] = 0.0
+weight0 /= 20.0
+intercept0 = -0.1
+X_pois_features = rng.normal(size=(n_samples, n_features))
+_, y_pois = SimuPoisReg(coeffs=weight0, intercept=intercept0, features=X_pois_features, seed=20260705, clip=5.0).simulate()
+poisson_model = ModelPoisReg(fit_intercept=True, l2_strength=1e-4).fit(X_pois_features, y_pois)
+poisson_losses = {}
+for Solver in [GD, AGD, SVRG, BFGS]:
+    coeffs = Solver(max_iter=40, step=0.05, verbose=False).set_model(poisson_model).set_prox(ProxZero()).solve(np.zeros(poisson_model.n_coeffs))
+    poisson_losses[Solver.__name__] = round(poisson_model.loss(coeffs), 6)
+fig, ax = plt.subplots(figsize=(6, 4))
+ax.bar(list(poisson_losses), list(poisson_losses.values()))
+ax.set_title(&quot;Solvers comparison for Poisson regression&quot;)
+ax.set_ylabel(&quot;objective&quot;)
+show_fig(fig)
+record(&quot;poisson_regression_solver_comparison&quot;, samples=n_samples, features=n_features, losses=poisson_losses)
+
+</code></pre></details>
+<figure><img loading="lazy" src="{{ '/assets/notebooks/hawkes-tools/figure-06.png' | relative_url }}" alt="6. Poisson regression solver comparison; plot 6; see the preceding experiment heading and Python code for parameters."></figure>
+<details class="gallery-output"><summary>Show numerical output</summary><pre>{&#x27;example&#x27;: &#x27;poisson_regression_solver_comparison&#x27;, &#x27;samples&#x27;: 50000, &#x27;features&#x27;: 100, &#x27;losses&#x27;: {&#x27;GD&#x27;: 1.261951, &#x27;AGD&#x27;: 1.259257, &#x27;SVRG&#x27;: 1.259068, &#x27;BFGS&#x27;: 1.259067}}
+</pre></details>
+</section>
+<section class="gallery-markdown" id="example-7" data-example="7"><h2 id="7.-Flexible-Hawkes-kernels-with-Gaussian-components">7. Flexible Hawkes kernels with Gaussian components<a class="anchor-link" href="#7.-Flexible-Hawkes-kernels-with-Gaussian-components">&#182;</a></h2><p>We simulate two event streams with exponential, power-law, zero, and time-function kernels, then fit a sum-of-Gaussians representation. The kernel panels compare the estimated curves with the generating functions over the displayed lag range. Approximation and estimation errors can remain with the chosen number of components and fitting iterations.</p>
+</section>
+<section class="gallery-cell" data-example="7"><details class="gallery-code"><summary>Show Python code</summary><pre><code>end_time = 1000
 n_realizations = 10
 n_gaussians = 5
 kernel_timefunction = HawkesKernelTimeFunc(
@@ -459,13 +427,13 @@ record(
 )
 show_fig(fig)
 </code></pre></details>
-<details class="gallery-output"><summary>Show numerical output</summary><pre>{&#x27;example&#x27;: &#x27;sum_gaussians&#x27;, &#x27;realizations&#x27;: 10, &#x27;jumps&#x27;: 13214, &#x27;sim_elapsed&#x27;: 0.22696880000148667, &#x27;fit_elapsed&#x27;: 0.7296596000014688, &#x27;norms_shape&#x27;: (2, 2)}
+<details class="gallery-output"><summary>Show numerical output</summary><pre>{&#x27;example&#x27;: &#x27;sum_gaussians&#x27;, &#x27;realizations&#x27;: 10, &#x27;jumps&#x27;: 13214, &#x27;sim_elapsed&#x27;: 0.18839149999985239, &#x27;fit_elapsed&#x27;: 0.7696012000014889, &#x27;norms_shape&#x27;: (2, 2)}
 </pre></details>
-<figure><img loading="lazy" src="{{ '/assets/notebooks/hawkes-tools/figure-04.png' | relative_url }}" alt="7. Hawkes With Asynchronous Causality; plot 4; see the preceding experiment heading and Python code for parameters."></figure>
+<figure><img loading="lazy" src="{{ '/assets/notebooks/hawkes-tools/figure-07.png' | relative_url }}" alt="7. Flexible Hawkes kernels with Gaussian components; plot 7; see the preceding experiment heading and Python code for parameters."></figure>
 </section>
-<section class="gallery-markdown"><h2 id="8.-Hawkes-Power-Law-Kernels">8. Hawkes Power-Law Kernels<a class="anchor-link" href="#8.-Hawkes-Power-Law-Kernels">&#182;</a></h2><p>Original-scale <code>HawkesConditionalLaw</code> reproduction for power-law Hawkes kernels. The log-scale plot intentionally preserves invalid signed estimates as missing/blank values: <code>nonpositive_grid_values</code> counts kernel grid entries that are already nonpositive before plotting, so broken-looking power-law tails indicate noisy conditional-law values rather than a Matplotlib rendering issue.</p>
+<section class="gallery-markdown" id="example-8" data-example="8"><h2 id="8.-Power-law-Hawkes-kernel-estimation">8. Power-law Hawkes kernel estimation<a class="anchor-link" href="#8.-Power-law-Hawkes-kernel-estimation">&#182;</a></h2><p>We simulate a two-stream Hawkes process with power-law kernels and estimate its kernels by the conditional-law method. Logarithmic axes make behavior across several lag scales visible. Nonpositive estimated values cannot be displayed on these axes and appear as gaps; the printed counts identify such values before plotting. The estimated kernel integrals and generating integrals provide a separate numerical comparison.</p>
 </section>
-<section class="gallery-cell"><details class="gallery-code"><summary>Show Python code</summary><pre><code>multiplier = np.array([0.012, 0.008, 0.004, 0.005])
+<section class="gallery-cell" data-example="8"><details class="gallery-code"><summary>Show Python code</summary><pre><code>multiplier = np.array([0.012, 0.008, 0.004, 0.005])
 cutoff = 0.0005
 exponent = 1.3
 support = 2000
@@ -522,13 +490,13 @@ record(
 )
 show_fig(fig)
 </code></pre></details>
-<details class="gallery-output"><summary>Show numerical output</summary><pre>{&#x27;example&#x27;: &#x27;conditional_law_powerlaw&#x27;, &#x27;jumps&#x27;: 9198, &#x27;sim_elapsed&#x27;: 1.23270169999887, &#x27;fit_elapsed&#x27;: 0.06989889999749721, &#x27;true_norms&#x27;: [[0.387083, 0.258055], [0.129028, 0.161285]], &#x27;estimated_norms&#x27;: [[0.342006, 0.249228], [0.144305, 0.003891]], &#x27;nonpositive_grid_values&#x27;: [[14, 9], [10, 23]], &#x27;norms_shape&#x27;: (2, 2)}
+<details class="gallery-output"><summary>Show numerical output</summary><pre>{&#x27;example&#x27;: &#x27;conditional_law_powerlaw&#x27;, &#x27;jumps&#x27;: 9198, &#x27;sim_elapsed&#x27;: 1.111101000002236, &#x27;fit_elapsed&#x27;: 0.046494099995470606, &#x27;true_norms&#x27;: [[0.387083, 0.258055], [0.129028, 0.161285]], &#x27;estimated_norms&#x27;: [[0.342006, 0.249228], [0.144305, 0.003891]], &#x27;nonpositive_grid_values&#x27;: [[14, 9], [10, 23]], &#x27;norms_shape&#x27;: (2, 2)}
 </pre></details>
-<figure><img loading="lazy" src="{{ '/assets/notebooks/hawkes-tools/figure-05.png' | relative_url }}" alt="8. Hawkes Power-Law Kernels; plot 5; see the preceding experiment heading and Python code for parameters."></figure>
+<figure><img loading="lazy" src="{{ '/assets/notebooks/hawkes-tools/figure-08.png' | relative_url }}" alt="8. Power-law Hawkes kernel estimation; plot 8; see the preceding experiment heading and Python code for parameters."></figure>
 </section>
-<section class="gallery-markdown"><h2 id="9.-Hawkes-Random-Kernels-With-EM">9. Hawkes Random Kernels With EM<a class="anchor-link" href="#9.-Hawkes-Random-Kernels-With-EM">&#182;</a></h2><p>Original-scale piecewise-kernel <code>HawkesEM</code> reproduction.</p>
+<section class="gallery-markdown" id="example-9" data-example="9"><h2 id="9.-Non-parametric-Hawkes-estimation-with-EM">9. Non-parametric Hawkes estimation with EM<a class="anchor-link" href="#9.-Non-parametric-Hawkes-estimation-with-EM">&#182;</a></h2><p>We simulate events using a piecewise-constant kernel, a smooth time-function kernel, and an exponential cross-interaction. Expectation-maximization (EM) estimates kernels on a fixed grid over the chosen support. The panels compare the estimates with the generating curves. Discretization and the finite number of observations both affect this comparison.</p>
 </section>
-<section class="gallery-cell"><details class="gallery-code"><summary>Show Python code</summary><pre><code>run_time = 30000
+<section class="gallery-cell" data-example="9"><details class="gallery-code"><summary>Show Python code</summary><pre><code>run_time = 30000
 t_values1 = np.array([0, 1, 1.5, 2.0, 3.5], dtype=float)
 y_values1 = np.array([0, 0.2, 0, 0.1, 0.0], dtype=float)
 tf1 = TimeFunction([t_values1, y_values1], inter_mode=TimeFunction.InterConstRight, dt=0.1)
@@ -563,13 +531,13 @@ record(
     fit_elapsed=fit_elapsed,
 )
 show_fig(fig)</code></pre></details>
-<details class="gallery-output"><summary>Show numerical output</summary><pre>{&#x27;example&#x27;: &#x27;hawkes_em_random&#x27;, &#x27;baseline&#x27;: [0.10975, 0.286189], &#x27;norms_shape&#x27;: (2, 2), &#x27;jumps&#x27;: 34204, &#x27;sim_elapsed&#x27;: 1.9031162999999651, &#x27;fit_elapsed&#x27;: 0.09559190000072704}
+<details class="gallery-output"><summary>Show numerical output</summary><pre>{&#x27;example&#x27;: &#x27;hawkes_em_random&#x27;, &#x27;baseline&#x27;: [0.109382, 0.2864], &#x27;norms_shape&#x27;: (2, 2), &#x27;jumps&#x27;: 34204, &#x27;sim_elapsed&#x27;: 1.83320090000052, &#x27;fit_elapsed&#x27;: 0.07709659999818541}
 </pre></details>
-<figure><img loading="lazy" src="{{ '/assets/notebooks/hawkes-tools/figure-06.png' | relative_url }}" alt="9. Hawkes Random Kernels With EM; plot 6; see the preceding experiment heading and Python code for parameters."></figure>
+<figure><img loading="lazy" src="{{ '/assets/notebooks/hawkes-tools/figure-09.png' | relative_url }}" alt="9. Non-parametric Hawkes estimation with EM; plot 9; see the preceding experiment heading and Python code for parameters."></figure>
 </section>
-<section class="gallery-markdown"><h2 id="10.-Proximal-Operators">10. Proximal Operators<a class="anchor-link" href="#10.-Proximal-Operators">&#182;</a></h2><p>Direct reproduction of the public prox operator surface used by the gallery.</p>
+<section class="gallery-markdown" id="example-10" data-example="10"><h2 id="10.-Proximal-operators">10. Proximal operators<a class="anchor-link" href="#10.-Proximal-operators">&#182;</a></h2><p>We apply eleven proximal operators to the same vector and display the resulting coordinates as stem plots. Compare the panels to see how positivity constraints, shrinkage, sparsity, grouping, and total-variation penalties alter the values. The parameters shown in the code determine each transformation. No statistical model is fitted in this example.</p>
 </section>
-<section class="gallery-cell"><details class="gallery-code"><summary>Show Python code</summary><pre><code>np.random.seed(12)
+<section class="gallery-cell" data-example="10"><details class="gallery-code"><summary>Show Python code</summary><pre><code>np.random.seed(12)
 x = np.random.randn(50)
 s = 0.4
 proxs = [
@@ -599,13 +567,66 @@ fig.tight_layout()
 show_fig(fig)
 record(&quot;prox_operators&quot;, n_prox=len(outputs), output_shape=outputs[0].shape)
 </code></pre></details>
-<figure><img loading="lazy" src="{{ '/assets/notebooks/hawkes-tools/figure-07.png' | relative_url }}" alt="10. Proximal Operators; plot 7; see the preceding experiment heading and Python code for parameters."></figure>
+<figure><img loading="lazy" src="{{ '/assets/notebooks/hawkes-tools/figure-10.png' | relative_url }}" alt="10. Proximal operators; plot 10; see the preceding experiment heading and Python code for parameters."></figure>
 <details class="gallery-output"><summary>Show numerical output</summary><pre>{&#x27;example&#x27;: &#x27;prox_operators&#x27;, &#x27;n_prox&#x27;: 11, &#x27;output_shape&#x27;: (50,)}
 </pre></details>
 </section>
-<section class="gallery-markdown"><h2 id="13.-Hawkes-Simulation-With-Exotic-Kernels">13. Hawkes Simulation With Exotic Kernels<a class="anchor-link" href="#13.-Hawkes-Simulation-With-Exotic-Kernels">&#182;</a></h2><p>Reproduction of custom time-function kernel simulation plus point-process and QQ diagnostics.</p>
+<section class="gallery-markdown" id="example-11" data-example="11"><h2 id="11.-Logistic-optimization-with-float32-and-float64-inputs">11. Logistic optimization with float32 and float64 inputs<a class="anchor-link" href="#11.-Logistic-optimization-with-float32-and-float64-inputs">&#182;</a></h2><p>We run the same logistic optimization procedure after converting the Adult design matrix to float32 or float64. The line plot compares objective histories, and the bars show elapsed solver time for these runs. Input precision does not guarantee that every internal calculation uses that precision, and the timing comparison can depend on compilation and execution order.</p>
 </section>
-<section class="gallery-cell"><details class="gallery-code"><summary>Show Python code</summary><pre><code>t_values = np.array([0, 1, 1.5], dtype=float)
+<section class="gallery-cell" data-example="11"><details class="gallery-code"><summary>Show Python code</summary><pre><code># 11. Precision vs speed tradeoff: float64 and float32 input paths on vendored Adult data.
+adult_X_train_design = np.column_stack([np.ones(adult_X_train.shape[0]), adult_X_train])
+beta64, loss64, hist64, time64 = fit_logistic_gd(adult_X_train_design, adult_y_train, step=0.15, n_iter=50, dtype=np.float64)
+beta32, loss32, hist32, time32 = fit_logistic_gd(adult_X_train_design, adult_y_train, step=0.15, n_iter=50, dtype=np.float32)
+fig, axes = plt.subplots(1, 2, figsize=(8, 4))
+axes[0].plot([h[0] for h in hist32], [h[1] for h in hist32], label=&quot;float 32 input&quot;)
+axes[0].plot([h[0] for h in hist64], [h[1] for h in hist64], label=&quot;float 64 input&quot;)
+axes[0].set_xlabel(&quot;n epochs&quot;)
+axes[0].set_ylabel(&quot;objective&quot;)
+axes[1].bar([&quot;float32&quot;, &quot;float64&quot;], [time32, time64])
+axes[1].set_ylabel(&quot;time (s)&quot;)
+axes[0].legend()
+show_fig(fig)
+record(&quot;precision_vs_speed_tradeoff&quot;, dataset=&quot;binary/adult&quot;, loss64=loss64, loss32=loss32, coefficient_gap=float(np.linalg.norm(beta64 - beta32)))
+
+</code></pre></details>
+<figure><img loading="lazy" src="{{ '/assets/notebooks/hawkes-tools/figure-11.png' | relative_url }}" alt="11. Logistic optimization with float32 and float64 inputs; plot 11; see the preceding experiment heading and Python code for parameters."></figure>
+<details class="gallery-output"><summary>Show numerical output</summary><pre>{&#x27;example&#x27;: &#x27;precision_vs_speed_tradeoff&#x27;, &#x27;dataset&#x27;: &#x27;binary/adult&#x27;, &#x27;loss64&#x27;: 0.36537318428055593, &#x27;loss32&#x27;: 0.36537318440746286, &#x27;coefficient_gap&#x27;: 6.534161858290884e-08}
+</pre></details>
+</section>
+<section class="gallery-markdown" id="example-12" data-example="12"><h2 id="12.-Linear,-logistic,-and-Poisson-responses">12. Linear, logistic, and Poisson responses<a class="anchor-link" href="#12.-Linear,-logistic,-and-Poisson-responses">&#182;</a></h2><p>We generate three response types from the same two-dimensional feature matrix and coefficient values. Color represents the continuous response in the linear panel and the count in the Poisson panel; the logistic panel separates the two classes. The different response distributions produce different patterns despite sharing the same explanatory variables.</p>
+</section>
+<section class="gallery-cell" data-example="12"><details class="gallery-code"><summary>Show Python code</summary><pre><code>
+n_samples, n_features = 150, 2
+weights0 = np.array([0.3, 1.2])
+intercept0 = 0.5
+X_sim = rng.normal(size=(n_samples, n_features))
+_, y_linear = SimuLinReg(coeffs=weights0, intercept=intercept0, features=X_sim, noise_std=1.0, seed=1).simulate()
+_, y_logistic = SimuLogReg(coeffs=weights0, intercept=intercept0, features=X_sim, seed=2).simulate()
+_, y_poisson = SimuPoisReg(coeffs=weights0, intercept=intercept0, features=X_sim, seed=3, clip=3.0).simulate()
+fig, axes = plt.subplots(1, 3, figsize=(12, 3))
+lin_scatter = axes[0].scatter(*X_sim.T, c=y_linear, cmap=&quot;RdBu&quot;)
+fig.colorbar(lin_scatter, ax=axes[0])
+axes[0].set_title(&quot;Linear&quot;)
+axes[1].scatter(*X_sim[y_logistic == 1].T, color=&quot;b&quot;, s=10, label=&quot;$y_i=1$&quot;)
+axes[1].scatter(*X_sim[y_logistic == -1].T, color=&quot;r&quot;, s=10, label=&quot;$y_i=-1$&quot;)
+axes[1].legend(loc=&quot;upper left&quot;)
+axes[1].set_title(&quot;Logistic&quot;)
+pois_scatter = axes[2].scatter(*X_sim.T, c=y_poisson, cmap=&quot;RdBu&quot;)
+fig.colorbar(pois_scatter, ax=axes[2])
+axes[2].set_title(&quot;Poisson&quot;)
+fig.tight_layout()
+show_fig(fig)
+record(&quot;linear_models_data_simulation&quot;, shape=X_sim.shape, linear_mean=float(np.mean(y_linear)), logistic_rate=float(np.mean(y_logistic == 1)), poisson_mean=float(np.mean(y_poisson)))
+
+
+</code></pre></details>
+<figure><img loading="lazy" src="{{ '/assets/notebooks/hawkes-tools/figure-12.png' | relative_url }}" alt="12. Linear, logistic, and Poisson responses; plot 12; see the preceding experiment heading and Python code for parameters."></figure>
+<details class="gallery-output"><summary>Show numerical output</summary><pre>{&#x27;example&#x27;: &#x27;linear_models_data_simulation&#x27;, &#x27;shape&#x27;: (150, 2), &#x27;linear_mean&#x27;: 0.4139763795804787, &#x27;logistic_rate&#x27;: 0.62, &#x27;poisson_mean&#x27;: 3.546666666666667}
+</pre></details>
+</section>
+<section class="gallery-markdown" id="example-13" data-example="13"><h2 id="13.-Hawkes-simulation-with-custom-signed-kernels">13. Hawkes simulation with custom signed kernels<a class="anchor-link" href="#13.-Hawkes-simulation-with-custom-signed-kernels">&#182;</a></h2><p>We construct a two-stream process using stepwise, linear, and exponential kernels, including a kernel with a negative portion. The event-history figure shows the first part of the simulated path. A quantile-quantile (QQ) plot compares increments of the simulator's integrated conditional intensity between events with quantiles of an exponential distribution with mean one. This plot checks residual behavior under the generating process. It does not assess a fitted estimator.</p>
+</section>
+<section class="gallery-cell" data-example="13"><details class="gallery-code"><summary>Show Python code</summary><pre><code>t_values = np.array([0, 1, 1.5], dtype=float)
 y_values = np.array([0, 0.2, 0], dtype=float)
 tf1 = TimeFunction([t_values, y_values], inter_mode=TimeFunction.InterConstRight, dt=0.1)
 kernel_1 = HawkesKernelTimeFunc(tf1)
@@ -633,12 +654,12 @@ show_fig(fig_qq)
 </code></pre></details>
 <details class="gallery-output"><summary>Show numerical output</summary><pre>{&#x27;example&#x27;: &#x27;exotic_kernel_simulation&#x27;, &#x27;jumps&#x27;: 154}
 </pre></details>
-<figure><img loading="lazy" src="{{ '/assets/notebooks/hawkes-tools/figure-08.png' | relative_url }}" alt="13. Hawkes Simulation With Exotic Kernels; plot 8; see the preceding experiment heading and Python code for parameters."></figure>
-<figure><img loading="lazy" src="{{ '/assets/notebooks/hawkes-tools/figure-09.png' | relative_url }}" alt="13. Hawkes Simulation With Exotic Kernels; plot 9; see the preceding experiment heading and Python code for parameters."></figure>
+<figure><img loading="lazy" src="{{ '/assets/notebooks/hawkes-tools/figure-13.png' | relative_url }}" alt="13. Hawkes simulation with custom signed kernels; plot 13; see the preceding experiment heading and Python code for parameters."></figure>
+<figure><img loading="lazy" src="{{ '/assets/notebooks/hawkes-tools/figure-14.png' | relative_url }}" alt="13. Hawkes simulation with custom signed kernels; plot 14; see the preceding experiment heading and Python code for parameters."></figure>
 </section>
-<section class="gallery-markdown"><h2 id="14.-Hawkes-Kernel-Norms-Using-Cumulants">14. Hawkes Kernel Norms Using Cumulants<a class="anchor-link" href="#14.-Hawkes-Kernel-Norms-Using-Cumulants">&#182;</a></h2><p>The original page uses optional TensorFlow. The standalone notebook exercises the migrated pure <code>HawkesCumulantMatching</code> class on synthetic Hawkes events. This stays at the original gallery scale; constant-baseline exponential simulations use a recursive JIT state update, so runtime should be dominated by the first Numba compile rather than by rescanning all past events.</p>
+<section class="gallery-markdown" id="example-14" data-example="14"><h2 id="14.-Hawkes-kernel-integrals-from-cumulants">14. Hawkes kernel integrals from cumulants<a class="anchor-link" href="#14.-Hawkes-kernel-integrals-from-cumulants">&#182;</a></h2><p>We simulate repeated three-stream event sequences and use cumulant matching to estimate a matrix of kernel integrals. The heatmap displays the estimated matrix, and the printed summary reports mean intensities and execution times. The simulation includes a negative interaction and thresholds negative intensities at zero, so this calculation alone does not establish recovery under the assumptions of a nonnegative linear Hawkes model.</p>
 </section>
-<section class="gallery-cell"><details class="gallery-code"><summary>Show Python code</summary><pre><code>np.random.seed(7168)
+<section class="gallery-cell" data-example="14"><details class="gallery-code"><summary>Show Python code</summary><pre><code>np.random.seed(7168)
 n_nodes = 3
 baselines = 0.3 * np.ones(n_nodes)
 decays = 0.5 + np.random.rand(n_nodes, n_nodes)
@@ -683,13 +704,13 @@ record(
 )
 show_fig(fig)
 </code></pre></details>
-<details class="gallery-output"><summary>Show numerical output</summary><pre>{&#x27;example&#x27;: &#x27;cumulant_matching&#x27;, &#x27;jumps&#x27;: 718259, &#x27;simulation_elapsed&#x27;: 0.1563408999973035, &#x27;fit_elapsed&#x27;: 0.2650023999995028, &#x27;mean_intensity&#x27;: [0.436186, 0.401416, 0.598916], &#x27;norms_shape&#x27;: (3, 3)}
+<details class="gallery-output"><summary>Show numerical output</summary><pre>{&#x27;example&#x27;: &#x27;cumulant_matching&#x27;, &#x27;jumps&#x27;: 718259, &#x27;simulation_elapsed&#x27;: 0.1403314000053797, &#x27;fit_elapsed&#x27;: 0.26324600000225473, &#x27;mean_intensity&#x27;: [0.436186, 0.401416, 0.598916], &#x27;norms_shape&#x27;: (3, 3)}
 </pre></details>
-<figure><img loading="lazy" src="{{ '/assets/notebooks/hawkes-tools/figure-10.png' | relative_url }}" alt="14. Hawkes Kernel Norms Using Cumulants; plot 10; see the preceding experiment heading and Python code for parameters."></figure>
+<figure><img loading="lazy" src="{{ '/assets/notebooks/hawkes-tools/figure-15.png' | relative_url }}" alt="14. Hawkes kernel integrals from cumulants; plot 15; see the preceding experiment heading and Python code for parameters."></figure>
 </section>
-<section class="gallery-markdown"><h2 id="15.-Automatic-Step-Choice">15. Automatic Step Choice<a class="anchor-link" href="#15.-Automatic-Step-Choice">&#182;</a></h2><p>Original-size reproduction of the SVRG automatic-step example using the migrated sparse logistic model, <code>ProxElasticNet</code>, and solver histories. Coefficient vectors use the weights-first/intercept-last convention so <code>range=(0, n_features)</code> leaves the intercept unpenalized.</p>
+<section class="gallery-markdown" id="example-15" data-example="15"><h2 id="15.-Step-size-choices-for-SVRG">15. Step-size choices for SVRG<a class="anchor-link" href="#15.-Step-size-choices-for-SVRG">&#182;</a></h2><p>We fit an elastic-net logistic objective with several fixed SVRG step sizes and a Barzilai-Borwein step update. The intercept is excluded from the penalized coefficient range. The history plot compares objective differences from the lowest recorded value; it shows sensitivity to step selection on this problem. The quantity named <code>optimal_step</code> in the code is a reciprocal Lipschitz bound. We use it as a reference step; its optimality is not established here.</p>
 </section>
-<section class="gallery-cell"><details class="gallery-code"><summary>Show Python code</summary><pre><code>np.random.seed(1398)
+<section class="gallery-cell" data-example="15"><details class="gallery-code"><summary>Show Python code</summary><pre><code>np.random.seed(1398)
 n_samples = 5000
 n_features = 50
 weights = weights_sparse_gauss(n_features, nnz=10)
@@ -739,11 +760,64 @@ show_fig(fig)
 </code></pre></details>
 <details class="gallery-output"><summary>Show numerical output</summary><pre>{&#x27;example&#x27;: &#x27;automatic_step_choice&#x27;, &#x27;n_samples&#x27;: 5000, &#x27;n_features&#x27;: 50, &#x27;nonzero_weights&#x27;: 10, &#x27;lip_max&#x27;: 30.409806016640218, &#x27;optimal_step&#x27;: 0.03288412952890265, &#x27;final_objectives&#x27;: {&#x27;1 / lip_max&#x27;: 0.5507967757055244, &#x27;0.01 / lip_max&#x27;: 0.6893520580268038, &#x27;10 / lip_max&#x27;: 0.46479337762059886, &#x27;BB from lip_max&#x27;: 0.46013842024115714}}
 </pre></details>
-<figure><img loading="lazy" src="{{ '/assets/notebooks/hawkes-tools/figure-11.png' | relative_url }}" alt="15. Automatic Step Choice; plot 11; see the preceding experiment heading and Python code for parameters."></figure>
+<figure><img loading="lazy" src="{{ '/assets/notebooks/hawkes-tools/figure-16.png' | relative_url }}" alt="15. Step-size choices for SVRG; plot 16; see the preceding experiment heading and Python code for parameters."></figure>
 </section>
-<section class="gallery-markdown"><h2 id="17.-Asynchronous-Stochastic-Solver">17. Asynchronous Stochastic Solver<a class="anchor-link" href="#17.-Asynchronous-Stochastic-Solver">&#182;</a></h2><p>Original-size sparse logistic setup with SVRG and SAGA over the <code>n_threads</code> settings from the gallery source. The pure-Python solvers use variance-reduced update equations; <code>n_threads</code> is represented by larger sparse mini-batches because true asynchronous atomic worker kernels are outside this pure-Python backend.</p>
+<section class="gallery-markdown" id="example-16" data-example="16"><h2 id="16.-Robust-regression-with-sample-specific-shifts">16. Robust regression with sample-specific shifts<a class="anchor-link" href="#16.-Robust-regression-with-sample-specific-shifts">&#182;</a></h2><p>We add sparse shifts to selected responses in a simulated linear model and fit a robust regression with sample-specific intercepts. The stem plots compare the generating weights and shifts with their estimates. The false discovery proportion measures the fraction of selected shift locations that are false positives, and recall measures the fraction of injected locations recovered. These quantities describe this simulation. The <code>fdr</code> setting controls the sorted L1 penalty on the sample-specific intercepts; it does not guarantee the observed false discovery proportion.</p>
 </section>
-<section class="gallery-cell"><details class="gallery-code"><summary>Show Python code</summary><pre><code>np.random.seed(1234)
+<section class="gallery-cell" data-example="16"><details class="gallery-code"><summary>Show Python code</summary><pre><code>
+np.random.seed(1)
+n_samples = 1000
+n_features = 5
+noise_level = 1.0
+n_outliers = 50
+outliers_intensity = 5.0
+intercept0 = -3.0
+log_linspace = np.log(n_features * np.linspace(1, 10, n_features))
+weights0 = np.sqrt(2 * log_linspace)
+sample_intercepts0 = weights_sparse_gauss(n_weights=n_samples, nnz=n_outliers)
+idx_nnz = sample_intercepts0 != 0
+log_linspace = np.log(n_samples * np.linspace(1, 10, n_outliers))
+sample_intercepts0[idx_nnz] = outliers_intensity * np.sqrt(2 * log_linspace) * np.sign(sample_intercepts0[idx_nnz])
+X_robust = features_normal_cov_toeplitz(n_samples, n_features, 0.5)
+y_robust = X_robust.dot(weights0) + noise_level * np.random.randn(n_samples) + intercept0 + sample_intercepts0
+target_fdr = 0.1
+noise_level_est = std_iqr(y_robust)
+learner = RobustLinearRegression(
+    C_sample_intercepts=2 * n_samples / noise_level_est,
+    penalty=&quot;none&quot;,
+    fdr=target_fdr,
+    verbose=False,
+)
+learner.fit(X_robust, y_robust)
+fdp_ = support_fdp(sample_intercepts0, learner.sample_intercepts)
+power_ = support_recall(sample_intercepts0, learner.sample_intercepts)
+fig = plt.figure(figsize=(7, 6))
+titles = [&quot;Model weights&quot;, &quot;Learned weights&quot;, &quot;Sample intercepts&quot;, &quot;Learned intercepts&quot;]
+vectors = [weights0, learner.weights, sample_intercepts0, learner.sample_intercepts]
+for idx_plot, title, vector in zip(range(221, 225), titles, vectors):
+    ax = fig.add_subplot(idx_plot)
+    ax.stem(vector)
+    ax.set_title(title, fontsize=12)
+fig.suptitle(f&quot;Robust linear regression [fdp={fdp_:.2f}, power={power_:.2f}]&quot;, fontsize=14)
+fig.tight_layout(rect=[0, 0.03, 1, 0.95])
+show_fig(fig)
+record(
+    &quot;robust_linear_model&quot;,
+    samples=n_samples,
+    features=n_features,
+    fdp=float(fdp_),
+    power=float(power_),
+    selected_outliers=int(np.count_nonzero(np.abs(learner.sample_intercepts) &gt; 1e-8)),
+)
+
+</code></pre></details>
+<figure><img loading="lazy" src="{{ '/assets/notebooks/hawkes-tools/figure-17.png' | relative_url }}" alt="16. Robust regression with sample-specific shifts; plot 17; see the preceding experiment heading and Python code for parameters."></figure>
+<details class="gallery-output"><summary>Show numerical output</summary><pre>{&#x27;example&#x27;: &#x27;robust_linear_model&#x27;, &#x27;samples&#x27;: 1000, &#x27;features&#x27;: 5, &#x27;fdp&#x27;: 0.0, &#x27;power&#x27;: 1.0, &#x27;selected_outliers&#x27;: 50}
+</pre></details>
+</section>
+<section class="gallery-markdown" id="example-17" data-example="17"><h2 id="17.-SVRG-and-SAGA-on-sparse-features">17. SVRG and SAGA on sparse features<a class="anchor-link" href="#17.-SVRG-and-SAGA-on-sparse-features">&#182;</a></h2><p>We construct a sparse logistic problem and compare SVRG and SAGA across the displayed <code>n_threads</code> settings. In this backend, those settings affect sparse mini-batch sizes and do not start workers that update shared parameters asynchronously. The curves show recorded objective differences against elapsed time, so their interpretation is specific to this implementation and execution environment.</p>
+</section>
+<section class="gallery-cell" data-example="17"><details class="gallery-code"><summary>Show Python code</summary><pre><code>np.random.seed(1234)
 n_samples = 40000
 n_features = 20000
 density = 1e-4
@@ -781,13 +855,248 @@ record(
 )
 show_fig(fig)
 </code></pre></details>
-<details class="gallery-output"><summary>Show numerical output</summary><pre>{&#x27;example&#x27;: &#x27;asynchronous_stochastic_solver&#x27;, &#x27;n_samples&#x27;: 40000, &#x27;n_features&#x27;: 20000, &#x27;density&#x27;: 0.0001, &#x27;matrix_nnz&#x27;: 80000, &#x27;step&#x27;: 0.6592629157331775, &#x27;elapsed&#x27;: {&#x27;SVRG - 1 threads&#x27;: 0.6171523000011803, &#x27;SVRG - 2 threads&#x27;: 0.4768535000002885, &#x27;SVRG - 4 threads&#x27;: 0.42499619999944116, &#x27;SAGA - 1 threads&#x27;: 0.9300313999992795, &#x27;SAGA - 2 threads&#x27;: 0.6965632999999798, &#x27;SAGA - 4 threads&#x27;: 0.5595461999982945}}
+<details class="gallery-output"><summary>Show numerical output</summary><pre>{&#x27;example&#x27;: &#x27;asynchronous_stochastic_solver&#x27;, &#x27;n_samples&#x27;: 40000, &#x27;n_features&#x27;: 20000, &#x27;density&#x27;: 0.0001, &#x27;matrix_nnz&#x27;: 80000, &#x27;step&#x27;: 0.6592629157331775, &#x27;elapsed&#x27;: {&#x27;SVRG - 1 threads&#x27;: 0.5956194000027608, &#x27;SVRG - 2 threads&#x27;: 0.47194020000461023, &#x27;SVRG - 4 threads&#x27;: 0.37624030000006314, &#x27;SAGA - 1 threads&#x27;: 0.8409358999997494, &#x27;SAGA - 2 threads&#x27;: 0.6298297000030288, &#x27;SAGA - 4 threads&#x27;: 0.4848813999997219}}
 </pre></details>
-<figure><img loading="lazy" src="{{ '/assets/notebooks/hawkes-tools/figure-12.png' | relative_url }}" alt="17. Asynchronous Stochastic Solver; plot 12; see the preceding experiment heading and Python code for parameters."></figure>
+<figure><img loading="lazy" src="{{ '/assets/notebooks/hawkes-tools/figure-18.png' | relative_url }}" alt="17. SVRG and SAGA on sparse features; plot 18; see the preceding experiment heading and Python code for parameters."></figure>
 </section>
-<section class="gallery-markdown"><h2 id="24.-Generalized-Linear-Models-Solver-Convergence">24. Generalized Linear Models Solver Convergence<a class="anchor-link" href="#24.-Generalized-Linear-Models-Solver-Convergence">&#182;</a></h2><p>Original grid of linear, logistic, and Poisson GLM objectives with BFGS, SVRG, SDCA, GD, and AGD. The migrated models provide the Lipschitz helpers used for step selection and the solver histories used by <code>plot_history</code>.</p>
+<section class="gallery-markdown" id="example-18" data-example="18"><h2 id="18.-BFGS-and-GD-logistic-fits">18. BFGS and GD logistic fits<a class="anchor-link" href="#18.-BFGS-and-GD-logistic-fits">&#182;</a></h2><p>We fit L2-penalized logistic regression to Adult training data with BFGS and GD. The panels compare fitted weights, test-set ROC curves, and elapsed fitting times. The iteration limits and step rules differ between the fits. The timing bars therefore describe these runs and do not give a general speed ranking.</p>
 </section>
-<section class="gallery-cell"><details class="gallery-code"><summary>Show Python code</summary><pre><code>seed = 1398
+<section class="gallery-cell" data-example="18"><details class="gallery-code"><summary>Show Python code</summary><pre><code>
+start = perf_counter()
+clf_bfgs = LogisticRegression(penalty=&quot;l2&quot;, C=1e4, solver=&quot;bfgs&quot;, max_iter=100, tol=1e-8).fit(adult_X_train, adult_y_train)
+time_bfgs = perf_counter() - start
+pred_bfgs = clf_bfgs.predict_proba(adult_X_test)[:, 1]
+auc_bfgs = auc_rank(adult_y_test, pred_bfgs)
+start = perf_counter()
+clf_gd = LogisticRegression(penalty=&quot;l2&quot;, C=1e4, solver=&quot;gd&quot;, step=0.15, max_iter=120, tol=1e-8).fit(adult_X_train, adult_y_train)
+time_gd = perf_counter() - start
+pred_gd = clf_gd.predict_proba(adult_X_test)[:, 1]
+auc_gd = auc_rank(adult_y_test, pred_gd)
+fig = plt.figure(figsize=(10, 8))
+ax1 = plt.subplot2grid((2, 2), (0, 0))
+ax1.stem(clf_bfgs.weights)
+ax1.set_ylim((-2, 2.5))
+ax1.set_title(&quot;BFGS weights&quot;)
+ax2 = plt.subplot2grid((2, 2), (0, 1))
+ax2.stem(clf_gd.weights)
+ax2.set_ylim((-2, 2.5))
+ax2.set_title(&quot;GD weights&quot;)
+ax3 = plt.subplot2grid((2, 2), (1, 0))
+fpr_bfgs, tpr_bfgs = roc_points(adult_y_test, pred_bfgs)
+fpr_gd, tpr_gd = roc_points(adult_y_test, pred_gd)
+ax3.plot(fpr_bfgs, tpr_bfgs, lw=2)
+ax3.plot(fpr_gd, tpr_gd, lw=2)
+ax3.legend([f&quot;BFGS (AUC = {auc_bfgs:.2f})&quot;, f&quot;GD (AUC = {auc_gd:.2f})&quot;], loc=&quot;center right&quot;)
+ax3.set_ylabel(&quot;True Positive Rate&quot;)
+ax3.set_xlabel(&quot;False Positive Rate&quot;)
+ax3.set_title(&quot;ROC curves comparison&quot;)
+ax4 = plt.subplot2grid((2, 2), (1, 1))
+ax4.bar([1, 2], [time_bfgs, time_gd])
+ax4.set_xticks([1, 2])
+ax4.set_xticklabels([&quot;BFGS&quot;, &quot;GD&quot;])
+ax4.set_title(&quot;Computational time (seconds)&quot;)
+fig.tight_layout()
+show_fig(fig)
+record(&quot;logistic_bfgs_vs_gd_comparison&quot;, dataset=&quot;binary/adult&quot;, standalone_auc=auc_bfgs, gd_auc=auc_gd, standalone_success=True)
+
+</code></pre></details>
+<figure><img loading="lazy" src="{{ '/assets/notebooks/hawkes-tools/figure-19.png' | relative_url }}" alt="18. BFGS and GD logistic fits; plot 19; see the preceding experiment heading and Python code for parameters."></figure>
+<details class="gallery-output"><summary>Show numerical output</summary><pre>{&#x27;example&#x27;: &#x27;logistic_bfgs_vs_gd_comparison&#x27;, &#x27;dataset&#x27;: &#x27;binary/adult&#x27;, &#x27;standalone_auc&#x27;: 0.9014282485251963, &#x27;gd_auc&#x27;: 0.9003888133008231, &#x27;standalone_success&#x27;: True}
+</pre></details>
+</section>
+<section class="gallery-markdown" id="example-19" data-example="19"><h2 id="19.-Hawkes-simulation-with-a-periodic-baseline">19. Hawkes simulation with a periodic baseline<a class="anchor-link" href="#19.-Hawkes-simulation-with-a-periodic-baseline">&#182;</a></h2><p>We simulate one event stream over six periods using a periodic background rate and an exponential excitation kernel. The dashed baseline curve shows recurring background activity; the intensity also includes contributions from earlier events. The event marks show the simulated arrivals. The QQ plot uses the simulator's integrated conditional intensity to examine the spacing of events on the transformed time scale.</p>
+</section>
+<section class="gallery-cell" data-example="19"><details class="gallery-code"><summary>Show Python code</summary><pre><code>period_length = 100
+t_values = np.linspace(0, period_length)
+y_values = 0.2 * np.maximum(np.sin(t_values * (2 * np.pi) / period_length), 0.2)
+baselines = np.array([TimeFunction((t_values, y_values), border_type=TimeFunction.Cyclic)])
+decay = 0.1
+adjacency = np.array([[0.5]])
+hawkes = SimuHawkesExpKernels(
+    adjacency,
+    decay,
+    baseline=baselines,
+    seed=2093,
+    verbose=False,
+)
+hawkes.track_intensity(0.1)
+hawkes.end_time = 6 * period_length
+hawkes.simulate()
+fig_process = plot_point_process(hawkes, show=False)
+t_plot = np.linspace(0, hawkes.end_time, 1000)
+fig_process.axes[0].plot(t_plot, hawkes.get_baseline_values(0, t_plot), label=&quot;baseline&quot;, ls=&quot;--&quot;, lw=1)
+fig_process.axes[0].legend()
+hawkes.store_compensator_values()
+fig_qq = qq_plots(hawkes, show=False)
+record(&quot;varying_baseline_simulation&quot;, jumps=hawkes.n_total_jumps)
+show_fig(fig_process)
+show_fig(fig_qq)
+</code></pre></details>
+<details class="gallery-output"><summary>Show numerical output</summary><pre>{&#x27;example&#x27;: &#x27;varying_baseline_simulation&#x27;, &#x27;jumps&#x27;: 102}
+</pre></details>
+<figure><img loading="lazy" src="{{ '/assets/notebooks/hawkes-tools/figure-20.png' | relative_url }}" alt="19. Hawkes simulation with a periodic baseline; plot 20; see the preceding experiment heading and Python code for parameters."></figure>
+<figure><img loading="lazy" src="{{ '/assets/notebooks/hawkes-tools/figure-21.png' | relative_url }}" alt="19. Hawkes simulation with a periodic baseline; plot 21; see the preceding experiment heading and Python code for parameters."></figure>
+</section>
+<section class="gallery-markdown" id="example-20" data-example="20"><h2 id="20.-Shared-basis-kernels-for-Hawkes-estimation">20. Shared basis kernels for Hawkes estimation<a class="anchor-link" href="#20.-Shared-basis-kernels-for-Hawkes-estimation">&#182;</a></h2><p>We generate four interaction kernels from weighted combinations of two smooth cosine functions and fit a two-basis representation to the simulated events. The kernel panels compare fitted interactions with the generating functions, and the basis panels display their component shapes. Compare the combined kernels as well as the basis curves. The scaling and representation of the components affect comparisons between individual basis functions.</p>
+</section>
+<section class="gallery-cell" data-example="20"><details class="gallery-code"><summary>Show Python code</summary><pre><code>def g1(t):
+    return np.cos(np.pi * t / 10) + 1.1
+
+
+def g2(t):
+    return np.cos(np.pi * (t / 10 + 1)) + 1.1
+
+end_time = 1e9
+C = 1e-3
+kernel_size = 40
+max_iter = 100
+t_values = np.linspace(0, 20, 1000)
+u_values = [(0.007061, 0.001711), (0.005445, 0.003645), (0.003645, 0.005445), (0.001790, 0.007390)]
+hawkes = SimuHawkes(baseline=[1e-5, 1e-5], seed=1093, verbose=False)
+for i in range(2):
+    for j in range(2):
+        u1, u2 = u_values[2 * i + j]
+        y_values = g1(t_values) * u1 + g2(t_values) * u2
+        hawkes.set_kernel(i, j, HawkesKernelTimeFunc(t_values=t_values, y_values=y_values))
+hawkes.end_time = end_time
+hawkes.simulate()
+learner = HawkesBasisKernels(
+    20,
+    n_basis=2,
+    kernel_size=kernel_size,
+    C=C,
+    n_threads=4,
+    max_iter=max_iter,
+    verbose=False,
+    ode_tol=1e-5,
+).fit(hawkes.timestamps, end_times=hawkes.end_time)
+fig_kernels = plot_hawkes_kernels(learner, hawkes=hawkes, support=19.9, show=False)
+for ax in fig_kernels.axes:
+    ax.set_ylim([0, 0.025])
+fig_basis = plot_basis_kernels(learner, basis_kernels=[g2, g1], show=False)
+for ax in fig_basis.axes:
+    ax.set_ylim([0, 0.5])
+record(&quot;basis_kernels&quot;, jumps=hawkes.n_total_jumps, norms_shape=learner.get_kernel_norms().shape)
+show_fig(fig_kernels)
+show_fig(fig_basis)
+</code></pre></details>
+<details class="gallery-output"><summary>Show numerical output</summary><pre>{&#x27;example&#x27;: &#x27;basis_kernels&#x27;, &#x27;jumps&#x27;: 32847, &#x27;norms_shape&#x27;: (2, 2)}
+</pre></details>
+<figure><img loading="lazy" src="{{ '/assets/notebooks/hawkes-tools/figure-22.png' | relative_url }}" alt="20. Shared basis kernels for Hawkes estimation; plot 22; see the preceding experiment heading and Python code for parameters."></figure>
+<figure><img loading="lazy" src="{{ '/assets/notebooks/hawkes-tools/figure-23.png' | relative_url }}" alt="20. Shared basis kernels for Hawkes estimation; plot 23; see the preceding experiment heading and Python code for parameters."></figure>
+</section>
+<section class="gallery-markdown" id="example-21" data-example="21"><h2 id="21.-Estimating-periodic-Hawkes-baselines">21. Estimating periodic Hawkes baselines<a class="anchor-link" href="#21.-Estimating-periodic-Hawkes-baselines">&#182;</a></h2><p>We simulate four realizations of a two-stream sum-exponential Hawkes model with piecewise periodic background rates. The learner uses the specified decay rates, period, and number of baseline segments to estimate baseline levels and kernel coefficients. The plots compare the fitted components with the generating model. The period and decay rates are supplied to the learner and remain fixed during fitting.</p>
+</section>
+<section class="gallery-cell" data-example="21"><details class="gallery-code"><summary>Show Python code</summary><pre><code>period_length = 300
+baselines = [[0.3, 0.5, 0.6, 0.4, 0.2, 0], [0.8, 0.5, 0.2, 0.3, 0.3, 0.4]]
+n_baselines = len(baselines[0])
+decays = [0.5, 2.0, 6.0]
+adjacency = [[[0, 0.1, 0.4], [0.2, 0.0, 0.2]], [[0, 0, 0], [0.6, 0.3, 0]]]
+hawkes = SimuHawkesSumExpKernels(
+    baseline=baselines,
+    period_length=period_length,
+    decays=decays,
+    adjacency=adjacency,
+    seed=2094,
+    verbose=False,
+)
+hawkes.end_time = 1000
+hawkes.adjust_spectral_radius(0.5)
+multi = SimuHawkesMulti(hawkes, n_simulations=4, n_threads=4).simulate()
+learner = HawkesSumExpKern(decays=decays, n_baselines=n_baselines, period_length=period_length, verbose=False).fit(
+    multi.timestamps,
+    end_times=multi.end_time,
+)
+fig = plot_hawkes_baseline_and_kernels(learner, hawkes=hawkes, show=False)
+record(&quot;varying_baseline_fit&quot;, norms_shape=learner.get_kernel_norms().shape)
+show_fig(fig)
+</code></pre></details>
+<details class="gallery-output"><summary>Show numerical output</summary><pre>{&#x27;example&#x27;: &#x27;varying_baseline_fit&#x27;, &#x27;norms_shape&#x27;: (2, 2)}
+</pre></details>
+<figure><img loading="lazy" src="{{ '/assets/notebooks/hawkes-tools/figure-24.png' | relative_url }}" alt="21. Estimating periodic Hawkes baselines; plot 24; see the preceding experiment heading and Python code for parameters."></figure>
+</section>
+<section class="gallery-markdown" id="example-22" data-example="22"><h2 id="22.-A-two-feature-regression-plane">22. A two-feature regression plane<a class="anchor-link" href="#22.-A-two-feature-regression-plane">&#182;</a></h2><p>We fit a linear model to two standardized Abalone features and display the resulting prediction plane with held-out observations from four viewing angles. The reported mean squared error summarizes prediction differences on that split. Feature standardization occurs before the split in this example, so a strict evaluation would require fitting the preprocessing steps on the training data only.</p>
+</section>
+<section class="gallery-cell" data-example="22"><details class="gallery-code"><summary>Show Python code</summary><pre><code>
+X2 = abalone_X[:, [0, 1]]
+y2 = abalone_y.astype(float)
+order = rng.permutation(X2.shape[0])
+X2 = X2[order]
+y2 = y2[order]
+n_train = int(0.8 * X2.shape[0])
+X_train, X_test = X2[:n_train], X2[n_train:]
+y_train, y_test = y2[:n_train], y2[n_train:]
+lin2 = LinearRegression(penalty=&quot;none&quot;, solver=&quot;bfgs&quot;, max_iter=80, tol=1e-8).fit(X_train, y_train)
+coef2 = lin2.coeffs
+y_pred = lin2.predict(X_test)
+resolution = 10
+x_surf = np.linspace(X_test[:, 0].min(), X_test[:, 0].max(), resolution)
+y_surf = np.linspace(X_test[:, 1].min(), X_test[:, 1].max(), resolution)
+x_surf, y_surf = np.meshgrid(x_surf, y_surf)
+z_surf = lin2.predict(np.vstack((x_surf.ravel(), y_surf.ravel())).T)
+z_surf = z_surf.reshape(x_surf.shape)
+fig = plt.figure(figsize=(16, 5))
+for position, angle in enumerate([10, 35, 60, 85], start=1):
+    ax = fig.add_subplot(1, 4, position, projection=&quot;3d&quot;)
+    ax.view_init(20, angle)
+    ax.plot_surface(x_surf, y_surf, z_surf, alpha=0.3, linewidth=0.2, edgecolors=&quot;black&quot;)
+    ax.scatter(X_test[:, 0], X_test[:, 1], y_test, s=8)
+    ax.set_title(f&quot;angle: {angle} deg&quot;)
+    ax.set_zlabel(&quot;rings&quot;)
+    ax.set_xlabel(&quot;feature 0&quot;)
+    ax.set_ylabel(&quot;feature 1&quot;)
+show_fig(fig)
+record(&quot;linear_regression_2d&quot;, dataset=&quot;regression/abalone&quot;, coefficients=coef2, mse=float(np.mean((y_test - y_pred) ** 2)))
+
+
+</code></pre></details>
+<figure><img loading="lazy" src="{{ '/assets/notebooks/hawkes-tools/figure-25.png' | relative_url }}" alt="22. A two-feature regression plane; plot 25; see the preceding experiment heading and Python code for parameters."></figure>
+<details class="gallery-output"><summary>Show numerical output</summary><pre>{&#x27;example&#x27;: &#x27;linear_regression_2d&#x27;, &#x27;dataset&#x27;: &#x27;regression/abalone&#x27;, &#x27;coefficients&#x27;: [-0.416518, 1.59415, 9.93399], &#x27;mse&#x27;: 7.114726906465553}
+</pre></details>
+</section>
+<section class="gallery-markdown" id="example-23" data-example="23"><h2 id="23.-Estimated-intensity-and-simulator-residuals">23. Estimated intensity and simulator residuals<a class="anchor-link" href="#23.-Estimated-intensity-and-simulator-residuals">&#182;</a></h2><p>We fit a sum-exponential Hawkes model to a simulated two-stream event sequence and display fitted and generating intensities over the same time interval. Comparing the paths shows where the fitted rate differs from the rate used to generate events. The QQ plot uses the generating simulator's compensator values. It therefore checks the generating process and does not validate the fitted model.</p>
+</section>
+<section class="gallery-cell" data-example="23"><details class="gallery-code"><summary>Show Python code</summary><pre><code>Simulator = SimuHawkesSumExpKernels
+end_time = 1000
+decays = [0.1, 0.5, 1.0]
+baseline = [0.12, 0.07]
+adjacency = [[[0, 0.1, 0.4], [0.2, 0.0, 0.2]], [[0, 0, 0], [0.6, 0.3, 0]]]
+model = Simulator(
+    adjacency=adjacency,
+    decays=decays,
+    baseline=baseline,
+    end_time=end_time,
+    verbose=False,
+    seed=1039,
+)
+model.track_intensity(0.1)
+model.simulate()
+learner = HawkesSumExpKern(
+    decays=decays,
+    penalty=&quot;elasticnet&quot;,
+    elastic_net_ratio=0.8,
+    verbose=False,
+).fit(model.timestamps, end_times=model.end_time)
+t_min = 100
+t_max = 200
+fig_estimated = plot_estimated_intensity(learner, model.timestamps, intensity_track_step=0.1, end_time=model.end_time, t_min=t_min, t_max=t_max, show=False)
+fig_original = plot_point_process(model, plot_intensity=True, t_min=t_min, t_max=t_max, show=False)
+model.store_compensator_values()
+fig_qq = qq_plots(model, show=False)
+record(&quot;estimated_intensity&quot;, jumps=model.n_total_jumps, norms_shape=learner.get_kernel_norms().shape)
+show_fig(fig_estimated)
+show_fig(fig_original)
+show_fig(fig_qq)
+</code></pre></details>
+<details class="gallery-output"><summary>Show numerical output</summary><pre>{&#x27;example&#x27;: &#x27;estimated_intensity&#x27;, &#x27;jumps&#x27;: 1459, &#x27;norms_shape&#x27;: (2, 2)}
+</pre></details>
+<figure><img loading="lazy" src="{{ '/assets/notebooks/hawkes-tools/figure-26.png' | relative_url }}" alt="23. Estimated intensity and simulator residuals; plot 26; see the preceding experiment heading and Python code for parameters."></figure>
+<figure><img loading="lazy" src="{{ '/assets/notebooks/hawkes-tools/figure-27.png' | relative_url }}" alt="23. Estimated intensity and simulator residuals; plot 27; see the preceding experiment heading and Python code for parameters."></figure>
+<figure><img loading="lazy" src="{{ '/assets/notebooks/hawkes-tools/figure-28.png' | relative_url }}" alt="23. Estimated intensity and simulator residuals; plot 28; see the preceding experiment heading and Python code for parameters."></figure>
+</section>
+<section class="gallery-markdown" id="example-24" data-example="24"><h2 id="24.-Solver-convergence-across-regression-models">24. Solver convergence across regression models<a class="anchor-link" href="#24.-Solver-convergence-across-regression-models">&#182;</a></h2><p>We compare BFGS, SVRG, SDCA, GD, and AGD on linear, logistic, and Poisson objectives at three L2 penalty strengths. Each panel shows objective differences from the lowest value recorded among its solver runs, on a logarithmic scale. The code also stores the BFGS result as a numerical reference; it is not an independently certified exact minimizer. Compare curves within a panel because the objectives differ across panels.</p>
+</section>
+<section class="gallery-cell" data-example="24"><details class="gallery-code"><summary>Show Python code</summary><pre><code>seed = 1398
 np.random.seed(seed)
 
 
@@ -872,498 +1181,11 @@ show_fig(fig)
 </code></pre></details>
 <details class="gallery-output"><summary>Show numerical output</summary><pre>{&#x27;example&#x27;: &#x27;glm_solver_convergence&#x27;, &#x27;model_types&#x27;: [&#x27;Linear&#x27;, &#x27;Logistic&#x27;, &#x27;Poisson&#x27;], &#x27;l_l2sqs&#x27;: [0.001, 0.01, 0.1], &#x27;n_samples&#x27;: 1000, &#x27;n_features&#x27;: 20, &#x27;panels&#x27;: 9, &#x27;final_objectives&#x27;: {&#x27;Linear_0.001&#x27;: {&#x27;BFGS&#x27;: 0.49693689416480247, &#x27;SVRG&#x27;: 0.9240278593433302, &#x27;SDCA&#x27;: 0.9240278593433302, &#x27;GD&#x27;: 0.49693689452100714, &#x27;AGD&#x27;: 0.4969368966558123}, &#x27;Linear_0.01&#x27;: {&#x27;BFGS&#x27;: 0.6188388730156648, &#x27;SVRG&#x27;: 1.3407894179385638, &#x27;SDCA&#x27;: 1.3407894179385638, &#x27;GD&#x27;: 0.6188388734130149, &#x27;AGD&#x27;: 0.6188388754969152}, &#x27;Linear_0.1&#x27;: {&#x27;BFGS&#x27;: 1.1032770875317857, &#x27;SVRG&#x27;: 1.3586614251579525, &#x27;SDCA&#x27;: 1.3586614251579525, &#x27;GD&#x27;: 1.103277087797369, &#x27;AGD&#x27;: 1.103277088406624}, &#x27;Logistic_0.001&#x27;: {&#x27;BFGS&#x27;: 0.18387173337107493, &#x27;SVRG&#x27;: 0.31642878072085673, &#x27;SDCA&#x27;: 0.31642878072085673, &#x27;GD&#x27;: 0.18826361448188392, &#x27;AGD&#x27;: 0.18387731567816057}, &#x27;Logistic_0.01&#x27;: {&#x27;BFGS&#x27;: 0.3376093974647909, &#x27;SVRG&#x27;: 0.40003304915338866, &#x27;SDCA&#x27;: 0.40003304915338866, &#x27;GD&#x27;: 0.3376142490698194, &#x27;AGD&#x27;: 0.3376095373326855}, &#x27;Logistic_0.1&#x27;: {&#x27;BFGS&#x27;: 0.45712350617831365, &#x27;SVRG&#x27;: 0.46263505592550613, &#x27;SDCA&#x27;: 0.46263505592550613, &#x27;GD&#x27;: 0.4571235063572887, &#x27;AGD&#x27;: 0.4571235065073496}, &#x27;Poisson_0.001&#x27;: {&#x27;BFGS&#x27;: 1.3578151739423778, &#x27;SVRG&#x27;: 1.3613046035597254, &#x27;SDCA&#x27;: 1.3613046035597254, &#x27;GD&#x27;: 1.357815174379943, &#x27;AGD&#x27;: 1.3578151741274058}, &#x27;Poisson_0.01&#x27;: {&#x27;BFGS&#x27;: 1.361934289354821, &#x27;SVRG&#x27;: 1.3650163046680674, &#x27;SDCA&#x27;: 1.3650163046680674, &#x27;GD&#x27;: 1.361934289767537, &#x27;AGD&#x27;: 1.3619342917387018}, &#x27;Poisson_0.1&#x27;: {&#x27;BFGS&#x27;: 1.3135250391773836, &#x27;SVRG&#x27;: 1.314346156115492, &#x27;SDCA&#x27;: 1.314346156115492, &#x27;GD&#x27;: 1.3135250394402365, &#x27;AGD&#x27;: 1.3135250395539981}}}
 </pre></details>
-<figure><img loading="lazy" src="{{ '/assets/notebooks/hawkes-tools/figure-13.png' | relative_url }}" alt="24. Generalized Linear Models Solver Convergence; plot 13; see the preceding experiment heading and Python code for parameters."></figure>
+<figure><img loading="lazy" src="{{ '/assets/notebooks/hawkes-tools/figure-29.png' | relative_url }}" alt="24. Solver convergence across regression models; plot 29; see the preceding experiment heading and Python code for parameters."></figure>
 </section>
-<section class="gallery-markdown"><h2 id="19.-Hawkes-Process-With-Non-Constant-Baseline-Simulation">19. Hawkes Process With Non-Constant Baseline Simulation<a class="anchor-link" href="#19.-Hawkes-Process-With-Non-Constant-Baseline-Simulation">&#182;</a></h2><p>Original-scale reproduction of the periodic-baseline simulation example.</p>
+<section class="gallery-markdown" id="example-25" data-example="25"><h2 id="25.-Longitudinal-exposure-effects-with-fixed-regularization">25. Longitudinal exposure effects with fixed regularization<a class="anchor-link" href="#25.-Longitudinal-exposure-effects-with-fixed-regularization">&#182;</a></h2><p>We simulate longitudinal exposures and event counts, add interval-group indicators, and fit a convolutional self-controlled case-series (SCCS) model using fixed penalty values. The figures show the exposure-generation interaction matrix, estimated relative-incidence curves, and a normalized time effect. Shaded intervals use a normal approximation with standard errors computed from observed and expected counts. The <code>n_samples_bootstrap</code> argument is unused, and no cross-validation is performed. These approximate pointwise intervals do not establish simultaneous coverage of an entire curve.</p>
 </section>
-<section class="gallery-cell"><details class="gallery-code"><summary>Show Python code</summary><pre><code>period_length = 100
-t_values = np.linspace(0, period_length)
-y_values = 0.2 * np.maximum(np.sin(t_values * (2 * np.pi) / period_length), 0.2)
-baselines = np.array([TimeFunction((t_values, y_values), border_type=TimeFunction.Cyclic)])
-decay = 0.1
-adjacency = np.array([[0.5]])
-hawkes = SimuHawkesExpKernels(
-    adjacency,
-    decay,
-    baseline=baselines,
-    seed=2093,
-    verbose=False,
-)
-hawkes.track_intensity(0.1)
-hawkes.end_time = 6 * period_length
-hawkes.simulate()
-fig_process = plot_point_process(hawkes, show=False)
-t_plot = np.linspace(0, hawkes.end_time, 1000)
-fig_process.axes[0].plot(t_plot, hawkes.get_baseline_values(0, t_plot), label=&quot;baseline&quot;, ls=&quot;--&quot;, lw=1)
-fig_process.axes[0].legend()
-hawkes.store_compensator_values()
-fig_qq = qq_plots(hawkes, show=False)
-record(&quot;varying_baseline_simulation&quot;, jumps=hawkes.n_total_jumps)
-show_fig(fig_process)
-show_fig(fig_qq)
-</code></pre></details>
-<details class="gallery-output"><summary>Show numerical output</summary><pre>{&#x27;example&#x27;: &#x27;varying_baseline_simulation&#x27;, &#x27;jumps&#x27;: 102}
-</pre></details>
-<figure><img loading="lazy" src="{{ '/assets/notebooks/hawkes-tools/figure-14.png' | relative_url }}" alt="19. Hawkes Process With Non-Constant Baseline Simulation; plot 14; see the preceding experiment heading and Python code for parameters."></figure>
-<figure><img loading="lazy" src="{{ '/assets/notebooks/hawkes-tools/figure-15.png' | relative_url }}" alt="19. Hawkes Process With Non-Constant Baseline Simulation; plot 15; see the preceding experiment heading and Python code for parameters."></figure>
-</section>
-<section class="gallery-markdown"><h2 id="20.-Fit-Exotic-Hawkes-Kernels">20. Fit Exotic Hawkes Kernels<a class="anchor-link" href="#20.-Fit-Exotic-Hawkes-Kernels">&#182;</a></h2><p>Original-scale reproduction of <code>HawkesBasisKernels</code> on kernels generated from two cosine bases.</p>
-</section>
-<section class="gallery-cell"><details class="gallery-code"><summary>Show Python code</summary><pre><code>def g1(t):
-    return np.cos(np.pi * t / 10) + 1.1
-
-
-def g2(t):
-    return np.cos(np.pi * (t / 10 + 1)) + 1.1
-
-end_time = 1e9
-C = 1e-3
-kernel_size = 40
-max_iter = 100
-t_values = np.linspace(0, 20, 1000)
-u_values = [(0.007061, 0.001711), (0.005445, 0.003645), (0.003645, 0.005445), (0.001790, 0.007390)]
-hawkes = SimuHawkes(baseline=[1e-5, 1e-5], seed=1093, verbose=False)
-for i in range(2):
-    for j in range(2):
-        u1, u2 = u_values[2 * i + j]
-        y_values = g1(t_values) * u1 + g2(t_values) * u2
-        hawkes.set_kernel(i, j, HawkesKernelTimeFunc(t_values=t_values, y_values=y_values))
-hawkes.end_time = end_time
-hawkes.simulate()
-learner = HawkesBasisKernels(
-    20,
-    n_basis=2,
-    kernel_size=kernel_size,
-    C=C,
-    n_threads=4,
-    max_iter=max_iter,
-    verbose=False,
-    ode_tol=1e-5,
-).fit(hawkes.timestamps, end_times=hawkes.end_time)
-fig_kernels = plot_hawkes_kernels(learner, hawkes=hawkes, support=19.9, show=False)
-for ax in fig_kernels.axes:
-    ax.set_ylim([0, 0.025])
-fig_basis = plot_basis_kernels(learner, basis_kernels=[g2, g1], show=False)
-for ax in fig_basis.axes:
-    ax.set_ylim([0, 0.5])
-record(&quot;basis_kernels&quot;, jumps=hawkes.n_total_jumps, norms_shape=learner.get_kernel_norms().shape)
-show_fig(fig_kernels)
-show_fig(fig_basis)
-</code></pre></details>
-<details class="gallery-output"><summary>Show numerical output</summary><pre>{&#x27;example&#x27;: &#x27;basis_kernels&#x27;, &#x27;jumps&#x27;: 32847, &#x27;norms_shape&#x27;: (2, 2)}
-</pre></details>
-<figure><img loading="lazy" src="{{ '/assets/notebooks/hawkes-tools/figure-16.png' | relative_url }}" alt="20. Fit Exotic Hawkes Kernels; plot 16; see the preceding experiment heading and Python code for parameters."></figure>
-<figure><img loading="lazy" src="{{ '/assets/notebooks/hawkes-tools/figure-17.png' | relative_url }}" alt="20. Fit Exotic Hawkes Kernels; plot 17; see the preceding experiment heading and Python code for parameters."></figure>
-</section>
-<section class="gallery-markdown"><h2 id="Standalone-RKHS-Hawkes-Estimator-With-Alpha-Kernel">Standalone RKHS Hawkes Estimator With Alpha Kernel<a class="anchor-link" href="#Standalone-RKHS-Hawkes-Estimator-With-Alpha-Kernel">&#182;</a></h2><p>This add-on example uses the new univariate RKHS estimator on a synthetic alpha-type Erlang kernel. The true kernel has the form <code>branching_ratio * decay**2 * t * exp(-decay * t)</code>, so the overlay compares the recovered non-parametric kernel against a smooth delayed peak rather than a simple exponential. The basis plot uses the estimator's grid layout for the first four recovered RKHS basis functions (<code>max_index=3</code>).</p>
-</section>
-<section class="gallery-cell"><details class="gallery-code"><summary>Show Python code</summary><pre><code>def alpha_erlang_kernel_values(t, branching_ratio, decay):
-    t = np.asarray(t, dtype=float)
-    return branching_ratio * decay**2 * t * np.exp(-decay * t)
-
-
-rkhs_kernel_support = 8.0
-rkhs_branching_ratio = 0.35
-rkhs_decay = 1.35
-rkhs_baseline = 0.35
-rkhs_kernel_grid = np.linspace(0.0, rkhs_kernel_support, 400)
-rkhs_true_values = alpha_erlang_kernel_values(rkhs_kernel_grid, rkhs_branching_ratio, rkhs_decay)
-rkhs_true_values[-1] = 0.0
-rkhs_true_kernel = HawkesKernelTimeFunc(
-    TimeFunction(
-        (rkhs_kernel_grid, rkhs_true_values),
-        border_type=TimeFunction.Border0,
-        inter_mode=TimeFunction.InterLinear,
-    )
-)
-rkhs_hawkes = SimuHawkes(
-    baseline=[rkhs_baseline],
-    kernels=[[rkhs_true_kernel]],
-    end_time=1500.0,
-    seed=20260706,
-    verbose=False,
-)
-rkhs_hawkes.simulate()
-rkhs_learner = RKHSHawkes(
-    kernel_support=rkhs_kernel_support,
-    bandwidth=0.25,
-    covariance_spline_order=1,
-    rkhs_grid_size=151,
-    rkhs_basis_size=12,
-    quadrature_size=48,
-    ridge=1e-6,
-).fit(rkhs_hawkes.timestamps, end_times=rkhs_hawkes.end_time)
-
-rkhs_plot_grid = np.linspace(0.0, rkhs_kernel_support, 300)
-fig_kernel, ax = plt.subplots(figsize=(7, 4))
-ax.plot(rkhs_plot_grid, rkhs_true_kernel.get_values(rkhs_plot_grid), label=&quot;true alpha/Erlang kernel&quot;, lw=2)
-ax.plot(rkhs_plot_grid, rkhs_learner.get_kernel_values(0, 0, rkhs_plot_grid), label=&quot;RKHS estimate&quot;, lw=2)
-ax.set_xlabel(&quot;lag&quot;)
-ax.set_ylabel(&quot;kernel value&quot;)
-ax.set_title(&quot;RKHS Hawkes kernel estimate&quot;)
-ax.legend(loc=&quot;best&quot;)
-fig_kernel.tight_layout()
-
-fig_basis = rkhs_learner.plot_basis_functions(3, layout=&quot;grid&quot;, show=False)
-fig_basis.suptitle(&quot;First recovered RKHS basis functions&quot;, y=1.02)
-
-record(
-    &quot;rkhs_alpha_erlang_kernel&quot;,
-    jumps=rkhs_hawkes.n_total_jumps,
-    true_branching_ratio=rkhs_true_kernel.get_norm(),
-    estimated_branching_ratio=rkhs_learner.branching_ratio,
-    estimated_baseline=rkhs_learner.baseline,
-    basis_shape=rkhs_learner.recover_basis_functions(3)[1].shape,
-)
-show_fig(fig_kernel)
-show_fig(fig_basis)
-</code></pre></details>
-<details class="gallery-output"><summary>Show numerical output</summary><pre>{&#x27;example&#x27;: &#x27;rkhs_alpha_erlang_kernel&#x27;, &#x27;jumps&#x27;: 747, &#x27;true_branching_ratio&#x27;: 0.3498932459292863, &#x27;estimated_branching_ratio&#x27;: 0.2886954648109832, &#x27;estimated_baseline&#x27;: [0.35423], &#x27;basis_shape&#x27;: (4, 89)}
-</pre></details>
-<figure><img loading="lazy" src="{{ '/assets/notebooks/hawkes-tools/figure-18.png' | relative_url }}" alt="Standalone RKHS Hawkes Estimator With Alpha Kernel; plot 18; see the preceding experiment heading and Python code for parameters."></figure>
-<figure><img loading="lazy" src="{{ '/assets/notebooks/hawkes-tools/figure-19.png' | relative_url }}" alt="Standalone RKHS Hawkes Estimator With Alpha Kernel; plot 19; see the preceding experiment heading and Python code for parameters."></figure>
-</section>
-<section class="gallery-markdown"><h2 id="21.-Hawkes-Process-With-Non-Constant-Baseline-Fit">21. Hawkes Process With Non-Constant Baseline Fit<a class="anchor-link" href="#21.-Hawkes-Process-With-Non-Constant-Baseline-Fit">&#182;</a></h2><p>Original-scale simulation-and-fit reproduction for sum-exponential kernels with piecewise periodic baselines.</p>
-</section>
-<section class="gallery-cell"><details class="gallery-code"><summary>Show Python code</summary><pre><code>period_length = 300
-baselines = [[0.3, 0.5, 0.6, 0.4, 0.2, 0], [0.8, 0.5, 0.2, 0.3, 0.3, 0.4]]
-n_baselines = len(baselines[0])
-decays = [0.5, 2.0, 6.0]
-adjacency = [[[0, 0.1, 0.4], [0.2, 0.0, 0.2]], [[0, 0, 0], [0.6, 0.3, 0]]]
-hawkes = SimuHawkesSumExpKernels(
-    baseline=baselines,
-    period_length=period_length,
-    decays=decays,
-    adjacency=adjacency,
-    seed=2094,
-    verbose=False,
-)
-hawkes.end_time = 1000
-hawkes.adjust_spectral_radius(0.5)
-multi = SimuHawkesMulti(hawkes, n_simulations=4, n_threads=4).simulate()
-learner = HawkesSumExpKern(decays=decays, n_baselines=n_baselines, period_length=period_length, verbose=False).fit(
-    multi.timestamps,
-    end_times=multi.end_time,
-)
-fig = plot_hawkes_baseline_and_kernels(learner, hawkes=hawkes, show=False)
-record(&quot;varying_baseline_fit&quot;, norms_shape=learner.get_kernel_norms().shape)
-show_fig(fig)
-</code></pre></details>
-<details class="gallery-output"><summary>Show numerical output</summary><pre>{&#x27;example&#x27;: &#x27;varying_baseline_fit&#x27;, &#x27;norms_shape&#x27;: (2, 2)}
-</pre></details>
-<figure><img loading="lazy" src="{{ '/assets/notebooks/hawkes-tools/figure-20.png' | relative_url }}" alt="21. Hawkes Process With Non-Constant Baseline Fit; plot 20; see the preceding experiment heading and Python code for parameters."></figure>
-</section>
-<section class="gallery-markdown"><h2 id="23.-Estimated-Intensity-And-QQ-Diagnostics">23. Estimated Intensity And QQ Diagnostics<a class="anchor-link" href="#23.-Estimated-Intensity-And-QQ-Diagnostics">&#182;</a></h2><p>Original-scale reproduction of fitting a sum-exponential Hawkes model, plotting estimated intensity, and checking compensator residuals.</p>
-</section>
-<section class="gallery-cell"><details class="gallery-code"><summary>Show Python code</summary><pre><code>Simulator = SimuHawkesSumExpKernels
-end_time = 1000
-decays = [0.1, 0.5, 1.0]
-baseline = [0.12, 0.07]
-adjacency = [[[0, 0.1, 0.4], [0.2, 0.0, 0.2]], [[0, 0, 0], [0.6, 0.3, 0]]]
-model = Simulator(
-    adjacency=adjacency,
-    decays=decays,
-    baseline=baseline,
-    end_time=end_time,
-    verbose=False,
-    seed=1039,
-)
-model.track_intensity(0.1)
-model.simulate()
-learner = HawkesSumExpKern(
-    decays=decays,
-    penalty=&quot;elasticnet&quot;,
-    elastic_net_ratio=0.8,
-    verbose=False,
-).fit(model.timestamps, end_times=model.end_time)
-t_min = 100
-t_max = 200
-fig_estimated = plot_estimated_intensity(learner, model.timestamps, intensity_track_step=0.1, end_time=model.end_time, t_min=t_min, t_max=t_max, show=False)
-fig_original = plot_point_process(model, plot_intensity=True, t_min=t_min, t_max=t_max, show=False)
-model.store_compensator_values()
-fig_qq = qq_plots(model, show=False)
-record(&quot;estimated_intensity&quot;, jumps=model.n_total_jumps, norms_shape=learner.get_kernel_norms().shape)
-show_fig(fig_estimated)
-show_fig(fig_original)
-show_fig(fig_qq)
-</code></pre></details>
-<details class="gallery-output"><summary>Show numerical output</summary><pre>{&#x27;example&#x27;: &#x27;estimated_intensity&#x27;, &#x27;jumps&#x27;: 1459, &#x27;norms_shape&#x27;: (2, 2)}
-</pre></details>
-<figure><img loading="lazy" src="{{ '/assets/notebooks/hawkes-tools/figure-21.png' | relative_url }}" alt="23. Estimated Intensity And QQ Diagnostics; plot 21; see the preceding experiment heading and Python code for parameters."></figure>
-<figure><img loading="lazy" src="{{ '/assets/notebooks/hawkes-tools/figure-22.png' | relative_url }}" alt="23. Estimated Intensity And QQ Diagnostics; plot 22; see the preceding experiment heading and Python code for parameters."></figure>
-<figure><img loading="lazy" src="{{ '/assets/notebooks/hawkes-tools/figure-23.png' | relative_url }}" alt="23. Estimated Intensity And QQ Diagnostics; plot 23; see the preceding experiment heading and Python code for parameters."></figure>
-</section>
-<section class="gallery-markdown"><h2 id="Non-Hawkes-Gallery-Data-And-Simulation-Reproductions">Non-Hawkes Gallery Data And Simulation Reproductions<a class="anchor-link" href="#Non-Hawkes-Gallery-Data-And-Simulation-Reproductions">&#182;</a></h2><p>The following cells keep the notebook literal about the full 25-entry gallery. They do not claim new <code>hawkes_tools</code> API coverage for modules outside this package; dataset-backed pages use vendored datasets, and pages that were simulations in the original gallery keep simulation-style inputs at the original scale where practical.</p>
-</section>
-<section class="gallery-cell"><details class="gallery-code"><summary>Show Python code</summary><pre><code>from time import perf_counter
-from scipy.stats import rankdata
-
-rng = np.random.default_rng(20260704)
-
-
-def dense_dataset(path):
-    X, y = fetch_dataset(path, data_home=DATA_HOME)
-    if hasattr(X, &quot;toarray&quot;):
-        X = X.toarray()
-    return np.asarray(X, dtype=float), np.asarray(y, dtype=float)
-
-
-def standardize_train_test(X_train, X_test):
-    mean = X_train.mean(axis=0)
-    scale = X_train.std(axis=0)
-    scale[scale == 0] = 1.0
-    return (X_train - mean) / scale, (X_test - mean) / scale
-
-
-def binary01(y):
-    return (np.asarray(y) &gt; 0).astype(float)
-
-
-def roc_points(y, scores):
-    y = np.asarray(y, dtype=bool)
-    order = np.argsort(-scores)
-    y_sorted = y[order]
-    positives = max(int(y.sum()), 1)
-    negatives = max(int((~y).sum()), 1)
-    tpr = np.r_[0.0, np.cumsum(y_sorted) / positives]
-    fpr = np.r_[0.0, np.cumsum(~y_sorted) / negatives]
-    return fpr, tpr
-
-
-def auc_rank(y, scores):
-    y = np.asarray(y, dtype=bool)
-    ranks = rankdata(scores)
-    n_pos = float(y.sum())
-    n_neg = float((~y).sum())
-    return float((ranks[y].sum() - n_pos * (n_pos + 1.0) / 2.0) / (n_pos * n_neg))
-
-
-def fit_logistic_gd(X, y, step=0.2, n_iter=80, dtype=np.float64, l2=1e-4):
-    X_work = np.asarray(X, dtype=dtype)
-    model = ModelLogReg(fit_intercept=False, l2_strength=l2).fit(X_work, y)
-    solver = GD(max_iter=n_iter, step=step, verbose=False, record_every=2, print_every=2)
-    beta = solver.set_model(model).set_prox(ProxZero()).solve(np.zeros(model.n_coeffs))
-    history = [(record[&quot;n_iter&quot;], record[&quot;obj&quot;]) for record in solver.history]
-    return beta, model.loss(beta), history, solver.time_elapsed
-
-
-# Shared vendored datasets.
-adult_X_train_raw, adult_y_train_raw = dense_dataset(&quot;binary/adult/adult.trn.bz2&quot;)
-adult_X_test_raw, adult_y_test_raw = dense_dataset(&quot;binary/adult/adult.tst.bz2&quot;)
-adult_X_train, adult_X_test = standardize_train_test(adult_X_train_raw, adult_X_test_raw)
-adult_y_train = binary01(adult_y_train_raw)
-adult_y_test = binary01(adult_y_test_raw)
-abalone_X, abalone_y = dense_dataset(&quot;regression/abalone/abalone.trn.bz2&quot;)
-abalone_X = (abalone_X - abalone_X.mean(axis=0)) / np.maximum(abalone_X.std(axis=0), 1e-12)
-
-
-# 2. Cox regression data simulation: original-size proportional-hazards simulation.
-n_samples = 150
-weights = np.array([0.3, 1.2])
-simu_coxreg = SimuCoxReg(weights, n_samples=n_samples, seed=123, verbose=False)
-X_cox, T_cox, C_cox = simu_coxreg.simulate()
-fig, ax = plt.subplots(figsize=(6, 4))
-scatter_fail = ax.scatter(*X_cox[C_cox == 1].T, c=T_cox[C_cox == 1], cmap=&quot;RdBu&quot;, marker=&quot;o&quot;, label=&quot;failure&quot;)
-ax.scatter(*X_cox[C_cox == 0].T, c=T_cox[C_cox == 0], cmap=&quot;RdBu&quot;, marker=&quot;x&quot;, label=&quot;censoring&quot;)
-fig.colorbar(scatter_fail, ax=ax)
-ax.legend(loc=&quot;upper left&quot;)
-ax.set_title(&quot;Cox regression&quot;)
-show_fig(fig)
-record(&quot;cox_regression_simulation&quot;, observed_rate=float(np.mean(C_cox == 1)), samples=n_samples)
-
-# 3. Binary classification with logistic regression: vendored Adult train/test data.
-clf_adult = LogisticRegression(penalty=&quot;l2&quot;, C=1e4, solver=&quot;gd&quot;, step=0.15, max_iter=120, verbose=False).fit(
-    adult_X_train, adult_y_train
-)
-adult_scores = clf_adult.predict_proba(adult_X_test)[:, 1]
-adult_fpr, adult_tpr = roc_points(adult_y_test, adult_scores)
-adult_auc = auc_rank(adult_y_test, adult_scores)
-adult_accuracy = clf_adult.score(adult_X_test, adult_y_test)
-fig, ax = plt.subplots(figsize=(6, 5))
-ax.plot(adult_fpr, adult_tpr, lw=2)
-ax.set_title(f&quot;ROC curve on adult dataset (area = {adult_auc:.2f})&quot;)
-ax.set_ylabel(&quot;True Positive Rate&quot;)
-ax.set_xlabel(&quot;False Positive Rate&quot;)
-show_fig(fig)
-record(&quot;binary_logistic_classification&quot;, dataset=&quot;binary/adult&quot;, loss=clf_adult.model.loss(clf_adult.coeffs), auc=adult_auc, accuracy=adult_accuracy)
-
-# 6. Poisson regression solver comparison: original gallery sample/feature scale.
-n_samples = 50000
-n_features = 100
-weight0 = rng.normal(size=n_features)
-weight0[rng.choice(n_features, size=1, replace=False)] = 0.0
-weight0 /= 20.0
-intercept0 = -0.1
-X_pois_features = rng.normal(size=(n_samples, n_features))
-_, y_pois = SimuPoisReg(coeffs=weight0, intercept=intercept0, features=X_pois_features, seed=20260705, clip=5.0).simulate()
-poisson_model = ModelPoisReg(fit_intercept=True, l2_strength=1e-4).fit(X_pois_features, y_pois)
-poisson_losses = {}
-for Solver in [GD, AGD, SVRG, BFGS]:
-    coeffs = Solver(max_iter=40, step=0.05, verbose=False).set_model(poisson_model).set_prox(ProxZero()).solve(np.zeros(poisson_model.n_coeffs))
-    poisson_losses[Solver.__name__] = round(poisson_model.loss(coeffs), 6)
-fig, ax = plt.subplots(figsize=(6, 4))
-ax.bar(list(poisson_losses), list(poisson_losses.values()))
-ax.set_title(&quot;Solvers comparison for Poisson regression&quot;)
-ax.set_ylabel(&quot;objective&quot;)
-show_fig(fig)
-record(&quot;poisson_regression_solver_comparison&quot;, samples=n_samples, features=n_features, losses=poisson_losses)
-
-# 11. Precision vs speed tradeoff: float64 and float32 input paths on vendored Adult data.
-adult_X_train_design = np.column_stack([np.ones(adult_X_train.shape[0]), adult_X_train])
-beta64, loss64, hist64, time64 = fit_logistic_gd(adult_X_train_design, adult_y_train, step=0.15, n_iter=50, dtype=np.float64)
-beta32, loss32, hist32, time32 = fit_logistic_gd(adult_X_train_design, adult_y_train, step=0.15, n_iter=50, dtype=np.float32)
-fig, axes = plt.subplots(1, 2, figsize=(8, 4))
-axes[0].plot([h[0] for h in hist32], [h[1] for h in hist32], label=&quot;float 32 input&quot;)
-axes[0].plot([h[0] for h in hist64], [h[1] for h in hist64], label=&quot;float 64 input&quot;)
-axes[0].set_xlabel(&quot;n epochs&quot;)
-axes[0].set_ylabel(&quot;objective&quot;)
-axes[1].bar([&quot;float32&quot;, &quot;float64&quot;], [time32, time64])
-axes[1].set_ylabel(&quot;time (s)&quot;)
-axes[0].legend()
-show_fig(fig)
-record(&quot;precision_vs_speed_tradeoff&quot;, dataset=&quot;binary/adult&quot;, loss64=loss64, loss32=loss32, coefficient_gap=float(np.linalg.norm(beta64 - beta32)))
-
-# 12. Linear models data simulation: original-size linear, logistic, and Poisson realizations.
-n_samples, n_features = 150, 2
-weights0 = np.array([0.3, 1.2])
-intercept0 = 0.5
-X_sim = rng.normal(size=(n_samples, n_features))
-_, y_linear = SimuLinReg(coeffs=weights0, intercept=intercept0, features=X_sim, noise_std=1.0, seed=1).simulate()
-_, y_logistic = SimuLogReg(coeffs=weights0, intercept=intercept0, features=X_sim, seed=2).simulate()
-_, y_poisson = SimuPoisReg(coeffs=weights0, intercept=intercept0, features=X_sim, seed=3, clip=3.0).simulate()
-fig, axes = plt.subplots(1, 3, figsize=(12, 3))
-lin_scatter = axes[0].scatter(*X_sim.T, c=y_linear, cmap=&quot;RdBu&quot;)
-fig.colorbar(lin_scatter, ax=axes[0])
-axes[0].set_title(&quot;Linear&quot;)
-axes[1].scatter(*X_sim[y_logistic == 1].T, color=&quot;b&quot;, s=10, label=&quot;$y_i=1$&quot;)
-axes[1].scatter(*X_sim[y_logistic == -1].T, color=&quot;r&quot;, s=10, label=&quot;$y_i=-1$&quot;)
-axes[1].legend(loc=&quot;upper left&quot;)
-axes[1].set_title(&quot;Logistic&quot;)
-pois_scatter = axes[2].scatter(*X_sim.T, c=y_poisson, cmap=&quot;RdBu&quot;)
-fig.colorbar(pois_scatter, ax=axes[2])
-axes[2].set_title(&quot;Poisson&quot;)
-fig.tight_layout()
-show_fig(fig)
-record(&quot;linear_models_data_simulation&quot;, shape=X_sim.shape, linear_mean=float(np.mean(y_linear)), logistic_rate=float(np.mean(y_logistic == 1)), poisson_mean=float(np.mean(y_poisson)))
-
-
-# 16. Robust linear model example: original sparse sample-intercepts simulation.
-np.random.seed(1)
-n_samples = 1000
-n_features = 5
-noise_level = 1.0
-n_outliers = 50
-outliers_intensity = 5.0
-intercept0 = -3.0
-log_linspace = np.log(n_features * np.linspace(1, 10, n_features))
-weights0 = np.sqrt(2 * log_linspace)
-sample_intercepts0 = weights_sparse_gauss(n_weights=n_samples, nnz=n_outliers)
-idx_nnz = sample_intercepts0 != 0
-log_linspace = np.log(n_samples * np.linspace(1, 10, n_outliers))
-sample_intercepts0[idx_nnz] = outliers_intensity * np.sqrt(2 * log_linspace) * np.sign(sample_intercepts0[idx_nnz])
-X_robust = features_normal_cov_toeplitz(n_samples, n_features, 0.5)
-y_robust = X_robust.dot(weights0) + noise_level * np.random.randn(n_samples) + intercept0 + sample_intercepts0
-target_fdr = 0.1
-noise_level_est = std_iqr(y_robust)
-learner = RobustLinearRegression(
-    C_sample_intercepts=2 * n_samples / noise_level_est,
-    penalty=&quot;none&quot;,
-    fdr=target_fdr,
-    verbose=False,
-)
-learner.fit(X_robust, y_robust)
-fdp_ = support_fdp(sample_intercepts0, learner.sample_intercepts)
-power_ = support_recall(sample_intercepts0, learner.sample_intercepts)
-fig = plt.figure(figsize=(7, 6))
-titles = [&quot;Model weights&quot;, &quot;Learned weights&quot;, &quot;Sample intercepts&quot;, &quot;Learned intercepts&quot;]
-vectors = [weights0, learner.weights, sample_intercepts0, learner.sample_intercepts]
-for idx_plot, title, vector in zip(range(221, 225), titles, vectors):
-    ax = fig.add_subplot(idx_plot)
-    ax.stem(vector)
-    ax.set_title(title, fontsize=12)
-fig.suptitle(f&quot;Robust linear regression [fdp={fdp_:.2f}, power={power_:.2f}]&quot;, fontsize=14)
-fig.tight_layout(rect=[0, 0.03, 1, 0.95])
-show_fig(fig)
-record(
-    &quot;robust_linear_model&quot;,
-    samples=n_samples,
-    features=n_features,
-    fdp=float(fdp_),
-    power=float(power_),
-    selected_outliers=int(np.count_nonzero(np.abs(learner.sample_intercepts) &gt; 1e-8)),
-)
-
-# 18. Logistic regression comparison: standalone BFGS versus standalone GD on vendored Adult data.
-start = perf_counter()
-clf_bfgs = LogisticRegression(penalty=&quot;l2&quot;, C=1e4, solver=&quot;bfgs&quot;, max_iter=100, tol=1e-8).fit(adult_X_train, adult_y_train)
-time_bfgs = perf_counter() - start
-pred_bfgs = clf_bfgs.predict_proba(adult_X_test)[:, 1]
-auc_bfgs = auc_rank(adult_y_test, pred_bfgs)
-start = perf_counter()
-clf_gd = LogisticRegression(penalty=&quot;l2&quot;, C=1e4, solver=&quot;gd&quot;, step=0.15, max_iter=120, tol=1e-8).fit(adult_X_train, adult_y_train)
-time_gd = perf_counter() - start
-pred_gd = clf_gd.predict_proba(adult_X_test)[:, 1]
-auc_gd = auc_rank(adult_y_test, pred_gd)
-fig = plt.figure(figsize=(10, 8))
-ax1 = plt.subplot2grid((2, 2), (0, 0))
-ax1.stem(clf_bfgs.weights)
-ax1.set_ylim((-2, 2.5))
-ax1.set_title(&quot;BFGS weights&quot;)
-ax2 = plt.subplot2grid((2, 2), (0, 1))
-ax2.stem(clf_gd.weights)
-ax2.set_ylim((-2, 2.5))
-ax2.set_title(&quot;GD weights&quot;)
-ax3 = plt.subplot2grid((2, 2), (1, 0))
-fpr_bfgs, tpr_bfgs = roc_points(adult_y_test, pred_bfgs)
-fpr_gd, tpr_gd = roc_points(adult_y_test, pred_gd)
-ax3.plot(fpr_bfgs, tpr_bfgs, lw=2)
-ax3.plot(fpr_gd, tpr_gd, lw=2)
-ax3.legend([f&quot;BFGS (AUC = {auc_bfgs:.2f})&quot;, f&quot;GD (AUC = {auc_gd:.2f})&quot;], loc=&quot;center right&quot;)
-ax3.set_ylabel(&quot;True Positive Rate&quot;)
-ax3.set_xlabel(&quot;False Positive Rate&quot;)
-ax3.set_title(&quot;ROC curves comparison&quot;)
-ax4 = plt.subplot2grid((2, 2), (1, 1))
-ax4.bar([1, 2], [time_bfgs, time_gd])
-ax4.set_xticks([1, 2])
-ax4.set_xticklabels([&quot;BFGS&quot;, &quot;GD&quot;])
-ax4.set_title(&quot;Computational time (seconds)&quot;)
-fig.tight_layout()
-show_fig(fig)
-record(&quot;logistic_bfgs_vs_gd_comparison&quot;, dataset=&quot;binary/adult&quot;, standalone_auc=auc_bfgs, gd_auc=auc_gd, standalone_success=True)
-
-# 22. Linear regression in two dimensions: vendored Abalone features, Boston-style 3D visualization.
-X2 = abalone_X[:, [0, 1]]
-y2 = abalone_y.astype(float)
-order = rng.permutation(X2.shape[0])
-X2 = X2[order]
-y2 = y2[order]
-n_train = int(0.8 * X2.shape[0])
-X_train, X_test = X2[:n_train], X2[n_train:]
-y_train, y_test = y2[:n_train], y2[n_train:]
-lin2 = LinearRegression(penalty=&quot;none&quot;, solver=&quot;bfgs&quot;, max_iter=80, tol=1e-8).fit(X_train, y_train)
-coef2 = lin2.coeffs
-y_pred = lin2.predict(X_test)
-resolution = 10
-x_surf = np.linspace(X_test[:, 0].min(), X_test[:, 0].max(), resolution)
-y_surf = np.linspace(X_test[:, 1].min(), X_test[:, 1].max(), resolution)
-x_surf, y_surf = np.meshgrid(x_surf, y_surf)
-z_surf = lin2.predict(np.vstack((x_surf.ravel(), y_surf.ravel())).T)
-z_surf = z_surf.reshape(x_surf.shape)
-fig = plt.figure(figsize=(16, 5))
-for position, angle in enumerate([10, 35, 60, 85], start=1):
-    ax = fig.add_subplot(1, 4, position, projection=&quot;3d&quot;)
-    ax.view_init(20, angle)
-    ax.plot_surface(x_surf, y_surf, z_surf, alpha=0.3, linewidth=0.2, edgecolors=&quot;black&quot;)
-    ax.scatter(X_test[:, 0], X_test[:, 1], y_test, s=8)
-    ax.set_title(f&quot;angle: {angle} deg&quot;)
-    ax.set_zlabel(&quot;rings&quot;)
-    ax.set_xlabel(&quot;feature 0&quot;)
-    ax.set_ylabel(&quot;feature 1&quot;)
-show_fig(fig)
-record(&quot;linear_regression_2d&quot;, dataset=&quot;regression/abalone&quot;, coefficients=coef2, mse=float(np.mean((y_test - y_pred) ** 2)))
-
-
-# 25. ConvSCCS cross validation on simulated longitudinal features example.
+<section class="gallery-cell" data-example="25"><details class="gallery-code"><summary>Show Python code</summary><pre><code># 25. ConvSCCS cross validation on simulated longitudinal features example.
 seed = 0
 lags = 49
 n_samples = 2000
@@ -1474,37 +1296,81 @@ record(
     fit_elapsed=float(learner.time_elapsed),
 )
 </code></pre></details>
-<figure><img loading="lazy" src="{{ '/assets/notebooks/hawkes-tools/figure-24.png' | relative_url }}" alt="Non-Hawkes Gallery Data And Simulation Reproductions; plot 24; see the preceding experiment heading and Python code for parameters."></figure>
-<details class="gallery-output"><summary>Show numerical output</summary><pre>{&#x27;example&#x27;: &#x27;cox_regression_simulation&#x27;, &#x27;observed_rate&#x27;: 0.84, &#x27;samples&#x27;: 150}
-</pre></details>
-<figure><img loading="lazy" src="{{ '/assets/notebooks/hawkes-tools/figure-25.png' | relative_url }}" alt="Non-Hawkes Gallery Data And Simulation Reproductions; plot 25; see the preceding experiment heading and Python code for parameters."></figure>
-<details class="gallery-output"><summary>Show numerical output</summary><pre>{&#x27;example&#x27;: &#x27;binary_logistic_classification&#x27;, &#x27;dataset&#x27;: &#x27;binary/adult&#x27;, &#x27;loss&#x27;: 0.33565651974423044, &#x27;auc&#x27;: 0.9003888133008231, &#x27;accuracy&#x27;: 0.8480437319574965}
-</pre></details>
-<figure><img loading="lazy" src="{{ '/assets/notebooks/hawkes-tools/figure-26.png' | relative_url }}" alt="Non-Hawkes Gallery Data And Simulation Reproductions; plot 26; see the preceding experiment heading and Python code for parameters."></figure>
-<details class="gallery-output"><summary>Show numerical output</summary><pre>{&#x27;example&#x27;: &#x27;poisson_regression_solver_comparison&#x27;, &#x27;samples&#x27;: 50000, &#x27;features&#x27;: 100, &#x27;losses&#x27;: {&#x27;GD&#x27;: 1.261951, &#x27;AGD&#x27;: 1.259257, &#x27;SVRG&#x27;: 1.259068, &#x27;BFGS&#x27;: 1.259067}}
-</pre></details>
-<figure><img loading="lazy" src="{{ '/assets/notebooks/hawkes-tools/figure-27.png' | relative_url }}" alt="Non-Hawkes Gallery Data And Simulation Reproductions; plot 27; see the preceding experiment heading and Python code for parameters."></figure>
-<details class="gallery-output"><summary>Show numerical output</summary><pre>{&#x27;example&#x27;: &#x27;precision_vs_speed_tradeoff&#x27;, &#x27;dataset&#x27;: &#x27;binary/adult&#x27;, &#x27;loss64&#x27;: 0.36537318428055593, &#x27;loss32&#x27;: 0.36537318440746286, &#x27;coefficient_gap&#x27;: 6.534161858290884e-08}
-</pre></details>
-<figure><img loading="lazy" src="{{ '/assets/notebooks/hawkes-tools/figure-28.png' | relative_url }}" alt="Non-Hawkes Gallery Data And Simulation Reproductions; plot 28; see the preceding experiment heading and Python code for parameters."></figure>
-<details class="gallery-output"><summary>Show numerical output</summary><pre>{&#x27;example&#x27;: &#x27;linear_models_data_simulation&#x27;, &#x27;shape&#x27;: (150, 2), &#x27;linear_mean&#x27;: 0.4139763795804787, &#x27;logistic_rate&#x27;: 0.62, &#x27;poisson_mean&#x27;: 3.546666666666667}
-</pre></details>
-<figure><img loading="lazy" src="{{ '/assets/notebooks/hawkes-tools/figure-29.png' | relative_url }}" alt="Non-Hawkes Gallery Data And Simulation Reproductions; plot 29; see the preceding experiment heading and Python code for parameters."></figure>
-<details class="gallery-output"><summary>Show numerical output</summary><pre>{&#x27;example&#x27;: &#x27;robust_linear_model&#x27;, &#x27;samples&#x27;: 1000, &#x27;features&#x27;: 5, &#x27;fdp&#x27;: 0.0, &#x27;power&#x27;: 1.0, &#x27;selected_outliers&#x27;: 50}
-</pre></details>
-<figure><img loading="lazy" src="{{ '/assets/notebooks/hawkes-tools/figure-30.png' | relative_url }}" alt="Non-Hawkes Gallery Data And Simulation Reproductions; plot 30; see the preceding experiment heading and Python code for parameters."></figure>
-<details class="gallery-output"><summary>Show numerical output</summary><pre>{&#x27;example&#x27;: &#x27;logistic_bfgs_vs_gd_comparison&#x27;, &#x27;dataset&#x27;: &#x27;binary/adult&#x27;, &#x27;standalone_auc&#x27;: 0.9014282485251963, &#x27;gd_auc&#x27;: 0.9003888133008231, &#x27;standalone_success&#x27;: True}
-</pre></details>
-<figure><img loading="lazy" src="{{ '/assets/notebooks/hawkes-tools/figure-31.png' | relative_url }}" alt="Non-Hawkes Gallery Data And Simulation Reproductions; plot 31; see the preceding experiment heading and Python code for parameters."></figure>
-<details class="gallery-output"><summary>Show numerical output</summary><pre>{&#x27;example&#x27;: &#x27;linear_regression_2d&#x27;, &#x27;dataset&#x27;: &#x27;regression/abalone&#x27;, &#x27;coefficients&#x27;: [-0.416518, 1.59415, 9.93399], &#x27;mse&#x27;: 7.114726906465553}
-</pre></details>
-<figure><img loading="lazy" src="{{ '/assets/notebooks/hawkes-tools/figure-32.png' | relative_url }}" alt="Non-Hawkes Gallery Data And Simulation Reproductions; plot 32; see the preceding experiment heading and Python code for parameters."></figure>
-<figure><img loading="lazy" src="{{ '/assets/notebooks/hawkes-tools/figure-33.png' | relative_url }}" alt="Non-Hawkes Gallery Data And Simulation Reproductions; plot 33; see the preceding experiment heading and Python code for parameters."></figure>
-<figure><img loading="lazy" src="{{ '/assets/notebooks/hawkes-tools/figure-34.png' | relative_url }}" alt="Non-Hawkes Gallery Data And Simulation Reproductions; plot 34; see the preceding experiment heading and Python code for parameters."></figure>
-<details class="gallery-output"><summary>Show numerical output</summary><pre>{&#x27;example&#x27;: &#x27;conv_sccs_cv_results&#x27;, &#x27;patients&#x27;: 2000, &#x27;intervals&#x27;: 750, &#x27;features&#x27;: 4, &#x27;age_groups&#x27;: 6, &#x27;sim_elapsed&#x27;: 3.2690513000015926, &#x27;fit_elapsed&#x27;: 16.417111900002055}
+<figure><img loading="lazy" src="{{ '/assets/notebooks/hawkes-tools/figure-30.png' | relative_url }}" alt="25. Longitudinal exposure effects with fixed regularization; plot 30; see the preceding experiment heading and Python code for parameters."></figure>
+<figure><img loading="lazy" src="{{ '/assets/notebooks/hawkes-tools/figure-31.png' | relative_url }}" alt="25. Longitudinal exposure effects with fixed regularization; plot 31; see the preceding experiment heading and Python code for parameters."></figure>
+<figure><img loading="lazy" src="{{ '/assets/notebooks/hawkes-tools/figure-32.png' | relative_url }}" alt="25. Longitudinal exposure effects with fixed regularization; plot 32; see the preceding experiment heading and Python code for parameters."></figure>
+<details class="gallery-output"><summary>Show numerical output</summary><pre>{&#x27;example&#x27;: &#x27;conv_sccs_cv_results&#x27;, &#x27;patients&#x27;: 2000, &#x27;intervals&#x27;: 750, &#x27;features&#x27;: 4, &#x27;age_groups&#x27;: 6, &#x27;sim_elapsed&#x27;: 2.4254174000016064, &#x27;fit_elapsed&#x27;: 13.012562399999297}
 </pre></details>
 </section>
-<section class="gallery-markdown"><h2 id="Summary">Summary<a class="anchor-link" href="#Summary">&#182;</a></h2><p>The <code>results</code> list contains one dictionary per executed gallery example. A successful full-notebook run means every gallery entry has an executable standalone reproduction, including the standalone RKHS estimator add-on above. Hawkes, point-process, prox, solver-compatible, survival, robust, and metrics entries exercise <code>hawkes_tools</code>; any remaining non-Hawkes dataset comparisons are standalone reproductions backed by migrated local learners.</p>
+<section class="gallery-markdown" id="example-26" data-example="26"><h2 id="26.-RKHS-estimation-of-an-alpha-shaped-Hawkes-kernel">26. RKHS estimation of an alpha-shaped Hawkes kernel<a class="anchor-link" href="#26.-RKHS-estimation-of-an-alpha-shaped-Hawkes-kernel">&#182;</a></h2><p>We simulate a univariate Hawkes process from a finite-support time-function approximation to an alpha/Erlang-shaped kernel and fit a reproducing kernel Hilbert space (RKHS) estimator. The first plot compares the estimated kernel with the function used in simulation, and the second displays the first four estimated basis functions. Bandwidth, support, grid size, basis size, and regularization are specified in the code. The comparison concerns this realization and parameter configuration.</p>
+</section>
+<section class="gallery-cell" data-example="26"><details class="gallery-code"><summary>Show Python code</summary><pre><code>def alpha_erlang_kernel_values(t, branching_ratio, decay):
+    t = np.asarray(t, dtype=float)
+    return branching_ratio * decay**2 * t * np.exp(-decay * t)
+
+
+rkhs_kernel_support = 8.0
+rkhs_branching_ratio = 0.35
+rkhs_decay = 1.35
+rkhs_baseline = 0.35
+rkhs_kernel_grid = np.linspace(0.0, rkhs_kernel_support, 400)
+rkhs_true_values = alpha_erlang_kernel_values(rkhs_kernel_grid, rkhs_branching_ratio, rkhs_decay)
+rkhs_true_values[-1] = 0.0
+rkhs_true_kernel = HawkesKernelTimeFunc(
+    TimeFunction(
+        (rkhs_kernel_grid, rkhs_true_values),
+        border_type=TimeFunction.Border0,
+        inter_mode=TimeFunction.InterLinear,
+    )
+)
+rkhs_hawkes = SimuHawkes(
+    baseline=[rkhs_baseline],
+    kernels=[[rkhs_true_kernel]],
+    end_time=1500.0,
+    seed=20260706,
+    verbose=False,
+)
+rkhs_hawkes.simulate()
+rkhs_learner = RKHSHawkes(
+    kernel_support=rkhs_kernel_support,
+    bandwidth=0.25,
+    covariance_spline_order=1,
+    rkhs_grid_size=151,
+    rkhs_basis_size=12,
+    quadrature_size=48,
+    ridge=1e-6,
+).fit(rkhs_hawkes.timestamps, end_times=rkhs_hawkes.end_time)
+
+rkhs_plot_grid = np.linspace(0.0, rkhs_kernel_support, 300)
+fig_kernel, ax = plt.subplots(figsize=(7, 4))
+ax.plot(rkhs_plot_grid, rkhs_true_kernel.get_values(rkhs_plot_grid), label=&quot;true alpha/Erlang kernel&quot;, lw=2)
+ax.plot(rkhs_plot_grid, rkhs_learner.get_kernel_values(0, 0, rkhs_plot_grid), label=&quot;RKHS estimate&quot;, lw=2)
+ax.set_xlabel(&quot;lag&quot;)
+ax.set_ylabel(&quot;kernel value&quot;)
+ax.set_title(&quot;RKHS Hawkes kernel estimate&quot;)
+ax.legend(loc=&quot;best&quot;)
+fig_kernel.tight_layout()
+
+fig_basis = rkhs_learner.plot_basis_functions(3, layout=&quot;grid&quot;, show=False)
+fig_basis.suptitle(&quot;First recovered RKHS basis functions&quot;, y=1.02)
+
+record(
+    &quot;rkhs_alpha_erlang_kernel&quot;,
+    jumps=rkhs_hawkes.n_total_jumps,
+    true_branching_ratio=rkhs_true_kernel.get_norm(),
+    estimated_branching_ratio=rkhs_learner.branching_ratio,
+    estimated_baseline=rkhs_learner.baseline,
+    basis_shape=rkhs_learner.recover_basis_functions(3)[1].shape,
+)
+show_fig(fig_kernel)
+show_fig(fig_basis)
+</code></pre></details>
+<details class="gallery-output"><summary>Show numerical output</summary><pre>{&#x27;example&#x27;: &#x27;rkhs_alpha_erlang_kernel&#x27;, &#x27;jumps&#x27;: 747, &#x27;true_branching_ratio&#x27;: 0.3498932459292863, &#x27;estimated_branching_ratio&#x27;: 0.2886954648109832, &#x27;estimated_baseline&#x27;: [0.35423], &#x27;basis_shape&#x27;: (4, 89)}
+</pre></details>
+<figure><img loading="lazy" src="{{ '/assets/notebooks/hawkes-tools/figure-33.png' | relative_url }}" alt="26. RKHS estimation of an alpha-shaped Hawkes kernel; plot 33; see the preceding experiment heading and Python code for parameters."></figure>
+<figure><img loading="lazy" src="{{ '/assets/notebooks/hawkes-tools/figure-34.png' | relative_url }}" alt="26. RKHS estimation of an alpha-shaped Hawkes kernel; plot 34; see the preceding experiment heading and Python code for parameters."></figure>
+</section>
+<section class="gallery-markdown"><h2 id="Summary">Summary<a class="anchor-link" href="#Summary">&#182;</a></h2><p>The output below collects the records produced by the executed examples, including event counts, fitted quantities, objective values, or diagnostic summaries. Use each record together with its example's model assumptions and figures. Successful execution checks that the calculations run. Assessing parameter recovery, predictive performance, or uncertainty coverage requires checks specific to the statistical question.</p>
 </section>
 <section class="gallery-cell"><details class="gallery-code"><summary>Show Python code</summary><pre><code>results
 </code></pre></details>
@@ -1519,37 +1385,62 @@ record(
    &#x27;T_a&#x27;: 288059,
    &#x27;T_b&#x27;: 332760},
   &#x27;norms_shape&#x27;: (4, 4)},
- {&#x27;example&#x27;: &#x27;inhomogeneous_poisson&#x27;, &#x27;jumps&#x27;: 30},
+ {&#x27;example&#x27;: &#x27;cox_regression_simulation&#x27;,
+  &#x27;observed_rate&#x27;: 0.84,
+  &#x27;samples&#x27;: 150},
+ {&#x27;example&#x27;: &#x27;binary_logistic_classification&#x27;,
+  &#x27;dataset&#x27;: &#x27;binary/adult&#x27;,
+  &#x27;loss&#x27;: 0.33565651974423044,
+  &#x27;auc&#x27;: 0.9003888133008231,
+  &#x27;accuracy&#x27;: 0.8480437319574965},
+ {&#x27;example&#x27;: &#x27;inhomogeneous_poisson&#x27;, &#x27;jumps&#x27;: 23},
  {&#x27;example&#x27;: &#x27;adm4&#x27;,
   &#x27;baseline&#x27;: [0.029456, 0.030518, 0.031557, 0.029651, 0.031178, 0.02953],
   &#x27;adjacency_shape&#x27;: (6, 6),
   &#x27;realizations&#x27;: 5},
+ {&#x27;example&#x27;: &#x27;poisson_regression_solver_comparison&#x27;,
+  &#x27;samples&#x27;: 50000,
+  &#x27;features&#x27;: 100,
+  &#x27;losses&#x27;: {&#x27;GD&#x27;: 1.261951,
+   &#x27;AGD&#x27;: 1.259257,
+   &#x27;SVRG&#x27;: 1.259068,
+   &#x27;BFGS&#x27;: 1.259067}},
  {&#x27;example&#x27;: &#x27;sum_gaussians&#x27;,
   &#x27;realizations&#x27;: 10,
   &#x27;jumps&#x27;: 13214,
-  &#x27;sim_elapsed&#x27;: 0.22696880000148667,
-  &#x27;fit_elapsed&#x27;: 0.7296596000014688,
+  &#x27;sim_elapsed&#x27;: 0.18839149999985239,
+  &#x27;fit_elapsed&#x27;: 0.7696012000014889,
   &#x27;norms_shape&#x27;: (2, 2)},
  {&#x27;example&#x27;: &#x27;conditional_law_powerlaw&#x27;,
   &#x27;jumps&#x27;: 9198,
-  &#x27;sim_elapsed&#x27;: 1.23270169999887,
-  &#x27;fit_elapsed&#x27;: 0.06989889999749721,
+  &#x27;sim_elapsed&#x27;: 1.111101000002236,
+  &#x27;fit_elapsed&#x27;: 0.046494099995470606,
   &#x27;true_norms&#x27;: [[0.387083, 0.258055], [0.129028, 0.161285]],
   &#x27;estimated_norms&#x27;: [[0.342006, 0.249228], [0.144305, 0.003891]],
   &#x27;nonpositive_grid_values&#x27;: [[14, 9], [10, 23]],
   &#x27;norms_shape&#x27;: (2, 2)},
  {&#x27;example&#x27;: &#x27;hawkes_em_random&#x27;,
-  &#x27;baseline&#x27;: [0.10975, 0.286189],
+  &#x27;baseline&#x27;: [0.109382, 0.2864],
   &#x27;norms_shape&#x27;: (2, 2),
   &#x27;jumps&#x27;: 34204,
-  &#x27;sim_elapsed&#x27;: 1.9031162999999651,
-  &#x27;fit_elapsed&#x27;: 0.09559190000072704},
+  &#x27;sim_elapsed&#x27;: 1.83320090000052,
+  &#x27;fit_elapsed&#x27;: 0.07709659999818541},
  {&#x27;example&#x27;: &#x27;prox_operators&#x27;, &#x27;n_prox&#x27;: 11, &#x27;output_shape&#x27;: (50,)},
+ {&#x27;example&#x27;: &#x27;precision_vs_speed_tradeoff&#x27;,
+  &#x27;dataset&#x27;: &#x27;binary/adult&#x27;,
+  &#x27;loss64&#x27;: 0.36537318428055593,
+  &#x27;loss32&#x27;: 0.36537318440746286,
+  &#x27;coefficient_gap&#x27;: 6.534161858290884e-08},
+ {&#x27;example&#x27;: &#x27;linear_models_data_simulation&#x27;,
+  &#x27;shape&#x27;: (150, 2),
+  &#x27;linear_mean&#x27;: 0.4139763795804787,
+  &#x27;logistic_rate&#x27;: 0.62,
+  &#x27;poisson_mean&#x27;: 3.546666666666667},
  {&#x27;example&#x27;: &#x27;exotic_kernel_simulation&#x27;, &#x27;jumps&#x27;: 154},
  {&#x27;example&#x27;: &#x27;cumulant_matching&#x27;,
   &#x27;jumps&#x27;: 718259,
-  &#x27;simulation_elapsed&#x27;: 0.1563408999973035,
-  &#x27;fit_elapsed&#x27;: 0.2650023999995028,
+  &#x27;simulation_elapsed&#x27;: 0.1403314000053797,
+  &#x27;fit_elapsed&#x27;: 0.26324600000225473,
   &#x27;mean_intensity&#x27;: [0.436186, 0.401416, 0.598916],
   &#x27;norms_shape&#x27;: (3, 3)},
  {&#x27;example&#x27;: &#x27;automatic_step_choice&#x27;,
@@ -1562,18 +1453,37 @@ record(
    &#x27;0.01 / lip_max&#x27;: 0.6893520580268038,
    &#x27;10 / lip_max&#x27;: 0.46479337762059886,
    &#x27;BB from lip_max&#x27;: 0.46013842024115714}},
+ {&#x27;example&#x27;: &#x27;robust_linear_model&#x27;,
+  &#x27;samples&#x27;: 1000,
+  &#x27;features&#x27;: 5,
+  &#x27;fdp&#x27;: 0.0,
+  &#x27;power&#x27;: 1.0,
+  &#x27;selected_outliers&#x27;: 50},
  {&#x27;example&#x27;: &#x27;asynchronous_stochastic_solver&#x27;,
   &#x27;n_samples&#x27;: 40000,
   &#x27;n_features&#x27;: 20000,
   &#x27;density&#x27;: 0.0001,
   &#x27;matrix_nnz&#x27;: 80000,
   &#x27;step&#x27;: 0.6592629157331775,
-  &#x27;elapsed&#x27;: {&#x27;SVRG - 1 threads&#x27;: 0.6171523000011803,
-   &#x27;SVRG - 2 threads&#x27;: 0.4768535000002885,
-   &#x27;SVRG - 4 threads&#x27;: 0.42499619999944116,
-   &#x27;SAGA - 1 threads&#x27;: 0.9300313999992795,
-   &#x27;SAGA - 2 threads&#x27;: 0.6965632999999798,
-   &#x27;SAGA - 4 threads&#x27;: 0.5595461999982945}},
+  &#x27;elapsed&#x27;: {&#x27;SVRG - 1 threads&#x27;: 0.5956194000027608,
+   &#x27;SVRG - 2 threads&#x27;: 0.47194020000461023,
+   &#x27;SVRG - 4 threads&#x27;: 0.37624030000006314,
+   &#x27;SAGA - 1 threads&#x27;: 0.8409358999997494,
+   &#x27;SAGA - 2 threads&#x27;: 0.6298297000030288,
+   &#x27;SAGA - 4 threads&#x27;: 0.4848813999997219}},
+ {&#x27;example&#x27;: &#x27;logistic_bfgs_vs_gd_comparison&#x27;,
+  &#x27;dataset&#x27;: &#x27;binary/adult&#x27;,
+  &#x27;standalone_auc&#x27;: 0.9014282485251963,
+  &#x27;gd_auc&#x27;: 0.9003888133008231,
+  &#x27;standalone_success&#x27;: True},
+ {&#x27;example&#x27;: &#x27;varying_baseline_simulation&#x27;, &#x27;jumps&#x27;: 102},
+ {&#x27;example&#x27;: &#x27;basis_kernels&#x27;, &#x27;jumps&#x27;: 32847, &#x27;norms_shape&#x27;: (2, 2)},
+ {&#x27;example&#x27;: &#x27;varying_baseline_fit&#x27;, &#x27;norms_shape&#x27;: (2, 2)},
+ {&#x27;example&#x27;: &#x27;linear_regression_2d&#x27;,
+  &#x27;dataset&#x27;: &#x27;regression/abalone&#x27;,
+  &#x27;coefficients&#x27;: [-0.416518, 1.59415, 9.93399],
+  &#x27;mse&#x27;: 7.114726906465553},
+ {&#x27;example&#x27;: &#x27;estimated_intensity&#x27;, &#x27;jumps&#x27;: 1459, &#x27;norms_shape&#x27;: (2, 2)},
  {&#x27;example&#x27;: &#x27;glm_solver_convergence&#x27;,
   &#x27;model_types&#x27;: [&#x27;Linear&#x27;, &#x27;Logistic&#x27;, &#x27;Poisson&#x27;],
   &#x27;l_l2sqs&#x27;: [0.001, 0.01, 0.1],
@@ -1625,62 +1535,18 @@ record(
     &#x27;SDCA&#x27;: 1.314346156115492,
     &#x27;GD&#x27;: 1.3135250394402365,
     &#x27;AGD&#x27;: 1.3135250395539981}}},
- {&#x27;example&#x27;: &#x27;varying_baseline_simulation&#x27;, &#x27;jumps&#x27;: 102},
- {&#x27;example&#x27;: &#x27;basis_kernels&#x27;, &#x27;jumps&#x27;: 32847, &#x27;norms_shape&#x27;: (2, 2)},
- {&#x27;example&#x27;: &#x27;rkhs_alpha_erlang_kernel&#x27;,
-  &#x27;jumps&#x27;: 747,
-  &#x27;true_branching_ratio&#x27;: 0.3498932459292863,
-  &#x27;estimated_branching_ratio&#x27;: 0.2886954648109832,
-  &#x27;estimated_baseline&#x27;: [0.35423],
-  &#x27;basis_shape&#x27;: (4, 89)},
- {&#x27;example&#x27;: &#x27;varying_baseline_fit&#x27;, &#x27;norms_shape&#x27;: (2, 2)},
- {&#x27;example&#x27;: &#x27;estimated_intensity&#x27;, &#x27;jumps&#x27;: 1459, &#x27;norms_shape&#x27;: (2, 2)},
- {&#x27;example&#x27;: &#x27;cox_regression_simulation&#x27;,
-  &#x27;observed_rate&#x27;: 0.84,
-  &#x27;samples&#x27;: 150},
- {&#x27;example&#x27;: &#x27;binary_logistic_classification&#x27;,
-  &#x27;dataset&#x27;: &#x27;binary/adult&#x27;,
-  &#x27;loss&#x27;: 0.33565651974423044,
-  &#x27;auc&#x27;: 0.9003888133008231,
-  &#x27;accuracy&#x27;: 0.8480437319574965},
- {&#x27;example&#x27;: &#x27;poisson_regression_solver_comparison&#x27;,
-  &#x27;samples&#x27;: 50000,
-  &#x27;features&#x27;: 100,
-  &#x27;losses&#x27;: {&#x27;GD&#x27;: 1.261951,
-   &#x27;AGD&#x27;: 1.259257,
-   &#x27;SVRG&#x27;: 1.259068,
-   &#x27;BFGS&#x27;: 1.259067}},
- {&#x27;example&#x27;: &#x27;precision_vs_speed_tradeoff&#x27;,
-  &#x27;dataset&#x27;: &#x27;binary/adult&#x27;,
-  &#x27;loss64&#x27;: 0.36537318428055593,
-  &#x27;loss32&#x27;: 0.36537318440746286,
-  &#x27;coefficient_gap&#x27;: 6.534161858290884e-08},
- {&#x27;example&#x27;: &#x27;linear_models_data_simulation&#x27;,
-  &#x27;shape&#x27;: (150, 2),
-  &#x27;linear_mean&#x27;: 0.4139763795804787,
-  &#x27;logistic_rate&#x27;: 0.62,
-  &#x27;poisson_mean&#x27;: 3.546666666666667},
- {&#x27;example&#x27;: &#x27;robust_linear_model&#x27;,
-  &#x27;samples&#x27;: 1000,
-  &#x27;features&#x27;: 5,
-  &#x27;fdp&#x27;: 0.0,
-  &#x27;power&#x27;: 1.0,
-  &#x27;selected_outliers&#x27;: 50},
- {&#x27;example&#x27;: &#x27;logistic_bfgs_vs_gd_comparison&#x27;,
-  &#x27;dataset&#x27;: &#x27;binary/adult&#x27;,
-  &#x27;standalone_auc&#x27;: 0.9014282485251963,
-  &#x27;gd_auc&#x27;: 0.9003888133008231,
-  &#x27;standalone_success&#x27;: True},
- {&#x27;example&#x27;: &#x27;linear_regression_2d&#x27;,
-  &#x27;dataset&#x27;: &#x27;regression/abalone&#x27;,
-  &#x27;coefficients&#x27;: [-0.416518, 1.59415, 9.93399],
-  &#x27;mse&#x27;: 7.114726906465553},
  {&#x27;example&#x27;: &#x27;conv_sccs_cv_results&#x27;,
   &#x27;patients&#x27;: 2000,
   &#x27;intervals&#x27;: 750,
   &#x27;features&#x27;: 4,
   &#x27;age_groups&#x27;: 6,
-  &#x27;sim_elapsed&#x27;: 3.2690513000015926,
-  &#x27;fit_elapsed&#x27;: 16.417111900002055}]</pre></details>
+  &#x27;sim_elapsed&#x27;: 2.4254174000016064,
+  &#x27;fit_elapsed&#x27;: 13.012562399999297},
+ {&#x27;example&#x27;: &#x27;rkhs_alpha_erlang_kernel&#x27;,
+  &#x27;jumps&#x27;: 747,
+  &#x27;true_branching_ratio&#x27;: 0.3498932459292863,
+  &#x27;estimated_branching_ratio&#x27;: 0.2886954648109832,
+  &#x27;estimated_baseline&#x27;: [0.35423],
+  &#x27;basis_shape&#x27;: (4, 89)}]</pre></details>
 </section>
 </main>
