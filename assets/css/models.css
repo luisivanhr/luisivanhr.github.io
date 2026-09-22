@@ -473,6 +473,16 @@
   text-decoration: none;
 }
 
+.models-detail-thumb--contain {
+  aspect-ratio: auto;
+}
+
+.models-detail-thumb--contain img {
+  display: block;
+  height: auto;
+  object-fit: contain;
+}
+
 .models-detail h2 {
   margin: 0;
   color: var(--models-blue);

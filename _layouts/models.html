@@ -254,7 +254,7 @@ layout: default
                   <span class="model-type-label model-type-{{ type_slug }}">{{ model_type }}</span>
                 </header>
 
-                <a class="models-detail-thumb" href="{{ model.url | relative_url }}">
+                <a class="models-detail-thumb{% if model.image_fit == 'contain' %} models-detail-thumb--contain{% endif %}" href="{{ model.url | relative_url }}">
                   {% if model.image %}
                     <img src="{{ model.hero_image | default: model.image | relative_url }}" alt="{{ model.image_alt | default: model.title | escape }}">
                   {% else %}
