@@ -2,13 +2,13 @@
 layout: model
 title: "Hawkes Tools"
 permalink: /models/hawkes-tools/
-date: 2026-09-23 00:00:00 +0900
-updated: 2026-09-23
+date: 2025-11-12 00:00:00 +0900
+updated: 2026-08-16
 image: /assets/thumbs/models/hawkes-tools.png
 hero_image: /assets/images/hawkes-tools/nonconstant-baseline.png
 image_alt: "Simulated Hawkes intensity and a periodic baseline, with event times below"
 image_fit: contain
-summary: "Python tools for simulating event streams, estimating Hawkes interactions, and exploring point-process models through a reproducible gallery."
+summary: "Python tools for simulating event streams and performing estimation on time series data, especially when they exhibit a self-exciting nature."
 model_type: Statistical
 domain: Hawkes and point processes
 language: Python
@@ -25,8 +25,8 @@ use_cases:
   - Inspect intensity and residual diagnostics
 limitations: "Support varies by estimator. RKHS bandwidth is user-selected. Reproducing random streams from compiled implementations and asynchronous solver-worker behavior are outside the supported scope."
 updates:
-  - date: 2026-09-23
-    title: "Initial model page, repository snapshot, gallery guide, and an original rendering of experiment 19."
+  - date: 2026-08-16
+    title: "Model overview, example notebook, and Hawkes simulation plots."
 resources:
   - label: Source code
     type: source
@@ -39,7 +39,7 @@ resources:
     url: /assets/notebooks/hawkes-tools/gallery.ipynb
   - label: API support and limitations
     type: note
-    url: https://github.com/luisivanhr/hawkes-tools/blob/004a1220fdf5be9c11bd55ac8bb534f0d433faf7/PARITY.md
+    url: https://github.com/luisivanhr/hawkes-tools/blob/HEAD/PARITY.md
 ---
 
 ## What the package does
@@ -50,11 +50,11 @@ Hawkes processes describe event arrivals whose rate depends on earlier events. A
 
 ## Current state
 
-This page describes repository commit [`004a122`](https://github.com/luisivanhr/hawkes-tools/tree/004a1220fdf5be9c11bd55ac8bb534f0d433faf7). Its package metadata declares **version 0.1.0** and **Python 3.11 or later**, with NumPy, SciPy, Matplotlib, and Numba as required dependencies. Numba compiles numerical routines on first use, so initial execution includes compilation time. PyTorch is an optional dependency for the PyTorch-backed cumulant learners.
+Hawkes Tools requires **Python 3.11 or later** and uses NumPy, SciPy, Matplotlib, and Numba for its numerical calculations and plots. Numba compiles numerical routines on first use, so initial execution includes compilation time. PyTorch is an optional dependency for the PyTorch-backed cumulant learners.
 
-The Hawkes API includes exponential, sum-exponential, power-law, and time-function kernels. Estimation methods include likelihood and least-squares models, expectation-maximization (EM), conditional-law estimation, basis kernels, cumulant matching, and a univariate reproducing kernel Hilbert space (RKHS) estimator. The [support matrix](https://github.com/luisivanhr/hawkes-tools/blob/004a1220fdf5be9c11bd55ac8bb534f0d433faf7/PARITY.md) specifies the supported methods and exclusions for each family.
+The Hawkes API includes exponential, sum-exponential, power-law, and time-function kernels. Estimation methods include likelihood and least-squares models, expectation-maximization (EM), conditional-law estimation, basis kernels, cumulant matching, and a univariate reproducing kernel Hilbert space (RKHS) estimator. The [support matrix](https://github.com/luisivanhr/hawkes-tools/blob/HEAD/PARITY.md) specifies the supported methods and exclusions for each family.
 
-The [repository README](https://github.com/luisivanhr/hawkes-tools/blob/004a1220fdf5be9c11bd55ac8bb534f0d433faf7/README.md) records a stabilization baseline of 260 passing tests, 171 passing source-backed Hawkes behavior cases, and a successful run of the original 25 gallery examples. These are the repository's reported results. The linked notebook also includes an additional RKHS example. Test coverage establishes specific implementation checks; suitability for a new dataset still requires model assessment.
+The [repository README](https://github.com/luisivanhr/hawkes-tools/blob/HEAD/README.md) records a stabilization baseline of 260 passing tests, 171 passing source-backed Hawkes behavior cases, and a successful run of the original 25 gallery examples. These are the repository's reported results. The linked notebook also includes an additional RKHS example. Test coverage establishes specific implementation checks; suitability for a new dataset still requires model assessment.
 
 ## Hawkes simulation with a periodic baseline
 
@@ -91,7 +91,7 @@ Non-parametric methods let us estimate how an event's contribution changes over 
 
 ### Inspect intensity and residual behavior
 
-Intensity plots show when a model assigns high or low event rates. Time-rescaling diagnostics integrate the conditional intensity between events. A quantile-quantile (QQ) plot compares these increments with the quantiles of an exponential distribution with mean one. The [diagnostic notebook](https://github.com/luisivanhr/hawkes-tools/blob/004a1220fdf5be9c11bd55ac8bb534f0d433faf7/examples/hawkes_time_rescaling_gof.ipynb) includes checks using both generating and fitted intensities for univariate models across several kernel families. The gallery's intensity example uses the generating simulator for its QQ plot, so that plot alone does not assess the fitted learner.
+Intensity plots show when a model assigns high or low event rates. Time-rescaling diagnostics integrate the conditional intensity between events. A quantile-quantile (QQ) plot compares these increments with the quantiles of an exponential distribution with mean one. The [diagnostic notebook](https://github.com/luisivanhr/hawkes-tools/blob/HEAD/examples/hawkes_time_rescaling_gof.ipynb) includes checks using both generating and fitted intensities for univariate models across several kernel families. The gallery's intensity example uses the generating simulator for its QQ plot, so that plot alone does not assess the fitted learner.
 
 ## Run the examples
 
@@ -105,4 +105,4 @@ The [example notebook]({{ '/models/hawkes-tools-gallery/' | relative_url }}) dis
 
 The source scripts under `examples/` also provide individual entry points. Smaller supplied datasets are bundled; managed external datasets can require a download and a writable cache. Consult the README for dataset sizes before loading the largest examples.
 
-The snapshot links preserve the version described here. Consult the live repository for updates and the latest usage notes.
+Consult the repository for updates and usage notes.
