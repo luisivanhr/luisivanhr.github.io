@@ -100,15 +100,19 @@ sections:
     meta: Optional background
 updates:
   - title: Complete runnable programs and improved equation rendering
+    summary: Added complete programs, dependency instructions, and numerical checks to the simulation examples. Adjusted equation spacing to keep superscripts visible.
     date: March 23, 2026
     url: /courses/copulas/04-densities-and-conditioning/#simulation
   - title: Expandable proofs, background appendix, and notation clarifications
+    summary: Added optional proofs for a deeper dive, a short appendix with the background results they use, and definitions for previously unexplained notation.
     date: March 16, 2026
     url: /courses/copulas/appendix-background/
   - title: Simulation figures, common-factor workshop, and MCMC lessons
+    summary: Added copula surfaces and simulation figures, a workshop on joint defaults with a common factor, and MCMC theory with a worked Bayesian estimation workshop.
     date: February 2026
     url: /courses/copulas/09a-common-factor-workshop/
   - title: Foundations, copula families, and worked exercises
+    summary: Introduced the core theory from joint distributions and Sklar's theorem to copula families, dependence measures, and applications, with worked examples and exercise answers.
     date: January 2026
     url: /courses/copulas/01-probability-and-margins/
 ---
