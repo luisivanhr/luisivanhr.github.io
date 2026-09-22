@@ -37,7 +37,7 @@ layout: default
     <section class="model-dossier-top">
       <figure class="model-dossier-media{% if page.image_fit == 'contain' %} model-dossier-media--contain{% endif %}">
         {% if page.image %}
-          <img src="{{ page.image | relative_url }}" alt="{{ page.image_alt | default: page.title | escape }} thumbnail">
+          <img src="{{ page.hero_image | default: page.image | relative_url }}" alt="{{ page.image_alt | default: page.title | escape }} thumbnail">
         {% else %}
           <span class="model-dossier-media-fallback" aria-hidden="true"></span>
         {% endif %}
