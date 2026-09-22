@@ -2,7 +2,7 @@
 layout: model
 title: "Hawkes Tools"
 permalink: /models/hawkes-tools/
-date: 2026-09-23
+date: 2026-09-23 00:00:00 +0900
 updated: 2026-09-23
 image: /assets/thumbs/models/hawkes-tools.png
 image_alt: "Simulated Hawkes intensity and a periodic baseline, with event times below"
