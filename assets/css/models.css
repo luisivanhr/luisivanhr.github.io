@@ -441,7 +441,8 @@
   box-shadow: var(--models-panel-shadow);
 }
 
-.models-detail[hidden] {
+.models-detail[hidden],
+[data-model-row][hidden] {
   display: none !important;
 }
 

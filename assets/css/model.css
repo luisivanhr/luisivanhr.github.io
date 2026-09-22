@@ -425,6 +425,36 @@
   color: var(--model-blue);
 }
 
+.model-dossier-media--contain {
+  align-content: center;
+}
+
+.model-dossier-media--contain img {
+  position: relative;
+  height: auto;
+  object-fit: contain;
+}
+
+.model-dossier-media--contain::after {
+  display: none;
+}
+
+.model-content figure {
+  margin: 24px 0;
+}
+
+.model-content figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.model-content figcaption {
+  margin-top: 12px;
+  color: var(--model-muted);
+  font-size: 0.92rem;
+}
+
 .model-resource-link:hover,
 .model-resource-link:focus-visible,
 .model-nav-btn:hover,

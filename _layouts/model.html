@@ -35,7 +35,7 @@ layout: default
 
   <article class="model-dossier-shell">
     <section class="model-dossier-top">
-      <figure class="model-dossier-media">
+      <figure class="model-dossier-media{% if page.image_fit == 'contain' %} model-dossier-media--contain{% endif %}">
         {% if page.image %}
           <img src="{{ page.image | relative_url }}" alt="{{ page.image_alt | default: page.title | escape }} thumbnail">
         {% else %}
@@ -106,6 +106,13 @@ layout: default
             </tbody>
           </table>
         </section>
+
+        {% assign model_body = content | strip %}
+        {% if model_body != "" %}
+          <section class="model-dossier-card model-content" aria-label="Model documentation">
+            {{ content }}
+          </section>
+        {% endif %}
 
         <section class="model-dossier-card">
           <h2>Update Record</h2>

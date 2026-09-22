@@ -272,6 +272,17 @@ function setupDPRListener(onDPRChange = resizeFxCanvas){
   const el = document.getElementById('screen-models');
   if (!el) return;
 
+  // Perspective projection: the far edge is 85% of the near edge's height.
+  // Transform the image and caption together rather than clipping their right side.
+  function fitMonitorSurface() {
+    const width = el.clientWidth;
+    if (!width) return;
+    const perspective = 1 / 0.85 - 1;
+    el.style.transform = `matrix3d(${1 + perspective},0,0,${perspective / width},0,1,0,0,0,0,1,0,0,0,0,1)`;
+  }
+  fitMonitorSurface();
+  new ResizeObserver(fitMonitorSurface).observe(el);
+
   const src = el.getAttribute('data-src');
   const SAMPLE_SIZE = 8;
   const RECENT_COUNT = 3;
