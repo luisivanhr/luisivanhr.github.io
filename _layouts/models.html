@@ -256,7 +256,7 @@ layout: default
 
                 <a class="models-detail-thumb" href="{{ model.url | relative_url }}">
                   {% if model.image %}
-                    <img src="{{ model.image | relative_url }}" alt="{{ model.title }} thumbnail">
+                    <img src="{{ model.hero_image | default: model.image | relative_url }}" alt="{{ model.image_alt | default: model.title | escape }}">
                   {% else %}
                     <span class="models-thumb-fallback"></span>
                   {% endif %}
