@@ -3,7 +3,7 @@ title: Copulas
 layout: course
 permalink: /courses/copulas/
 date: 2026-01-01
-updated: 2026-01-01
+updated: 2026-03-23
 summary: A course on dependence, from joint distributions and Sklar's theorem to simulation, Bayesian estimation, and financial applications.
 excerpt: Learn copulas through definitions, worked derivations, original figures, and exercises with answers.
 image: /assets/images/copulas/gumbel-cover.svg
@@ -11,7 +11,7 @@ image_alt: Contours of the Gumbel copula with parameter two
 track: Probability and statistics
 status: Complete course
 audience: Undergraduates with elementary probability and calculus
-latest_update: Twenty-three lessons, three optional extensions, a reference guide, and a background appendix
+latest_update: Complete runnable programs and improved equation rendering
 index_url: /courses/copulas/index/
 sections:
   - title: "1. Probability and Marginal Distributions"
@@ -99,7 +99,16 @@ sections:
     url: /courses/copulas/appendix-background/
     meta: Optional background
 updates:
-  - title: Foundations, extensions, figures, and worked exercises
+  - title: Complete runnable programs and improved equation rendering
+    date: March 23, 2026
+    url: /courses/copulas/04-densities-and-conditioning/#simulation
+  - title: Expandable proofs, background appendix, and notation clarifications
+    date: March 16, 2026
+    url: /courses/copulas/appendix-background/
+  - title: Simulation figures, common-factor workshop, and MCMC lessons
+    date: February 2026
+    url: /courses/copulas/09a-common-factor-workshop/
+  - title: Foundations, copula families, and worked exercises
     date: January 2026
     url: /courses/copulas/01-probability-and-margins/
 ---
