@@ -34,11 +34,15 @@ layout: default
         {% if course_description %}
           <p>{{ course_description }}</p>
         {% endif %}
+        {% if page.course_objective %}
+        <p class="course-objective">{{ page.course_objective }}</p>
+        {% else %}
         <div class="course-meta-grid" aria-label="Course metadata">
           <div><b>Status</b><span>{{ course_status }}</span></div>
           <div><b>Latest update</b><span>{{ course_latest_update }}</span></div>
           <div><b>Audience</b><span>{{ course_audience }}</span></div>
         </div>
+        {% endif %}
       </div>
 
       {% if page.image %}

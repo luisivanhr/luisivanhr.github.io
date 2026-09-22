@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 420" role="img" aria-labelledby="title desc">
+<title id="title">Agent and environment</title><desc id="desc">The agent sends an action to the environment. The environment returns the state and reward.</desc>
+<defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#176b76"/></marker></defs>
+<rect width="700" height="420" rx="24" fill="#edf5f3"/>
+<g fill="#fff" stroke="#176b76" stroke-width="3"><rect x="240" y="55" width="220" height="90" rx="14"/><rect x="240" y="275" width="220" height="90" rx="14"/></g>
+<g fill="none" stroke="#176b76" stroke-width="4" marker-end="url(#arrow)"><path d="M460 100C645 100 645 320 472 320"/><path d="M240 320C55 320 55 100 228 100"/></g>
+<g fill="#173b42" font-family="system-ui,sans-serif" text-anchor="middle"><text x="350" y="110" font-size="30">Agent</text><text x="350" y="330" font-size="29">Environment</text><text x="520" y="208" font-size="24">Action</text><text x="180" y="199" font-size="21">State,</text><text x="180" y="226" font-size="21">reward</text><text x="520" y="243" font-size="25" font-family="Georgia,serif" font-style="italic">a<tspan baseline-shift="sub" font-size="17">t</tspan></text><text x="180" y="260" font-size="25" font-family="Georgia,serif" font-style="italic">s<tspan baseline-shift="sub" font-size="17">t</tspan>, r<tspan baseline-shift="sub" font-size="17">t</tspan></text></g>
+</svg>

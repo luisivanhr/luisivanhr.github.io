@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 350" role="img" aria-labelledby="title desc">
+<title id="title">A walker near a cliff</title><desc id="desc">Two schematic routes from S to G. The wider route leaves more space above the cliff; the closer route passes directly above it. Falling into the cliff gives reward minus 100.</desc>
+<defs><pattern id="grid" width="60" height="48" patternUnits="userSpaceOnUse" x="60" y="44"><path d="M60 0H0V48" fill="none" stroke="#9fb4b7" stroke-width="1.5"/></pattern><marker id="tip" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0 0L6 3L0 6Z" fill="#176b76"/></marker></defs>
+<rect width="720" height="350" rx="20" fill="#edf5f3"/>
+<rect x="60" y="44" width="600" height="192" fill="#fff" stroke="#9fb4b7"/>
+<rect x="60" y="44" width="600" height="192" fill="url(#grid)"/>
+<rect x="120" y="188" width="480" height="48" fill="#f1dedc" stroke="#a84646"/>
+<g fill="#173b42" font-family="system-ui,sans-serif" text-anchor="middle" font-size="22"><text x="90" y="221">S</text><text x="630" y="221">G</text><text x="360" y="219">Cliff: −100</text></g>
+<g fill="none" stroke="#176b76" stroke-width="4" marker-end="url(#tip)"><path d="M80 197V70H638V197"/><path d="M100 197V165H618V197" stroke-dasharray="8 6"/></g>
+<g fill="#173b42" font-family="system-ui,sans-serif" font-size="20"><path d="M75 280H125" stroke="#176b76" stroke-width="4"/><text x="140" y="287">Wider route</text><path d="M390 280H440" stroke="#176b76" stroke-width="4" stroke-dasharray="8 6"/><text x="455" y="287">Closer route</text></g>
+</svg>
