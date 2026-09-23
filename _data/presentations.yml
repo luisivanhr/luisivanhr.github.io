@@ -1,3 +1,25 @@
+- id: renewal-hawkes-cluster-lisp-2026
+  date: "2026-06-10"
+  updated: "2026-06-10"
+  title: "Renewal Hawkes Processes: Cluster Representations and Limit Theorems"
+  event: "Life insurance mathematics, stochastic processes and related topics 2026 (Osaka University, Japan)"
+  format: "Face-to-face presentation"
+  kind: "Presentation"
+  mode: "Face-to-face"
+  date_label: "2026/06/10-12"
+  date_start: "2026-06-10"
+  date_end: "2026-06-12"
+  date_card_month: "Jun"
+  date_card_day: "10"
+  date_card_year: "2026"
+  event_url: "https://sites.google.com/view/lisp2026/ホーム?authuser=0"
+  slides_url: "https://drive.google.com/file/d/18tDlyfYCUtD35VwY2l1zjBrd_7VlSx7M/view?usp=sharing"
+  topics:
+    - "Statistics"
+  filters:
+    - "presentation"
+    - "face-to-face"
+
 - id: embedding-methods-football
   date: "2025-03-24"
   updated: "2025-03-24"
