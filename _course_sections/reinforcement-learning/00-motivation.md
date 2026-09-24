@@ -2,7 +2,7 @@
 title: Motivation
 permalink: /courses/reinforcement-learning/00-motivation/
 date: 2026-09-22
-updated: 2026-09-22
+updated: 2026-09-25
 course_title: A Brief Introduction to Reinforcement Learning
 course_url: /courses/reinforcement-learning/
 course_section_style: theory

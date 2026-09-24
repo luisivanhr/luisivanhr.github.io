@@ -2,7 +2,7 @@
 title: Value Functions and Bellman Equations
 permalink: /courses/reinforcement-learning/02-value-functions/
 date: 2026-09-22
-updated: 2026-09-23
+updated: 2026-09-25
 course_title: A Brief Introduction to Reinforcement Learning
 course_url: /courses/reinforcement-learning/
 course_section_style: theory
@@ -77,5 +77,4 @@ next_section:
 <p>\[V^{\bar\pi}\le T^{\widehat\pi}V^{\bar\pi}\le(T^{\widehat\pi})^2V^{\bar\pi}\le\cdots\le(T^{\widehat\pi})^nV^{\bar\pi}.\]</p>
 <p>By Banach's fixed point theorem, it has a unique fixed point \(V^{\widehat\pi}\). Taking the limit, we get \(V^{\bar\pi}(s)\le V^{\widehat\pi}(s)\) for every \(s\in S\).</p>
 </div></details>
-<div class="problem-grid"><article class="exercise"><header class="exercise-head"><div><strong>Recall</strong><span>Advantage functions</span></div><button class="answer-button" type="button">Show answer</button></header><div class="exercise-body"><p>The relative advantage of an action.</p></div><div class="answer-panel"><div class="answer-inner"><p>\[A^{\bar\pi}(s,a)=Q^{\bar\pi}(s,a)-V^{\bar\pi}(s).\]</p></div></div></article></div>
 <h2 id="sources">References</h2><p class="course-references">Shengbo Eben Li, <em>Reinforcement Learning for Sequential Decision and Optimal Control</em> (2023), Chapter 2.</p>

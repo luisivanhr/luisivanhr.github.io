@@ -1050,6 +1050,16 @@
   background: #fbfcfd;
 }
 
+.course-home-page[data-course-slug="reinforcement-learning"] .course-home-image {
+  align-self: center;
+  aspect-ratio: 1;
+  min-height: 0;
+}
+
+.course-home-page[data-course-slug="reinforcement-learning"] .course-home-image img {
+  object-fit: cover;
+}
+
 .course-home-content {
   padding: clamp(22px, 3vw, 34px) clamp(28px, 5vw, 58px) 0;
   color: #2b3a42;

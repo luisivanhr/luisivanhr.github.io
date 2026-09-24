@@ -3,11 +3,13 @@ title: A Brief Introduction to Reinforcement Learning
 layout: course
 permalink: /courses/reinforcement-learning/
 date: 2026-09-22
-updated: 2026-09-22
+updated: 2026-09-25
 summary: A very brief introduction to RL, from policies and value functions to TD error, Q-learning, and deep RL architectures.
 excerpt: A two-hour introduction to reinforcement learning.
 image: /assets/images/reinforcement-learning/agent-environment.svg
 image_alt: An agent sends actions to an environment and receives states and rewards.
+course_hero_image: /assets/images/reinforcement-learning/reinforcement_learning_hero_surfaces.svg
+course_hero_image_alt: Two value surfaces for the cliff-walking problem.
 track: Machine learning
 index_url: /courses/reinforcement-learning/index/
 course_objective: I would like to give a quick overview of the concepts and the most common architectures in deep RL, with options for readers to explore further in any direction they find interesting.

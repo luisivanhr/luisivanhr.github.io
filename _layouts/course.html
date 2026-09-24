@@ -5,6 +5,8 @@ layout: default
 <link rel="stylesheet" href="{{ '/assets/css/course-material.css' | relative_url }}?v={{ asset_version }}">
 
 {% assign course_title = page.course_title | default: page.title %}
+{% assign course_hero_image = page.course_hero_image | default: page.image %}
+{% assign course_hero_image_alt = page.course_hero_image_alt | default: page.image_alt | default: course_title %}
 {% assign course_description = page.summary | default: page.description | default: page.excerpt %}
 {% assign course_status = page.status | default: page.course_status | default: "Course" %}
 {% assign course_audience = page.audience | default: "General" %}
@@ -45,9 +47,9 @@ layout: default
         {% endif %}
       </div>
 
-      {% if page.image %}
+      {% if course_hero_image %}
         <figure class="course-home-image">
-          <img src="{{ page.image | relative_url }}" alt="{{ page.image_alt | default: course_title | escape }}">
+          <img src="{{ course_hero_image | relative_url }}" alt="{{ course_hero_image_alt | escape }}">
         </figure>
       {% else %}
         <div class="course-home-image course-home-image--empty">Optional image area</div>

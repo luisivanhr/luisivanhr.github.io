@@ -2,7 +2,7 @@
 title: Key Concepts
 permalink: /courses/reinforcement-learning/01-key-concepts/
 date: 2026-09-22
-updated: 2026-09-23
+updated: 2026-09-25
 course_title: A Brief Introduction to Reinforcement Learning
 course_url: /courses/reinforcement-learning/
 course_section_style: theory
@@ -70,5 +70,4 @@ next_section:
 <p>\[J(\bar\pi)=\int_{\Omega_\tau}R(\tau)\,P(d\tau\mid\bar\pi),\qquad\Omega_\tau=S\times A\times\cdots\times S.\]</p>
 <p>Sometimes the joint distribution \(P(s',r\mid s,a)\) is considered; \(P(s'\mid s,a)=\sum_r P(s',r\mid s,a)\) is the marginal in the discrete case.</p>
 </div></details>
-<div class="problem-grid"><article class="exercise"><header class="exercise-head"><div><strong>Recall</strong><span>Reward and return</span></div><button class="answer-button" type="button">Show answer</button></header><div class="exercise-body"><p>Finite-horizon undiscounted return; infinite-horizon discounted return.</p></div><div class="answer-panel"><div class="answer-inner"><p>\[R(\tau)=\sum_{t=0}^T r_t,\qquad R(\tau)=\sum_{t=0}^{\infty}\gamma^t r_t.\]</p></div></div></article></div>
 <h2 id="sources">References</h2><p class="course-references">Shengbo Eben Li, <em>Reinforcement Learning for Sequential Decision and Optimal Control</em> (2023), Chapter 2; Josh Achiam, <em>Spinning Up in Deep RL</em>, OpenAI (2018), “Key Concepts in RL.”</p>

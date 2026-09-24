@@ -2,7 +2,7 @@
 title: Exploration and Policy Improvement
 permalink: /courses/reinforcement-learning/03-exploration/
 date: 2026-09-22
-updated: 2026-09-23
+updated: 2026-09-25
 course_title: A Brief Introduction to Reinforcement Learning
 course_url: /courses/reinforcement-learning/
 course_section_style: theory
@@ -17,6 +17,16 @@ next_section:
   url: /courses/reinforcement-learning/03a-monte-carlo/
 ---
 
+<h2 id="classification">Classification in literature and my own take.</h2>
+<p>Classification in literature follows a top-down approach. The problem I see is that</p>
+<ul><li>It does not reflect the intuition for choosing a suitable strategy.</li><li>In many cases there are a lot of grey areas where models cannot be classified uniquely. <a href="https://spinningup.openai.com/en/latest/spinningup/rl_intro2.html">Spinning Up: Kinds of RL Algorithms</a> discusses the limitations of this classification.</li></ul>
+<p>I find it better to ask ourselves two questions:</p>
+<p><strong>Question 1</strong></p>
+<p>Do I have a model for the environment?</p>
+<details class="supplementary-proof"><summary>Answer</summary><div class="proof-content"><p><strong>Yes:</strong> optimize for \(V^{\bar\pi}(s)\). <strong>No:</strong> optimize for \(Q^{\bar\pi}(s,a)\).</p><p>Here \(\bar\pi\) is the policy, \(s\) a state, and \(a\) an action. \(V^{\bar\pi}\) is the state-value function and \(Q^{\bar\pi}\) the action-value function.</p></div></details>
+<p><strong>Question 2</strong></p>
+<p>Am I sampling the actions from the current policy?</p>
+<details class="supplementary-proof"><summary>Answer</summary><div class="proof-content"><p><strong>Yes:</strong> on-policy. <strong>No:</strong> off-policy.</p></div></details>
 <h2 id="iteration">Indirect RL</h2>
 <p>[[Policy iteration]]:</p><ol><li>Evaluate \(V^{\bar\pi}(s)\).</li><li>Improve \(\bar\pi\).</li></ol>
 <p>[[Value iteration]]: solve Bellman's optimality equation by the fixed point method. Then find the optimal policy by greedy search.</p>
@@ -48,5 +58,7 @@ next_section:
 <p>For discrete actions, this coverage condition is</p>
 <p>\[\bar\pi(a\mid s)&gt;0\quad\Longrightarrow\quad\mu(a\mid s)&gt;0.\]</p>
 <p>Importance sampling accounts for the difference between the two policies when estimating expectations. The next section applies this idea to Monte Carlo learning, with the formal change-of-measure identity available in a collapsed derivation.</p>
-<div class="problem-grid"><article class="exercise"><header class="exercise-head"><div><strong>Recall</strong><span>Off-policy</span></div><button class="answer-button" type="button">Show answer</button></header><div class="exercise-body"><p>Target policy; behavior policy.</p></div><div class="answer-panel"><div class="answer-inner"><p>Greedy target policy \(\bar\pi\) to pursue optimality. Stochastic behavior policy \(\mu\) to explore the environment.</p></div></div></article></div>
+<div class="problem-grid">
+<article class="exercise" style="grid-column: 1 / -1;"><header class="exercise-head"><div><strong>Exercise 4.1</strong><span>Epsilon-greedy policy improvement</span></div><button class="answer-button" type="button">Show answer</button></header><div class="exercise-body"><p>Consider a discounted Markov decision process with finite nonempty state set \(S\) and finite nonempty action set \(A\), transition probabilities \(P(s'\mid s,a)\), and expected one-step rewards \(r(s,a)\) satisfying \(|r(s,a)|\leq R_{\max}&lt;\infty\). Let \(0\leq\gamma&lt;1\) and \(0\leq\epsilon\leq1\). A policy \(\pi\) is \(\epsilon\)-soft if \(\pi(a\mid s)\geq\epsilon/|A|\) for every \(s\) and \(a\). Define \(Q^\pi(s,a)\) as the expected discounted return after choosing \(a\) in \(s\) and following \(\pi\) thereafter, and \(V^\pi(s)=\sum_a\pi(a\mid s)Q^\pi(s,a)\). At each state choose one action \(a^\ast(s)\in\arg\max_{a\in A}Q^\pi(s,a)\), and define \(\pi'\) by assigning probability \(1-\epsilon+\epsilon/|A|\) to \(a^\ast(s)\) and \(\epsilon/|A|\) to every other action. Prove that \(\pi'\) is \(\epsilon\)-soft and \(V^{\pi'}(s)\geq V^\pi(s)\) for every state.</p></div><div class="answer-panel"><div class="answer-inner"><p>The probabilities defining \(\pi'\) sum to \(1-\epsilon+|A|(\epsilon/|A|)=1\), and each is at least \(\epsilon/|A|\). Thus \(\pi'\) is \(\epsilon\)-soft, including the endpoint \(\epsilon=1\).</p><p>Fix a state \(s\), write \(m=|A|\), and let \(\overline Q=m^{-1}\sum_{a\in A}Q^\pi(s,a)\). The value of \(\pi'\) against \(Q^\pi\) is \((1-\epsilon)Q^\pi(s,a^\ast(s))+\epsilon\overline Q\). If \(\epsilon&lt;1\), the numbers \(\nu(a\mid s)=(\pi(a\mid s)-\epsilon/m)/(1-\epsilon)\) are nonnegative and sum to one. Therefore \(\sum_a\pi(a\mid s)Q^\pi(s,a)=\epsilon\overline Q+(1-\epsilon)\sum_a\nu(a\mid s)Q^\pi(s,a)\leq\epsilon\overline Q+(1-\epsilon)\max_aQ^\pi(s,a)\). This is exactly \(\sum_a\pi'(a\mid s)Q^\pi(s,a)\). If \(\epsilon=1\), the only \(\epsilon\)-soft policy is uniform, and \(\pi'\) is uniform too, so the same inequality holds with equality.</p><p>For a policy \(\eta\), let \(T_\eta v(s)=\sum_a\eta(a\mid s)[r(s,a)+\gamma\sum_{s'}P(s'\mid s,a)v(s')]\) be its Bellman operator. Since \(Q^\pi(s,a)=r(s,a)+\gamma\sum_{s'}P(s'\mid s,a)V^\pi(s')\), the inequality just proved says \(T_{\pi'}V^\pi\geq V^\pi\) pointwise. The operator \(T_{\pi'}\) preserves pointwise order and is a contraction with factor \(\gamma\) in the supremum norm. Iterating gives \(V^\pi\leq T_{\pi'}V^\pi\leq T_{\pi'}^2V^\pi\leq\cdots\), and the iterates converge to the unique fixed point \(V^{\pi'}\). Bounded rewards and \(\gamma&lt;1\) ensure these values are finite. Hence \(V^{\pi'}(s)\geq V^\pi(s)\) for every \(s\).</p></div></div></article>
+</div>
 <h2 id="sources">References</h2><p class="course-references">Shengbo Eben Li, <em>Reinforcement Learning for Sequential Decision and Optimal Control</em> (2023), Sections 3.1–3.3.</p>

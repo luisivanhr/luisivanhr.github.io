@@ -2,7 +2,7 @@
 title: TD Error and Q-learning
 permalink: /courses/reinforcement-learning/04-td-and-q-learning/
 date: 2026-09-22
-updated: 2026-09-23
+updated: 2026-09-25
 course_title: A Brief Introduction to Reinforcement Learning
 course_url: /courses/reinforcement-learning/
 course_section_style: theory
@@ -17,6 +17,9 @@ next_section:
   url: /courses/reinforcement-learning/05-policy-gradients/
 ---
 
+<h2 id="cliff-motivation">Motivation: A walker near a cliff</h2>
+<p>Consider the walker near a cliff, going from the start \(S\) to the goal \(G\). Falling into the cliff gives a reward of \(-100\).</p>
+<figure style="margin-left: 0; margin-right: 0;"><img src="/assets/images/reinforcement-learning/cliff_walking_empty_setup.svg" alt="Cliff-walking grid with start S and goal G on either side of the cliff." loading="lazy"><figcaption>The cliff-walking setup: start at \(S\) and reach \(G\).</figcaption></figure>
 <h2 id="td">TD policy evaluation</h2>
 <p>It is based on bootstrapping historical samples.</p>
 <p>Here \(\alpha\) is the step size. At a terminal state, the bootstrap value is zero.</p>
@@ -59,9 +62,9 @@ next_section:
 <p>Uses the expected value of the next state-action pair instead of the maximum.</p>
 <p>\[Q(s_t,a_t)\leftarrow Q(s_t,a_t)+\alpha\left(r_t+\gamma\mathbb E_{a\sim\bar\pi(\cdot\mid s_{t+1})}[Q(s_{t+1},a)]-Q(s_t,a_t)\right).\]</p>
 <p>If \(\bar\pi=\bar\pi^g\), [[Expected SARSA]] reduces to Q-learning, i.e. Q-learning ultimately targets \(Q^*\).</p>
-<h2 id="cliff">A walker near a cliff</h2>
-<p>Consider the walker near a cliff, going from \(S\) to \(G\). Falling into the cliff gives a reward of \(-100\). A route close to the cliff and a route farther away illustrate the difference between the target and behavior policies.</p>
-<figure><img src="/assets/images/reinforcement-learning/cliff-walk.svg" alt="Schematic grid with start S and goal G on either side of a cliff. One route runs just above the cliff; another takes a wider route away from it." loading="lazy"><figcaption>The cliff-walking example. The two routes are schematic.</figcaption></figure>
+<h2 id="cliff">Optimizing for the journey or the destination</h2>
+<p>A route close to the cliff and a route farther away illustrate the difference between the target and behavior policies.</p>
+<figure style="margin-left: 0; margin-right: 0;"><a href="/assets/images/reinforcement-learning/cliff_walker_hero_v2.svg" target="_blank" rel="noopener" title="Open the full-size figure"><img src="/assets/images/reinforcement-learning/cliff_walker_hero_v2.svg" alt="Cliff-walking policies: Q-learning follows the blue route near the cliff; SARSA follows the wider orange route." loading="lazy"></a><figcaption>Q-learning and SARSA in the cliff-walking example.</figcaption></figure>
 <p>For [[SARSA]], target and behavior are the same. The penalty affects the value of standing near the cliff because the update includes the policy's own next action. Exploration can therefore make the route near the cliff less attractive.</p>
 <p>Q-learning uses the greedy next action in its target. It can still observe a fall and update from its penalty, but the next-state maximum does not average over the behavior policy's exploratory actions. The route favored by the greedy target can therefore stay close to the cliff.</p>
 <p>The distinction is in the continuation used by the update: SARSA uses the action selected by its policy; Q-learning uses the greedy action. In the language of the example, SARSA accounts for the journey under its behavior policy.</p>
@@ -92,7 +95,6 @@ next_section:
 <p>For Q-learning, \(U_t=r_t+\gamma(1-d_{t+1})\max_a Q(s_{t+1},a;w)\), where \(d_{t+1}\) indicates termination. Treat \(U_t\) as fixed in the parameter update.</p>
 </div></details>
 <div class="problem-grid">
-<article class="exercise"><header class="exercise-head"><div><strong>Recall 1</strong><span>One-step TD error</span></div><button class="answer-button" type="button">Show answer</button></header><div class="exercise-body"><p>The one-step TD error and the value update.</p></div><div class="answer-panel"><div class="answer-inner"><p>\[\delta_t=r_t+\gamma V(s_{t+1})-V(s_t),\qquad V(s_t)\leftarrow V(s_t)+\alpha\delta_t.\]</p></div></div></article>
-<article class="exercise"><header class="exercise-head"><div><strong>Recall 2</strong><span>Expected SARSA</span></div><button class="answer-button" type="button">Show answer</button></header><div class="exercise-body"><p>Expected SARSA with a greedy target policy.</p></div><div class="answer-panel"><div class="answer-inner"><p>If \(\bar\pi=\bar\pi^g\), Expected SARSA reduces to Q-learning.</p><p>\[\mathbb E_{a\sim\bar\pi^g(\cdot\mid s')}Q(s',a)=\max_a Q(s',a).\]</p></div></div></article>
+<article class="exercise" style="grid-column: 1 / -1;"><header class="exercise-head"><div><strong>Exercise 6.1</strong><span>When Expected SARSA equals Q-learning</span></div><button class="answer-button" type="button">Show answer</button></header><div class="exercise-body"><p>At a transition with reward \(r\), let \(Q(s',a)\) be finite action values at a nonterminal next state \(s'\), and let \(\pi(\cdot\mid s')\) be any probability distribution over its finite action set \(A\). For discount \(0\leq\gamma\leq1\), the Expected SARSA and Q-learning targets are \(Y_{\mathrm{ES}}=r+\gamma\sum_{a\in A}\pi(a\mid s')Q(s',a)\) and \(Y_{\mathrm{Q}}=r+\gamma\max_{a\in A}Q(s',a)\). Characterize exactly when these targets are equal. State separately what happens if \(s'\) is terminal.</p></div><div class="answer-panel"><div class="answer-inner"><p>For a nonterminal state, let \(M=\max_{a\in A}Q(s',a)\). Since every difference \(M-Q(s',a)\) is nonnegative,</p><p>\[Y_{\mathrm{Q}}-Y_{\mathrm{ES}}=\gamma\sum_{a\in A}\pi(a\mid s')[M-Q(s',a)]\geq0.\]</p><p>If \(\gamma=0\), the continuation term vanishes and the targets are equal for every policy. If \(\gamma>0\), equality holds exactly when every action assigned positive probability by \(\pi(\cdot\mid s')\) attains \(M\). Indeed, the finite sum of nonnegative terms is zero precisely when each term with positive coefficient is zero. Thus the policy may randomize among maximizing actions, and it cannot assign positive probability to a strictly suboptimal action. At a terminal next state both algorithms use continuation value zero, so both targets equal \(r\), independently of \(\gamma\) and of any policy.</p></div></div></article>
 </div>
 <h2 id="sources">References</h2><p class="course-references">Shengbo Eben Li, <em>Reinforcement Learning for Sequential Decision and Optimal Control</em> (2023), Sections 4.1–4.3 and Chapter 5.</p>
