@@ -186,6 +186,10 @@ a:hover { text-decoration: underline; }
   }
 }
 
+.screen.models .slide[data-model-title="xDiyo"] .caption {
+  display: none;
+}
+
 /* if you kept the scanline gloss, it must be clipped too */
 .screen.models::after{
   content:""; position:absolute; inset:0;

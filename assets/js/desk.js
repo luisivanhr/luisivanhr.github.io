@@ -295,6 +295,7 @@ function setupDPRListener(onDPRChange = resizeFxCanvas){
   function makeSlide(item){
     const div = document.createElement('div');
     div.className = 'slide';
+    div.dataset.modelTitle = item.title || '';
     const imgUrl = item.image || item.cover || '';
     const image = document.createElement('div');
     image.className = 'img';

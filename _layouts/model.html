@@ -37,12 +37,12 @@ layout: default
     <section class="model-dossier-top">
       <figure class="model-dossier-media{% if page.image_fit == 'contain' %} model-dossier-media--contain{% endif %}">
         {% if page.image %}
-          <img src="{{ page.hero_image | default: page.image | relative_url }}" alt="{{ page.image_alt | default: page.title | escape }} thumbnail">
+          <img src="{{ page.dossier_image | default: page.hero_image | default: page.image | relative_url }}" alt="{{ page.image_alt | default: page.title | escape }} thumbnail">
         {% else %}
           <span class="model-dossier-media-fallback" aria-hidden="true"></span>
         {% endif %}
         <figcaption>
-          <strong>{{ page.title }}</strong>
+          {% unless page.hide_image_title %}<strong>{{ page.title }}</strong>{% endunless %}
           <span>{{ model_type }}{% if page.domain %} &middot; {{ page.domain }}{% endif %}{% if page.language %} &middot; {{ page.language }}{% endif %}</span>
         </figcaption>
       </figure>
