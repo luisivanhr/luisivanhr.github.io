@@ -68,6 +68,7 @@ next_section:
 <p>For [[SARSA]], target and behavior are the same. The penalty affects the value of standing near the cliff because the update includes the policy's own next action. Exploration can therefore make the route near the cliff less attractive.</p>
 <p>Q-learning uses the greedy next action in its target. It can still observe a fall and update from its penalty, but the next-state maximum does not average over the behavior policy's exploratory actions. The route favored by the greedy target can therefore stay close to the cliff.</p>
 <p>The distinction is in the continuation used by the update: SARSA uses the action selected by its policy; Q-learning uses the greedy action. In the language of the example, SARSA accounts for the journey under its behavior policy.</p>
+<details class="supplementary-proof"><summary>Value functions for the cliff walker.</summary><div class="proof-content"><figure style="margin-left: 0; margin-right: 0;"><img src="/assets/images/reinforcement-learning/reinforcement_learning_hero_surfaces_gigatitle_legend_justabove.svg" alt="Value surfaces for the cliff walker: Q-learning in blue and SARSA in green." loading="lazy"></figure></div></details>
 <h2 id="multi-step-returns">Other TD statistics</h2>
 <p>We introduce the \(U_t\) statistic for TD, also known as the TD-return. This also holds in the non-tabular parametric case.</p>
 <details class="supplementary-proof"><summary>The \(n\)-step TD return</summary><div class="proof-content">

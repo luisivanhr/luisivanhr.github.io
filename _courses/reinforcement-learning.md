@@ -8,7 +8,7 @@ summary: A very brief introduction to RL, from policies and value functions to T
 excerpt: A two-hour introduction to reinforcement learning.
 image: /assets/images/reinforcement-learning/agent-environment.svg
 image_alt: An agent sends actions to an environment and receives states and rewards.
-course_hero_image: /assets/images/reinforcement-learning/reinforcement_learning_hero_surfaces.svg
+course_hero_image: /assets/images/reinforcement-learning/reinforcement_learning_hero_surfaces_gigatitle_legend_justabove.svg
 course_hero_image_alt: Two value surfaces for the cliff-walking problem.
 track: Machine learning
 index_url: /courses/reinforcement-learning/index/
