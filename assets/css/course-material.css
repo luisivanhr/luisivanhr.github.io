@@ -1054,10 +1054,11 @@
   align-self: center;
   aspect-ratio: 1;
   min-height: 0;
+  background: #001f27;
 }
 
 .course-home-page[data-course-slug="reinforcement-learning"] .course-home-image img {
-  object-fit: cover;
+  object-fit: contain;
 }
 
 .course-home-content {
