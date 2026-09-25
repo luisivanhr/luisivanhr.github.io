@@ -35,4 +35,4 @@ sections:
 <h2 id="introduction">A very brief introduction to RL</h2>
 <p>We are interested in selecting a policy such that we optimize expected return.</p>
 <p>This is a very brief introduction to reinforcement learning. Basic probability, statistics, and Markov processes are assumed. Proofs and longer derivations are collapsed and can be read separately.</p>
-<p>The course follows selected passages from my <em>Reinforcement Learning</em> notes. These notes are a review of the literature, and the ideas and methods belong to the cited authors. References in each section point to the underlying sources.</p>
+<p>The course follows selected passages from my <a href="https://drive.google.com/file/d/18dyjHDcZ5leL0Eun4OOhjK2T-nrdwenK/view?usp=sharing"><em>Reinforcement Learning</em> notes</a>. These notes are a review of the literature, and the ideas and methods belong to the cited authors. References in each section point to the underlying sources.</p>
