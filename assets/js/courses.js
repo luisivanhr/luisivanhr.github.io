@@ -333,6 +333,13 @@
     cards.forEach(function (card) {
       card.addEventListener("click", function () {
         selectCourse(card.getAttribute("data-course-id"));
+        if (window.matchMedia("(max-width: 1180px)").matches) {
+          var drawer = page.querySelector(".course-detail-drawer");
+          if (drawer) drawer.scrollIntoView({
+            block: "start",
+            behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "instant" : "smooth"
+          });
+        }
       });
     });
 
