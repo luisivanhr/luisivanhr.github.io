@@ -31,6 +31,9 @@ next_section:
 <p>The Monte Carlo update uses the sampled return of an episode. The TD update uses the immediate reward and the current estimate \(V(s')\) for the next state. This use of an existing value estimate is bootstrapping.</p>
 <div class="math-block theorem"><span class="block-label">One-step [[TD error]]</span><p>\[\delta_t:=r_t+\gamma V(s_{t+1})-V(s_t).\]</p><p>\[V(s_t)\leftarrow V(s_t)+\alpha\delta_t.\]</p></div>
 <h3 id="action-value-td">TD policy evaluation for the Q-function</h3>
+<p>Using the self-consistency condition, the action-value update can be written as</p>
+<p>\[Q(s,a)\leftarrow Q(s,a)+\alpha\bigl(r(s,a,s')+\gamma Q(s',a')-Q(s,a)\bigr).\]</p>
+<p>Here \(s\) is the current state, \(a\) the action taken, \(s'\) the next state, and \(r(s,a,s')\) the reward for this transition. The next action \(a'\) is sampled from the policy \(\bar\pi(\cdot\mid s')\) being evaluated. As above, \(\alpha\) is the step size and \(\gamma\) the discount factor. At a terminal next state, the continuation value is zero.</p>
 <p>For action values, the one-step TD return uses the next state-action pair. Let \(Q(s,a)\) estimate the action value under policy \(\bar\pi\). At time \(t\), action \(a_t\) in state \(s_t\) produces reward \(r_t\) and next state \(s_{t+1}\). Sample the next action \(a_{t+1}\) from \(\bar\pi(\cdot\mid s_{t+1})\). With discount factor \(\gamma\) and step size \(\alpha\), the update is</p>
 <p>\[Q(s_t,a_t)\leftarrow Q(s_t,a_t)+\alpha\bigl(r_t+\gamma Q(s_{t+1},a_{t+1})-Q(s_t,a_t)\bigr).\]</p>
 <div class="math-block theorem"><span class="block-label">One-step TD error for action values</span><p>\[\delta_t^Q:=r_t+\gamma Q(s_{t+1},a_{t+1})-Q(s_t,a_t).\]</p><p>\[Q(s_t,a_t)\leftarrow Q(s_t,a_t)+\alpha\delta_t^Q.\]</p></div>
