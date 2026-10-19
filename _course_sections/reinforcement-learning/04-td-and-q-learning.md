@@ -2,7 +2,7 @@
 title: TD Error and Q-learning
 permalink: /courses/reinforcement-learning/04-td-and-q-learning/
 date: 2026-09-22
-updated: 2026-09-25
+updated: 2026-10-19
 course_title: A Brief Introduction to Reinforcement Learning
 course_url: /courses/reinforcement-learning/
 course_section_style: theory
@@ -30,6 +30,11 @@ next_section:
 <p>This is the [[TD(0)]] algorithm.</p>
 <p>The Monte Carlo update uses the sampled return of an episode. The TD update uses the immediate reward and the current estimate \(V(s')\) for the next state. This use of an existing value estimate is bootstrapping.</p>
 <div class="math-block theorem"><span class="block-label">One-step [[TD error]]</span><p>\[\delta_t:=r_t+\gamma V(s_{t+1})-V(s_t).\]</p><p>\[V(s_t)\leftarrow V(s_t)+\alpha\delta_t.\]</p></div>
+<h3 id="action-value-td">TD policy evaluation for the Q-function</h3>
+<p>For action values, the one-step TD return uses the next state-action pair. Let \(Q(s,a)\) estimate the action value under policy \(\bar\pi\). At time \(t\), action \(a_t\) in state \(s_t\) produces reward \(r_t\) and next state \(s_{t+1}\). Sample the next action \(a_{t+1}\) from \(\bar\pi(\cdot\mid s_{t+1})\). With discount factor \(\gamma\) and step size \(\alpha\), the update is</p>
+<p>\[Q(s_t,a_t)\leftarrow Q(s_t,a_t)+\alpha\bigl(r_t+\gamma Q(s_{t+1},a_{t+1})-Q(s_t,a_t)\bigr).\]</p>
+<div class="math-block theorem"><span class="block-label">One-step TD error for action values</span><p>\[\delta_t^Q:=r_t+\gamma Q(s_{t+1},a_{t+1})-Q(s_t,a_t).\]</p><p>\[Q(s_t,a_t)\leftarrow Q(s_t,a_t)+\alpha\delta_t^Q.\]</p></div>
+<p>This is the SARSA update. For policy evaluation, \(\bar\pi\) is fixed. If \(s_{t+1}\) is terminal, the continuation value is zero and no next action is needed. Q-learning uses the maximum next-state action value instead, as described below.</p>
 <p>Then policy is optimized using the policy improvement theorem. Can be on-policy (greedy, \(\epsilon\)-greedy, etc.) or off-policy.</p>
 <details class="supplementary-proof"><summary>Off-policy evaluation and importance sampling</summary><div class="proof-content">
 <p>Consider two-step trajectories. The probabilities to generate them under \(\bar\pi\) and \(\mu\) are</p>
